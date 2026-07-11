@@ -34,3 +34,4 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: albertobizzini-com
           directory: release/wwwroot
+          branch: master
