@@ -1,4 +1,10 @@
+@using System.Globalization
 @inherits LayoutComponentBase
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+@inject IDialogService DialogService
+@inject IStringLocalizer<Resources.Shared> SR
+@inject IStringLocalizer<MainLayout> L
 
 <MudThemeProvider Theme="@_theme" IsDarkMode="_isDarkMode" />
 <MudPopoverProvider />
@@ -10,6 +16,7 @@
         @* <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@DrawerToggle" /> *@
         <MudText Typo="Typo.h6" Class="ml-2">Alberto Bizzini portfolio</MudText>
         <MudSpacer />
+        @_currentCulture <MudIconButton Icon="@Icons.Material.TwoTone.Flag" Color="Color.Inherit" OnClick="@ToggleLanguage" />
         <MudIconButton Icon="@(DarkLightModeButtonIcon)" Color="Color.Inherit" OnClick="@DarkModeToggle" />
 
         @* <MudLink Href="https://learn.microsoft.com/aspnet/core/" Target="_blank" Color="Color.Inherit" Underline="Underline.None">
@@ -32,6 +39,8 @@
     private bool _isDarkMode = true;
     private MudTheme? _theme;
 
+    private string _currentCulture = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+
     protected override void OnInitialized()
     {
         base.OnInitialized();
@@ -44,15 +53,9 @@
         };
     }
 
-    private void DrawerToggle()
-    {
-        _drawerOpen = !_drawerOpen;
-    }
+    private void DrawerToggle() => _drawerOpen = !_drawerOpen;
 
-    private void DarkModeToggle()
-    {
-        _isDarkMode = !_isDarkMode;
-    }
+    private void DarkModeToggle() => _isDarkMode = !_isDarkMode;
 
     private readonly PaletteLight _lightPalette = new()
     {
@@ -98,4 +101,24 @@
         true => Icons.Material.Rounded.AutoMode,
         false => Icons.Material.Outlined.DarkMode,
     };
+
+    private async void ToggleLanguage()
+    {
+        if (await DialogService.ShowMessageBoxAsync(title: L["ConfirmChangeLanguageDialogTitle"], message: L["ConfirmChangeLanguageDialogText"], yesText: SR["OK"], cancelText: SR["Cancel"]) == null)
+            return;
+
+        _currentCulture = await JSRuntime.InvokeAsync<string>("blazorCulture.get") ?? "en";
+
+        var newCurrentCulture = _currentCulture == "it" ? "en" : "it";
+
+        var ci = new CultureInfo(newCurrentCulture);
+        CultureInfo.DefaultThreadCurrentCulture = ci;
+        CultureInfo.DefaultThreadCurrentUICulture = ci;
+        _currentCulture = newCurrentCulture;
+
+        await JSRuntime.InvokeVoidAsync("blazorCulture.set", newCurrentCulture);
+
+        NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
+    }
+
 }
