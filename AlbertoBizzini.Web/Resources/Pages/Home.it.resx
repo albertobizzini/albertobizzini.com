@@ -135,4 +135,7 @@
   <data name="MyInstagramPageLinkText" xml:space="preserve">
     <value>La mia pagina su Instragram</value>
   </data>
+  <data name="IntroductionText" xml:space="preserve">
+    <value>Benvenuti nella mia pagina "portfolio"</value>
+  </data>
 </root>
