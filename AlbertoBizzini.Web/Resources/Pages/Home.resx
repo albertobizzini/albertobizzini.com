@@ -121,4 +121,10 @@
   <data name="FintrackAppDescription" xml:space="preserve">
     <value>Keep track of your finance</value>
   </data>
+  <data name="MyPhotoAlbumsLinkText" xml:space="preserve">
+    <value>My photo albums</value>
+  </data>
+  <data name="MyPhotoAlbumsSuffixText" xml:space="preserve">
+    <value>(Japan only, for now)</value>
+  </data>
 </root>

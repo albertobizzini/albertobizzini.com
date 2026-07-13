@@ -1,15 +1,22 @@
-﻿<MudLink Href="@_internalHref">
-	<MudStack Row AlignItems="AlignItems.Center" Spacing="2" Wrap="Wrap.NoWrap">
-		<MudIcon Icon="@Icon" Color="Color.Primary" />
-		<span>@Text</span>
+﻿<MudStack Row AlignItems="AlignItems.Center" Spacing="2" Wrap="Wrap.NoWrap" Class="mb-2">
+	<MudLink Href="@_internalHref">
+		<MudStack Row AlignItems="AlignItems.Center" Spacing="2" Wrap="Wrap.NoWrap">
+			<MudIcon Icon="@Icon" Color="Color.Primary" />
+			<span>@Text</span>
+		</MudStack>
+	</MudLink>
+	@if (!string.IsNullOrWhiteSpace(Suffix))
+	{
+		<span>@Suffix</span>
+	}
 	</MudStack>
-</MudLink>
 
 
 @code {
 	[Parameter] public string? Text { get; set; }
 	[Parameter] public string? Icon { get; set; }
 	[Parameter] public string? Href { get; set; }
+	[Parameter] public string? Suffix { get; set; }
 
 	private string _internalHref => $"{Href}?ref=alberto-bizzini-com";
 }

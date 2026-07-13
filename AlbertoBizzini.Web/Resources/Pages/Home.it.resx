@@ -141,4 +141,10 @@
   <data name="FintrackAppDescription" xml:space="preserve">
     <value>Tracce le tue spese</value>
   </data>
+  <data name="MyPhotoAlbumsLinkText" xml:space="preserve">
+    <value>I miei album fotografici</value>
+  </data>
+  <data name="MyPhotoAlbumsSuffixText" xml:space="preserve">
+    <value>(solo del Giappone, per ora)</value>
+  </data>
 </root>
