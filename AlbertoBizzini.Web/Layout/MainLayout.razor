@@ -42,9 +42,9 @@
 
     private string _currentCulture = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
 
+    <!-- https://github.com/lipis/flag-icons/tree/main -->
     private string _otherLanguageFlag => OtherCulture(_currentCulture) switch { "us" or "en" => "gb", _ => OtherCulture(_currentCulture) };
-    private string _otherLanguageFlagFlagClass => $"fi fi-{_otherLanguageFlag}";
-
+    private string _otherLanguageFlagFlagClass => $"fi fi-{_otherLanguageFlag}";  
 
     protected override void OnInitialized()
     {
@@ -107,7 +107,7 @@
         false => Icons.Material.Outlined.DarkMode,
     };
 
-    private string OtherCulture(string culture) => culture == "it" ? "en" : "it";
+    private string OtherCulture(string culture) => culture == "it" ? "en" : "it"; // per ora ci sono solo due localizzazioni, quindi l'UI non dà una scelta ma permette solo di alternare tra l'una e l'altra
 
     private async void ToggleLanguage()
     {

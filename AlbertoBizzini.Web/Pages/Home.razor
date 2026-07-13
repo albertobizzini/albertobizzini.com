@@ -14,15 +14,16 @@
         </TitleContent>
 
         <ChildContent>
-            <h2><MudLink Href="https://www.etsy.com/shop/IdeeBizzesche?ref=alberto-bizzini-com">My Etsy shop</MudLink></h2>
-            <h2><MudLink Href="https://www.youtube.com/AlbertoBizzini?ref=alberto-bizzini-com">My YouTube channel</MudLink></h2>
+            <h3><MudLink Href="https://www.etsy.com/shop/IdeeBizzesche?ref=alberto-bizzini-com">@L["MyEtsyShopLinkText"]</MudLink></h3>
+            <h3><MudLink Href="https://www.youtube.com/AlbertoBizzini?ref=alberto-bizzini-com">@L["MyYouTubeChannelLinkText"]</MudLink></h3>
+            <h3><MudLink Href="https://www.instagram.com/alberto.bizzini?ref=alberto-bizzini-com">@L["MyInstagramPageLinkText"]</MudLink></h3>
         </ChildContent>
     </MudExpansionPanel>
     
     <MudExpansionPanel>
 
         <TitleContent>
-            Available apps
+            @L["AvailableAppsSectionHeaderText"]
         </TitleContent>
 
         <ChildContent>
@@ -31,8 +32,8 @@
                 <MudCard Class="app-card" Elevation="@AppCardElevation">
                     <MudCardHeader>
                         <CardHeaderContent>
-                            <MudText Typo="Typo.h4" Color="Color.Primary">Patrimetria</MudText>
                             <MudAlert Severity="Severity.Warning" NoIcon Dense>Only italian language</MudAlert>
+                            <MudText Typo="Typo.h4" Color="Color.Primary">Patrimetria</MudText>
                         </CardHeaderContent>
                     </MudCardHeader>
                     <MudCardContent>
@@ -40,7 +41,7 @@
                     </MudCardContent>
                     <MudCardActions>
                         <MudButton EndIcon="@Icons.Material.TwoTone.OpenInNew" Href="https://patrimetria.albertobizzini.com/" Target="_blank" Color="Color.Primary">
-                            Vai all'applicazione
+                            @L["FollowApplicationLinkText"]
                         </MudButton>
                     </MudCardActions>
                 </MudCard>
@@ -48,8 +49,8 @@
                 <MudCard Class="app-card" Elevation="@AppCardElevation">
                     <MudCardHeader>
                         <CardHeaderContent>
-                            <MudText Typo="Typo.h4" Color="Color.Primary">Collezione treni Pierluigi Cova</MudText>
                             <MudAlert Severity="Severity.Warning" NoIcon Dense>Only italian language</MudAlert>
+                            <MudText Typo="Typo.h4" Color="Color.Primary">Collezione treni Pierluigi Cova</MudText>
                         </CardHeaderContent>
                     </MudCardHeader>
                     <MudCardContent>
@@ -57,7 +58,7 @@
                     </MudCardContent>
                     <MudCardActions>
                         <MudButton EndIcon="@Icons.Material.TwoTone.OpenInNew" Href="https://treni-cova.albertobizzini.com/" Target="_blank" Color="Color.Primary">
-                            Vai all'applicazione
+                            @L["FollowApplicationLinkText"]
                         </MudButton>
                     </MudCardActions>
                 </MudCard>
@@ -65,8 +66,8 @@
                 <MudCard Class="app-card" Elevation="@AppCardElevation">
                     <MudCardHeader>
                         <CardHeaderContent>
-                            <MudText Typo="Typo.h4" Color="Color.Primary">Simulatore rendita B&B</MudText>
                             <MudAlert Severity="Severity.Warning" NoIcon Dense>Only italian language</MudAlert>
+                            <MudText Typo="Typo.h4" Color="Color.Primary">Simulatore rendita B&B</MudText>
                         </CardHeaderContent>
                     </MudCardHeader>
                     <MudCardContent>
@@ -74,7 +75,7 @@
                     </MudCardContent>
                     <MudCardActions>
                         <MudButton EndIcon="@Icons.Material.TwoTone.OpenInNew" Href="https://bnbsimulator.albertobizzini.com/" Target="_blank" Color="Color.Primary">
-                            Vai all'applicazione
+                            @L["FollowApplicationLinkText"]
                         </MudButton>
                     </MudCardActions>
                 </MudCard>
@@ -82,9 +83,8 @@
                 <MudCard Class="app-card" Elevation="@AppCardElevation">
                     <MudCardHeader>
                         <CardHeaderContent>
+                            <MudAlert Severity="Severity.Warning" NoIcon Dense>Enroll needed (ask me)</MudAlert>
                             <MudText Typo="Typo.h4" Color="Color.Primary">FinTrack - Finance Tracking</MudText>
-                            <MudAlert Severity="Severity.Warning" NoIcon Dense>Not publicly available</MudAlert>
-                            <MudAlert Severity="Severity.Info" NoIcon Dense>Italian & english language</MudAlert>
                         </CardHeaderContent>
                     </MudCardHeader>
                     <MudCardContent>
@@ -92,7 +92,7 @@
                     </MudCardContent>
                     <MudCardActions>
                         <MudButton EndIcon="@Icons.Material.TwoTone.OpenInNew" Href="https://fintrack.albertobizzini.com/" Target="_blank" Color="Color.Primary">
-                            Go to the application
+                            @L["FollowApplicationLinkText"]
                         </MudButton>
                     </MudCardActions>
                 </MudCard>
