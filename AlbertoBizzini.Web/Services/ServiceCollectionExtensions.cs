@@ -16,11 +16,8 @@ public static class ServiceCollectionExtensions
     public static async Task ConfigureCultureAsync(this WebAssemblyHost host)
     {
         var js = host.Services.GetRequiredService<IJSRuntime>();
-
         var culture = await js.InvokeAsync<string>("blazorCulture.get") ?? "en";
-
         var ci = new CultureInfo(culture);
-
         CultureInfo.DefaultThreadCurrentCulture = ci;
         CultureInfo.DefaultThreadCurrentUICulture = ci;
     }

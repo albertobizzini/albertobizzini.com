@@ -120,4 +120,10 @@
   <data name="FollowApplicationLinkText" xml:space="preserve">
     <value>Vai all'applicazione</value>
   </data>
+  <data name="EnrollNeededMessageText" xml:space="preserve">
+    <value>Richiesta iscrizione (chiedimi)</value>
+  </data>
+  <data name="OnlyInItalianMessageText" xml:space="preserve">
+    <value>Solo in italiano</value>
+  </data>
 </root>
