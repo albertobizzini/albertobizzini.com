@@ -10,52 +10,54 @@
 
 <MudExpansionPanels MultiExpansion>
 
-    <MudExpansionPanel Expanded>
+	<MudExpansionPanel Expanded>
 
-        <TitleContent>
-            @L["LinksSectionHeaderText"]
-        </TitleContent>
+		<TitleContent>
+			@L["LinksSectionHeaderText"]
+		</TitleContent>
 
-        <ChildContent>
-            <h3><MudLink Href="https://www.etsy.com/shop/IdeeBizzesche?ref=alberto-bizzini-com">@L["MyEtsyShopLinkText"]</MudLink></h3>
-            <h3><MudLink Href="https://www.youtube.com/AlbertoBizzini?ref=alberto-bizzini-com">@L["MyYouTubeChannelLinkText"]</MudLink></h3>
-            <h3><MudLink Href="https://www.instagram.com/alberto.bizzini?ref=alberto-bizzini-com">@L["MyInstagramPageLinkText"]</MudLink></h3>
-        </ChildContent>
-    </MudExpansionPanel>
-    
-    <MudExpansionPanel>
+		<ChildContent>
+			<ul class="ml-8">
+				<li><MudLink Href="https://www.etsy.com/shop/IdeeBizzesche?ref=alberto-bizzini-com">@L["MyEtsyShopLinkText"]</MudLink></li>
+				<li><MudLink Href="https://www.youtube.com/AlbertoBizzini?ref=alberto-bizzini-com">@L["MyYouTubeChannelLinkText"]</MudLink></li>
+				<li><MudLink Href="https://www.instagram.com/alberto.bizzini?ref=alberto-bizzini-com">@L["MyInstagramPageLinkText"]</MudLink></li>
+			</ul>
+		</ChildContent>
+	</MudExpansionPanel>
 
-        <TitleContent>
-            @L["AvailableAppsSectionHeaderText"]
-        </TitleContent>
+	<MudExpansionPanel>
 
-        <ChildContent>
-            <MudStack Row Spacing="10" Justify="Justify.FlexStart" AlignItems="AlignItems.Start" Wrap="Wrap.Wrap">
+		<TitleContent>
+			@L["AvailableAppsSectionHeaderText"]
+		</TitleContent>
 
-                <AppCard AppName="Patrimetria" AppLink="https://patrimetria.albertobizzini.com/">
-                    Simulatore andamento patrimonio familiare
-                </AppCard>
+		<ChildContent>
+			<MudStack Row Spacing="10" Justify="Justify.FlexStart" AlignItems="AlignItems.Start" Wrap="Wrap.Wrap">
 
-                <AppCard AppName="Collezione treni Pierluigi Cova" AppLink="https://patrimetria.albertobizzini.com/">
-                    Consultazione del catalogo dei modelli di treni della collezione di Pierluigi Cova, disponibili per la vendita agli appassionati di fermodellismo
-                </AppCard>
+				<AppCard AppName="Patrimetria" AppLink="https://patrimetria.albertobizzini.com/">
+					Simulatore andamento patrimonio familiare
+				</AppCard>
 
-                <AppCard AppName="Simulatore rendita B&B" AppLink="https://bnbsimulator.albertobizzini.com/">
-                    Verifica se è redditizio investire dei soldi per la realizzazione di in Bed & Breakfast
-                </AppCard>
+				<AppCard AppName="Collezione treni Pierluigi Cova" AppLink="https://patrimetria.albertobizzini.com/">
+					Consultazione del catalogo dei modelli di treni della collezione di Pierluigi Cova, disponibili per la vendita agli appassionati di fermodellismo
+				</AppCard>
 
-                <AppCard AppName="FinTrack - Finance Tracking" AppLink="https://fintrack.albertobizzini.com/" OnlyItalian="false" EnrollNeeded>
-                    Keep track of your finance
-                </AppCard>
+				<AppCard AppName="Simulatore rendita B&B" AppLink="https://bnbsimulator.albertobizzini.com/">
+					Verifica se è redditizio investire dei soldi per la realizzazione di in Bed & Breakfast
+				</AppCard>
 
-            </MudStack>
-        </ChildContent>
+				<AppCard AppName="FinTrack - Finance Tracking" AppLink="https://fintrack.albertobizzini.com/" OnlyItalian="false" EnrollNeeded>
+					Keep track of your finance
+				</AppCard>
 
-    </MudExpansionPanel>
+			</MudStack>
+		</ChildContent>
+
+	</MudExpansionPanel>
 
 </MudExpansionPanels>
 
-@code 
+@code
 {
 }
 

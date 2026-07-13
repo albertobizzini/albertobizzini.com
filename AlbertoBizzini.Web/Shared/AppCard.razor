@@ -1,10 +1,10 @@
 ﻿@using System.Globalization
 @inject IStringLocalizer<AppCard> L
 
-<MudCard Class="app-card" Elevation="@AppCardElevation">
+<MudCard Class="app-card" Elevation="@Elevation">
 	<MudCardHeader>
 		<CardHeaderContent>
-			<MudText Typo="Typo.h5" Color="Color.Primary">@AppName</MudText>
+			<MudText Typo="Typo.h6" Color="Color.Default">@AppName</MudText>
 		</CardHeaderContent>
 	</MudCardHeader>
 	<MudCardContent>
@@ -12,7 +12,7 @@
 	</MudCardContent>
 	<MudCardActions>
 		<MudStack Row Wrap="Wrap.Wrap" Justify="Justify.SpaceBetween">
-			<MudButton EndIcon="@Icons.Material.TwoTone.OpenInNew" Href="@AppLink" Target="_blank" Color="Color.Primary">
+			<MudButton EndIcon="@Icons.Material.TwoTone.OpenInNew" Href="@AppLink" Target="_blank" Color="Color.Tertiary">
 				@L["FollowApplicationLinkText"]
 			</MudButton>
 			@if (ShowOnlyInItalian)
@@ -34,9 +34,7 @@
 	[Parameter] public string? AppLink { get; set; }
 	[Parameter] public bool OnlyItalian { get; set; } = true;
 	[Parameter] public bool EnrollNeeded { get; set; } = false;
+	[Parameter] public int Elevation { get; set; } = 8;
 
 	private bool ShowOnlyInItalian => OnlyItalian && (!CultureInfo.DefaultThreadCurrentCulture?.TwoLetterISOLanguageName.Equals("it", StringComparison.OrdinalIgnoreCase) ?? true);
-
-	private int AppCardElevation = 10;
-
 }
