@@ -104,4 +104,7 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="WebsiteTitle" xml:space="preserve">
+    <value>Alberto Bizzini's portfolio</value>
+  </data>
 </root>

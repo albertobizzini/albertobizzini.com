@@ -1,15 +1,16 @@
 @page "/"
 @inject NavigationManager Nav
+@inject IStringLocalizer<SharedResources> SR
+@inject IStringLocalizer<Home> L
 
-<PageTitle>Alberto Bizzini's portfolio</PageTitle>
-
+<PageTitle>@L["PageTitle"] - @SR["WebsiteTitle"]</PageTitle>
 
 <MudExpansionPanels MultiExpansion>
 
     <MudExpansionPanel Expanded>
 
         <TitleContent>
-            Links
+            @L["LinksSectionHeaderText"]
         </TitleContent>
 
         <ChildContent>
