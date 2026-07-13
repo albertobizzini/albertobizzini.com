@@ -17,7 +17,10 @@
         <MudText Typo="Typo.h6" Class="ml-2">@SR["WebsiteTitle"]</MudText>
         <MudSpacer />
 
-        <MudIconButton Color="Color.Inherit" OnClick="@ToggleLanguage"><span class="@_otherLanguageFlagFlagClass" /></MudIconButton>
+        <MudTooltip Text="@L["ToggleLanguageTooltip" + _otherLanguageFlag.ToUpper()]">
+            <MudIconButton Color="Color.Inherit" OnClick="@ToggleLanguage"><span class="@_otherLanguageFlagFlagClass" /></MudIconButton>
+        </MudTooltip>
+
         <MudIconButton Icon="@(DarkLightModeButtonIcon)" Color="Color.Inherit" OnClick="@DarkModeToggle" />
 
         @* <MudLink Href="https://learn.microsoft.com/aspnet/core/" Target="_blank" Color="Color.Inherit" Underline="Underline.None">

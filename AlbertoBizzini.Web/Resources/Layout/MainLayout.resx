@@ -103,4 +103,10 @@
   <data name="ConfirmChangeLanguageDialogText" xml:space="preserve">
     <value>The page will be reloaded</value>
   </data>
+  <data name="ToggleLanguageTooltipIT" xml:space="preserve">
+    <value>Switch to italian</value>
+  </data>
+  <data name="ToggleLanguageTooltipGB" xml:space="preserve">
+    <value>Switch to english</value>
+  </data>
 </root>

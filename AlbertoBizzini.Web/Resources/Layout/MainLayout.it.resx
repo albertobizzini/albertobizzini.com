@@ -123,4 +123,10 @@
   <data name="ConfirmChangeLanguageDialogTitle" xml:space="preserve">
     <value>Cambia lingua interfaccia</value>
   </data>
+  <data name="ToggleLanguageTooltipIT" xml:space="preserve">
+    <value>Passa all'italiano</value>
+  </data>
+  <data name="ToggleLanguageTooltipGB" xml:space="preserve">
+    <value>Passa all'inglese</value>
+  </data>
 </root>
