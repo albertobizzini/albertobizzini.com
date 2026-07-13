@@ -16,7 +16,8 @@
         @* <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@DrawerToggle" /> *@
         <MudText Typo="Typo.h6" Class="ml-2">Alberto Bizzini portfolio</MudText>
         <MudSpacer />
-        @_currentCulture <MudIconButton Icon="@Icons.Material.TwoTone.Flag" Color="Color.Inherit" OnClick="@ToggleLanguage" />
+
+        <MudIconButton Color="Color.Inherit" OnClick="@ToggleLanguage"><span class="@_otherLanguageFlagFlagClass" /></MudIconButton>
         <MudIconButton Icon="@(DarkLightModeButtonIcon)" Color="Color.Inherit" OnClick="@DarkModeToggle" />
 
         @* <MudLink Href="https://learn.microsoft.com/aspnet/core/" Target="_blank" Color="Color.Inherit" Underline="Underline.None">
@@ -40,6 +41,10 @@
     private MudTheme? _theme;
 
     private string _currentCulture = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+
+    private string _otherLanguageFlag => OtherCulture(_currentCulture) switch { "us" or "en" => "gb", _ => OtherCulture(_currentCulture) };
+    private string _otherLanguageFlagFlagClass => $"fi fi-{_otherLanguageFlag}";
+
 
     protected override void OnInitialized()
     {
@@ -102,6 +107,8 @@
         false => Icons.Material.Outlined.DarkMode,
     };
 
+    private string OtherCulture(string culture) => culture == "it" ? "en" : "it";
+
     private async void ToggleLanguage()
     {
         if (await DialogService.ShowMessageBoxAsync(title: L["ConfirmChangeLanguageDialogTitle"], message: L["ConfirmChangeLanguageDialogText"], yesText: SR["OK"], cancelText: SR["Cancel"]) == null)
@@ -109,7 +116,7 @@
 
         _currentCulture = await JSRuntime.InvokeAsync<string>("blazorCulture.get") ?? "en";
 
-        var newCurrentCulture = _currentCulture == "it" ? "en" : "it";
+        var newCurrentCulture = OtherCulture(_currentCulture);
 
         var ci = new CultureInfo(newCurrentCulture);
         CultureInfo.DefaultThreadCurrentCulture = ci;
