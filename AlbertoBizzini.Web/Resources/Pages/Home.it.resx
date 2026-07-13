@@ -138,4 +138,7 @@
   <data name="IntroductionText" xml:space="preserve">
     <value>Benvenuti nella mia pagina "portfolio"</value>
   </data>
+  <data name="FintrackAppDescription" xml:space="preserve">
+    <value>Tracce le tue spese</value>
+  </data>
 </root>

@@ -6,48 +6,47 @@
 
 <PageTitle>@L["PageTitle"] - @SR["WebsiteTitle"]</PageTitle>
 
-<MudText Typo="Typo.body1" GutterBottom>@L["IntroductionText"]</MudText>
+<MudText Typo="Typo.caption" Class="pa-2">@L["IntroductionText"]</MudText>
 
-<MudExpansionPanels MultiExpansion>
+<MudExpansionPanels MultiExpansion Class="mt-3">
 
 	<MudExpansionPanel Expanded>
 
 		<TitleContent>
-			@L["LinksSectionHeaderText"]
+			<h3>@L["LinksSectionHeaderText"]</h3>
 		</TitleContent>
 
 		<ChildContent>
-			<ul class="ml-8">
-				<li><MudLink Href="https://www.etsy.com/shop/IdeeBizzesche?ref=alberto-bizzini-com">@L["MyEtsyShopLinkText"]</MudLink></li>
-				<li><MudLink Href="https://www.youtube.com/AlbertoBizzini?ref=alberto-bizzini-com">@L["MyYouTubeChannelLinkText"]</MudLink></li>
-				<li><MudLink Href="https://www.instagram.com/alberto.bizzini?ref=alberto-bizzini-com">@L["MyInstagramPageLinkText"]</MudLink></li>
-			</ul>
+			<MyLink Text="@L["MyEtsyShopLinkText"]" Icon="@Icons.Material.TwoTone.ShoppingCart" Href="https://www.etsy.com/shop/IdeeBizzesche" />
+			<MyLink Text="@L["MyYouTubeChannelLinkText"]" Icon="@Icons.Custom.Brands.YouTube" Href="https://www.youtube.com/AlbertoBizzini" />
+			<MyLink Text="@L["MyInstagramPageLinkText"]" Icon="@Icons.Custom.Brands.Instagram" Href="https://www.etsy.com/shop/IdeeBizzesche" />
 		</ChildContent>
 	</MudExpansionPanel>
 
 	<MudExpansionPanel>
 
 		<TitleContent>
-			@L["AvailableAppsSectionHeaderText"]
+			<h3>@L["AvailableAppsSectionHeaderText"]</h3>
 		</TitleContent>
 
 		<ChildContent>
 			<MudStack Row Spacing="10" Justify="Justify.FlexStart" AlignItems="AlignItems.Start" Wrap="Wrap.Wrap">
 
 				<AppCard AppName="Patrimetria" AppLink="https://patrimetria.albertobizzini.com/">
-					Simulatore andamento patrimonio familiare
-				</AppCard>
-
-				<AppCard AppName="Collezione treni Pierluigi Cova" AppLink="https://patrimetria.albertobizzini.com/">
-					Consultazione del catalogo dei modelli di treni della collezione di Pierluigi Cova, disponibili per la vendita agli appassionati di fermodellismo
+					Simulatore andamento futuro del patrimonio familiare.
 				</AppCard>
 
 				<AppCard AppName="Simulatore rendita B&B" AppLink="https://bnbsimulator.albertobizzini.com/">
-					Verifica se è redditizio investire dei soldi per la realizzazione di in Bed & Breakfast
+					Verifica se è redditizio investire dei soldi nella realizzazione di un Bed & Breakfast
+				</AppCard>
+
+				<AppCard AppName="Collezione treni Pierluigi Cova" AppLink="https://treni-cova.albertobizzini.com/">
+					<p>Sei appassionato di fermodellismo?</p>
+					<p>Consulta il catalogo dei modelli di treni della collezione di Pierluigi Cova. Sono disponibili per la vendita.</p>
 				</AppCard>
 
 				<AppCard AppName="FinTrack - Finance Tracking" AppLink="https://fintrack.albertobizzini.com/" OnlyItalian="false" EnrollNeeded>
-					Keep track of your finance
+					@L["FintrackAppDescription"]
 				</AppCard>
 
 			</MudStack>

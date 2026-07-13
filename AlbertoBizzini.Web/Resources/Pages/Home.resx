@@ -118,4 +118,7 @@
   <data name="IntroductionText" xml:space="preserve">
     <value>Welcome to my portfolio page</value>
   </data>
+  <data name="FintrackAppDescription" xml:space="preserve">
+    <value>Keep track of your finance</value>
+  </data>
 </root>
