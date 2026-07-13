@@ -1,0 +1,36 @@
+﻿@inject IStringLocalizer<AppCard> L
+
+<MudCard Class="app-card" Elevation="@AppCardElevation">
+    <MudCardHeader>
+        <CardHeaderContent>
+            @if (OnlyItalian)
+            {
+                <MudAlert Severity="Severity.Warning" NoIcon Dense>Only italian language</MudAlert>
+            }
+            @if (EnrollNeeded)
+            {
+                <MudAlert Severity="Severity.Warning" NoIcon Dense>Enroll needed (ask me)</MudAlert>
+            }
+            <MudText Typo="Typo.h5" Color="Color.Primary">@AppName</MudText>
+        </CardHeaderContent>
+    </MudCardHeader>
+    <MudCardContent>
+        @ChildContent
+    </MudCardContent>
+    <MudCardActions>
+        <MudButton EndIcon="@Icons.Material.TwoTone.OpenInNew" Href="@AppLink" Target="_blank" Color="Color.Primary">
+            @L["FollowApplicationLinkText"]
+        </MudButton>
+    </MudCardActions>
+</MudCard>
+
+@code {
+    [Parameter] public string? AppName { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public string? AppLink { get; set; }
+    [Parameter] public bool OnlyItalian { get; set; } = true;
+    [Parameter] public bool EnrollNeeded { get; set; } = false;
+
+    private int AppCardElevation = 10;
+
+}

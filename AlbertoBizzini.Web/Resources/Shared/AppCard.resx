@@ -97,22 +97,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="PageTitle" xml:space="preserve">
-    <value>Home</value>
-  </data>
-  <data name="LinksSectionHeaderText" xml:space="preserve">
-    <value>Links</value>
-  </data>
-  <data name="AvailableAppsSectionHeaderText" xml:space="preserve">
-    <value>Available apps</value>
-  </data>
-  <data name="MyEtsyShopLinkText" xml:space="preserve">
-    <value>My Etsy shop</value>
-  </data>
-  <data name="MyYouTubeChannelLinkText" xml:space="preserve">
-    <value>My YouTube channel</value>
-  </data>
-  <data name="MyInstagramPageLinkText" xml:space="preserve">
-    <value>My Instagram page</value>
+  <data name="FollowApplicationLinkText" xml:space="preserve">
+    <value>Open the app</value>
   </data>
 </root>

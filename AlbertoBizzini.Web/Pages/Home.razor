@@ -1,4 +1,5 @@
 @page "/"
+@using AlbertoBizzini.Web.Shared
 @inject NavigationManager Nav
 @inject IStringLocalizer<SharedResources> SR
 @inject IStringLocalizer<Home> L
@@ -29,73 +30,22 @@
         <ChildContent>
             <MudStack Row Spacing="10" Justify="Justify.FlexStart" AlignItems="AlignItems.Start" Wrap="Wrap.Wrap">
 
-                <MudCard Class="app-card" Elevation="@AppCardElevation">
-                    <MudCardHeader>
-                        <CardHeaderContent>
-                            <MudAlert Severity="Severity.Warning" NoIcon Dense>Only italian language</MudAlert>
-                            <MudText Typo="Typo.h4" Color="Color.Primary">Patrimetria</MudText>
-                        </CardHeaderContent>
-                    </MudCardHeader>
-                    <MudCardContent>
-                        <MudText Typo="Typo.body2">Simulatore andamento patrimonio familiare</MudText>
-                    </MudCardContent>
-                    <MudCardActions>
-                        <MudButton EndIcon="@Icons.Material.TwoTone.OpenInNew" Href="https://patrimetria.albertobizzini.com/" Target="_blank" Color="Color.Primary">
-                            @L["FollowApplicationLinkText"]
-                        </MudButton>
-                    </MudCardActions>
-                </MudCard>
+                <AppCard AppName="Patrimetria" AppLink="https://patrimetria.albertobizzini.com/">
 
-                <MudCard Class="app-card" Elevation="@AppCardElevation">
-                    <MudCardHeader>
-                        <CardHeaderContent>
-                            <MudAlert Severity="Severity.Warning" NoIcon Dense>Only italian language</MudAlert>
-                            <MudText Typo="Typo.h4" Color="Color.Primary">Collezione treni Pierluigi Cova</MudText>
-                        </CardHeaderContent>
-                    </MudCardHeader>
-                    <MudCardContent>
-                        <MudText Typo="Typo.body2">Consultazione del catalogo dei modelli di treni della collezione di Pierluigi Cova, disponibili per la vendita agli appassionati di fermodellismo</MudText>
-                    </MudCardContent>
-                    <MudCardActions>
-                        <MudButton EndIcon="@Icons.Material.TwoTone.OpenInNew" Href="https://treni-cova.albertobizzini.com/" Target="_blank" Color="Color.Primary">
-                            @L["FollowApplicationLinkText"]
-                        </MudButton>
-                    </MudCardActions>
-                </MudCard>
+                    Simulatore andamento patrimonio familiare
+                </AppCard>
 
-                <MudCard Class="app-card" Elevation="@AppCardElevation">
-                    <MudCardHeader>
-                        <CardHeaderContent>
-                            <MudAlert Severity="Severity.Warning" NoIcon Dense>Only italian language</MudAlert>
-                            <MudText Typo="Typo.h4" Color="Color.Primary">Simulatore rendita B&B</MudText>
-                        </CardHeaderContent>
-                    </MudCardHeader>
-                    <MudCardContent>
-                        <MudText Typo="Typo.body2">Verifica se è redditizio investire dei soldi per la realizzazione di in Bed & Breakfast</MudText>
-                    </MudCardContent>
-                    <MudCardActions>
-                        <MudButton EndIcon="@Icons.Material.TwoTone.OpenInNew" Href="https://bnbsimulator.albertobizzini.com/" Target="_blank" Color="Color.Primary">
-                            @L["FollowApplicationLinkText"]
-                        </MudButton>
-                    </MudCardActions>
-                </MudCard>
+                <AppCard AppName="Collezione treni Pierluigi Cova" AppLink="https://patrimetria.albertobizzini.com/">
+                    Consultazione del catalogo dei modelli di treni della collezione di Pierluigi Cova, disponibili per la vendita agli appassionati di fermodellismo
+                </AppCard>
 
-                <MudCard Class="app-card" Elevation="@AppCardElevation">
-                    <MudCardHeader>
-                        <CardHeaderContent>
-                            <MudAlert Severity="Severity.Warning" NoIcon Dense>Enroll needed (ask me)</MudAlert>
-                            <MudText Typo="Typo.h4" Color="Color.Primary">FinTrack - Finance Tracking</MudText>
-                        </CardHeaderContent>
-                    </MudCardHeader>
-                    <MudCardContent>
-                        <MudText Typo="Typo.body2">Keep track of your finance</MudText>
-                    </MudCardContent>
-                    <MudCardActions>
-                        <MudButton EndIcon="@Icons.Material.TwoTone.OpenInNew" Href="https://fintrack.albertobizzini.com/" Target="_blank" Color="Color.Primary">
-                            @L["FollowApplicationLinkText"]
-                        </MudButton>
-                    </MudCardActions>
-                </MudCard>
+                <AppCard AppName="Simulatore rendita B&B" AppLink="https://bnbsimulator.albertobizzini.com/">
+                    Verifica se è redditizio investire dei soldi per la realizzazione di in Bed & Breakfast
+                </AppCard>
+
+                <AppCard AppName="FinTrack - Finance Tracking" AppLink="https://fintrack.albertobizzini.com/" OnlyItalian="false" EnrollNeeded>
+                    Keep track of your finance
+                </AppCard>
 
             </MudStack>
         </ChildContent>
@@ -106,6 +56,5 @@
 
 @code 
 {
-    private int AppCardElevation = 10;
 }
 
