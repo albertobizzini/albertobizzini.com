@@ -120,13 +120,16 @@
   <data name="ConfirmChangeLanguageDialogText" xml:space="preserve">
     <value>La pagina sarà ricaricata</value>
   </data>
-  <data name="ConfirmChangeLanguageDialogTitle" xml:space="preserve">
-    <value>Cambia lingua interfaccia</value>
+  <data name="ConfirmChangeLanguageDialogTitleIT" xml:space="preserve">
+    <value>Passare all'italiano?</value>
   </data>
   <data name="ToggleLanguageTooltipIT" xml:space="preserve">
     <value>Passa all'italiano</value>
   </data>
   <data name="ToggleLanguageTooltipGB" xml:space="preserve">
     <value>Passa all'inglese</value>
+  </data>
+  <data name="ConfirmChangeLanguageDialogTitleGB" xml:space="preserve">
+    <value>Passare all'inglese?</value>
   </data>
 </root>

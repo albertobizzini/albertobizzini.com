@@ -97,8 +97,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ConfirmChangeLanguageDialogTitle" xml:space="preserve">
-    <value>Change interface language</value>
+  <data name="ConfirmChangeLanguageDialogTitleIT" xml:space="preserve">
+    <value>Switch to italian?</value>
   </data>
   <data name="ConfirmChangeLanguageDialogText" xml:space="preserve">
     <value>The page will be reloaded</value>
@@ -108,5 +108,8 @@
   </data>
   <data name="ToggleLanguageTooltipGB" xml:space="preserve">
     <value>Switch to english</value>
+  </data>
+  <data name="ConfirmChangeLanguageDialogTitleGB" xml:space="preserve">
+    <value>Switch to english?</value>
   </data>
 </root>

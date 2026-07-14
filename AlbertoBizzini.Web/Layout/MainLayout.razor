@@ -116,13 +116,15 @@
 
     private async void ToggleLanguage()
     {
-        if (await DialogService.ShowMessageBoxAsync(title: L["ConfirmChangeLanguageDialogTitle"], message: L["ConfirmChangeLanguageDialogText"], yesText: SR["OK"], cancelText: SR["Cancel"]) == null)
+        if (await DialogService.ShowMessageBoxAsync(
+            title: L["ConfirmChangeLanguageDialogTitle" + _otherLanguageFlag.ToUpper()],
+            message: L["ConfirmChangeLanguageDialogText"], 
+            yesText: SR["OK"], 
+            cancelText: SR["Cancel"]) == null)
             return;
 
         _currentCulture = await JSRuntime.InvokeAsync<string>("blazorCulture.get") ?? "en";
-
         var newCurrentCulture = OtherCulture(_currentCulture);
-
         var ci = new CultureInfo(newCurrentCulture);
         CultureInfo.DefaultThreadCurrentCulture = ci;
         CultureInfo.DefaultThreadCurrentUICulture = ci;
