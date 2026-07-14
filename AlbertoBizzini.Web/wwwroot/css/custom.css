@@ -1,3 +1,11 @@
-﻿.app-card {
-    max-width: 300px;
+﻿.opacity-hi {
+    opacity: 35%;
+}
+
+.opacity-med {
+    opacity: 50%;
+}
+
+.opacity-low {
+    opacity: 75%;
 }
