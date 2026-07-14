@@ -46,20 +46,35 @@
 			<MudStack Row Spacing="6" Justify="Justify.FlexStart" AlignItems="AlignItems.Start" Wrap="Wrap.Wrap" Class="mt-3">
 
 				<AppCard AppName="Patrimetria" AppLink="https://patrimetria.albertobizzini.com/">
-					Simulatore andamento futuro del patrimonio familiare.
+					<MudText Typo="Typo.body1" GutterBottom>
+						Posso permettermi di vivere di rendita?
+					</MudText>
+					<MudText Typo="Typo.body2">
+						Inserisci patrimonio, entrate, spese e previsioni, simula l'evoluzione del patrimonio e stima gli intervalli di confidenza considerando inflazione e rendimenti
+					</MudText>
 				</AppCard>
 
 				<AppCard AppName="Simulatore rendita B&B" AppLink="https://bnbsimulator.albertobizzini.com/">
-					Verifica se è redditizio investire dei soldi nella realizzazione di un Bed & Breakfast
+					<MudText Typo="Typo.body1" GutterBottom>
+						È redditizio investire nella realizzazione di un Bed & Breakfast?
+					</MudText>
+					<MudText Typo="Typo.body2">
+						Inserisci costi di avvio e di gestione, calcola ROI e CAGR, quindi analizzane la sensibilità e visualizza una mappa di calore basata su ricavi e costi del primo anno
+					</MudText>
 				</AppCard>
 
-				<AppCard AppName="Collezione treni Pierluigi Cova" AppLink="https://treni-cova.albertobizzini.com/">
+				@* <AppCard AppName="Collezione treni Pierluigi Cova" AppLink="https://treni-cova.albertobizzini.com/">
 					<MudText>Sei appassionato di fermodellismo?</MudText>
 					<MudText>Consulta il catalogo dei modelli di treni della collezione di Pierluigi Cova. Sono disponibili per la vendita.</MudText>
-				</AppCard>
+				</AppCard> *@
 
 				<AppCard AppName="FinTrack" AppLink="https://fintrack.albertobizzini.com/" OnlyItalian="false" EnrollNeeded Version="v0.1 (alpha)">
-					@L["FintrackAppDescription"]
+					<MudText Typo="Typo.body1" GutterBottom>
+						@L["FintrackAppDescriptionFirstLine"]
+					</MudText>
+					<MudText Typo="Typo.body2">
+						@L["FintrackAppDescriptionOtherLines"]
+					</MudText>
 				</AppCard>
 
 			</MudStack>

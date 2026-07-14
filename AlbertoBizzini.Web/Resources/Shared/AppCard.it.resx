@@ -121,7 +121,7 @@
     <value>Vai all'applicazione</value>
   </data>
   <data name="EnrollNeededMessageText" xml:space="preserve">
-    <value>Richiesta iscrizione (chiedimi)</value>
+    <value>È necessario essere abilitati (chiedimi)</value>
   </data>
   <data name="OnlyInItalianMessageText" xml:space="preserve">
     <value>Solo in italiano</value>

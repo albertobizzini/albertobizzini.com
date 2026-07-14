@@ -118,13 +118,16 @@
   <data name="IntroductionText" xml:space="preserve">
     <value>Welcome to my portfolio page</value>
   </data>
-  <data name="FintrackAppDescription" xml:space="preserve">
-    <value>Keep track of your finance</value>
+  <data name="FintrackAppDescriptionFirstLine" xml:space="preserve">
+    <value>Track expenses, income and transfers</value>
   </data>
   <data name="MyPhotoAlbumsLinkText" xml:space="preserve">
     <value>My photo albums</value>
   </data>
   <data name="MyPhotoAlbumsSuffixText" xml:space="preserve">
     <value>(Japan only, for now)</value>
+  </data>
+  <data name="FintrackAppDescriptionOtherLines" xml:space="preserve">
+    <value>Categorize everything hierarchically, analyze trends, define ownership shares of accounts and categories, automatically allocate expenses, manage foreign currencies with automatic conversion and reconcile accounts and credit cards</value>
   </data>
 </root>

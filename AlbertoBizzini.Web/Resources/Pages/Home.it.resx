@@ -138,13 +138,16 @@
   <data name="IntroductionText" xml:space="preserve">
     <value>Benvenuti nella mia pagina "portfolio"</value>
   </data>
-  <data name="FintrackAppDescription" xml:space="preserve">
-    <value>Tracce le tue spese</value>
+  <data name="FintrackAppDescriptionFirstLine" xml:space="preserve">
+    <value>Traccia le spese, entrate e trasferimenti</value>
   </data>
   <data name="MyPhotoAlbumsLinkText" xml:space="preserve">
     <value>I miei album fotografici</value>
   </data>
   <data name="MyPhotoAlbumsSuffixText" xml:space="preserve">
     <value>(solo del Giappone, per ora)</value>
+  </data>
+  <data name="FintrackAppDescriptionOtherLines" xml:space="preserve">
+    <value>Categorizza tutto in modo gerarchico, analizza gli andamenti, definisci la quota di proprietà di conti e categorie, ripartisci automaticamente le spese, gestisci le valute estere con conversione automatica e riconcilia conti e carte di credito</value>
   </data>
 </root>

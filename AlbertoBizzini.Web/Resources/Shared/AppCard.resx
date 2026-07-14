@@ -101,7 +101,7 @@
     <value>Open the app</value>
   </data>
   <data name="EnrollNeededMessageText" xml:space="preserve">
-    <value>Enroll needed (ask me)</value>
+    <value>You need to be enabled (ask me)</value>
   </data>
   <data name="OnlyInItalianMessageText" xml:space="preserve">
     <value>Only in italian</value>
