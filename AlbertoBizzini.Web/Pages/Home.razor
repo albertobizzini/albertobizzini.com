@@ -6,35 +6,31 @@
 
 <PageTitle>@L["PageTitle"] - @SR["WebsiteTitle"]</PageTitle>
 
-<MudText Typo="Typo.body2" Class="pl-2">
-	@L["IntroductionText"]
-</MudText>
-<MudText Typo="Typo.caption" Class="pl-2" Color="Color.Primary">@L["IntroductionInstructionText"]</MudText>
+@* <MudText Typo="Typo.body2" Class="pl-2">@L["IntroductionText"]</MudText> *@
+<MudText Typo="Typo.caption" Class="pl-2">@L["IntroductionInstructionText"]</MudText>
 
 <MudExpansionPanels MultiExpansion Class="mt-4" Outlined Square="false" Gutters>
 
 	<MudExpansionPanel Class="home-page-panel">
 
 		<TitleContent>
-			<h3>
-				<MudStack Row Justify="Justify.FlexStart" Spacing="3" AlignItems="AlignItems.Center">
-					<MudIcon Icon="@Icons.Material.TwoTone.MenuBook" Color="@HeaderIconColor" />
-					<span>
-						@switch (_kindleClippingOfTheDayDeltaDays)
-						{
-							case 0:
-								@L["KindleClippingOfTheDayHeaderText"]
-								break;
-							case -1:
-								@L["KindleClippingOfYesterdayHeaderText"]
-								break;
-							default:
-								@L["KindleClippingOfDaysAgoHeaderText", -_kindleClippingOfTheDayDeltaDays]
-								break;
-						}
-					</span>
-				</MudStack>
-			</h3>
+			<MudStack Row Justify="Justify.FlexStart" Spacing="3" AlignItems="AlignItems.Center">
+				<MudIcon Icon="@Icons.Material.TwoTone.MenuBook" Color="@HeaderIconColor" />
+				<h3>
+					@switch (_kindleClippingOfTheDayDeltaDays)
+					{
+						case 0:
+							@L["KindleClippingOfTheDayHeaderText"]
+							break;
+						case -1:
+							@L["KindleClippingOfYesterdayHeaderText"]
+							break;
+						default:
+							@L["KindleClippingOfDaysAgoHeaderText", -_kindleClippingOfTheDayDeltaDays]
+							break;
+					}
+				</h3>
+			</MudStack>
 			<MudText Typo="Typo.caption">@L["KindleClippingHeaderCaption"]</MudText>
 		</TitleContent>
 
@@ -46,12 +42,10 @@
 	<MudExpansionPanel Class="home-page-panel">
 
 		<TitleContent>
-			<h3>
-				<MudStack Row Justify="Justify.FlexStart" Spacing="3" AlignItems="AlignItems.Center">
-					<MudIcon Icon="@Icons.Material.TwoTone.Link" Color="@HeaderIconColor" />
-					<span>@L["LinksSectionHeaderText"]</span>
-				</MudStack>
-			</h3>
+			<MudStack Row Justify="Justify.FlexStart" Spacing="3" AlignItems="AlignItems.Center">
+				<MudIcon Icon="@Icons.Material.TwoTone.Link" Color="@HeaderIconColor" />
+				<h3>@L["LinksSectionHeaderText"]</h3>
+			</MudStack>
 
 			<MudText Typo="Typo.caption">@L["LinksSectionHeaderCaption"]</MudText>
 		</TitleContent>
@@ -67,12 +61,10 @@
 	<MudExpansionPanel Class="home-page-panel">
 
 		<TitleContent>
-			<h3>
-				<MudStack Row Justify="Justify.FlexStart" Spacing="3" AlignItems="AlignItems.Center">
-					<MudIcon Icon="@Icons.Material.TwoTone.Apps" Color="@HeaderIconColor" />
-					<span>@L["AvailableAppsSectionHeaderText"]</span>
-				</MudStack>
-			</h3>
+			<MudStack Row Justify="Justify.FlexStart" Spacing="3" AlignItems="AlignItems.Center">
+				<MudIcon Icon="@Icons.Material.TwoTone.Apps" Color="@HeaderIconColor" />
+				<h3>@L["AvailableAppsSectionHeaderText"]</h3>
+			</MudStack>
 			<MudText Typo="Typo.caption">@L["AvailableAppsSectionHeaderCaption"]</MudText>
 		</TitleContent>
 

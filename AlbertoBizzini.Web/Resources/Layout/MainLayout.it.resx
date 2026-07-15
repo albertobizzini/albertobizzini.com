@@ -132,4 +132,7 @@
   <data name="ConfirmChangeLanguageDialogTitleGB" xml:space="preserve">
     <value>Passare all'inglese?</value>
   </data>
+  <data name="ToggleDarkMode" xml:space="preserve">
+    <value>Attiva/disattiva la modalità scura</value>
+  </data>
 </root>

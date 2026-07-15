@@ -112,4 +112,7 @@
   <data name="ConfirmChangeLanguageDialogTitleGB" xml:space="preserve">
     <value>Switch to english?</value>
   </data>
+  <data name="ToggleDarkMode" xml:space="preserve">
+    <value>Toggle dark mode</value>
+  </data>
 </root>
