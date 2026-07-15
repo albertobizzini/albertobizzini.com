@@ -130,4 +130,7 @@
   <data name="FintrackAppDescriptionOtherLines" xml:space="preserve">
     <value>Categorize everything hierarchically, analyze trends, define ownership shares of accounts and categories, automatically allocate expenses, manage foreign currencies with automatic conversion and reconcile accounts and credit cards</value>
   </data>
+  <data name="KindleClippingOfTheDayHeaderText" xml:space="preserve">
+    <value>Clipping of the day</value>
+  </data>
 </root>

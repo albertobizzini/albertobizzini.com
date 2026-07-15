@@ -28,4 +28,24 @@ public class KindleClippingService
         _data = Parser.Parse(content);
         return _data;
     }
+
+    public async Task<Clipping?> GetClippingOfTheDay()
+    {
+        var data = await LoadAsync();
+
+        var clippings = data.Clippings
+            .Where(c => c.Type == ClippingType.Highlight && !string.IsNullOrWhiteSpace(c.Text))
+            .ToList();
+
+        if (clippings.Count == 0)
+            return null;
+
+        var today = DateOnly.FromDateTime(DateTime.Today);
+
+        var hash = today.GetHashCode();
+
+        var index = Math.Abs(hash) % clippings.Count;
+
+        return clippings[index];
+    }
 }

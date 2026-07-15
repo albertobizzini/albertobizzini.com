@@ -1,0 +1,51 @@
+﻿@using KindleClippings
+@inject KindleClippingService KindleService
+@inject IStringLocalizer<KindleClippingOfTheDay> L
+
+	@if (_clipping is null)
+{
+	<MudSkeleton />
+}
+else
+{
+	<MudStack>
+		<MudText HtmlTag="em">
+			@if (_clipping is null)
+			{
+				<MudSkeleton/>
+			}
+			else
+			{
+				<span>«@_clipping.Text»</span>
+			}
+		</MudText>
+		<MudText Typo="Typo.caption" Align="Align.Right">
+			
+			@if (_clipping is null)
+			{
+				<MudSkeleton/>
+			}
+			else
+			{
+				<span>
+					tratto da: <MudText Color="Color.Info" Inline>@_clipping.Book.Title</MudText>
+					@if (_clipping.Book.Author is not null)
+					{
+						<MudText Inline="false"> (@_clipping.Book.Author)</MudText>
+					}
+				</span>
+			}
+		</MudText>
+	</MudStack>
+}
+
+    
+@code {
+	private Clipping? _clipping;
+
+	protected override async Task OnInitializedAsync()
+	{
+		_clipping = await KindleService.GetClippingOfTheDay();
+		StateHasChanged();
+	}
+}
