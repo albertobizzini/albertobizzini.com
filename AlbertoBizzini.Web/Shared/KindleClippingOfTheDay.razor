@@ -2,9 +2,9 @@
 @inject KindleClippingService KindleService
 @inject IStringLocalizer<KindleClippingOfTheDay> L
 
-	@if (_clipping is null)
+@if (_noClippingIsAvailable)
 {
-	<MudSkeleton />
+	<MudAlert Severity="Severity.Warning">@L["NoClippingIsAvailableWarningMessage"]</MudAlert>
 }
 else
 {
@@ -12,7 +12,7 @@ else
 		<MudText HtmlTag="em">
 			@if (_clipping is null)
 			{
-				<MudSkeleton/>
+				<MudSkeleton Width="80em" />
 			}
 			else
 			{
@@ -20,12 +20,7 @@ else
 			}
 		</MudText>
 		<MudText Typo="Typo.caption" Align="Align.Right">
-			
-			@if (_clipping is null)
-			{
-				<MudSkeleton/>
-			}
-			else
+			@if (_clipping is not null)
 			{
 				<span>
 					tratto da: <MudText Color="Color.Info" Inline>@_clipping.Book.Title</MudText>
@@ -41,11 +36,16 @@ else
 
     
 @code {
-	private Clipping? _clipping;
+	[Parameter]
+	public int DeltaDays { get; set; } = 0;
 
+	private Clipping? _clipping;
+	private bool _noClippingIsAvailable = false;
+	
 	protected override async Task OnInitializedAsync()
 	{
-		_clipping = await KindleService.GetClippingOfTheDay();
-		StateHasChanged();
+		_clipping = await KindleService.GetClippingOfTheDay(DeltaDays);
+		if (_clipping is null)
+			_noClippingIsAvailable = true;
 	}
 }

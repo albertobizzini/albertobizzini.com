@@ -10,7 +10,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddAppServices(this IServiceCollection services)
     {
         services.AddLocalization(options => options.ResourcesPath = "Resources");
-        services.AddScoped<KindleClippingService>();
+        services.AddSingleton<KindleClippingService>();
 
         return services;
     }

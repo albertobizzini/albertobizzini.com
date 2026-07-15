@@ -7,7 +7,7 @@ public class KindleClippingService
     private readonly ILogger<KindleClippingService> _logger;
     private readonly HttpClient _httpClient;
 
-    private ParseResult? _data = null;
+    private Task<ParseResult>? _dataTask;
 
     public KindleClippingService(
         ILogger<KindleClippingService> logger,
@@ -17,19 +17,19 @@ public class KindleClippingService
         _httpClient = httpClient;
     }
 
-    public async Task<ParseResult> LoadAsync()
+    public Task<ParseResult> LoadAsync()
     {
-        if (_data is not null)
-            return _data;
-
-        _logger.LogInformation("BaseAddress: {addr}", _httpClient.BaseAddress);
-
-        var content = await _httpClient.GetStringAsync("data/My Clippings.txt");
-        _data = Parser.Parse(content);
-        return _data;
+        return _dataTask ??= LoadInternalAsync();
     }
 
-    public async Task<Clipping?> GetClippingOfTheDay()
+    private async Task<ParseResult> LoadInternalAsync()
+    {
+        var content = await _httpClient.GetStringAsync("data/My Clippings.txt");
+        var data = Parser.Parse(content);
+        return data;
+    }
+
+    public async Task<Clipping?> GetClippingOfTheDay(int delta = 0)
     {
         var data = await LoadAsync();
 
@@ -42,7 +42,7 @@ public class KindleClippingService
 
         var today = DateOnly.FromDateTime(DateTime.Today);
 
-        var hash = today.GetHashCode();
+        var hash = today.GetHashCode() + delta;
 
         var index = Math.Abs(hash) % clippings.Count;
 
