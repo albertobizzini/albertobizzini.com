@@ -6,14 +6,14 @@
 
 <PageTitle>@L["PageTitle"] - @SR["WebsiteTitle"]</PageTitle>
 
-<MudText Typo="Typo.body2" Class="pl-2 pt-2">
+<MudText Typo="Typo.body2" Class="pl-2">
 	@L["IntroductionText"]
 </MudText>
 <MudText Typo="Typo.caption" Class="pl-2" Color="Color.Primary">@L["IntroductionInstructionText"]</MudText>
 
-<MudExpansionPanels MultiExpansion Class="mt-3">
+<MudExpansionPanels MultiExpansion Class="mt-4" Outlined Square="false">
 
-	<MudExpansionPanel Expanded>
+	<MudExpansionPanel Expanded Class="home-page-panel">
 
 		<TitleContent>
 			<MudStack Row Justify="Justify.SpaceBetween" StretchItems="StretchItems.Middle" Spacing="4" AlignItems="AlignItems.Center">
@@ -40,7 +40,7 @@
 		</ChildContent>
 	</MudExpansionPanel>
 
-	<MudExpansionPanel Expanded>
+	<MudExpansionPanel Expanded Class="home-page-panel">
 
 		<TitleContent>
 			<h3>@L["LinksSectionHeaderText"]</h3>
@@ -67,7 +67,7 @@
 		</ChildContent>
 	</MudExpansionPanel>
  *@
-	<MudExpansionPanel>
+	<MudExpansionPanel Class="home-page-panel">
 
 		<TitleContent>
 			<h3>@L["AvailableAppsSectionHeaderText"]</h3>

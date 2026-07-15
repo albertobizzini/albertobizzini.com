@@ -1,16 +1,13 @@
-﻿<MudStack Row AlignItems="AlignItems.Center" Spacing="2" Wrap="Wrap.NoWrap" Class="mb-2">
-	<MudLink Href="@_internalHref">
-		<MudStack Row AlignItems="AlignItems.Center" Spacing="2" Wrap="Wrap.NoWrap">
-			<MudIcon Icon="@Icon" Color="Color.Primary" />
-			<span>@Text</span>
-		</MudStack>
-	</MudLink>
-	@if (!string.IsNullOrWhiteSpace(Suffix))
-	{
-		<span>@Suffix</span>
-	}
+﻿<MudStack Row AlignItems="AlignItems.Start" Spacing="2" Wrap="Wrap.NoWrap" Class="mt-3">
+	<MudIcon Icon="@Icon" Color="Color.Primary" />
+	<MudStack AlignItems="AlignItems.Start" Spacing="2" Class="mb-2">
+		<MudLink Href="@_internalHref">@Text</MudLink>
+		@if (!string.IsNullOrWhiteSpace(Suffix))
+		{
+			<MudText Typo="Typo.caption">@Suffix</MudText>
+		}
 	</MudStack>
-
+</MudStack>
 
 @code {
 	[Parameter] public string? Text { get; set; }
