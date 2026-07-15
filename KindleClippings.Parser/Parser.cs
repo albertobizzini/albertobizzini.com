@@ -5,7 +5,7 @@ namespace KindleClippings;
 
 public static class Parser
 {
-    private static readonly Regex TitleAndBookRegex = 
+    private static readonly Regex TitleAndBookRegex =
         new(@"^(?<Titolo>.+?)\s*(?:\([^)]+\)\s*)*(?:\((?<Autore>[^)]+)\))$",
             RegexOptions.IgnoreCase);
 
@@ -51,6 +51,8 @@ public static class Parser
 
                 if (string.IsNullOrWhiteSpace(text))
                     text = null;
+                else
+                    text = Regex.Replace(text, @"\[▶\d+\]", "").Trim(); // remove metadata
             }
 
             var parsedBook = ExtractBook(titleLine);
@@ -85,8 +87,9 @@ public static class Parser
         if (!match.Success)
             return new Book { Title = line };
 
-        return new Book { 
-            Title = match.Groups["Titolo"].Value, 
+        return new Book
+        {
+            Title = match.Groups["Titolo"].Value,
             Author = match.Groups["Autore"].Value
         };
     }

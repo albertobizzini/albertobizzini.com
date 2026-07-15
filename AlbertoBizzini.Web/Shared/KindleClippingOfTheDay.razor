@@ -31,6 +31,10 @@ else
 				</span>
 			}
 		</MudText>
+		@if (_clipping is not null)
+		{
+			<MudButton Variant="Variant.Text" OnClick="DecreaseDeltaDays">@L["ShowPreviusDay"] (@DeltaDays)</MudButton>
+		}
 	</MudStack>
 }
 
@@ -41,11 +45,25 @@ else
 
 	private Clipping? _clipping;
 	private bool _noClippingIsAvailable = false;
-	
+
 	protected override async Task OnInitializedAsync()
 	{
+		GetClipping();
+	}
+
+	protected async Task GetClipping()
+	{
+		_clipping = null;
+		StateHasChanged();
 		_clipping = await KindleService.GetClippingOfTheDay(DeltaDays);
 		if (_clipping is null)
 			_noClippingIsAvailable = true;
+		StateHasChanged();
+	}
+
+	protected void DecreaseDeltaDays()
+	{
+		DeltaDays--;
+		GetClipping();
 	}
 }
