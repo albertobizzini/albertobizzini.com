@@ -140,7 +140,7 @@
     <value>Kindle clipping of {0} days ago</value>
   </data>
   <data name="KindleClippingHeaderCaption" xml:space="preserve">
-    <value>Extract from the list of "clippings" I've made on the Kindle since I started reading eBooks</value>
+    <value>Random extraction from the list of "clippings" I've made on the Kindle since I started reading eBooks</value>
   </data>
   <data name="LinksSectionHeaderCaption" xml:space="preserve">
     <value>Links to my other sites or social accounts</value>

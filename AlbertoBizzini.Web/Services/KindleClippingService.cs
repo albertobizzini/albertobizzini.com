@@ -1,4 +1,6 @@
-﻿using KindleClippings;
+﻿using System.Security.Cryptography;
+using System.Text;
+using KindleClippings;
 
 namespace AlbertoBizzini.Web.Services;
 
@@ -40,12 +42,40 @@ public class KindleClippingService
         if (clippings.Count == 0)
             return null;
 
-        var today = DateOnly.FromDateTime(DateTime.Today);
+        // 1. Calcola la data di riferimento in base al delta
+        var targetDate = DateTime.Today.AddDays(delta);
+        var dateString = targetDate.ToString("yyyy-MM-dd");
 
-        var hash = today.GetHashCode() + delta;
+        Clipping? bestClipping = null;
+        long highestScore = long.MinValue;
 
-        var index = Math.Abs(hash) % clippings.Count;
+        // 2. Trova il clipping con il punteggio più alto per la data corrente
+        foreach (var clipping in clippings)
+        {
+            // Generiamo un ID univoco e stabile per il clipping
+            var clippingId = $"{clipping.Book.Title}_{clipping.Page}_{clipping.Text}";
 
-        return clippings[index];
+            // Uniamo la data e il clipping in una chiave unica per quel giorno specifico
+            var dayClippingKey = $"{dateString}_{clippingId}";
+
+            // Calcoliamo un punteggio numerico deterministico per questa combinazione
+            long score = GetStableHash64(dayClippingKey);
+
+            // Il clipping con il punteggio massimo (o minimo) vince
+            if (score > highestScore)
+            {
+                highestScore = score;
+                bestClipping = clipping;
+            }
+        }
+
+        return bestClipping;
+    }
+
+    // Algoritmo di hashing a 64-bit stabile basato su SHA256
+    private static long GetStableHash64(string input)
+    {
+        var bytes = SHA256.HashData(Encoding.UTF8.GetBytes(input));
+        return BitConverter.ToInt64(bytes, 0);
     }
 }
