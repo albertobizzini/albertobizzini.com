@@ -123,4 +123,7 @@
   <data name="PositionLabel" xml:space="preserve">
     <value>posizione</value>
   </data>
+  <data name="ExtractedFromLabel" xml:space="preserve">
+    <value>Estratto da:</value>
+  </data>
 </root>

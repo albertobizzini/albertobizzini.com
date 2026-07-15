@@ -23,7 +23,7 @@ else
 		@if (_clipping is not null)
 		{
 			<MudText Typo="Typo.caption" Align="Align.Right">
-				tratto da: <MudText Color="Color.Info" Inline>@_clipping.Book.Title</MudText>
+				@L["ExtractedFromLabel"] <MudText Color="Color.Info" Inline>@_clipping.Book.Title</MudText>
 				@if (_clipping.Book.Author is not null)
 				{
 					<MudText Inline="true"> (@_clipping.Book.Author)</MudText>
