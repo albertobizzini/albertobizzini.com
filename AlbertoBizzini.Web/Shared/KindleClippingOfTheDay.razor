@@ -32,27 +32,27 @@ else
 			}
 		</MudText>
 	</MudStack>
-	@if (_clipping is not null)
+
+	@if (ShowPagination && _clipping is not null)
 	{
 		<MudToolBar Dense>
 			<MudIconButton Variant="Variant.Text" Icon="@Icons.Material.TwoTone.KeyboardArrowLeft" OnClick="DecreaseDeltaDays" Size="Size.Small" />
 			<MudIconButton Variant="Variant.Text" Icon="@Icons.Material.TwoTone.KeyboardArrowRight" OnClick="IncreaseDeltaDays" Disabled="@(DeltaDays == 0)" Size="Size.Small" />
 		</MudToolBar>
 	}
-
 }
 
     
 @code {
-	[Parameter]
-	public int DeltaDays { get; set; } = 0;
+	[Parameter] public int DeltaDays { get; set; } = 0;
+	[Parameter] public bool ShowPagination { get; set; } = false;
 
 	private Clipping? _clipping;
 	private bool _noClippingIsAvailable = false;
 
-	protected override async Task OnInitializedAsync()
+	protected override async Task OnParametersSetAsync()
 	{
-		GetClipping();
+		await GetClipping();
 	}
 
 	protected async Task GetClipping()

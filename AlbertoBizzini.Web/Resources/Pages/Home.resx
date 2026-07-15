@@ -133,4 +133,10 @@
   <data name="KindleClippingOfTheDayHeaderText" xml:space="preserve">
     <value>Clipping of the day</value>
   </data>
+  <data name="KindleClippingOfYesterdayHeaderText" xml:space="preserve">
+    <value>Yesterday clipping</value>
+  </data>
+  <data name="KindleClippingOfDaysAgoHeaderText" xml:space="preserve">
+    <value>Clipping of {0} days ago</value>
+  </data>
 </root>

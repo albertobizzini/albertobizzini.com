@@ -151,6 +151,12 @@
     <value>Categorizza tutto in modo gerarchico, analizza gli andamenti, definisci la quota di proprietà di conti e categorie, ripartisci automaticamente le spese, gestisci le valute estere con conversione automatica e riconcilia conti e carte di credito</value>
   </data>
   <data name="KindleClippingOfTheDayHeaderText" xml:space="preserve">
-    <value>Evidenziazione del giorno</value>
+    <value>Estratto del giorno</value>
+  </data>
+  <data name="KindleClippingOfYesterdayHeaderText" xml:space="preserve">
+    <value>Estratto di ieri</value>
+  </data>
+  <data name="KindleClippingOfDaysAgoHeaderText" xml:space="preserve">
+    <value>Estratto di {0} giorni fa</value>
   </data>
 </root>
