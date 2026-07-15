@@ -162,4 +162,13 @@
   <data name="KindleClippingHeaderCaption" xml:space="preserve">
     <value>Estrazione dall'elenco delle "evidenziazioni" che ho fatto sul Kindle da quanto ho iniziato a leggere gli eBook</value>
   </data>
+  <data name="LinksSectionHeaderCaption" xml:space="preserve">
+    <value>Link a miei altri siti o account social</value>
+  </data>
+  <data name="AvailableAppsSectionHeaderCaption" xml:space="preserve">
+    <value>Link ad applicazioni online che ho sviluppato</value>
+  </data>
+  <data name="IntroductionInstructionText" xml:space="preserve">
+    <value>Clicca sulle intestazioni per espandere le sezioni chiuse</value>
+  </data>
 </root>

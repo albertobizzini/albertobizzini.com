@@ -142,4 +142,13 @@
   <data name="KindleClippingHeaderCaption" xml:space="preserve">
     <value>Extract from the list of "clippings" I've made on the Kindle since I started reading eBooks</value>
   </data>
+  <data name="LinksSectionHeaderCaption" xml:space="preserve">
+    <value>Links to my other sites or social accounts</value>
+  </data>
+  <data name="AvailableAppsSectionHeaderCaption" xml:space="preserve">
+    <value>Links to online applications I have developed</value>
+  </data>
+  <data name="IntroductionInstructionText" xml:space="preserve">
+    <value>Click on the headers to expand the closed sections</value>
+  </data>
 </root>
