@@ -40,14 +40,14 @@ else
 					</span>
 				}
 			</MudText>
-			@if (ShowPagination && _clipping is not null)
-			{
-				<MudToolBar Dense>
-					<MudIconButton Variant="Variant.Outlined" Color="Color.Primary" Icon="@Icons.Material.TwoTone.KeyboardArrowLeft" OnClick="DecreaseDeltaDays" Size="Size.Small" />
-					<MudIconButton Variant="Variant.Outlined" Color="Color.Primary" Icon="@Icons.Material.TwoTone.KeyboardArrowRight" OnClick="IncreaseDeltaDays" Disabled="@(DeltaDays == 0)" Size="Size.Small" />
-				</MudToolBar>
-			}
 		</MudStack>
+		@if (ShowPagination && _clipping is not null)
+		{
+			<MudStack Row Justify="Justify.Center">
+				<MudIconButton Variant="Variant.Outlined" Color="Color.Primary" Icon="@Icons.Material.TwoTone.KeyboardArrowLeft" OnClick="DecreaseDeltaDays" Size="Size.Small" />
+				<MudIconButton Variant="Variant.Outlined" Color="Color.Primary" Icon="@Icons.Material.TwoTone.KeyboardArrowRight" OnClick="IncreaseDeltaDays" Disabled="@(DeltaDays == 0)" Size="Size.Small" />
+			</MudStack>
+		}
 	</MudStack>
 
 }
@@ -56,6 +56,7 @@ else
 @code {
 	[Parameter] public int DeltaDays { get; set; } = 0;
 	[Parameter] public bool ShowPagination { get; set; } = true;
+	[Parameter] public EventCallback<int> DeltaDaysChanged { get; set; } // Rimosso il Nullable?, EventCallback non è mai null in Blazor
 
 	private Clipping? _clipping;
 	private bool _noClippingIsAvailable = false;
@@ -67,21 +68,30 @@ else
 
 	protected async Task GetClipping()
 	{
+		// Evita di resettare a null se il componente sta solo rinfrescando i parametri con lo stesso valore
 		_clipping = null;
+		_noClippingIsAvailable = false;
 		StateHasChanged();
+
 		_clipping = await KindleService.GetClippingOfTheDay(DeltaDays);
+
 		if (_clipping is null)
 			_noClippingIsAvailable = true;
+
 		StateHasChanged();
 	}
 
-	protected void DecreaseDeltaDays() => UpdateDeltaDays(-1);
+	// Cambiato il delta a favore del decremento corretto (-1 e +1)
+	protected async Task DecreaseDeltaDays() => await UpdateDeltaDays(-1);
 
-	protected void IncreaseDeltaDays() => UpdateDeltaDays(+1);
+	protected async Task IncreaseDeltaDays() => await UpdateDeltaDays(+1);
 
-	protected void UpdateDeltaDays(int delta)
+	protected async Task UpdateDeltaDays(int step)
 	{
-		DeltaDays += delta;
-		GetClipping();
+		var newValue = DeltaDays + step;
+
+		// Notifica il genitore passando il nuovo valore.
+		// Il genitore aggiornerà il parametro, che scatenerà OnParametersSetAsync -> GetClipping() automaticamente.
+		await DeltaDaysChanged.InvokeAsync(newValue);
 	}
 }

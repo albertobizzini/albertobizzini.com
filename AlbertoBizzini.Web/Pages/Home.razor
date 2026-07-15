@@ -31,16 +31,12 @@
 							break;
 					}
 				</h3>
-				@* <MudToolBar Dense WrapContent="false">
-					<MudIconButton Variant="Variant.Outlined" Color="Color.Primary" Icon="@Icons.Material.TwoTone.KeyboardArrowLeft" OnClick="DecreaseDeltaDays" Size="Size.Small" />
-					<MudIconButton Variant="Variant.Outlined" Color="Color.Primary" Icon="@Icons.Material.TwoTone.KeyboardArrowRight" OnClick="IncreaseDeltaDays" Disabled="@(_kindleClippingOfTheDayDeltaDays == 0)" Size="Size.Small" />
-				</MudToolBar> *@
 			</MudStack>
 			<MudText Typo="Typo.caption">@L["KindleClippingHeaderCaption"]</MudText>
 		</TitleContent>
 
 		<ChildContent>
-			<KindleClippingOfTheDay DeltaDays="@_kindleClippingOfTheDayDeltaDays" />
+			<KindleClippingOfTheDay @bind-DeltaDays="@_kindleClippingOfTheDayDeltaDays"/>
 		</ChildContent>
 	</MudExpansionPanel>
 
@@ -123,16 +119,5 @@
 @code
 {
 	private int _kindleClippingOfTheDayDeltaDays = 0;
-
-	protected void DecreaseDeltaDays() => UpdateDeltaDays(-1);
-
-	protected void IncreaseDeltaDays() => UpdateDeltaDays(+1);
-
-	protected void UpdateDeltaDays(int delta)
-	{
-		_kindleClippingOfTheDayDeltaDays += delta;
-		StateHasChanged();
-	}
-
 }
 
