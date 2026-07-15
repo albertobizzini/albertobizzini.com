@@ -131,16 +131,16 @@
     <value>Categorize everything hierarchically, analyze trends, define ownership shares of accounts and categories, automatically allocate expenses, manage foreign currencies with automatic conversion and reconcile accounts and credit cards</value>
   </data>
   <data name="KindleClippingOfTheDayHeaderText" xml:space="preserve">
-    <value>Kindle clipping of the day</value>
+    <value>Highlight of the day</value>
   </data>
   <data name="KindleClippingOfYesterdayHeaderText" xml:space="preserve">
-    <value>Yesterday's Kindle clipping</value>
+    <value>Yesterday's Kindle highlight</value>
   </data>
   <data name="KindleClippingOfDaysAgoHeaderText" xml:space="preserve">
-    <value>Kindle clipping of {0} days ago</value>
+    <value>Highlight of {0} days ago</value>
   </data>
   <data name="KindleClippingHeaderCaption" xml:space="preserve">
-    <value>Random extraction from the list of "clippings" I've made on the Kindle since I started reading eBooks</value>
+    <value>Random extraction from the "highlights" I've made on my Kindle over time</value>
   </data>
   <data name="LinksSectionHeaderCaption" xml:space="preserve">
     <value>Links to my other sites or social accounts</value>
@@ -149,6 +149,6 @@
     <value>Links to online applications I have developed</value>
   </data>
   <data name="IntroductionInstructionText" xml:space="preserve">
-    <value>Click on the headers to expand the closed sections</value>
+    <value>Click on the headers to expand the sections</value>
   </data>
 </root>
