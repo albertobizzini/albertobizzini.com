@@ -31,11 +31,15 @@ else
 				</span>
 			}
 		</MudText>
-		@if (_clipping is not null)
-		{
-			<MudButton Variant="Variant.Text" OnClick="DecreaseDeltaDays">@L["ShowPreviusDay"] (@DeltaDays)</MudButton>
-		}
 	</MudStack>
+	@if (_clipping is not null)
+	{
+		<MudToolBar Dense>
+			<MudIconButton Variant="Variant.Text" Icon="@Icons.Material.TwoTone.KeyboardArrowLeft" OnClick="DecreaseDeltaDays" Size="Size.Small" />
+			<MudIconButton Variant="Variant.Text" Icon="@Icons.Material.TwoTone.KeyboardArrowRight" OnClick="IncreaseDeltaDays" Disabled="@(DeltaDays == 0)" Size="Size.Small" />
+		</MudToolBar>
+	}
+
 }
 
     
@@ -61,9 +65,13 @@ else
 		StateHasChanged();
 	}
 
-	protected void DecreaseDeltaDays()
+	protected void DecreaseDeltaDays() => UpdateDeltaDays(-1);
+
+	protected void IncreaseDeltaDays() => UpdateDeltaDays(+1);
+
+	protected void UpdateDeltaDays(int delta)
 	{
-		DeltaDays--;
+		DeltaDays += delta;
 		GetClipping();
 	}
 }
