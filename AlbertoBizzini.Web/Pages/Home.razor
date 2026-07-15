@@ -13,23 +13,27 @@
 	<MudExpansionPanel Expanded>
 
 		<TitleContent>
-			<h3>
-				@switch (_kindleClippingOfTheDayDeltaDays)
-				{
-					case 0:
-						@L["KindleClippingOfTheDayHeaderText"]
-						break;
-					case -1:
-						@L["KindleClippingOfYesterdayHeaderText"]
-						break;
-					default:
-						@L["KindleClippingOfDaysAgoHeaderText", -_kindleClippingOfTheDayDeltaDays]
-						break;
-				}
-
-				<MudIconButton Variant="Variant.Text" Icon="@Icons.Material.TwoTone.KeyboardArrowLeft" OnClick="DecreaseDeltaDays" Size="Size.Small" />
-				<MudIconButton Variant="Variant.Text" Icon="@Icons.Material.TwoTone.KeyboardArrowRight" OnClick="IncreaseDeltaDays" Disabled="@(_kindleClippingOfTheDayDeltaDays == 0)" Size="Size.Small" />
-			</h3>
+			<MudStack Row Justify="Justify.SpaceBetween" StretchItems="StretchItems.Middle" Spacing="4" AlignItems="AlignItems.Center">
+				<h3>
+					@switch (_kindleClippingOfTheDayDeltaDays)
+					{
+						case 0:
+							@L["KindleClippingOfTheDayHeaderText"]
+							break;
+						case -1:
+							@L["KindleClippingOfYesterdayHeaderText"]
+							break;
+						default:
+							@L["KindleClippingOfDaysAgoHeaderText", -_kindleClippingOfTheDayDeltaDays]
+							break;
+					}
+				</h3>
+				<MudToolBar Dense WrapContent="false">
+					<MudIconButton Variant="Variant.Outlined" Color="Color.Primary" Icon="@Icons.Material.TwoTone.KeyboardArrowLeft" OnClick="DecreaseDeltaDays" Size="Size.Small" />
+					<MudIconButton Variant="Variant.Outlined" Color="Color.Primary" Icon="@Icons.Material.TwoTone.KeyboardArrowRight" OnClick="IncreaseDeltaDays" Disabled="@(_kindleClippingOfTheDayDeltaDays == 0)" Size="Size.Small" />
+				</MudToolBar>
+			</MudStack>
+			<MudText Typo="Typo.caption">@L["KindleClippingHeaderCaption"]</MudText>
 		</TitleContent>
 
 		<ChildContent>
@@ -52,7 +56,7 @@
 	</MudExpansionPanel>
 
 	
-@* 	<MudExpansionPanel Expanded>
+	@* 	<MudExpansionPanel Expanded>
 
 		<TitleContent>
 			<h3>@L["MyCreationsHeaderText"]</h3>

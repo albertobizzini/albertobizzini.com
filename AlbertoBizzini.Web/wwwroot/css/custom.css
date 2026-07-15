@@ -1,4 +1,10 @@
-﻿.opacity-hi {
+﻿/*
+* {
+    outline: 1px solid red;
+}
+*/
+
+.opacity-hi {
     opacity: 35%;
 }
 

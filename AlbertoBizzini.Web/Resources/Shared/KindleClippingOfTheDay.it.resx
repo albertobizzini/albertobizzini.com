@@ -117,49 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="PageTitle" xml:space="preserve">
-    <value>Home</value>
+  <data name="AddedOnLabel" xml:space="preserve">
+    <value>evidenziato</value>
   </data>
-  <data name="LinksSectionHeaderText" xml:space="preserve">
-    <value>Collegamenti</value>
-  </data>
-  <data name="AvailableAppsSectionHeaderText" xml:space="preserve">
-    <value>App disponibili</value>
-  </data>
-  <data name="MyEtsyShopLinkText" xml:space="preserve">
-    <value>Il mio negozio su Etsy</value>
-  </data>
-  <data name="MyYouTubeChannelLinkText" xml:space="preserve">
-    <value>Il mio canale su YouTube</value>
-  </data>
-  <data name="MyInstagramPageLinkText" xml:space="preserve">
-    <value>La mia pagina su Instragram</value>
-  </data>
-  <data name="IntroductionText" xml:space="preserve">
-    <value>Benvenuti nella mia pagina "portfolio"</value>
-  </data>
-  <data name="FintrackAppDescriptionFirstLine" xml:space="preserve">
-    <value>Traccia le spese, entrate e trasferimenti</value>
-  </data>
-  <data name="MyPhotoAlbumsLinkText" xml:space="preserve">
-    <value>I miei album fotografici</value>
-  </data>
-  <data name="MyPhotoAlbumsSuffixText" xml:space="preserve">
-    <value>(solo del Giappone, per ora)</value>
-  </data>
-  <data name="FintrackAppDescriptionOtherLines" xml:space="preserve">
-    <value>Categorizza tutto in modo gerarchico, analizza gli andamenti, definisci la quota di proprietà di conti e categorie, ripartisci automaticamente le spese, gestisci le valute estere con conversione automatica e riconcilia conti e carte di credito</value>
-  </data>
-  <data name="KindleClippingOfTheDayHeaderText" xml:space="preserve">
-    <value>Estratto Kindle del giorno</value>
-  </data>
-  <data name="KindleClippingOfYesterdayHeaderText" xml:space="preserve">
-    <value>Estratto Kindle di ieri</value>
-  </data>
-  <data name="KindleClippingOfDaysAgoHeaderText" xml:space="preserve">
-    <value>Estratto Kindle di {0} giorni fa</value>
-  </data>
-  <data name="KindleClippingHeaderCaption" xml:space="preserve">
-    <value>Estrazione dall'elenco delle "evidenziazioni" che ho fatto sul Kindle da quanto ho iniziato a leggere gli eBook</value>
+  <data name="PositionLabel" xml:space="preserve">
+    <value>posizione</value>
   </data>
 </root>

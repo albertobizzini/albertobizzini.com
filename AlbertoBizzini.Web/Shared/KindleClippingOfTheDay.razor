@@ -13,10 +13,13 @@ else
 			@if (_clipping is null)
 			{
 				<MudSkeleton Width="80em" />
+				<MudSkeleton Width="80em" />
 			}
 			else
 			{
-				<span>«@_clipping.Text»</span>
+				<span>
+					«@_clipping.Text»
+				</span>
 			}
 		</MudText>
 		<MudText Typo="Typo.caption" Align="Align.Right">
@@ -26,7 +29,12 @@ else
 					tratto da: <MudText Color="Color.Info" Inline>@_clipping.Book.Title</MudText>
 					@if (_clipping.Book.Author is not null)
 					{
-						<MudText Inline="false"> (@_clipping.Book.Author)</MudText>
+						<MudText Inline="true"> (@_clipping.Book.Author)</MudText>
+					}
+					@if (_clipping.AddedOn is not null)
+					{
+						<MudDivider Class="mt-2"/>
+						<MudText Typo="Typo.caption" Class="opacity-med">(@L["AddedOnLabel"] @_clipping.AddedOn.Value.ToLongDateString() - @L["PositionLabel"]: @_clipping.StartLocation)</MudText>
 					}
 				</span>
 			}

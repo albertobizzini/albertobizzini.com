@@ -131,12 +131,15 @@
     <value>Categorize everything hierarchically, analyze trends, define ownership shares of accounts and categories, automatically allocate expenses, manage foreign currencies with automatic conversion and reconcile accounts and credit cards</value>
   </data>
   <data name="KindleClippingOfTheDayHeaderText" xml:space="preserve">
-    <value>Clipping of the day</value>
+    <value>Kindle clipping of the day</value>
   </data>
   <data name="KindleClippingOfYesterdayHeaderText" xml:space="preserve">
-    <value>Yesterday clipping</value>
+    <value>Yesterday's Kindle clipping</value>
   </data>
   <data name="KindleClippingOfDaysAgoHeaderText" xml:space="preserve">
-    <value>Clipping of {0} days ago</value>
+    <value>Kindle clipping of {0} days ago</value>
+  </data>
+  <data name="KindleClippingHeaderCaption" xml:space="preserve">
+    <value>Extract from the list of "clippings" I've made on the Kindle since I started reading eBooks</value>
   </data>
 </root>
