@@ -1,3 +1,5 @@
 <Solution>
   <Project Path="AlbertoBizzini.Web/AlbertoBizzini.Web.csproj" />
+  <Project Path="KindleClippings.ConsoleApp/KindleClippings.ConsoleApp.csproj" />
+  <Project Path="KindleClippings.Parser/KindleClippings.Parser.csproj" />
 </Solution>
