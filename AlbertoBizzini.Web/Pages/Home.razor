@@ -31,10 +31,10 @@
 							break;
 					}
 				</h3>
-				<MudToolBar Dense WrapContent="false">
+				@* <MudToolBar Dense WrapContent="false">
 					<MudIconButton Variant="Variant.Outlined" Color="Color.Primary" Icon="@Icons.Material.TwoTone.KeyboardArrowLeft" OnClick="DecreaseDeltaDays" Size="Size.Small" />
 					<MudIconButton Variant="Variant.Outlined" Color="Color.Primary" Icon="@Icons.Material.TwoTone.KeyboardArrowRight" OnClick="IncreaseDeltaDays" Disabled="@(_kindleClippingOfTheDayDeltaDays == 0)" Size="Size.Small" />
-				</MudToolBar>
+				</MudToolBar> *@
 			</MudStack>
 			<MudText Typo="Typo.caption">@L["KindleClippingHeaderCaption"]</MudText>
 		</TitleContent>

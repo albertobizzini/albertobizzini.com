@@ -22,38 +22,40 @@ else
 				</span>
 			}
 		</MudText>
-		<MudText Typo="Typo.caption" Align="Align.Right">
-			@if (_clipping is not null)
+		<MudStack Row Justify="Justify.SpaceBetween" StretchItems="StretchItems.Start" AlignItems="AlignItems.Center">
+			<MudText Typo="Typo.caption" Align="Align.Right">
+				@if (_clipping is not null)
+				{
+					<span>
+						tratto da: <MudText Color="Color.Info" Inline>@_clipping.Book.Title</MudText>
+						@if (_clipping.Book.Author is not null)
+						{
+							<MudText Inline="true"> (@_clipping.Book.Author)</MudText>
+						}
+						@if (_clipping.AddedOn is not null)
+						{
+							<MudDivider Class="mt-2" />
+							<MudText Typo="Typo.caption" Class="opacity-med">(@L["AddedOnLabel"] @_clipping.AddedOn.Value.ToLongDateString() - @L["PositionLabel"]: @_clipping.StartLocation)</MudText>
+						}
+					</span>
+				}
+			</MudText>
+			@if (ShowPagination && _clipping is not null)
 			{
-				<span>
-					tratto da: <MudText Color="Color.Info" Inline>@_clipping.Book.Title</MudText>
-					@if (_clipping.Book.Author is not null)
-					{
-						<MudText Inline="true"> (@_clipping.Book.Author)</MudText>
-					}
-					@if (_clipping.AddedOn is not null)
-					{
-						<MudDivider Class="mt-2"/>
-						<MudText Typo="Typo.caption" Class="opacity-med">(@L["AddedOnLabel"] @_clipping.AddedOn.Value.ToLongDateString() - @L["PositionLabel"]: @_clipping.StartLocation)</MudText>
-					}
-				</span>
+				<MudToolBar Dense>
+					<MudIconButton Variant="Variant.Outlined" Color="Color.Primary" Icon="@Icons.Material.TwoTone.KeyboardArrowLeft" OnClick="DecreaseDeltaDays" Size="Size.Small" />
+					<MudIconButton Variant="Variant.Outlined" Color="Color.Primary" Icon="@Icons.Material.TwoTone.KeyboardArrowRight" OnClick="IncreaseDeltaDays" Disabled="@(DeltaDays == 0)" Size="Size.Small" />
+				</MudToolBar>
 			}
-		</MudText>
+		</MudStack>
 	</MudStack>
 
-	@if (ShowPagination && _clipping is not null)
-	{
-		<MudToolBar Dense>
-			<MudIconButton Variant="Variant.Text" Icon="@Icons.Material.TwoTone.KeyboardArrowLeft" OnClick="DecreaseDeltaDays" Size="Size.Small" />
-			<MudIconButton Variant="Variant.Text" Icon="@Icons.Material.TwoTone.KeyboardArrowRight" OnClick="IncreaseDeltaDays" Disabled="@(DeltaDays == 0)" Size="Size.Small" />
-		</MudToolBar>
-	}
 }
 
     
 @code {
 	[Parameter] public int DeltaDays { get; set; } = 0;
-	[Parameter] public bool ShowPagination { get; set; } = false;
+	[Parameter] public bool ShowPagination { get; set; } = true;
 
 	private Clipping? _clipping;
 	private bool _noClippingIsAvailable = false;
