@@ -70,7 +70,13 @@
 
             </MudCardContent>
             <MudCardActions>
-                <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" OnClick="@(async () => await Submit())">@L["SendButtonText"]</MudButton>
+                <MudButton Variant="Variant.Filled"
+                           Color="Color.Primary"
+                           Class="ml-auto"
+                           Disabled="@TurnstileTokenIsNull"
+                           OnClick="@(async () => await Submit())">
+                    @L["SendButtonText"]
+                </MudButton>
             </MudCardActions>
         </MudCard>
     </MudForm>
@@ -87,7 +93,7 @@
         if (!_form.IsValid)
             return;
 
-        if (_turnstileToken is null)
+        if (TurnstileTokenIsNull)
         {
             Snackbar.Add("Turnstile token not set", Severity.Error);
 
@@ -114,6 +120,7 @@
 
     private Turnstile _turnstile;
     private string? _turnstileToken = null;
+    private bool TurnstileTokenIsNull => _turnstileToken is null;
 
     private readonly TurnstileOptions _options = new()
     {
