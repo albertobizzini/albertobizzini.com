@@ -15,12 +15,18 @@
 	<MudPaper Class="mt-2" Elevation="0">
 		@ChildContent
 	</MudPaper>
-	<MudDivider Class="mt-4" />
+	@if (_dividerNeedes)
+	{
+		<MudDivider Class="mt-4" />
+	}
 	<MudStack Row Wrap="Wrap.Wrap" Justify="Justify.SpaceBetween" Class="mt-3" AlignItems="AlignItems.Center">
-		<MudButton EndIcon="@Icons.Material.TwoTone.OpenInNew" Href="@AppLink" Target="_blank" Color="Color.Tertiary" Variant="Variant.Text">
-			@L["FollowApplicationLinkText"]
-		</MudButton>
-		@if (ShowOnlyInItalian)
+		@if (!HideOpenButton)
+		{
+			<MudButton EndIcon="@Icons.Material.TwoTone.OpenInNew" OnClick="OpenInNewTab" Target="_blank" Color="Color.Tertiary" Variant="Variant.Text">
+				@L["FollowApplicationLinkText"]
+			</MudButton>
+		}
+		@if (_showOnlyInItalian)
 		{
 			<MudAlert Severity="Severity.Warning" NoIcon Dense Style="font-size: 0.8rem">@L["OnlyInItalianMessageText"]</MudAlert>
 		}
@@ -32,7 +38,7 @@
 </MudPaper>
 
 @code
-{
+	{
 	[Parameter] public string? AppName { get; set; }
 	[Parameter] public RenderFragment? ChildContent { get; set; }
 	[Parameter] public string? AppLink { get; set; }
@@ -40,8 +46,10 @@
 	[Parameter] public bool EnrollNeeded { get; set; } = false;
 	[Parameter] public string? Version { get; set; } = null;
 	[Parameter] public int Elevation { get; set; } = 8;
+	[Parameter] public bool HideOpenButton { get; set; } = true;
 
-	private bool ShowOnlyInItalian => OnlyItalian && (!CultureInfo.DefaultThreadCurrentCulture?.TwoLetterISOLanguageName.Equals("it", StringComparison.OrdinalIgnoreCase) ?? true);
+	private bool _showOnlyInItalian => OnlyItalian && (!CultureInfo.DefaultThreadCurrentCulture?.TwoLetterISOLanguageName.Equals("it", StringComparison.OrdinalIgnoreCase) ?? true);
+	private bool _dividerNeedes => !HideOpenButton || _showOnlyInItalian || EnrollNeeded;
 
 	private async Task OpenInNewTab()
 	{

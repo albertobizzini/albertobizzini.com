@@ -53,7 +53,7 @@ public class KindleClippingService
         foreach (var clipping in clippings)
         {
             // Generiamo un ID univoco e stabile per il clipping
-            var clippingId = $"{clipping.Book.Title}_{clipping.Page}_{clipping.Text}";
+            var clippingId = $"{clipping.Book.Title}_{clipping.StartLocation}_{clipping.Text}";
 
             // Uniamo la data e il clipping in una chiave unica per quel giorno specifico
             var dayClippingKey = $"{dateString}_{clippingId}";
