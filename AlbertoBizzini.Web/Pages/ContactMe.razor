@@ -1,30 +1,36 @@
 ﻿@page "/contact-me"
 @inject ContactFormModel Model
 @inject ContactFormModelFluentValidator Validator
-@inject IStringLocalizer<ContactFormModel> L
+@inject IStringLocalizer<SharedResources> SR
+@inject IStringLocalizer<ContactMe> L
+@inject IStringLocalizer<ContactFormModel> LM
 @inject ISnackbar Snackbar
 
-<MudForm Model="@Model" @ref="@_form" Validation="@(Validator.ValidateValue)" ValidationDelay="0">
+<PageTitle>@L["PageTitle"] - @SR["WebsiteTitle"]</PageTitle>
+
+<MudText Typo="Typo.body2" Class="pl-2 mb-4">@L["IntroductionText"]</MudText>
+
+<MudForm Model="@Model" @ref="@_form" Validation="@(Validator.ValidateValue)" ValidationDelay="0" class="">
     <MudCard Outlined> 
         <MudCardContent>
 
             <MudStack Spacing="2">
                 <MudTextField @bind-Value="Model.Name"
                               For="@(() => Model.Name)"
-                              Label="@L["NameLabel", Validator.NameMaxLength]"
+                              Label="@LM["NameLabel", Validator.NameMaxLength]"
                               Variant="Variant.Filled"
                               MaxLength="@Validator.NameMaxLength"
                               ShrinkLabel />
 
                 <MudTextField @bind-Value="Model.Email"
                               For="@(() => Model.Email)"
-                              Label="@L["EmailLabel"]"
+                              Label="@LM["EmailLabel"]"
                               Variant="Variant.Filled"
                               ShrinkLabel />
 
                 <MudTextField @bind-Value="Model.Message"
                               For="@(() => Model.Message)"
-                              Label="@L["MessageLabel", Validator.MessageMaxLength]"
+                              Label="@LM["MessageLabel", Validator.MessageMaxLength]"
                               MaxLength="@Validator.MessageMaxLength"
                               Clearable
                               Counter="0"
@@ -37,7 +43,7 @@
 
             <MudCheckBox @bind-Value="Model.PrivacyAccepted"
                          For="@(() => Model.PrivacyAccepted)"
-                         Label="@L["PrivacyAcceptedLabel"]" />
+                         Label="@LM["PrivacyAcceptedLabel"]" />
 
         </MudCardContent>
         <MudCardActions>
@@ -55,7 +61,7 @@
 
         if (_form.IsValid)
         {
-            Snackbar.Add("Submitted!");
+            Snackbar.Add("Submitted!", Severity.Info);
         }
     }
 }
