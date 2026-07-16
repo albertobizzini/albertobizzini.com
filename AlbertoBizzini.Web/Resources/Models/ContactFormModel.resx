@@ -132,4 +132,13 @@
   <data name="MustAcceptPrivacyValidationError" xml:space="preserve">
     <value>You must accept the privacy</value>
   </data>
+  <data name="EmailLabel" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="MessageLabel" xml:space="preserve">
+    <value>Message (max {0} characters)</value>
+  </data>
+  <data name="PrivacyAcceptedLabel" xml:space="preserve">
+    <value>I agree to the Privacy Policy</value>
+  </data>
 </root>

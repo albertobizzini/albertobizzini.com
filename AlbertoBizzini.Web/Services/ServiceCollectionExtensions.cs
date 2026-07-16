@@ -1,8 +1,8 @@
 ﻿using AlbertoBizzini.Web.Services;
-using AlbertoBizzini.Web.ViewModels;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.JSInterop;
 using System.Globalization;
+using AlbertoBizzini.Web.Models;
 
 namespace AlbertoBizzini.Web;
 
@@ -12,8 +12,8 @@ public static class ServiceCollectionExtensions
     {
         services.AddLocalization(options => options.ResourcesPath = "Resources");
         services.AddSingleton<KindleClippingService>();
-        services.AddScoped<ContactFormViewModel>();
-        services.AddScoped<ContactFormViewModelFluentValidator>();
+        services.AddScoped<ContactFormModel>();
+        services.AddScoped<ContactFormModelFluentValidator>();
 
         return services;
     }

@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.Localization;
 
-namespace AlbertoBizzini.Web.ViewModels;
+namespace AlbertoBizzini.Web.Models;
 
-public class ContactFormViewModel
+public class ContactFormModel
 {
     public string Email { get; set; }
 
@@ -12,12 +12,12 @@ public class ContactFormViewModel
     public bool PrivacyAccepted { get; set; }
 }
 
-public class ContactFormViewModelFluentValidator : AbstractValidator<ContactFormViewModel>
+public class ContactFormModelFluentValidator : AbstractValidator<ContactFormModel>
 {
-    public static int MessageMaxLength = 10;
+    public int MessageMaxLength = 10;
 
 
-    public ContactFormViewModelFluentValidator(IStringLocalizer<ContactFormViewModel> l)
+    public ContactFormModelFluentValidator(IStringLocalizer<ContactFormModel> l)
     {
         RuleFor(x => x.Email)
             .NotEmpty()
@@ -41,7 +41,7 @@ public class ContactFormViewModelFluentValidator : AbstractValidator<ContactForm
 
     public Func<object, string, Task<IEnumerable<string>>> ValidateValue => async (model, propertyName) =>
     {
-        var result = await ValidateAsync(ValidationContext<ContactFormViewModel>.CreateWithOptions((ContactFormViewModel)model, x => x.IncludeProperties(propertyName)));
+        var result = await ValidateAsync(ValidationContext<ContactFormModel>.CreateWithOptions((ContactFormModel)model, x => x.IncludeProperties(propertyName)));
         return result.IsValid ? [] : result.Errors.Select(e => e.ErrorMessage);
     };
 }

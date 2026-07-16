@@ -1,8 +1,8 @@
 ﻿@page "/contact-me"
 @using FluentValidation
-@inject ContactFormViewModel Model
-@inject ContactFormViewModelFluentValidator Validator
-@inject IStringLocalizer<ContactFormViewModel> L
+@inject ContactFormModel Model
+@inject ContactFormModelFluentValidator Validator
+@inject IStringLocalizer<ContactFormModel> L
 @inject ISnackbar Snackbar
 
 <MudForm Model="@Model" @ref="@_form" Validation="@(Validator.ValidateValue)" ValidationDelay="0">
@@ -10,7 +10,7 @@
         <MudCardContent>
             <MudTextField Label="@L["EmailLabel"]" Class="mt-3"
                           @bind-Value="Model.Email" For="@(() => Model.Email)" />
-            <MudTextField Label="@L["MessageLabel"]" Class="mt-3" Clearable Counter="0" Sizing="InputSizing.Auto" Lines="4"
+            <MudTextField Label="@L["MessageLabel", Validator.MessageMaxLength]" Class="mt-3" Clearable Counter="0" Sizing="InputSizing.Auto" Lines="4"
                           @bind-Value="Model.Message" For="@(() => Model.Message)" />
             <MudCheckBox Label="@L["PrivacyAcceptedLabel"]" Class="mt-3"
                          @bind-Value="Model.PrivacyAccepted" For="@(() => Model.PrivacyAccepted)" />
