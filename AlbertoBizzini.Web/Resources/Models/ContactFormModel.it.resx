@@ -141,9 +141,6 @@
   <data name="PrivacyAcceptedLabel" xml:space="preserve">
     <value>Accetto l'informativa sulla privacy</value>
   </data>
-  <data name="SendButtonText" xml:space="preserve">
-    <value>Invia messaggio</value>
-  </data>
   <data name="NameLengthValidationError" xml:space="preserve">
     <value>Nome  non deve eccedere {0} caratteri</value>
   </data>

@@ -123,4 +123,7 @@
   <data name="IntroductionText" xml:space="preserve">
     <value>Usa il modulo sottostante per inviarmi un messaggio. Risponderò appena possibile.</value>
   </data>
+  <data name="SendButtonText" xml:space="preserve">
+    <value>Invia messaggio</value>
+  </data>
 </root>

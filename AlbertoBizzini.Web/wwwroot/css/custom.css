@@ -4,6 +4,11 @@
 }
 */
 
+.page-tile
+{
+    font-size: 140%;
+    font-weight: 600;
+}
 .opacity-hi {
     opacity: 35%;
 }

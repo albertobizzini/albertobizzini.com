@@ -8,6 +8,8 @@
 
 <PageTitle>@L["PageTitle"] - @SR["WebsiteTitle"]</PageTitle>
 
+<MudText class="page-tile">@L["PageTitle"]</MudText>
+
 <MudText Typo="Typo.body2" Class="pl-2 mb-4">@L["IntroductionText"]</MudText>
 
 <MudForm Model="@Model" @ref="@_form" Validation="@(Validator.ValidateValue)" ValidationDelay="0" class="">
@@ -37,7 +39,6 @@
                               ShrinkLabel
                               Sizing="InputSizing.Auto"
                               Lines="4"
-
                               Variant="Variant.Filled" />
             </MudStack>
 

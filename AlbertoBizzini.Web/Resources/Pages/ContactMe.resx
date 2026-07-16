@@ -123,4 +123,7 @@
   <data name="IntroductionText" xml:space="preserve">
     <value>Use the form below to send me a message. I'll respond as soon as possible..</value>
   </data>
+  <data name="SendButtonText" xml:space="preserve">
+    <value>Send message</value>
+  </data>
 </root>
