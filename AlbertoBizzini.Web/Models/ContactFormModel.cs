@@ -10,7 +10,8 @@ public class ContactFormModel
 
     public string Message { get; set; }
 
-    public bool PrivacyAccepted { get; set; }
+    public bool PrivacyPolicyViewed { get; set; }
+    public bool ConfirmedPrivacyPolicyViewed { get; set; }
 }
 
 public class ContactFormModelFluentValidator : AbstractValidator<ContactFormModel>
@@ -38,10 +39,13 @@ public class ContactFormModelFluentValidator : AbstractValidator<ContactFormMode
             .Length(1, MessageMaxLength)
             .WithMessage(x => l["MessageLengthValidationError", MessageMaxLength]);
 
-        RuleFor(x => x.PrivacyAccepted)
+        RuleFor(x => x.PrivacyPolicyViewed)
             .NotEmpty()
-            .WithMessage(x => l["MustAcceptPrivacyValidationError"]);
-        ;
+            .WithMessage(x => l["MustViewPrivacyPolicyValidationError"]);
+
+        RuleFor(x => x.ConfirmedPrivacyPolicyViewed)
+            .NotEmpty()
+            .WithMessage(x => l["MustConfirmPrivacyPolicyViewedValidationError"]);
     }
 
     public Func<object, string, Task<IEnumerable<string>>> ValidateValue => async (model, propertyName) =>

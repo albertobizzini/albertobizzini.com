@@ -126,4 +126,10 @@
   <data name="SendButtonText" xml:space="preserve">
     <value>Invia messaggio</value>
   </data>
+  <data name="ShowPrivacyButtonText" xml:space="preserve">
+    <value>Informativa sulla privacy…</value>
+  </data>
+  <data name="PrivacyPolicyAcceptanceHelperTextMessage" xml:space="preserve">
+    <value>Clicca per abilitare l'opzione di accettazione</value>
+  </data>
 </root>

@@ -129,8 +129,8 @@
   <data name="MessageRequiredValidationError" xml:space="preserve">
     <value>Message must not be empty</value>
   </data>
-  <data name="MustAcceptPrivacyValidationError" xml:space="preserve">
-    <value>You must accept the privacy</value>
+  <data name="MustViewPrivacyPoliciyValidationError" xml:space="preserve">
+    <value>I have read the privacy policy</value>
   </data>
   <data name="EmailLabel" xml:space="preserve">
     <value>Email</value>
@@ -138,7 +138,7 @@
   <data name="MessageLabel" xml:space="preserve">
     <value>Message (max {0} characters)</value>
   </data>
-  <data name="PrivacyAcceptedLabel" xml:space="preserve">
+  <data name="ConfirmedPrivacyPolicyViewedLabel" xml:space="preserve">
     <value>I agree to the Privacy Policy</value>
   </data>
   <data name="NameLengthValidationError" xml:space="preserve">
@@ -146,5 +146,8 @@
   </data>
   <data name="NameLabel" xml:space="preserve">
     <value>Name (max {0} characters)</value>
+  </data>
+  <data name="MustConfirmPrivacyPolicyViewedValidationError" xml:space="preserve">
+    <value>You must agree to the privacy Policy</value>
   </data>
 </root>

@@ -6,6 +6,7 @@
 @inject IStringLocalizer<SharedResources> SR
 @inject IStringLocalizer<ContactMe> L
 @inject IStringLocalizer<ContactFormModel> LM
+@inject IDialogService DialogService
 @inject ISnackbar Snackbar
 @inject ILogger<ContactMe> Logger
 
@@ -15,53 +16,69 @@
 
 <MudText Typo="Typo.body2" Class="pl-2 mb-4">@L["IntroductionText"]</MudText>
 
-<MudForm Model="@Model" @ref="@_form" Validation="@(Validator.ValidateValue)" ValidationDelay="0" class="">
-    <MudCard Outlined>
-        <MudCardContent>
+<MudContainer MaxWidth="MaxWidth.Small">
 
-            <MudStack Spacing="2">
-                <MudTextField @bind-Value="Model.Name"
-                              For="@(() => Model.Name)"
-                              Label="@LM["NameLabel", Validator.NameMaxLength]"
-                              Variant="Variant.Filled"
-                              MaxLength="@Validator.NameMaxLength"
-                              ShrinkLabel />
+    <MudForm Model="@Model" @ref="@_form" Validation="@(Validator.ValidateValue)" ValidationDelay="0">
+        <MudCard Outlined>
+            <MudCardContent>
 
-                <MudTextField @bind-Value="Model.Email"
-                              For="@(() => Model.Email)"
-                              Label="@LM["EmailLabel"]"
-                              Variant="Variant.Filled"
-                              ShrinkLabel />
+                <MudStack Spacing="2">
+                    <MudTextField @bind-Value="Model.Name"
+                                  For="@(() => Model.Name)"
+                                  Label="@LM["NameLabel", Validator.NameMaxLength]"
+                                  Variant="Variant.Filled"
+                                  MaxLength="@Validator.NameMaxLength"
+                                  ShrinkLabel />
 
-                <MudTextField @bind-Value="Model.Message"
-                              For="@(() => Model.Message)"
-                              Label="@LM["MessageLabel", Validator.MessageMaxLength]"
-                              MaxLength="@Validator.MessageMaxLength"
-                              Clearable
-                              Counter="0"
-                              ShrinkLabel
-                              Sizing="InputSizing.Auto"
-                              Lines="4"
-                              Variant="Variant.Filled" />
+                    <MudTextField @bind-Value="Model.Email"
+                                  For="@(() => Model.Email)"
+                                  Label="@LM["EmailLabel"]"
+                                  Variant="Variant.Filled"
+                                  ShrinkLabel />
 
-                <MudCheckBox @bind-Value="Model.PrivacyAccepted"
-                             For="@(() => Model.PrivacyAccepted)"
-                             Label="@LM["PrivacyAcceptedLabel"]" />
+                    <MudTextField @bind-Value="Model.Message"
+                                  For="@(() => Model.Message)"
+                                  Label="@LM["MessageLabel", Validator.MessageMaxLength]"
+                                  MaxLength="@Validator.MessageMaxLength"
+                                  Clearable
+                                  Counter="0"
+                                  ShrinkLabel
+                                  Sizing="InputSizing.Auto"
+                                  Lines="4"
+                                  Variant="Variant.Filled" />
 
-                <Turnstile @ref="_turnstile" OnCallback="OnCallback" Options="_options" />
+                    <MudStack Row>
+                        <MudLink @onclick="OpenPrivacyDialogAsync" Variant="Variant.Text" Color="Color.Primary">
+                            @L["ShowPrivacyButtonText"]
+                        </MudLink>
+                        @if (!Model.PrivacyPolicyViewed)
+                        {
+                            <MudText Typo="Typo.caption">(@L["PrivacyPolicyAcceptanceHelperTextMessage"])</MudText>
+                        }
+                    </MudStack>
 
-            </MudStack>
+                    <MudCheckBox @bind-Value="Model.ConfirmedPrivacyPolicyViewed"
+                                 For="@(() => Model.ConfirmedPrivacyPolicyViewed)"
+                                 Label="@LM["ConfirmedPrivacyPolicyViewedLabel"]"
+                                 Disabled="@(!Model.PrivacyPolicyViewed)" />
 
-        </MudCardContent>
-        <MudCardActions>
-            <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" OnClick="@(async () => await Submit())">@L["SendButtonText"]</MudButton>
-        </MudCardActions>
-    </MudCard>
-</MudForm>
+                    <MudStack Row Justify="Justify.Center">
+                        <Turnstile @ref="_turnstile" OnCallback="OnCallback" Options="_options" />
+                    </MudStack>
+
+                </MudStack>
+
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" OnClick="@(async () => await Submit())">@L["SendButtonText"]</MudButton>
+            </MudCardActions>
+        </MudCard>
+    </MudForm>
+
+</MudContainer>
 
 @code {
     private MudForm _form = null!;
-    private string? _turnstileToken = null;
 
     private async Task Submit()
     {
@@ -80,7 +97,23 @@
         Snackbar.Add("Submitted!", Severity.Info);
     }
 
+    private async Task OpenPrivacyDialogAsync()
+    {
+        var options = new DialogOptions { CloseOnEscapeKey = false, CloseButton = false };
+
+        var dialog = await DialogService.ShowAsync<ContactMePrivacyDialog>(title: @L["PrivacyDialogTitle"], options: options);
+        var result = await dialog.Result;
+
+        if (Model.PrivacyPolicyViewed)
+            return;
+
+        Model.PrivacyPolicyViewed = !(result?.Canceled ?? false);
+    }
+
+    #region Cloudflare Turnstile
+
     private Turnstile _turnstile;
+    private string? _turnstileToken = null;
 
     private readonly TurnstileOptions _options = new()
     {
@@ -92,4 +125,7 @@
         _turnstileToken = token;
         Logger.LogInformation("OnCallback fired, token: {token}", token);
     }
+
+    #endregion
+
 }
