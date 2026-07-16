@@ -11,8 +11,9 @@
             <MudStack Spacing="2">
                 <MudTextField @bind-Value="Model.Name"
                               For="@(() => Model.Name)"
-                              Label="@L["NameLabel"]"
+                              Label="@L["NameLabel", Validator.NameMaxLength]"
                               Variant="Variant.Filled"
+                              MaxLength="@Validator.NameMaxLength"
                               ShrinkLabel />
 
                 <MudTextField @bind-Value="Model.Email"
@@ -24,11 +25,13 @@
                 <MudTextField @bind-Value="Model.Message"
                               For="@(() => Model.Message)"
                               Label="@L["MessageLabel", Validator.MessageMaxLength]"
+                              MaxLength="@Validator.MessageMaxLength"
                               Clearable
                               Counter="0"
                               ShrinkLabel
                               Sizing="InputSizing.Auto"
                               Lines="4"
+
                               Variant="Variant.Filled" />
             </MudStack>
 

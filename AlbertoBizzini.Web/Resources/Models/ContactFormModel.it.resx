@@ -144,7 +144,10 @@
   <data name="SendButtonText" xml:space="preserve">
     <value>Invia messaggio</value>
   </data>
+  <data name="NameLengthValidationError" xml:space="preserve">
+    <value>Nome  non deve eccedere {0} caratteri</value>
+  </data>
   <data name="NameLabel" xml:space="preserve">
-    <value>Nome</value>
+    <value>Nome (massimo {0} caratteri)</value>
   </data>
 </root>

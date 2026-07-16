@@ -15,10 +15,15 @@ public class ContactFormModel
 
 public class ContactFormModelFluentValidator : AbstractValidator<ContactFormModel>
 {
+    public int NameMaxLength = 50;
     public int MessageMaxLength = 1000;
 
     public ContactFormModelFluentValidator(IStringLocalizer<ContactFormModel> l)
     {
+        RuleFor(x => x.Name)
+            .Length(1, NameMaxLength)
+            .WithMessage(x => l["NameLengthValidationError", NameMaxLength]);
+
         RuleFor(x => x.Email)
             .NotEmpty()
             .WithMessage(x => l["EmailRequiredValidationError"]);
