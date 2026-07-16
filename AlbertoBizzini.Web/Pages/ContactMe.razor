@@ -43,13 +43,15 @@
                               Sizing="InputSizing.Auto"
                               Lines="4"
                               Variant="Variant.Filled" />
+
+                <MudCheckBox @bind-Value="Model.PrivacyAccepted"
+                             For="@(() => Model.PrivacyAccepted)"
+                             Label="@LM["PrivacyAcceptedLabel"]" />
+
+                <Turnstile @ref="_turnstile" OnCallback="OnCallback" Options="_options" />
+
             </MudStack>
 
-            <MudCheckBox @bind-Value="Model.PrivacyAccepted"
-                         For="@(() => Model.PrivacyAccepted)"
-                         Label="@LM["PrivacyAcceptedLabel"]" />
-
-            <Turnstile @ref="_turnstile" OnCallback="OnCallback" Options="_options"></Turnstile>
         </MudCardContent>
         <MudCardActions>
             <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" OnClick="@(async () => await Submit())">@L["SendButtonText"]</MudButton>
