@@ -21,6 +21,8 @@
             <MudIconButton Color="Color.Inherit" OnClick="@ToggleLanguage"><span class="@_otherLanguageFlagFlagClass" /></MudIconButton>
         </MudTooltip>
 
+        <MudIconButton Href="contact-me" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.TwoTone.Mail" />
+
         <MudTooltip Text="@L["ToggleDarkMode"]">
             <MudIconButton Icon="@(DarkLightModeButtonIcon)" Color="Color.Inherit" OnClick="@DarkModeToggle" />
         </MudTooltip>
