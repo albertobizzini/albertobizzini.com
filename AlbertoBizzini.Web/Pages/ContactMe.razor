@@ -1,19 +1,41 @@
 ﻿@page "/contact-me"
-@using FluentValidation
 @inject ContactFormModel Model
 @inject ContactFormModelFluentValidator Validator
 @inject IStringLocalizer<ContactFormModel> L
 @inject ISnackbar Snackbar
 
 <MudForm Model="@Model" @ref="@_form" Validation="@(Validator.ValidateValue)" ValidationDelay="0">
-    <MudCard>
+    <MudCard Outlined> 
         <MudCardContent>
-            <MudTextField Label="@L["EmailLabel"]" Class="mt-3"
-                          @bind-Value="Model.Email" For="@(() => Model.Email)" />
-            <MudTextField Label="@L["MessageLabel", Validator.MessageMaxLength]" Class="mt-3" Clearable Counter="0" Sizing="InputSizing.Auto" Lines="4"
-                          @bind-Value="Model.Message" For="@(() => Model.Message)" />
-            <MudCheckBox Label="@L["PrivacyAcceptedLabel"]" Class="mt-3"
-                         @bind-Value="Model.PrivacyAccepted" For="@(() => Model.PrivacyAccepted)" />
+
+            <MudStack Spacing="2">
+                <MudTextField @bind-Value="Model.Name"
+                              For="@(() => Model.Name)"
+                              Label="@L["NameLabel"]"
+                              Variant="Variant.Filled"
+                              ShrinkLabel />
+
+                <MudTextField @bind-Value="Model.Email"
+                              For="@(() => Model.Email)"
+                              Label="@L["EmailLabel"]"
+                              Variant="Variant.Filled"
+                              ShrinkLabel />
+
+                <MudTextField @bind-Value="Model.Message"
+                              For="@(() => Model.Message)"
+                              Label="@L["MessageLabel", Validator.MessageMaxLength]"
+                              Clearable
+                              Counter="0"
+                              ShrinkLabel
+                              Sizing="InputSizing.Auto"
+                              Lines="4"
+                              Variant="Variant.Filled" />
+            </MudStack>
+
+            <MudCheckBox @bind-Value="Model.PrivacyAccepted"
+                         For="@(() => Model.PrivacyAccepted)"
+                         Label="@L["PrivacyAcceptedLabel"]" />
+
         </MudCardContent>
         <MudCardActions>
             <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" OnClick="@(async () => await Submit())">@L["SendButtonText"]</MudButton>

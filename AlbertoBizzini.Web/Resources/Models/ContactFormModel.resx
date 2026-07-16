@@ -141,4 +141,10 @@
   <data name="PrivacyAcceptedLabel" xml:space="preserve">
     <value>I agree to the Privacy Policy</value>
   </data>
+  <data name="SendButtonText" xml:space="preserve">
+    <value>Send message</value>
+  </data>
+  <data name="NameLabel" xml:space="preserve">
+    <value>Name</value>
+  </data>
 </root>

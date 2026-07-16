@@ -5,6 +5,7 @@ namespace AlbertoBizzini.Web.Models;
 
 public class ContactFormModel
 {
+    public string Name { get; set; }
     public string Email { get; set; }
 
     public string Message { get; set; }
@@ -14,8 +15,7 @@ public class ContactFormModel
 
 public class ContactFormModelFluentValidator : AbstractValidator<ContactFormModel>
 {
-    public int MessageMaxLength = 10;
-
+    public int MessageMaxLength = 1000;
 
     public ContactFormModelFluentValidator(IStringLocalizer<ContactFormModel> l)
     {
