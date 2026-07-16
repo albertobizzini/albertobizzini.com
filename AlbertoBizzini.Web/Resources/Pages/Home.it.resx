@@ -151,16 +151,16 @@
     <value>Categorizza tutto in modo gerarchico, analizza gli andamenti, definisci la quota di proprietà di conti e categorie, ripartisci automaticamente le spese, gestisci le valute estere con conversione automatica e riconcilia conti e carte di credito</value>
   </data>
   <data name="KindleClippingOfTheDayHeaderText" xml:space="preserve">
-    <value>Estratto del giorno</value>
+    <value>Citazione del giorno</value>
   </data>
   <data name="KindleClippingOfYesterdayHeaderText" xml:space="preserve">
-    <value>Estratto di ieri</value>
+    <value>Citazione di ieri</value>
   </data>
   <data name="KindleClippingOfDaysAgoHeaderText" xml:space="preserve">
-    <value>Estratto di {0} giorni fa</value>
+    <value>Citazione di {0}</value>
   </data>
   <data name="KindleClippingHeaderCaption" xml:space="preserve">
-    <value>Estrazione casuale dalle "evidenziazioni" che ho fatto sul mio Kindle</value>
+    <value>Selezione casuale tra i passaggi che ho evidenziato sul mio Kindle nel corso del tempo.</value>
   </data>
   <data name="LinksSectionHeaderCaption" xml:space="preserve">
     <value>Link a miei altri siti o account social</value>

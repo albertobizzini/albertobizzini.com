@@ -30,7 +30,7 @@ else
 				}
 				@if (_clipping.AddedOn is not null)
 				{
-					<MudText Typo="Typo.caption" Class="opacity-med" Style="display:block">(@L["AddedOnLabel"] @_clipping.AddedOn.Value.ToLongDateString() - @L["PositionLabel"]: @_clipping.StartLocation)</MudText>
+					<MudText Typo="Typo.caption" Class="opacity-med" Style="display:block">(@L["AddedOnLabel"] @_clipping.AddedOn.Value.ToShortDateString() - @L["PositionLabel"]: @_clipping.StartLocation)</MudText>
 				}
 			</MudText>
 		}

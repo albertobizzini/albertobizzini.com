@@ -131,16 +131,16 @@
     <value>Categorize everything hierarchically, analyze trends, define ownership shares of accounts and categories, automatically allocate expenses, manage foreign currencies with automatic conversion and reconcile accounts and credit cards</value>
   </data>
   <data name="KindleClippingOfTheDayHeaderText" xml:space="preserve">
-    <value>Highlight of the day</value>
+    <value>Quote of the day</value>
   </data>
   <data name="KindleClippingOfYesterdayHeaderText" xml:space="preserve">
-    <value>Yesterday's Kindle highlight</value>
+    <value>Yesterday's quote</value>
   </data>
   <data name="KindleClippingOfDaysAgoHeaderText" xml:space="preserve">
-    <value>Highlight of {0} days ago</value>
+    <value>Quote from {0}</value>
   </data>
   <data name="KindleClippingHeaderCaption" xml:space="preserve">
-    <value>Random extraction from the "highlights" I've made on my Kindle over time</value>
+    <value>Random selection from the passages I've highlighted on my Kindle over time (mostly in Italian, sorry)</value>
   </data>
   <data name="LinksSectionHeaderCaption" xml:space="preserve">
     <value>Links to my other sites or social accounts</value>

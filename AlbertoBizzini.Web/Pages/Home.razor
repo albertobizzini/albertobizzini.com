@@ -26,7 +26,7 @@
 							@L["KindleClippingOfYesterdayHeaderText"]
 							break;
 						default:
-							@L["KindleClippingOfDaysAgoHeaderText", -_kindleClippingOfTheDayDeltaDays]
+							@L["KindleClippingOfDaysAgoHeaderText", DateTime.Today.AddDays(_kindleClippingOfTheDayDeltaDays).ToLongDateString()]
 							break;
 					}
 				</h3>
@@ -89,10 +89,10 @@
 					</MudText>
 				</AppCard>
 
-				@* <AppCard AppName="Collezione treni Pierluigi Cova" AppLink="https://treni-cova.albertobizzini.com/">
+				<AppCard AppName="Collezione treni Pierluigi Cova" AppLink="https://treni-cova.albertobizzini.com/">
 					<MudText>Sei appassionato di fermodellismo?</MudText>
 					<MudText>Consulta il catalogo dei modelli di treni della collezione di Pierluigi Cova. Sono disponibili per la vendita.</MudText>
-				</AppCard> *@
+				</AppCard>
 
 				<AppCard AppName="FinTrack" AppLink="https://fintrack.albertobizzini.com/" OnlyItalian="false" EnrollNeeded Version="v0.1 (alpha)">
 					<MudText Typo="Typo.body1" GutterBottom>
