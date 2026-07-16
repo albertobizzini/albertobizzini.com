@@ -1,10 +1,13 @@
 ﻿@page "/contact-me"
+@using Soenneker.Blazor.Turnstile
+@using Soenneker.Blazor.Turnstile.Options
 @inject ContactFormModel Model
 @inject ContactFormModelFluentValidator Validator
 @inject IStringLocalizer<SharedResources> SR
 @inject IStringLocalizer<ContactMe> L
 @inject IStringLocalizer<ContactFormModel> LM
 @inject ISnackbar Snackbar
+@inject ILogger<ContactMe> Logger
 
 <PageTitle>@L["PageTitle"] - @SR["WebsiteTitle"]</PageTitle>
 
@@ -13,7 +16,7 @@
 <MudText Typo="Typo.body2" Class="pl-2 mb-4">@L["IntroductionText"]</MudText>
 
 <MudForm Model="@Model" @ref="@_form" Validation="@(Validator.ValidateValue)" ValidationDelay="0" class="">
-    <MudCard Outlined> 
+    <MudCard Outlined>
         <MudCardContent>
 
             <MudStack Spacing="2">
@@ -46,6 +49,7 @@
                          For="@(() => Model.PrivacyAccepted)"
                          Label="@LM["PrivacyAcceptedLabel"]" />
 
+            <Turnstile @ref="_turnstile" OnCallback="OnCallback" Options="_options"></Turnstile>
         </MudCardContent>
         <MudCardActions>
             <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto" OnClick="@(async () => await Submit())">@L["SendButtonText"]</MudButton>
@@ -55,14 +59,35 @@
 
 @code {
     private MudForm _form = null!;
+    private string? _turnstileToken = null;
 
     private async Task Submit()
     {
         await _form.ValidateAsync();
 
-        if (_form.IsValid)
+        if (!_form.IsValid)
+            return;
+
+        if (_turnstileToken is null)
         {
-            Snackbar.Add("Submitted!", Severity.Info);
+            Snackbar.Add("Turnstile token not set", Severity.Error);
+
+            return;
         }
+
+        Snackbar.Add("Submitted!", Severity.Info);
+    }
+
+    private Turnstile _turnstile;
+
+    private readonly TurnstileOptions _options = new()
+    {
+        SiteKey = "0x4AAAAAAD3M68Tpy8NU_JJK" // Testing key
+    };
+
+    private void OnCallback(string token)
+    {
+        _turnstileToken = token;
+        Logger.LogInformation("OnCallback fired, token: {token}", token);
     }
 }
