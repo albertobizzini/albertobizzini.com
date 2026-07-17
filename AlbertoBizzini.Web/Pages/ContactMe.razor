@@ -1,6 +1,8 @@
 ﻿@page "/contact-me"
 @using Soenneker.Blazor.Turnstile
 @using Soenneker.Blazor.Turnstile.Options
+@using Soenneker.Blazor.Turnstile.Enums
+
 @inject ContactFormModel Model
 @inject ContactFormModelFluentValidator Validator
 @inject IStringLocalizer<SharedResources> SR
@@ -132,19 +134,20 @@
 
     #region Cloudflare Turnstile
 
-    private Turnstile _turnstile;
+    private Turnstile? _turnstile = null;
     private string? _turnstileToken = null;
     private bool TurnstileTokenIsNull => _turnstileToken is null;
 
     private readonly TurnstileOptions _options = new()
     {
-        SiteKey = "0x4AAAAAAD3M68Tpy8NU_JJK" // Testing key
+        SiteKey = "0x4AAAAAAD3M68Tpy8NU_JJK",
+        Language = System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName
     };
 
     private void OnCallback(string token)
     {
         _turnstileToken = token;
-        Logger.LogInformation("OnCallback fired, token: {token}", token);
+        //Logger.LogInformation("OnCallback fired, token: {token}", token);
     }
 
     #endregion
