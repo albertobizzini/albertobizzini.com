@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AlbertoBizzini.Shared\AlbertoBizzini.Shared.csproj" />
     <ProjectReference Include="..\KindleClippings.Parser\KindleClippings.Parser.csproj" />
   </ItemGroup>
 
