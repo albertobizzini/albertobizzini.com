@@ -3,7 +3,6 @@
 @using Soenneker.Blazor.Turnstile.Options
 @using Soenneker.Blazor.Turnstile.Enums
 
-@inject ContactFormModel Model
 @inject ContactFormModelFluentValidator Validator
 @inject IStringLocalizer<SharedResources> SR
 @inject IStringLocalizer<ContactMe> L
@@ -110,6 +109,8 @@
 
 @code {
     private MudForm _form = null!;
+    private ContactFormModel Model = new();
+
 
     private async Task Submit()
     {

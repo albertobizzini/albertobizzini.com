@@ -12,7 +12,6 @@ public static class ServiceCollectionExtensions
     {
         services.AddLocalization(options => options.ResourcesPath = "Resources");
         services.AddSingleton<KindleClippingService>();
-        services.AddScoped<ContactFormModel>();
         services.AddScoped<ContactFormModelFluentValidator>();
 
         return services;
