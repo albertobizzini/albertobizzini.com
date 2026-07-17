@@ -22,11 +22,11 @@ public class Smtp2GoEmailSender : IEmailSender
         var message = new MimeMessage();
 
         message.From.Add(new MailboxAddress(
-            _options.FromDisplayName,
+            string.Empty,
             _options.From));
 
         message.To.Add(new MailboxAddress(
-            _options.ToDisplayName,
+            string.Empty,
             _options.To));
 
         // Permette di rispondere direttamente al mittente
