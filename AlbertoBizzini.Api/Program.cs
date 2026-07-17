@@ -1,6 +1,16 @@
+using AlbertoBizzini.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.Configure<SmtpOptions>(
+    builder.Configuration.GetSection(SmtpOptions.SectionName));
+
+builder.Services.Configure<TurnstileOptions>(
+    builder.Configuration.GetSection(TurnstileOptions.SectionName));
+
+builder.Services.AddTransient<IContactService, ContactService>();
+builder.Services.AddHttpClient<ITurnstileVerifier, TurnstileVerifier>();
+builder.Services.AddTransient<IEmailSender, Smtp2GoEmailSender>();
 
 builder.Services.AddControllers();
 
