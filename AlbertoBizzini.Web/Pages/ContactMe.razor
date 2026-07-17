@@ -32,12 +32,6 @@
                                   MaxLength="@Validator.NameMaxLength"
                                   ShrinkLabel />
 
-                    <MudTextField @bind-Value="Model.Email"
-                                  For="@(() => Model.Email)"
-                                  Label="@LM["EmailLabel"]"
-                                  Variant="Variant.Filled"
-                                  ShrinkLabel />
-
                     <MudTextField @bind-Value="Model.Message"
                                   For="@(() => Model.Message)"
                                   Label="@LM["MessageLabel", Validator.MessageMaxLength]"
@@ -48,6 +42,12 @@
                                   Sizing="InputSizing.Auto"
                                   Lines="4"
                                   Variant="Variant.Filled" />
+
+                    <MudTextField @bind-Value="Model.Email"
+                                  For="@(() => Model.Email)"
+                                  Label="@LM["EmailLabel"]"
+                                  Variant="Variant.Filled"
+                                  ShrinkLabel />
 
                     @if (!ContactFormModel.IgnorePrivacyPolicy)
                     {
@@ -77,8 +77,18 @@
 
 
 
-                    <MudStack Row Justify="Justify.Center">
-                        <Turnstile @ref="_turnstile" OnCallback="OnCallback" Options="_options" />
+                    <MudStack Justify="Justify.Center">
+                        @if (TurnstileTokenIsNull)
+                        {
+                            @L["AreYouAHumanBeeingLabel"]
+                            <Turnstile @ref="_turnstile" OnCallback="OnCallback" Options="_options" />
+                        }
+                        @if(!TurnstileTokenIsNull)
+                        {
+                            <MudAlert Severity="Severity.Success">
+                                @L["ItSeemsYouAreAHumanBeeingLabel"]
+                            </MudAlert>
+                        }
                     </MudStack>
 
                 </MudStack>
@@ -148,6 +158,7 @@
     {
         _turnstileToken = token;
         //Logger.LogInformation("OnCallback fired, token: {token}", token);
+        StateHasChanged();
     }
 
     #endregion
