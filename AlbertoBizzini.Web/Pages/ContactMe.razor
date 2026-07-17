@@ -47,20 +47,33 @@
                                   Lines="4"
                                   Variant="Variant.Filled" />
 
-                    <MudStack Row>
-                        <MudLink @onclick="OpenPrivacyDialogAsync" Variant="Variant.Text" Color="Color.Primary">
-                            @L["ShowPrivacyButtonText"]
-                        </MudLink>
-                        @if (!Model.PrivacyPolicyViewed)
-                        {
-                            <MudText Typo="Typo.caption">(@L["PrivacyPolicyAcceptanceHelperTextMessage"])</MudText>
-                        }
-                    </MudStack>
+                    @if (!ContactFormModel.IgnorePrivacyPolicy)
+                    {
+                        <MudStack Row>
+                            <MudLink @onclick="OpenPrivacyDialogAsync" Variant="Variant.Text" Color="Color.Primary">
+                                @L["ShowPrivacyButtonText"]
+                            </MudLink>
+                            @if (!Model.PrivacyPolicyViewed)
+                            {
+                                <MudText Typo="Typo.caption">(@L["PrivacyPolicyAcceptanceHelperTextMessage"])</MudText>
+                            }
+                        </MudStack>
 
-                    <MudCheckBox @bind-Value="Model.ConfirmedPrivacyPolicyViewed"
-                                 For="@(() => Model.ConfirmedPrivacyPolicyViewed)"
-                                 Label="@LM["ConfirmedPrivacyPolicyViewedLabel"]"
-                                 Disabled="@(!Model.PrivacyPolicyViewed)" />
+                        <MudCheckBox @bind-Value="Model.ConfirmedPrivacyPolicyViewed"
+                                     For="@(() => Model.ConfirmedPrivacyPolicyViewed)"
+                                     Label="@LM["ConfirmedPrivacyPolicyViewedLabel"]"
+                                     Disabled="@(!Model.PrivacyPolicyViewed)" />
+                    }
+
+                    <MudAlert Severity="Severity.Info" Dense>
+                        @LM["Disclaimer"]
+                    </MudAlert>
+
+                    <MudCheckBox @bind-Value="Model.ResponsibilityTaken"
+                                 For="@(() => Model.ResponsibilityTaken)"
+                                 Label="@LM["ResponsibilityTakenLabel"]" />
+
+
 
                     <MudStack Row Justify="Justify.Center">
                         <Turnstile @ref="_turnstile" OnCallback="OnCallback" Options="_options" />
@@ -73,7 +86,7 @@
                 <MudButton Variant="Variant.Filled"
                            Color="Color.Primary"
                            Class="ml-auto"
-                           Disabled="@TurnstileTokenIsNull"
+                           Disabled="@SubmitButtonDisabled"
                            OnClick="@(async () => await Submit())">
                     @L["SendButtonText"]
                 </MudButton>
@@ -85,6 +98,7 @@
 
 @code {
     private MudForm _form = null!;
+    private bool SubmitButtonDisabled => TurnstileTokenIsNull || !Model.ResponsibilityTaken;
 
     private async Task Submit()
     {

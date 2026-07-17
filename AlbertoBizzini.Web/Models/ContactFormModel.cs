@@ -5,6 +5,8 @@ namespace AlbertoBizzini.Web.Models;
 
 public class ContactFormModel
 {
+    public static bool IgnorePrivacyPolicy = true;
+
     public string Name { get; set; }
     public string Email { get; set; }
 
@@ -12,6 +14,8 @@ public class ContactFormModel
 
     public bool PrivacyPolicyViewed { get; set; }
     public bool ConfirmedPrivacyPolicyViewed { get; set; }
+
+    public bool ResponsibilityTaken { get; set; }
 }
 
 public class ContactFormModelFluentValidator : AbstractValidator<ContactFormModel>
@@ -39,13 +43,22 @@ public class ContactFormModelFluentValidator : AbstractValidator<ContactFormMode
             .Length(1, MessageMaxLength)
             .WithMessage(x => l["MessageLengthValidationError", MessageMaxLength]);
 
-        RuleFor(x => x.PrivacyPolicyViewed)
-            .NotEmpty()
-            .WithMessage(x => l["MustViewPrivacyPolicyValidationError"]);
 
-        RuleFor(x => x.ConfirmedPrivacyPolicyViewed)
+        if (!ContactFormModel.IgnorePrivacyPolicy)
+        {
+            RuleFor(x => x.PrivacyPolicyViewed)
+                .NotEmpty()
+                .WithMessage(x => l["MustViewPrivacyPolicyValidationError"]);
+
+            RuleFor(x => x.ConfirmedPrivacyPolicyViewed)
+                .NotEmpty()
+                .WithMessage(x => l["MustConfirmPrivacyPolicyViewedValidationError"]);
+        }
+
+
+        RuleFor(x => x.ResponsibilityTaken)
             .NotEmpty()
-            .WithMessage(x => l["MustConfirmPrivacyPolicyViewedValidationError"]);
+            .WithMessage(x => l["ResponsibilityTakenRequiredValidationError"]);
     }
 
     public Func<object, string, Task<IEnumerable<string>>> ValidateValue => async (model, propertyName) =>
