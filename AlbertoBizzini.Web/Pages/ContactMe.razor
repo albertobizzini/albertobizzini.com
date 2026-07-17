@@ -77,16 +77,16 @@
 
 
 
-                    <MudStack Justify="Justify.Center">
+                    <MudStack Justify="Justify.Center" Class="mt-4">
                         @if (TurnstileTokenIsNull)
                         {
-                            @L["AreYouAHumanBeeingLabel"]
+                            @L["AreYouAHumanBeingLabel"]
                             <Turnstile @ref="_turnstile" OnCallback="OnCallback" Options="_options" />
                         }
-                        @if(!TurnstileTokenIsNull)
+                        else if (!_hideYouAreAHumanBeingLabel)
                         {
-                            <MudAlert Severity="Severity.Success">
-                                @L["ItSeemsYouAreAHumanBeeingLabel"]
+                            <MudAlert Severity="Severity.Success" ShowCloseIcon CloseIconClicked="HideYouAreAHumanBeingLabel">
+                                @L["ItSeemsYouAreAHumanBeingLabel"]
                             </MudAlert>
                         }
                     </MudStack>
@@ -147,6 +147,7 @@
     private Turnstile? _turnstile = null;
     private string? _turnstileToken = null;
     private bool TurnstileTokenIsNull => _turnstileToken is null;
+    private bool _hideYouAreAHumanBeingLabel = false;
 
     private readonly TurnstileOptions _options = new()
     {
@@ -160,6 +161,8 @@
         //Logger.LogInformation("OnCallback fired, token: {token}", token);
         StateHasChanged();
     }
+
+    private void HideYouAreAHumanBeingLabel() => _hideYouAreAHumanBeingLabel = true;
 
     #endregion
 

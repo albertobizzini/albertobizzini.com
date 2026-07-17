@@ -132,10 +132,10 @@
   <data name="PrivacyPolicyAcceptanceHelperTextMessage" xml:space="preserve">
     <value>Click to enable the acceptance option</value>
   </data>
-  <data name="AreYouAHumanBeeingLabel" xml:space="preserve">
-    <value>I wonder if you are a real human being?</value>
+  <data name="AreYouAHumanBeingLabel" xml:space="preserve">
+    <value>Are a real human being?</value>
   </data>
-  <data name="ItSeemsYouAreAHumanBeeingLabel" xml:space="preserve">
+  <data name="ItSeemsYouAreAHumanBeingLabel" xml:space="preserve">
     <value>You really look like a real human being!</value>
   </data>
 </root>
