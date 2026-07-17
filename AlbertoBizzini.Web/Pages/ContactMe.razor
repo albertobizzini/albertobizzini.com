@@ -78,7 +78,7 @@
 
 
                     <MudStack Justify="Justify.Center" Class="mt-4">
-                        @if (TurnstileTokenIsNull)
+                        @if (Model.TurnstileTokenIsNull)
                         {
                             @L["AreYouAHumanBeingLabel"]
                             <Turnstile @ref="_turnstile" OnCallback="OnCallback" Options="_options" />
@@ -98,7 +98,7 @@
                 <MudButton Variant="Variant.Filled"
                            Color="Color.Primary"
                            Class="ml-auto"
-                           Disabled="@SubmitButtonDisabled"
+                           Disabled="@Model.SubmitButtonDisabled"
                            OnClick="@(async () => await Submit())">
                     @L["SendButtonText"]
                 </MudButton>
@@ -110,7 +110,6 @@
 
 @code {
     private MudForm _form = null!;
-    private bool SubmitButtonDisabled => TurnstileTokenIsNull || !Model.ResponsibilityTaken;
 
     private async Task Submit()
     {
@@ -119,7 +118,7 @@
         if (!_form.IsValid)
             return;
 
-        if (TurnstileTokenIsNull)
+        if (Model.TurnstileTokenIsNull)
         {
             Snackbar.Add("Turnstile token not set", Severity.Error);
 
@@ -127,6 +126,9 @@
         }
 
         Snackbar.Add("Submitted!", Severity.Info);
+        Model.Reset();
+        _hideYouAreAHumanBeingLabel = false;
+        await _turnstile.Reset();
     }
 
     private async Task OpenPrivacyDialogAsync()
@@ -144,9 +146,7 @@
 
     #region Cloudflare Turnstile
 
-    private Turnstile? _turnstile = null;
-    private string? _turnstileToken = null;
-    private bool TurnstileTokenIsNull => _turnstileToken is null;
+    private Turnstile _turnstile;
     private bool _hideYouAreAHumanBeingLabel = false;
 
     private readonly TurnstileOptions _options = new()
@@ -157,7 +157,7 @@
 
     private void OnCallback(string token)
     {
-        _turnstileToken = token;
+        Model.TurnstileToken = token;
         //Logger.LogInformation("OnCallback fired, token: {token}", token);
         StateHasChanged();
     }

@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.Localization;
+using Soenneker.Blazor.Turnstile;
 
 namespace AlbertoBizzini.Web.Models;
 
@@ -16,6 +17,18 @@ public class ContactFormModel
     public bool ConfirmedPrivacyPolicyViewed { get; set; }
 
     public bool ResponsibilityTaken { get; set; }
+
+    public string? TurnstileToken { get; set; } = null;
+    public bool TurnstileTokenIsNull => TurnstileToken is null;
+
+    public bool SubmitButtonDisabled => TurnstileTokenIsNull || !ResponsibilityTaken;
+
+    public void Reset()
+    {
+        Name = Email = Message = string.Empty;
+        PrivacyPolicyViewed = ConfirmedPrivacyPolicyViewed = ResponsibilityTaken = false;
+        TurnstileToken = null;
+    }
 }
 
 public class ContactFormModelFluentValidator : AbstractValidator<ContactFormModel>
