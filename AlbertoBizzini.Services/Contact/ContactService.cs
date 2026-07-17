@@ -21,7 +21,13 @@ public class ContactService : IContactService
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            var email = new ContactEmail { /* mapping... */ };
+            var email = new ContactEmail { 
+                Email = request.Email,
+                Message = request.Message,
+                Name = request.Name,
+                IpAddress = context.IpAddress ?? "n.a.",
+                UserAgent = context.UserAgent ?? "n.a.",
+            };
 
             await _emailSender.SendAsync(email, cancellationToken);
 

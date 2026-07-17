@@ -14,5 +14,8 @@ public sealed class SmtpOptions
 
     public string From { get; init; } = "";
 
+    public string FromDisplayName { get; init; } = "";
+
     public string To { get; init; } = "";
+    public string ToDisplayName { get; init; } = "";
 }
