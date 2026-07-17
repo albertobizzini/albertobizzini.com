@@ -24,7 +24,7 @@
         <MudCard Outlined>
             <MudCardContent>
 
-                <MudStack Spacing="2">
+                <MudStack Spacing="3">
                     <MudTextField @bind-Value="Model.Name"
                                   For="@(() => Model.Name)"
                                   Label="@LM["NameLabel", Validator.NameMaxLength]"
@@ -67,7 +67,7 @@
                                      Disabled="@(!Model.PrivacyPolicyViewed)" />
                     }
 
-                    <MudAlert Severity="Severity.Info" Dense>
+                    <MudAlert Severity="Severity.Warning" Dense>
                         @LM["Disclaimer"]
                     </MudAlert>
 
