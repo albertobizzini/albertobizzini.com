@@ -1,4 +1,4 @@
-using AlbertoBizzini.Api.Services;
+using AlbertoBizzini.Api;
 using AlbertoBizzini.Services;
 using System.Threading.RateLimiting;
 
@@ -10,19 +10,38 @@ builder.Services.Configure<SmtpOptions>(
 builder.Services.Configure<TurnstileOptions>(
     builder.Configuration.GetSection(TurnstileOptions.SectionName));
 
+builder.Services.Configure<RateLimiterOptions>(
+    builder.Configuration.GetSection(RateLimiterOptions.SectionName));
+
+var rateLimiterOptions = builder.Configuration
+    .GetSection(RateLimiterOptions.SectionName)
+    .Get<RateLimiterOptions>()
+    ?? new RateLimiterOptions();
 
 builder.Services.AddRateLimiter(options =>
 {
-    options.AddPolicy("contact", httpContext =>
+    options.AddPolicy(RateLimiterPolicies.Contact, httpContext =>
         RateLimitPartition.GetFixedWindowLimiter(
-            partitionKey: ClientIpService.GetClientIp(httpContext),
+            partitionKey: httpContext.GetClientIp(),
             factory: _ => new FixedWindowRateLimiterOptions
             {
-                PermitLimit = 3,
-                Window = TimeSpan.FromMinutes(15),
-                QueueLimit = 0,
-                AutoReplenishment = true
+                PermitLimit = rateLimiterOptions.PermitLimit,
+                Window =  TimeSpan.FromMinutes(rateLimiterOptions.WindowMinutes),
+                QueueLimit = rateLimiterOptions.QueueLimit,
+                AutoReplenishment = rateLimiterOptions.AutoReplenishment
             }));
+
+    options.OnRejected = async (context, token) =>
+    {
+        var logger = context.HttpContext.RequestServices
+            .GetRequiredService<ILogger<Program>>();
+
+        logger.LogWarning(
+            "Rate limit exceeded from IP {Ip}",
+            context.HttpContext.GetClientIp());
+
+        await Task.CompletedTask;
+    };
 
     options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
 });
@@ -42,6 +61,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseForwardedHeaders();
     app.UseRateLimiter();
 }
 

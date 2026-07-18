@@ -1,15 +1,15 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Primitives;
 
-namespace AlbertoBizzini.Api.Services;
+namespace AlbertoBizzini.Api;
 
-public static class ClientIpService
+public static class HttpContextExtensions
 {
     /// <summary>
     /// Restituisce l'indirizzo IP del client.
     /// L'ordine di ricerca può essere modificato in base all'infrastruttura.
     /// </summary>
-    public static string GetClientIp(HttpContext context)
+    public static string GetClientIp(this HttpContext context)
     {
         // 1. Cloudflare
         if (TryGetHeader(context, "CF-Connecting-IP", out var ip))
