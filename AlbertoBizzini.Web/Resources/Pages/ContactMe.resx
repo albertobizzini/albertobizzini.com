@@ -147,4 +147,10 @@
   <data name="MessageSentFeedback" xml:space="preserve">
     <value>The message was sent successfully</value>
   </data>
+  <data name="Disclaimer" xml:space="preserve">
+    <value>The email address you provide will only be used to reply to your message.
+Given the recreational/personal nature of this site, the email field will not be validated.
+Any abuse will be reported to the authorities.
+In order to prevent misuse of the service and ensure system security, technical data such as IP address and browser information (User Agent) are recorded. Processing is based on the legitimate interest of the data controller pursuant to Art. 6(1)(f) GDPR.</value>
+  </data>
 </root>

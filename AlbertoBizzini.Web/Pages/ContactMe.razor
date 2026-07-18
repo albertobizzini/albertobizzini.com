@@ -54,33 +54,18 @@
                                   Variant="Variant.Filled"
                                   ShrinkLabel />
 
-                    @if (!ContactFormModel.IgnorePrivacyPolicy)
-                    {
-                        <MudStack Row>
-                            <MudLink @onclick="OpenPrivacyDialogAsync" Variant="Variant.Text" Color="Color.Primary">
-                                @L["ShowPrivacyButtonText"]
-                            </MudLink>
-                            @if (!Model.PrivacyPolicyViewed)
-                            {
-                                <MudText Typo="Typo.caption">(@L["PrivacyPolicyAcceptanceHelperTextMessage"])</MudText>
-                            }
-                        </MudStack>
+                    <MudDivider Class="mt-4" />
 
-                        <MudCheckBox @bind-Value="Model.ConfirmedPrivacyPolicyViewed"
-                                     For="@(() => Model.ConfirmedPrivacyPolicyViewed)"
-                                     Label="@LM["ConfirmedPrivacyPolicyViewedLabel"]"
-                                     Disabled="@(!Model.PrivacyPolicyViewed)" />
-                    }
-
-                    <MudAlert Severity="Severity.Warning" Dense>
-                        @LM["Disclaimer"]
-                    </MudAlert>
+                    <MudLink @onclick="OpenPrivacyDialogAsync" Color="Color.Primary">
+                        @L["ShowPrivacyButtonText"]
+                    </MudLink>
 
                     <MudCheckBox @bind-Value="Model.ResponsibilityTaken"
                                  For="@(() => Model.ResponsibilityTaken)"
+                                 Disabled="@(!Model.PrivacyPolicyViewed)"
                                  Label="@LM["ResponsibilityTakenLabel"]" />
 
-
+                    <MudDivider />
 
                     <MudStack Justify="Justify.Center" Class="mt-4">
                         @if (Model.TurnstileTokenIsNull)

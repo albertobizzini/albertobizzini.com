@@ -147,4 +147,10 @@
   <data name="MessageSentFeedback" xml:space="preserve">
     <value>Il messaggio è stato inviato correttamente</value>
   </data>
+  <data name="Disclaimer" xml:space="preserve">
+    <value>L'indirizzo email che hai indicato sarà solo usato per rispondere al messaggio.
+Data la natura ludico/personale di questo sito il campo email non sarà validato.
+Ogni abuso sarà segnalato all'autorità.
+Al fine di prevenire utilizzi impropri del servizio e garantire la sicurezza del sistema, vengono registrati dati tecnici quali indirizzo IP e informazioni relative al browser (User-Agent). Il trattamento si basa sul legittimo interesse del titolare ai sensi dell'art. 6(1)(f) GDPR.</value>
+  </data>
 </root>

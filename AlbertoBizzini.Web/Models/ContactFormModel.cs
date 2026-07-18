@@ -6,15 +6,12 @@ namespace AlbertoBizzini.Web.Models;
 
 public class ContactFormModel
 {
-    public static bool IgnorePrivacyPolicy = true;
-
     public string Name { get; set; }
     public string Email { get; set; }
 
     public string Message { get; set; }
 
     public bool PrivacyPolicyViewed { get; set; }
-    public bool ConfirmedPrivacyPolicyViewed { get; set; }
 
     public bool ResponsibilityTaken { get; set; }
 
@@ -26,7 +23,7 @@ public class ContactFormModel
     public void Reset()
     {
         Name = Email = Message = string.Empty;
-        PrivacyPolicyViewed = ConfirmedPrivacyPolicyViewed = ResponsibilityTaken = false;
+        PrivacyPolicyViewed = ResponsibilityTaken = false;
         TurnstileToken = null;
     }
 }
@@ -56,16 +53,9 @@ public class ContactFormModelFluentValidator : AbstractValidator<ContactFormMode
             .Length(1, MessageMaxLength)
             .WithMessage(x => l["MessageLengthValidationError", MessageMaxLength]);
 
-        if (!ContactFormModel.IgnorePrivacyPolicy)
-        {
-            RuleFor(x => x.PrivacyPolicyViewed)
-                .NotEmpty()
-                .WithMessage(x => l["MustViewPrivacyPolicyValidationError"]);
-
-            RuleFor(x => x.ConfirmedPrivacyPolicyViewed)
-                .NotEmpty()
-                .WithMessage(x => l["MustConfirmPrivacyPolicyViewedValidationError"]);
-        }
+        RuleFor(x => x.PrivacyPolicyViewed)
+            .NotEmpty()
+            .WithMessage(x => l["MustViewPrivacyPolicyValidationError"]);
 
         RuleFor(x => x.ResponsibilityTaken)
             .NotEmpty()

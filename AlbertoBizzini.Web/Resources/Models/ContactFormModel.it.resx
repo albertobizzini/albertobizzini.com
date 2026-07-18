@@ -147,16 +147,8 @@
   <data name="NameLabel" xml:space="preserve">
     <value>Chi sei? (massimo {0} caratteri)</value>
   </data>
-  <data name="MustConfirmPrivacyPolicyViewedValidationError" xml:space="preserve">
-    <value>Devi accettare l'informativa sulla privacy</value>
-  </data>
   <data name="ResponsibilityTakenLabel" xml:space="preserve">
-    <value>Ho capito e mi assumo tutte le responsabilità riguardo alle informazioni inserite</value>
-  </data>
-  <data name="Disclaimer" xml:space="preserve">
-    <value>L'indirizzo email che hai indicato sarà solo usato per rispondere al messaggio.
-Data la natura ludico/personale di questo sito il campo email non sarà validato.
-Ogni abuso sarà segnalato all'autorità.</value>
+    <value>Ho letto l'informativa sulla privacy e mi assumo tutte le responsabilità riguardo alle informazioni inserite</value>
   </data>
   <data name="ResponsibilityTakenRequiredValidationError" xml:space="preserve">
     <value>L'assunzione di responsabilità è obbligatoria</value>

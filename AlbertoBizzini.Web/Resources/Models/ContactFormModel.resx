@@ -147,16 +147,8 @@
   <data name="NameLabel" xml:space="preserve">
     <value>Who are you? (max {0} characters)</value>
   </data>
-  <data name="MustConfirmPrivacyPolicyViewedValidationError" xml:space="preserve">
-    <value>You must agree to the privacy Policy</value>
-  </data>
   <data name="ResponsibilityTakenLabel" xml:space="preserve">
-    <value>I understand and assume full responsibility for the information provided.</value>
-  </data>
-  <data name="Disclaimer" xml:space="preserve">
-    <value>The email address you provide will only be used to reply to your message.
-Due to the recreational/personal nature of this site, the email address field will not be validated.
-Any abuse will be reported to the authorities.</value>
+    <value>I have read the privacy policy and I take full responsibility for the information provided.</value>
   </data>
   <data name="ResponsibilityTakenRequiredValidationError" xml:space="preserve">
     <value>Taking responsibility is mandatory</value>

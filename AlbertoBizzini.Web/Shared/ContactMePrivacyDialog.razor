@@ -1,16 +1,19 @@
 ﻿@inject IStringLocalizer<SharedResources> SR
-@inject IStringLocalizer<ContactMePrivacyDialog> L
+@inject IStringLocalizer<Pages.ContactMe> L
 
 <MudDialog>
     <TitleContent>
-        Dialog Title
+        @L["ShowPrivacyButtonText"]
     </TitleContent>
     <DialogContent>
-        Dialog Content
+        @foreach(var line in Lines)
+        {
+            <MudText>@line</MudText>
+        }
     </DialogContent>
     <DialogActions>
-        <MudButton OnClick="Cancel">Cancel</MudButton>
-        <MudButton Color="Color.Primary" OnClick="Submit">OK</MudButton>
+        @* <MudButton OnClick="Cancel">Cancel</MudButton> *@
+        <MudButton Color="Color.Primary" OnClick="Submit">@SR["OK"]</MudButton>
     </DialogActions>
 </MudDialog>
 
@@ -21,4 +24,6 @@
     private void Submit() => MudDialog.Close(DialogResult.Ok(true));
 
     private void Cancel() => MudDialog.Cancel();
+
+    private string[] Lines => L["Disclaimer"].Value.Split(Environment.NewLine);
 }
