@@ -69,9 +69,30 @@ builder.Services.AddTransient<IEmailSender, Smtp2GoEmailSender>();
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
 
+
+builder.Services.Configure<CorsOptions>(
+    builder.Configuration.GetSection(CorsOptions.SectionName));
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("BlazorClient", policy =>
+    {
+        var origins = builder.Configuration
+            .GetSection(CorsOptions.SectionName)
+            .Get<CorsOptions>()?
+            .AllowedOrigins ?? [];
+
+        policy
+            .WithOrigins(origins)
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
 var app = builder.Build();
 
 app.UseHttpsRedirection();
+app.UseCors("BlazorClient");
 
 if (app.Environment.IsDevelopment())
 {

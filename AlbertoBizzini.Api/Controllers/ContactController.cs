@@ -24,8 +24,8 @@ public class ContactController : ControllerBase
         CancellationToken cancellationToken)
     {
         // "Website" is a HoneyPot
-        if (!string.IsNullOrWhiteSpace(request.Website)) 
-            return Ok();
+        if (!string.IsNullOrWhiteSpace(request.Website))
+            return Ok(new ContactResponse { Success = true });
 
         var context = new ContactContext
         {

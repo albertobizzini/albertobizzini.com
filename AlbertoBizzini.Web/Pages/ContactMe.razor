@@ -2,8 +2,10 @@
 @using Soenneker.Blazor.Turnstile
 @using Soenneker.Blazor.Turnstile.Options
 @using Soenneker.Blazor.Turnstile.Enums
+@using AlbertoBizzini.Shared
 
 @inject ContactFormModelFluentValidator Validator
+@inject IContactApiClient ContactApi
 @inject IStringLocalizer<SharedResources> SR
 @inject IStringLocalizer<ContactMe> L
 @inject IStringLocalizer<ContactFormModel> LM
@@ -126,10 +128,35 @@
             return;
         }
 
-        Snackbar.Add("Submitted!", Severity.Info);
-        Model.Reset();
-        _hideYouAreAHumanBeingLabel = false;
-        await _turnstile.Reset();
+        var request = new ContactRequest
+        {
+            Name = Model.Name,
+            Email = Model.Email,
+            Message = Model.Message,
+            ResponsibilityTaken = Model.ResponsibilityTaken,
+            TurnstileToken = Model.TurnstileToken!
+        };
+
+        try
+        {
+            var response = await ContactApi.SendAsync(request);
+            if (!response.Success)
+            {
+                Logger.LogInformation("ContactApi ErrorCode: {ErrorCode}", response.ErrorCode);
+                Snackbar.Add(@L["MessageNotSentFeedback"], Severity.Error);
+                return;
+            }
+
+            Snackbar.Add(@L["MessageSentFeedback"], Severity.Info);
+            Model.Reset();
+            _hideYouAreAHumanBeingLabel = false;
+            await _turnstile.Reset();
+        }
+        catch (Exception ex)
+        {
+            Logger.LogInformation("ContactApi Exception: {Message}", ex.Message);
+            Snackbar.Add(@L["MessageNotSentFeedback"], Severity.Error);
+        }
     }
 
     private async Task OpenPrivacyDialogAsync()
@@ -163,7 +190,7 @@
         StateHasChanged();
     }
 
-    private void HideYouAreAHumanBeingLabel() 
+    private void HideYouAreAHumanBeingLabel()
         => _hideYouAreAHumanBeingLabel = true;
 
     #endregion
