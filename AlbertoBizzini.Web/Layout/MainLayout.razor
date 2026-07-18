@@ -74,6 +74,8 @@
 
         NavigationManager.LocationChanged += OnLocationChanged;
 
+        UpdateCurrentPage();
+
         _theme = new()
         {
             PaletteLight = _lightPalette,
@@ -83,13 +85,14 @@
     }
 
 
-    private bool _isHomePage = true;
+    private bool _isHomePage;
 
     private void OnLocationChanged(object? sender, LocationChangedEventArgs e)
     {
         UpdateCurrentPage();
         InvokeAsync(StateHasChanged);
     }
+
     private void UpdateCurrentPage()
     {
         _isHomePage = string.IsNullOrEmpty(
