@@ -57,7 +57,10 @@ builder.Services.AddRateLimiter(options =>
 #region Application services
 
 builder.Services.AddTransient<IContactService, ContactService>();
-builder.Services.AddHttpClient<ITurnstileVerifier, TurnstileVerifier>();
+builder.Services.AddHttpClient<ITurnstileVerifier, TurnstileVerifier>(client =>
+{
+    client.Timeout = TimeSpan.FromSeconds(5);
+});
 builder.Services.AddTransient<IEmailSender, Smtp2GoEmailSender>();
 
 #endregion

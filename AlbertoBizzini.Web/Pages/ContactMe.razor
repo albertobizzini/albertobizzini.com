@@ -159,7 +159,7 @@
     private void OnCallback(string token)
     {
         Model.TurnstileToken = token;
-        //Logger.LogInformation("OnCallback fired, token: {token}", token);
+        Logger.LogInformation("OnCallback fired, token:\n{token}", token);
         StateHasChanged();
     }
 

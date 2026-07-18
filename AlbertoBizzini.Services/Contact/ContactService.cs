@@ -5,11 +5,15 @@ namespace AlbertoBizzini.Services;
 
 public class ContactService : IContactService
 {
+    private readonly ITurnstileVerifier _turnstileVerifier;
     private readonly IEmailSender _emailSender;
-    
-    public ContactService(IEmailSender emailSender)
+
+    public ContactService(
+        ITurnstileVerifier turnstileVerifier,
+        IEmailSender emailSender)
     {
         _emailSender = emailSender;
+        _turnstileVerifier = turnstileVerifier;
     }
 
     public async Task<ContactResponse> SendAsync(
@@ -17,11 +21,27 @@ public class ContactService : IContactService
             ContactContext context,
             CancellationToken cancellationToken)
     {
+        var turnstileTokenIsValid = await _turnstileVerifier.VerifyAsync(request.TurnstileToken, context.IpAddress, cancellationToken);
+        if (!turnstileTokenIsValid)
+        {
+            return new ContactResponse
+            {
+                Success = false,
+                ErrorCode = "TURNSTILETOKEN_NOT_VALID"
+            };
+        }
+
+        return await SendEmail(request, context, cancellationToken);
+    }
+
+    private async Task<ContactResponse> SendEmail(ContactRequest request, ContactContext context, CancellationToken cancellationToken)
+    {
         try
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            var email = new ContactEmail { 
+            var email = new ContactEmail
+            {
                 Email = request.Email,
                 Message = request.Message,
                 Name = request.Name,
@@ -65,6 +85,4 @@ public class ContactService : IContactService
             };
         }
     }
-
-
 }
