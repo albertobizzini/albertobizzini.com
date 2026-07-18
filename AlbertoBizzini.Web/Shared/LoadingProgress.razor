@@ -1,0 +1,22 @@
+﻿@inject IStringLocalizer<SharedResources> SR
+
+@if (Visible)
+{
+	<MudStack Justify="@Justify" Row AlignItems="AlignItems.Center" Class="ma-4">
+		<MudProgressCircular Indeterminate="true" Color="Color.Info" Size="Size.Small" />
+		<MudAlert Severity="Severity.Info" NoIcon Variant="Variant.Text">@DisplayText…</MudAlert>
+	</MudStack>
+}
+
+@code {
+	[Parameter]
+	public string? Text { get; set; }
+
+	[Parameter]
+	public bool Visible { get; set; } = true;
+
+	[Parameter]
+	public Justify Justify { get; set; } = Justify.FlexStart;
+
+	private string DisplayText => Text ?? SR["LoadingProgressDefaultText"];
+}

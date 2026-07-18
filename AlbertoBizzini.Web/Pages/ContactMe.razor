@@ -19,6 +19,10 @@
 
 <MudText Typo="Typo.body2" Class="pl-2 mb-4">@L["IntroductionText"]</MudText>
 
+<MudOverlay Visible="_submitting" Absolute>
+    <LoadingProgress Text="@SR["SubmittingMessageText"]" />
+</MudOverlay>
+
 <MudContainer MaxWidth="MaxWidth.Small">
 
     <MudForm Model="@Model" @ref="@_form" Validation="@(Validator.ValidateValue)" ValidationDelay="0">
@@ -112,7 +116,7 @@
 @code {
     private MudForm _form = null!;
     private ContactFormModel Model = new();
-
+    private bool _submitting = false;
 
     private async Task Submit()
     {
@@ -121,10 +125,9 @@
         if (!_form.IsValid)
             return;
 
-        if (Model.TurnstileTokenIsNull)
+        if (Model.TurnstileTokenIsNull) // should never happen because of Model.SubmitButtonDisabled
         {
-            Snackbar.Add("Turnstile token not set", Severity.Error);
-
+            Snackbar.Add(@L["TurnstileTokenIsNullErrorMessage"], Severity.Error);
             return;
         }
 
@@ -139,6 +142,8 @@
 
         try
         {
+            _submitting = true;
+
             var response = await ContactApi.SendAsync(request);
             if (!response.Success)
             {
@@ -156,6 +161,10 @@
         {
             Logger.LogInformation("ContactApi Exception: {Message}", ex.Message);
             Snackbar.Add(@L["MessageNotSentFeedback"], Severity.Error);
+        }
+        finally
+        {
+            _submitting = false;
         }
     }
 

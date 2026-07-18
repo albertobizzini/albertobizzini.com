@@ -123,4 +123,10 @@
   <data name="WebsiteTitle" xml:space="preserve">
     <value>Portfolio di Alberto Bizzini</value>
   </data>
+  <data name="LoadingProgressDefaultText" xml:space="preserve">
+    <value>Caricamento</value>
+  </data>
+  <data name="SubmittingMessageText" xml:space="preserve">
+    <value>Invio</value>
+  </data>
 </root>

@@ -121,7 +121,7 @@
     <value>Contact me</value>
   </data>
   <data name="IntroductionText" xml:space="preserve">
-    <value>Use the form below to send me a message. I'll respond as soon as possible..</value>
+    <value>Use the form below to send me a message. I'll respond as soon as possible.</value>
   </data>
   <data name="SendButtonText" xml:space="preserve">
     <value>Send message</value>
@@ -137,5 +137,14 @@
   </data>
   <data name="ItSeemsYouAreAHumanBeingLabel" xml:space="preserve">
     <value>You really look like a real human being!</value>
+  </data>
+  <data name="TurnstileTokenIsNullErrorMessage" xml:space="preserve">
+    <value>Please complete the verification that you are a human</value>
+  </data>
+  <data name="MessageNotSentFeedback" xml:space="preserve">
+    <value>The message could not be sent</value>
+  </data>
+  <data name="MessageSentFeedback" xml:space="preserve">
+    <value>The message was sent successfully</value>
   </data>
 </root>

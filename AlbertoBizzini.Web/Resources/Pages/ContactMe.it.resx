@@ -138,4 +138,13 @@
   <data name="ItSeemsYouAreAHumanBeingLabel" xml:space="preserve">
     <value>Sembra proprio che tu sia un essere umano in carne ed ossa!</value>
   </data>
+  <data name="TurnstileTokenIsNullErrorMessage" xml:space="preserve">
+    <value>Per favore completa la verifica che sei un essere umano</value>
+  </data>
+  <data name="MessageNotSentFeedback" xml:space="preserve">
+    <value>Non è stato possibile inviare il messaggio</value>
+  </data>
+  <data name="MessageSentFeedback" xml:space="preserve">
+    <value>Il messaggio è stato inviato correttamente</value>
+  </data>
 </root>

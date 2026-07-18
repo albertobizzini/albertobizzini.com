@@ -107,4 +107,10 @@
   <data name="WebsiteTitle" xml:space="preserve">
     <value>Alberto Bizzini's portfolio</value>
   </data>
+  <data name="LoadingProgressDefaultText" xml:space="preserve">
+    <value>Loading</value>
+  </data>
+  <data name="SubmittingMessageText" xml:space="preserve">
+    <value>Submitting</value>
+  </data>
 </root>

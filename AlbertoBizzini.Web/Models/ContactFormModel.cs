@@ -56,7 +56,6 @@ public class ContactFormModelFluentValidator : AbstractValidator<ContactFormMode
             .Length(1, MessageMaxLength)
             .WithMessage(x => l["MessageLengthValidationError", MessageMaxLength]);
 
-
         if (!ContactFormModel.IgnorePrivacyPolicy)
         {
             RuleFor(x => x.PrivacyPolicyViewed)
@@ -68,10 +67,10 @@ public class ContactFormModelFluentValidator : AbstractValidator<ContactFormMode
                 .WithMessage(x => l["MustConfirmPrivacyPolicyViewedValidationError"]);
         }
 
-
         RuleFor(x => x.ResponsibilityTaken)
             .NotEmpty()
             .WithMessage(x => l["ResponsibilityTakenRequiredValidationError"]);
+
     }
 
     public Func<object, string, Task<IEnumerable<string>>> ValidateValue => async (model, propertyName) =>
