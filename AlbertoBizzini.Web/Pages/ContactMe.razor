@@ -153,7 +153,10 @@
             }
 
             Snackbar.Add(@L["MessageSentFeedback"], Severity.Info);
-            Model.Reset();
+
+            Model = new();
+            await _form.ResetAsync();
+
             _hideYouAreAHumanBeingLabel = false;
             await _turnstile.Reset();
         }
@@ -195,7 +198,7 @@
     private void OnCallback(string token)
     {
         Model.TurnstileToken = token;
-        Logger.LogInformation("OnCallback fired, token:\n{token}", token);
+        //Logger.LogInformation("OnCallback fired, token:\n{token}", token);
         StateHasChanged();
     }
 
