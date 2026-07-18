@@ -4,6 +4,8 @@ using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 
+#region AppSettings handlers
+
 builder.Services.Configure<SmtpOptions>(
     builder.Configuration.GetSection(SmtpOptions.SectionName));
 
@@ -12,6 +14,10 @@ builder.Services.Configure<TurnstileOptions>(
 
 builder.Services.Configure<RateLimiterOptions>(
     builder.Configuration.GetSection(RateLimiterOptions.SectionName));
+
+#endregion
+
+#region Rate limiting
 
 var rateLimiterOptions = builder.Configuration
     .GetSection(RateLimiterOptions.SectionName)
@@ -46,9 +52,16 @@ builder.Services.AddRateLimiter(options =>
     options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
 });
 
+#endregion
+
+#region Application services
+
 builder.Services.AddTransient<IContactService, ContactService>();
 builder.Services.AddHttpClient<ITurnstileVerifier, TurnstileVerifier>();
 builder.Services.AddTransient<IEmailSender, Smtp2GoEmailSender>();
+
+#endregion
+
 
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
@@ -61,10 +74,10 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    app.UseForwardedHeaders();
-    app.UseRateLimiter();
 }
 
+app.UseForwardedHeaders();
+app.UseRateLimiter();
 app.UseAuthorization();
 app.MapControllers();
 
