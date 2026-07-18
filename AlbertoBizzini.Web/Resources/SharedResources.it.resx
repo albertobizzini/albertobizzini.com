@@ -129,4 +129,7 @@
   <data name="SubmittingMessageText" xml:space="preserve">
     <value>Invio</value>
   </data>
+  <data name="Close" xml:space="preserve">
+    <value>Chiudi</value>
+  </data>
 </root>

@@ -3,17 +3,17 @@
 
 <MudDialog>
     <TitleContent>
-        @L["ShowPrivacyButtonText"]
+        <h3>@L["PrivacyPolicy"]</h3>
     </TitleContent>
     <DialogContent>
         @foreach(var line in Lines)
         {
-            <MudText>@line</MudText>
+            <MudText GutterBottom>@line</MudText>
         }
     </DialogContent>
     <DialogActions>
         @* <MudButton OnClick="Cancel">Cancel</MudButton> *@
-        <MudButton Color="Color.Primary" OnClick="Submit">@SR["OK"]</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Submit">@SR["Close"]</MudButton>
     </DialogActions>
 </MudDialog>
 
