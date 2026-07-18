@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using AlbertoBizzini.Shared;
+﻿using AlbertoBizzini.Api.Services;
 using AlbertoBizzini.Services;
+using AlbertoBizzini.Shared;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace AlbertoBizzini.WebApi.Controllers;
 
@@ -16,6 +18,7 @@ public class ContactController : ControllerBase
     }
 
     [HttpPost]
+    [EnableRateLimiting("contact")]
     public async Task<ActionResult<ContactResponse>> Send(
         ContactRequest request,
         CancellationToken cancellationToken)
@@ -26,7 +29,7 @@ public class ContactController : ControllerBase
 
         var context = new ContactContext
         {
-            IpAddress = HttpContext.Connection.RemoteIpAddress?.ToString(),
+            IpAddress = ClientIpService.GetClientIp(Request.HttpContext),
             UserAgent = Request.Headers.UserAgent.ToString()
         };
 
