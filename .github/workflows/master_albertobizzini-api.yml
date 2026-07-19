@@ -38,23 +38,13 @@ jobs:
   deploy:
     runs-on: windows-latest
     needs: build
-    permissions:
-      id-token: write #This is required for requesting the JWT
-      contents: read #This is required for actions/checkout
-
+    
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
           name: .net-app
       
-      - name: Login to Azure
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_93BA3BACA7BE4FFDAFF50D04E85497B5 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_AD2D0CC7D90949748DB2ED322AB8ACA1 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_ABFDB56C823B435C9634ADBE48266413 }}
-
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
@@ -62,4 +52,4 @@ jobs:
           app-name: 'albertobizzini-api'
           slot-name: 'Production'
           package: .
-          
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2D99AE5BD5B341A0B08AA07F83647D46 }}
