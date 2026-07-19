@@ -117,19 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Cancel" xml:space="preserve">
-    <value>Annulla</value>
+  <data name="EmailRequiredValidationError" xml:space="preserve">
+    <value>Email è obbligatorio</value>
   </data>
-  <data name="WebsiteTitle" xml:space="preserve">
-    <value>Portfolio di Alberto Bizzini</value>
+  <data name="EmailNotValidValidationError" xml:space="preserve">
+    <value>Email non è un indirizzo valido</value>
   </data>
-  <data name="LoadingProgressDefaultText" xml:space="preserve">
-    <value>Caricamento</value>
+  <data name="MessageLengthValidationError" xml:space="preserve">
+    <value>Il messaggio non deve eccedere {0} caratteri</value>
   </data>
-  <data name="SubmittingMessageText" xml:space="preserve">
-    <value>Invio</value>
+  <data name="MessageRequiredValidationError" xml:space="preserve">
+    <value>Messaggio è obbligatorio</value>
   </data>
-  <data name="Close" xml:space="preserve">
-    <value>Chiudi</value>
+  <data name="MustViewPrivacyPoliciyValidationError" xml:space="preserve">
+    <value>Ho preso visione dell'informativa sulla privacy</value>
+  </data>
+  <data name="EmailLabel" xml:space="preserve">
+    <value>A che indirizzo email posso risponderti?</value>
+  </data>
+  <data name="MessageLabel" xml:space="preserve">
+    <value>Messaggio (massimo {0} caratteri)</value>
+  </data>
+  <data name="ConfirmedPrivacyPolicyViewedLabel" xml:space="preserve">
+    <value>Accetto l'informativa sulla privacy</value>
+  </data>
+  <data name="NameLengthValidationError" xml:space="preserve">
+    <value>Nome  non deve eccedere {0} caratteri</value>
+  </data>
+  <data name="NameLabel" xml:space="preserve">
+    <value>Chi sei? (massimo {0} caratteri)</value>
+  </data>
+  <data name="ResponsibilityTakenLabel" xml:space="preserve">
+    <value>Ho letto l'informativa sulla privacy e mi assumo tutte le responsabilità riguardo alle informazioni inserite</value>
+  </data>
+  <data name="ResponsibilityTakenRequiredValidationError" xml:space="preserve">
+    <value>L'assunzione di responsabilità è obbligatoria</value>
   </data>
 </root>

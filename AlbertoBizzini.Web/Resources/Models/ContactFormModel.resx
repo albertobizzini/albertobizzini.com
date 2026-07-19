@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,19 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Cancel" xml:space="preserve">
-    <value>Annulla</value>
+  <data name="EmailRequiredValidationError" xml:space="preserve">
+    <value>Email must not be empty</value>
   </data>
-  <data name="WebsiteTitle" xml:space="preserve">
-    <value>Portfolio di Alberto Bizzini</value>
+  <data name="EmailNotValidValidationError" xml:space="preserve">
+    <value>Email is not a valid email address</value>
   </data>
-  <data name="LoadingProgressDefaultText" xml:space="preserve">
-    <value>Caricamento</value>
+  <data name="MessageLengthValidationError" xml:space="preserve">
+    <value>Message cannot exceed {0} characters</value>
   </data>
-  <data name="SubmittingMessageText" xml:space="preserve">
-    <value>Invio</value>
+  <data name="MessageRequiredValidationError" xml:space="preserve">
+    <value>Message must not be empty</value>
   </data>
-  <data name="Close" xml:space="preserve">
-    <value>Chiudi</value>
+  <data name="MustViewPrivacyPoliciyValidationError" xml:space="preserve">
+    <value>I have read the privacy policy</value>
+  </data>
+  <data name="EmailLabel" xml:space="preserve">
+    <value>What email address can I reply to you at?</value>
+  </data>
+  <data name="MessageLabel" xml:space="preserve">
+    <value>Message (max {0} characters)</value>
+  </data>
+  <data name="ConfirmedPrivacyPolicyViewedLabel" xml:space="preserve">
+    <value>I agree to the Privacy Policy</value>
+  </data>
+  <data name="NameLengthValidationError" xml:space="preserve">
+    <value>Name cannot exceed {0} characters</value>
+  </data>
+  <data name="NameLabel" xml:space="preserve">
+    <value>Who are you? (max {0} characters)</value>
+  </data>
+  <data name="ResponsibilityTakenLabel" xml:space="preserve">
+    <value>I have read the privacy policy and I take full responsibility for the information provided.</value>
+  </data>
+  <data name="ResponsibilityTakenRequiredValidationError" xml:space="preserve">
+    <value>Taking responsibility is mandatory</value>
   </data>
 </root>

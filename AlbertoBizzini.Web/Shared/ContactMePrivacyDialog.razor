@@ -1,0 +1,29 @@
+﻿@inject IStringLocalizer<SharedResources> SR
+@inject IStringLocalizer<Pages.ContactMe> L
+
+<MudDialog>
+    <TitleContent>
+        <h3>@L["PrivacyPolicy"]</h3>
+    </TitleContent>
+    <DialogContent>
+        @foreach(var line in Lines)
+        {
+            <MudText GutterBottom>@line</MudText>
+        }
+    </DialogContent>
+    <DialogActions>
+        @* <MudButton OnClick="Cancel">Cancel</MudButton> *@
+        <MudButton Color="Color.Primary" OnClick="Submit">@SR["Close"]</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter]
+    private IMudDialogInstance MudDialog { get; set; }
+
+    private void Submit() => MudDialog.Close(DialogResult.Ok(true));
+
+    private void Cancel() => MudDialog.Cancel();
+
+    private string[] Lines => L["Disclaimer"].Value.Split(Environment.NewLine);
+}

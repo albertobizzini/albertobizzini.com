@@ -14,15 +14,29 @@
 <MudLayout>
     <MudAppBar Elevation="1">
         @* <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@DrawerToggle" /> *@
+
+        @if (!_isHomePage)
+        {
+            <MudIconButton Icon="@Icons.Material.Filled.KeyboardArrowLeft"
+                           Color="Color.Inherit"
+                           Edge="Edge.Start"
+                           OnClick="GoHome" />
+        }
+
         <MudText Typo="Typo.h6">@SR["WebsiteTitle"]</MudText>
         <MudSpacer />
 
-        <MudTooltip Text="@L["ToggleLanguageTooltip" + _otherLanguageFlag.ToUpper()]">
-            <MudIconButton Color="Color.Inherit" OnClick="@ToggleLanguage"><span class="@_otherLanguageFlagFlagClass" /></MudIconButton>
-        </MudTooltip>
+        @if (_isDebug)
+        {
+            <MudIconButton Href="contact-me" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.TwoTone.Mail" />
+        }
 
         <MudTooltip Text="@L["ToggleDarkMode"]">
             <MudIconButton Icon="@(DarkLightModeButtonIcon)" Color="Color.Inherit" OnClick="@DarkModeToggle" />
+        </MudTooltip>
+
+        <MudTooltip Text="@L["ToggleLanguageTooltip" + _otherLanguageFlag.ToUpper()]">
+            <MudIconButton Color="Color.Inherit" OnClick="@ToggleLanguage"><span class="@_otherLanguageFlagFlagClass" /></MudIconButton>
         </MudTooltip>
 
         @* <MudLink Href="https://learn.microsoft.com/aspnet/core/" Target="_blank" Color="Color.Inherit" Underline="Underline.None">
@@ -35,27 +49,32 @@
         <NavMenu />
     </MudDrawer> *@
 
-    <MudMainContent Class="pt-16 pa-2">
-        <div class="mt-4">
+    <MudMainContent Class="pt-14 pa-2">
+        <div class="mt-2">
             @Body
         </div>
     </MudMainContent>
 </MudLayout>
 
 @code {
-    private bool _drawerOpen = true;
-    private bool _isDarkMode = true;
+
+#if (DEBUG)
+    private bool _isDebug = true;
+#else
+    private bool _isDebug = false;
+#endif
+
     private MudTheme? _theme;
+    private bool _drawerOpen = true;
 
-    private string _currentCulture = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
-
-    <!-- https://github.com/lipis/flag-icons/tree/main -->
-    private string _otherLanguageFlag => OtherCulture(_currentCulture) switch { "us" or "en" => "gb", _ => OtherCulture(_currentCulture) };
-    private string _otherLanguageFlagFlagClass => $"fi fi-{_otherLanguageFlag}";  
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
+
+        NavigationManager.LocationChanged += OnLocationChanged;
+
+        UpdateCurrentPage();
 
         _theme = new()
         {
@@ -65,7 +84,34 @@
         };
     }
 
+
+    private bool _isHomePage;
+
+    private void OnLocationChanged(object? sender, LocationChangedEventArgs e)
+    {
+        UpdateCurrentPage();
+        InvokeAsync(StateHasChanged);
+    }
+
+    private void UpdateCurrentPage()
+    {
+        _isHomePage = string.IsNullOrEmpty(
+            NavigationManager.ToBaseRelativePath(NavigationManager.Uri)
+                .TrimEnd('/'));
+    }
+
+    private void GoHome()
+    {
+        NavigationManager.NavigateTo("/");
+    }
+
+
+
     private void DrawerToggle() => _drawerOpen = !_drawerOpen;
+
+
+
+    private bool _isDarkMode = true;
 
     private void DarkModeToggle() => _isDarkMode = !_isDarkMode;
 
@@ -114,6 +160,13 @@
         false => Icons.Material.Outlined.DarkMode,
     };
 
+
+    
+    <!-- https://github.com/lipis/flag-icons/tree/main -->
+    private string _currentCulture = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+    private string _otherLanguageFlag => OtherCulture(_currentCulture) switch { "us" or "en" => "gb", _ => OtherCulture(_currentCulture) };
+    private string _otherLanguageFlagFlagClass => $"fi fi-{_otherLanguageFlag}";
+
     private string OtherCulture(string culture) => culture == "it" ? "en" : "it"; // per ora ci sono solo due localizzazioni, quindi l'UI non dà una scelta ma permette solo di alternare tra l'una e l'altra
 
     private async void ToggleLanguage()
@@ -137,4 +190,9 @@
         NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
     }
 
+
+    public void Dispose()
+    {
+        NavigationManager.LocationChanged -= OnLocationChanged;
+    }
 }

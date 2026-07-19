@@ -1,0 +1,195 @@
+﻿@page "/contact-me"
+@using Soenneker.Blazor.Turnstile
+@using Soenneker.Blazor.Turnstile.Options
+@using Soenneker.Blazor.Turnstile.Enums
+@using AlbertoBizzini.Shared
+
+@inject ContactFormModelFluentValidator Validator
+@inject IContactApiClient ContactApi
+@inject IStringLocalizer<SharedResources> SR
+@inject IStringLocalizer<ContactMe> L
+@inject IStringLocalizer<ContactFormModel> LM
+@inject IDialogService DialogService
+@inject ISnackbar Snackbar
+@inject ILogger<ContactMe> Logger
+
+<PageTitle>@L["PageTitle"] - @SR["WebsiteTitle"]</PageTitle>
+
+<MudText class="page-tile">@L["PageTitle"]</MudText>
+
+<MudText Typo="Typo.body2" Class="pl-2 mb-4">@L["IntroductionText"]</MudText>
+
+<MudOverlay Visible="_submitting" Absolute>
+    <LoadingProgress Text="@SR["SubmittingMessageText"]" />
+</MudOverlay>
+
+<MudContainer MaxWidth="MaxWidth.Small">
+
+    <MudForm Model="@Model" @ref="@_form" Validation="@(Validator.ValidateValue)" ValidationDelay="0">
+        <MudCard Outlined>
+            <MudCardContent>
+
+                <MudStack Spacing="3">
+                    <MudTextField @bind-Value="Model.Name"
+                                  For="@(() => Model.Name)"
+                                  Label="@LM["NameLabel", Validator.NameMaxLength]"
+                                  Variant="Variant.Filled"
+                                  MaxLength="@Validator.NameMaxLength"
+                                  ShrinkLabel />
+
+                    <MudTextField @bind-Value="Model.Message"
+                                  For="@(() => Model.Message)"
+                                  Label="@LM["MessageLabel", Validator.MessageMaxLength]"
+                                  MaxLength="@Validator.MessageMaxLength"
+                                  Clearable
+                                  Counter="0"
+                                  ShrinkLabel
+                                  Sizing="InputSizing.Auto"
+                                  Lines="4"
+                                  Variant="Variant.Filled" />
+
+                    <MudTextField @bind-Value="Model.Email"
+                                  For="@(() => Model.Email)"
+                                  Label="@LM["EmailLabel"]"
+                                  Variant="Variant.Filled"
+                                  ShrinkLabel />
+
+                    <MudDivider Class="mt-4" />
+
+                    <MudLink @onclick="OpenPrivacyDialogAsync" Color="Color.Primary">
+                        @L["PrivacyPolicy"]…
+                    </MudLink>
+
+                    <MudCheckBox @bind-Value="Model.ResponsibilityTaken"
+                                 For="@(() => Model.ResponsibilityTaken)"
+                                 Disabled="@(!Model.PrivacyPolicyViewed)"
+                                 Label="@LM["ResponsibilityTakenLabel"]" />
+
+                    <MudDivider />
+
+                    <MudStack Justify="Justify.Center" Class="mt-4">
+                        @if (Model.TurnstileTokenIsNull)
+                        {
+                            @L["AreYouAHumanBeingLabel"]
+                            <Turnstile @ref="_turnstile" OnCallback="OnCallback" Options="_options" />
+                        }
+                        else if (!_hideYouAreAHumanBeingLabel)
+                        {
+                            <MudAlert Severity="Severity.Success" ShowCloseIcon CloseIconClicked="HideYouAreAHumanBeingLabel">
+                                @L["ItSeemsYouAreAHumanBeingLabel"]
+                            </MudAlert>
+                        }
+                    </MudStack>
+
+                </MudStack>
+
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton Variant="Variant.Filled"
+                           Color="Color.Primary"
+                           Class="ml-auto"
+                           Disabled="@Model.SubmitButtonDisabled"
+                           OnClick="@(async () => await Submit())">
+                    @L["SendButtonText"]
+                </MudButton>
+            </MudCardActions>
+        </MudCard>
+    </MudForm>
+
+</MudContainer>
+
+@code {
+    private MudForm _form = null!;
+    private ContactFormModel Model = new();
+    private bool _submitting = false;
+
+    private async Task Submit()
+    {
+        await _form.ValidateAsync();
+
+        if (!_form.IsValid)
+            return;
+
+        if (Model.TurnstileTokenIsNull) // should never happen because of Model.SubmitButtonDisabled
+        {
+            Snackbar.Add(@L["TurnstileTokenIsNullErrorMessage"], Severity.Error);
+            return;
+        }
+
+        var request = new ContactRequest
+        {
+            Name = Model.Name,
+            Email = Model.Email,
+            Message = Model.Message,
+            ResponsibilityTaken = Model.ResponsibilityTaken,
+            TurnstileToken = Model.TurnstileToken!
+        };
+
+        try
+        {
+            _submitting = true;
+
+            var response = await ContactApi.SendAsync(request);
+            if (!response.Success)
+            {
+                Logger.LogInformation("ContactApi ErrorCode: {ErrorCode}", response.ErrorCode);
+                Snackbar.Add(@L["MessageNotSentFeedback"], Severity.Error);
+                return;
+            }
+
+            Snackbar.Add(@L["MessageSentFeedback"], Severity.Info);
+
+            Model = new();
+            await _form.ResetAsync();
+
+            _hideYouAreAHumanBeingLabel = false;
+            await _turnstile.Reset();
+        }
+        catch (Exception ex)
+        {
+            Logger.LogInformation("ContactApi Exception: {Message}", ex.Message);
+            Snackbar.Add(@L["MessageNotSentFeedback"], Severity.Error);
+        }
+        finally
+        {
+            _submitting = false;
+        }
+    }
+
+    private async Task OpenPrivacyDialogAsync()
+    {
+        var options = new DialogOptions { CloseOnEscapeKey = false, CloseButton = false };
+
+        var dialog = await DialogService.ShowAsync<ContactMePrivacyDialog>(title: @L["PrivacyDialogTitle"], options: options);
+        var result = await dialog.Result;
+
+        if (Model.PrivacyPolicyViewed)
+            return;
+
+        Model.PrivacyPolicyViewed = !(result?.Canceled ?? false);
+    }
+
+    #region Cloudflare Turnstile
+
+    private Turnstile _turnstile;
+    private bool _hideYouAreAHumanBeingLabel = false;
+
+    private readonly TurnstileOptions _options = new()
+    {
+        SiteKey = "0x4AAAAAAD3M68Tpy8NU_JJK",
+        Language = System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName
+    };
+
+    private void OnCallback(string token)
+    {
+        Model.TurnstileToken = token;
+        //Logger.LogInformation("OnCallback fired, token:\n{token}", token);
+        StateHasChanged();
+    }
+
+    private void HideYouAreAHumanBeingLabel()
+        => _hideYouAreAHumanBeingLabel = true;
+
+    #endregion
+
+}

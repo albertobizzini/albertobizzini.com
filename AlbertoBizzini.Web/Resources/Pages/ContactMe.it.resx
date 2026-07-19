@@ -117,19 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Cancel" xml:space="preserve">
-    <value>Annulla</value>
+  <data name="PageTitle" xml:space="preserve">
+    <value>Contattami</value>
   </data>
-  <data name="WebsiteTitle" xml:space="preserve">
-    <value>Portfolio di Alberto Bizzini</value>
+  <data name="IntroductionText" xml:space="preserve">
+    <value>Usa il modulo sottostante per inviarmi un messaggio. Risponderò appena possibile.</value>
   </data>
-  <data name="LoadingProgressDefaultText" xml:space="preserve">
-    <value>Caricamento</value>
+  <data name="SendButtonText" xml:space="preserve">
+    <value>Invia messaggio</value>
   </data>
-  <data name="SubmittingMessageText" xml:space="preserve">
-    <value>Invio</value>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>Informativa sulla privacy</value>
   </data>
-  <data name="Close" xml:space="preserve">
-    <value>Chiudi</value>
+  <data name="PrivacyPolicyAcceptanceHelperTextMessage" xml:space="preserve">
+    <value>Clicca per abilitare l'opzione di accettazione</value>
+  </data>
+  <data name="AreYouAHumanBeingLabel" xml:space="preserve">
+    <value>Sei un essere umano in carne ed ossa?</value>
+  </data>
+  <data name="ItSeemsYouAreAHumanBeingLabel" xml:space="preserve">
+    <value>Sembra proprio che tu sia un essere umano in carne ed ossa!</value>
+  </data>
+  <data name="TurnstileTokenIsNullErrorMessage" xml:space="preserve">
+    <value>Per favore completa la verifica che sei un essere umano</value>
+  </data>
+  <data name="MessageNotSentFeedback" xml:space="preserve">
+    <value>Non è stato possibile inviare il messaggio</value>
+  </data>
+  <data name="MessageSentFeedback" xml:space="preserve">
+    <value>Il messaggio è stato inviato correttamente</value>
+  </data>
+  <data name="Disclaimer" xml:space="preserve">
+    <value>L'indirizzo email che hai indicato sarà solo usato per rispondere al messaggio.
+Data la natura ludico/personale di questo sito il campo email non sarà validato.
+Ogni abuso sarà segnalato all'autorità.
+Al fine di prevenire utilizzi impropri del servizio e garantire la sicurezza del sistema, vengono registrati dati tecnici quali indirizzo IP e informazioni relative al browser (User-Agent). Il trattamento si basa sul legittimo interesse del titolare ai sensi dell'art. 6(1)(f) GDPR.</value>
   </data>
 </root>
