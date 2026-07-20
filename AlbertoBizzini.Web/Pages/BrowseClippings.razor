@@ -88,10 +88,11 @@
 {
     <MudTable T="Clipping"
               Items="FilteredAndSortedClippings"
+              Loading="_loading"
               Breakpoint="Breakpoint.None">
 
         <NoRecordsContent>
-            @L["NoKindleClippingIsAvailableWarningMessage"]
+            @SR["NoKindleClippingIsAvailableWarningMessage"]
         </NoRecordsContent>
 
         <RowTemplate>
@@ -117,7 +118,7 @@ else
                  SortMode="SortMode.None">
 
         <NoRecordsContent>
-            @L["NoKindleClippingIsAvailableWarningMessage"]
+            @SR["NoKindleClippingIsAvailableWarningMessage"]
         </NoRecordsContent>
 
         <Columns>
