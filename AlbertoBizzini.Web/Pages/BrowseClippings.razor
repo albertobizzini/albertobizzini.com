@@ -88,9 +88,7 @@
 {
     <MudTable T="Clipping"
               Items="FilteredAndSortedClippings"
-              Breakpoint="Breakpoint.None"
-              Hover
-              Dense>
+              Breakpoint="Breakpoint.None">
 
         <NoRecordsContent>
             @L["NoKindleClippingIsAvailableWarningMessage"]
@@ -131,7 +129,7 @@ else
                     @L["ClippedTextLabel"]
                 </HeaderTemplate>
                 <CellTemplate>
-                    <MudText HtmlTag="em" Color="Color.Info"><MudHighlighter Text="@context.Item.QuotedText" HighlightedText="@SearchStringInternal" /></MudText>
+                    <KindleClippingDisplay Clipping="@context.Item" HighlighterText="@SearchStringInternal" JustTheQuote />
                 </CellTemplate>
             </TemplateColumn>
         </Columns>
