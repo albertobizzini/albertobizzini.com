@@ -11,108 +11,108 @@
 
 <MudExpansionPanels MultiExpansion Outlined Square="false" Gutters>
 
-	<MudExpansionPanel Class="home-page-panel">
+    <MudExpansionPanel Class="home-page-panel">
 
-		<TitleContent>
-			<MudStack Row Justify="Justify.FlexStart" Spacing="3" AlignItems="AlignItems.Center">
-				<MudIcon Icon="@Icons.Material.TwoTone.MenuBook" Color="@HeaderIconColor" />
-				<h3>
-					@switch (_kindleClippingOfTheDayDeltaDays)
-					{
-						case 0:
-							@L["KindleClippingOfTheDayHeaderText"]
-							break;
-						case -1:
-							@L["KindleClippingOfYesterdayHeaderText"]
-							break;
-						default:
-							@L["KindleClippingOfDaysAgoHeaderText", DateTime.Today.AddDays(_kindleClippingOfTheDayDeltaDays).ToLongDateString()]
-							break;
-					}
-				</h3>
-			</MudStack>
-			<MudText Typo="Typo.caption">@L["KindleClippingHeaderCaption"]</MudText>
-		</TitleContent>
+        <TitleContent>
+            <MudStack Row Justify="Justify.FlexStart" Spacing="3" AlignItems="AlignItems.Center">
+                <MudIcon Icon="@Icons.Material.TwoTone.MenuBook" Color="@HeaderIconColor" />
+                <h3>
+                    @switch (_kindleClippingOfTheDayDeltaDays)
+                    {
+                        case 0:
+                            @L["KindleClippingOfTheDayHeaderText"]
+                            break;
+                        case -1:
+                            @L["KindleClippingOfYesterdayHeaderText"]
+                            break;
+                        default:
+                            @L["KindleClippingOfDaysAgoHeaderText", DateTime.Today.AddDays(_kindleClippingOfTheDayDeltaDays).ToLongDateString()]
+                            break;
+                    }
+                </h3>
+            </MudStack>
+            <MudText Typo="Typo.caption">@L["KindleClippingHeaderCaption"]</MudText>
+        </TitleContent>
 
-		<ChildContent>
-			<KindleClippingOfTheDay @bind-DeltaDays="@_kindleClippingOfTheDayDeltaDays" />
-		</ChildContent>
-	</MudExpansionPanel>
+        <ChildContent>
+            <KindleClippingOfTheDay @bind-DeltaDays="@_kindleClippingOfTheDayDeltaDays" />
+        </ChildContent>
+    </MudExpansionPanel>
 
-	<MudExpansionPanel Class="home-page-panel">
+    <MudExpansionPanel Class="home-page-panel">
 
-		<TitleContent>
-			<MudStack Row Justify="Justify.FlexStart" Spacing="3" AlignItems="AlignItems.Center">
-				<MudIcon Icon="@Icons.Material.TwoTone.Link" Color="@HeaderIconColor" />
-				<h3>@L["LinksSectionHeaderText"]</h3>
-			</MudStack>
+        <TitleContent>
+            <MudStack Row Justify="Justify.FlexStart" Spacing="3" AlignItems="AlignItems.Center">
+                <MudIcon Icon="@Icons.Material.TwoTone.Link" Color="@HeaderIconColor" />
+                <h3>@L["LinksSectionHeaderText"]</h3>
+            </MudStack>
 
-			<MudText Typo="Typo.caption">@L["LinksSectionHeaderCaption"]</MudText>
-		</TitleContent>
+            <MudText Typo="Typo.caption">@L["LinksSectionHeaderCaption"]</MudText>
+        </TitleContent>
 
-		<ChildContent>
-			<MyLink Text="@L["MyEtsyShopLinkText"]" Icon="@Icons.Material.TwoTone.ShoppingCart" Href="https://www.etsy.com/shop/IdeeBizzesche" />
-			<MyLink Text="@L["MyYouTubeChannelLinkText"]" Icon="@Icons.Custom.Brands.YouTube" Href="https://www.youtube.com/AlbertoBizzini" />
-			<MyLink Text="@L["MyInstagramPageLinkText"]" Icon="@Icons.Custom.Brands.Instagram" Href="https://www.instagram.com/alberto.bizzini" />
-			<MyLink Text="@L["MyPhotoAlbumsLinkText"]" Icon="@Icons.Material.TwoTone.PhotoLibrary" Href="https://weak-diver-1a1.notion.site/eb467bf86d494e53b6dee95e6e0918b8?v=3997f478b8154c8aaf049fb57031bd58" Suffix="@L["MyPhotoAlbumsSuffixText"]" />
-		</ChildContent>
-	</MudExpansionPanel>
+        <ChildContent>
+            <MyLink Text="@L["MyEtsyShopLinkText"]" Icon="@Icons.Material.TwoTone.ShoppingCart" Href="https://www.etsy.com/shop/IdeeBizzesche" />
+            <MyLink Text="@L["MyYouTubeChannelLinkText"]" Icon="@Icons.Custom.Brands.YouTube" Href="https://www.youtube.com/AlbertoBizzini" />
+            <MyLink Text="@L["MyInstagramPageLinkText"]" Icon="@Icons.Custom.Brands.Instagram" Href="https://www.instagram.com/alberto.bizzini" />
+            <MyLink Text="@L["MyPhotoAlbumsLinkText"]" Icon="@Icons.Material.TwoTone.PhotoLibrary" Href="https://weak-diver-1a1.notion.site/eb467bf86d494e53b6dee95e6e0918b8?v=3997f478b8154c8aaf049fb57031bd58" Suffix="@L["MyPhotoAlbumsSuffixText"]" />
+        </ChildContent>
+    </MudExpansionPanel>
 
-	<MudExpansionPanel Class="home-page-panel">
+    <MudExpansionPanel Class="home-page-panel">
 
-		<TitleContent>
-			<MudStack Row Justify="Justify.FlexStart" Spacing="3" AlignItems="AlignItems.Center">
-				<MudIcon Icon="@Icons.Material.TwoTone.Apps" Color="@HeaderIconColor" />
-				<h3>@L["AvailableAppsSectionHeaderText"]</h3>
-			</MudStack>
-			<MudText Typo="Typo.caption">@L["AvailableAppsSectionHeaderCaption"]</MudText>
-		</TitleContent>
+        <TitleContent>
+            <MudStack Row Justify="Justify.FlexStart" Spacing="3" AlignItems="AlignItems.Center">
+                <MudIcon Icon="@Icons.Material.TwoTone.Apps" Color="@HeaderIconColor" />
+                <h3>@L["AvailableAppsSectionHeaderText"]</h3>
+            </MudStack>
+            <MudText Typo="Typo.caption">@L["AvailableAppsSectionHeaderCaption"]</MudText>
+        </TitleContent>
 
-		<ChildContent>
-			<MudStack Row Spacing="6" Justify="Justify.FlexStart" AlignItems="AlignItems.Start" Wrap="Wrap.Wrap" Class="mt-3">
+        <ChildContent>
+            <MudStack Row Spacing="6" Justify="Justify.FlexStart" AlignItems="AlignItems.Start" Wrap="Wrap.Wrap" Class="mt-3">
 
-				<AppCard AppName="Patrimetria" AppLink="https://patrimetria.albertobizzini.com/">
-					<MudText Typo="Typo.body1" GutterBottom>
-						Posso permettermi di vivere di rendita?
-					</MudText>
-					<MudText Typo="Typo.body2">
-						Inserisci patrimonio, entrate, spese e previsioni, simula l'evoluzione del patrimonio e stima gli intervalli di confidenza considerando inflazione e rendimenti
-					</MudText>
-				</AppCard>
+                <AppCard AppName="Patrimetria" AppLink="https://patrimetria.albertobizzini.com/">
+                    <MudText Typo="Typo.body1" GutterBottom>
+                        Posso permettermi di vivere di rendita?
+                    </MudText>
+                    <MudText Typo="Typo.body2">
+                        Inserisci patrimonio, entrate, spese e previsioni, simula l'evoluzione del patrimonio e stima gli intervalli di confidenza considerando inflazione e rendimenti
+                    </MudText>
+                </AppCard>
 
-				<AppCard AppName="Simulatore rendita B&B" AppLink="https://bnbsimulator.albertobizzini.com/">
-					<MudText Typo="Typo.body1" GutterBottom>
-						È redditizio investire nella realizzazione di un Bed & Breakfast?
-					</MudText>
-					<MudText Typo="Typo.body2">
-						Inserisci costi di avvio e di gestione, calcola ROI e CAGR, quindi analizzane la sensibilità e visualizza una mappa di calore basata su ricavi e costi del primo anno
-					</MudText>
-				</AppCard>
+                <AppCard AppName="Simulatore rendita B&B" AppLink="https://bnbsimulator.albertobizzini.com/">
+                    <MudText Typo="Typo.body1" GutterBottom>
+                        È redditizio investire nella realizzazione di un Bed & Breakfast?
+                    </MudText>
+                    <MudText Typo="Typo.body2">
+                        Inserisci costi di avvio e di gestione, calcola ROI e CAGR, quindi analizzane la sensibilità e visualizza una mappa di calore basata su ricavi e costi del primo anno
+                    </MudText>
+                </AppCard>
 
-				<AppCard AppName="Collezione treni Pierluigi Cova" AppLink="https://treni-cova.albertobizzini.com/">
-					<MudText>Sei appassionato di fermodellismo?</MudText>
-					<MudText>Consulta il catalogo dei modelli di treni della collezione di Pierluigi Cova. Sono disponibili per la vendita.</MudText>
-				</AppCard>
+                <AppCard AppName="Collezione treni Pierluigi Cova" AppLink="https://treni-cova.albertobizzini.com/">
+                    <MudText>Sei appassionato di fermodellismo?</MudText>
+                    <MudText>Consulta il catalogo dei modelli di treni della collezione di Pierluigi Cova. Sono disponibili per la vendita.</MudText>
+                </AppCard>
 
-				<AppCard AppName="FinTrack" AppLink="https://fintrack.albertobizzini.com/" OnlyItalian="false" EnrollNeeded Version="v0.1 (alpha)">
-					<MudText Typo="Typo.body1" GutterBottom>
-						@L["FintrackAppDescriptionFirstLine"]
-					</MudText>
-					<MudText Typo="Typo.body2">
-						@L["FintrackAppDescriptionOtherLines"]
-					</MudText>
-				</AppCard>
+                <AppCard AppName="FinTrack" AppLink="https://fintrack.albertobizzini.com/" OnlyItalian="false" EnrollNeeded Version="v0.1 (alpha)">
+                    <MudText Typo="Typo.body1" GutterBottom>
+                        @L["FintrackAppDescriptionFirstLine"]
+                    </MudText>
+                    <MudText Typo="Typo.body2">
+                        @L["FintrackAppDescriptionOtherLines"]
+                    </MudText>
+                </AppCard>
 
-			</MudStack>
-		</ChildContent>
+            </MudStack>
+        </ChildContent>
 
-	</MudExpansionPanel>
+    </MudExpansionPanel>
 
 </MudExpansionPanels>
 
 @code
 {
-	private static Color HeaderIconColor = Color.Primary;
-	private int _kindleClippingOfTheDayDeltaDays = 0;
+    private static Color HeaderIconColor = Color.Primary;
+    private int _kindleClippingOfTheDayDeltaDays = 0;
 }
 
