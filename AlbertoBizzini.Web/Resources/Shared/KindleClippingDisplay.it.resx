@@ -117,28 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="PageTitle" xml:space="preserve">
-    <value>Evidenziazioni sul mio Kindle</value>
-  </data>
-  <data name="IntroductionText" xml:space="preserve">
-    <value>Di seguito puoi sfogliare i passaggi che ho evidenziato sul mio Kindle nel corso del tempo</value>
-  </data>
-  <data name="BookAuthorLabel" xml:space="preserve">
-    <value>Scritto da</value>
-  </data>
-  <data name="BookTitleLabel" xml:space="preserve">
-    <value>Titolo</value>
-  </data>
-  <data name="ClippedTextLabel" xml:space="preserve">
-    <value>Passaggio evidenziato</value>
-  </data>
   <data name="AddedOnLabel" xml:space="preserve">
-    <value>Data</value>
+    <value>evidenziato il</value>
   </data>
-  <data name="StartLocationLabel" xml:space="preserve">
-    <value>Posizione</value>
+  <data name="PositionLabel" xml:space="preserve">
+    <value>posizione</value>
   </data>
-  <data name="SearchLabel" xml:space="preserve">
-    <value>Cerca ovunque (min {0} caratteri)</value>
+  <data name="ExtractedFromLabel" xml:space="preserve">
+    <value>Estratto da:</value>
   </data>
 </root>

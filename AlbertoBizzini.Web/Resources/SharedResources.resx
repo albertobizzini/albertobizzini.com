@@ -116,4 +116,7 @@
   <data name="Close" xml:space="preserve">
     <value>Close</value>
   </data>
+  <data name="NoKindleClippingIsAvailableWarningMessage" xml:space="preserve">
+    <value>No highlighting present</value>
+  </data>
 </root>

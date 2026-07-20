@@ -15,16 +15,16 @@
 
 <MudText Typo="Typo.body2" Class="pl-2 mb-4">@L["IntroductionText"]</MudText>
 
-@if (_loading)
-{
-    <LoadingProgress />
-}
-
 @if (!_loading && _clippings?.Count > 0)
 {
-    <MudStack Row Wrap="Wrap.Wrap" AlignItems="AlignItems.Center" Justify="Justify.FlexStart" Spacing="2" Class="px-2">
-        <MudTextField @bind-Value="_searchString" ShrinkLabel Label="@L["SearchPlaceholder"]" Adornment="Adornment.Start" Immediate="true"
-                      AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    <MudStack Row Wrap="Wrap.Wrap" AlignItems="AlignItems.Stretch" Justify="Justify.FlexStart" Spacing="2" Class="px-2">
+        <MudTextField @bind-Value="_searchString"
+                      ShrinkLabel
+                      Label="@L["SearchLabel", MinSearchStringLength]"
+                      Immediate="true"
+                      Adornment="Adornment.Start"
+                      AdornmentIcon="@Icons.Material.Filled.Search"
+                      IconSize="Size.Medium"></MudTextField>
 
         <MudSelect T="string"
                    Value="@_selectedAuthor"
@@ -63,42 +63,59 @@
 
 }
 
-<MudDataGrid Items="@_clippings"
-             Filterable="true"
-             MultiSelection="false"
-             QuickFilter="@_quickFilter"
-             Breakpoint="Breakpoint.None"
-             Class="mt-4">
+<MudDivider class="mt-4" />
 
-    <NoRecordsContent>
-        @L["ThereAreNoItemsMessage"]
-    </NoRecordsContent>
+@if (IsMobile)
+{
+    <MudTable T="Clipping"
+              Items="_clippings?.Where(_quickFilter)"
+              Breakpoint="Breakpoint.None"
+              Hover
+              Dense>
 
-    <Columns>
-        @if (IsMobile)
-        {
-            <TemplateColumn>
-                <CellTemplate>
-                    <ClippingDisplay Clipping="@context.Item" />
-                </CellTemplate>
-            </TemplateColumn>
+        <NoRecordsContent>
+            @L["NoKindleClippingIsAvailableWarningMessage"]
+        </NoRecordsContent>
 
-        }
-        else
-        {
+        <RowTemplate>
+            <MudTd>
+                <KindleClippingDisplay Clipping="@context" HighlighterText="@SearchStringInternal" />
+            </MudTd>
+        </RowTemplate>
+
+        <PagerContent>
+            <MudTablePager />
+        </PagerContent>
+
+    </MudTable>
+}
+else
+{
+    <MudDataGrid Items="@_clippings"
+                 Loading="@_loading"
+                 Filterable="true"
+                 MultiSelection="false"
+                 QuickFilter="@_quickFilter"
+                 Breakpoint="Breakpoint.None">
+
+        <NoRecordsContent>
+            @L["NoKindleClippingIsAvailableWarningMessage"]
+        </NoRecordsContent>
+
+        <Columns>
             <PropertyColumn Property="x => x.AddedOn" Title="@L["AddedOnLabel"]" Format="d" />
             <PropertyColumn Property="x => x.Book.Author" Title="@L["BookAuthorLabel"]" />
             <PropertyColumn Property="x => x.Book.Title" Title="@L["BookTitleLabel"]" />
-            <PropertyColumn Property="x => x.QuotedText" Title="@L["ClippedTextLabel"]" CellStyle="font-style: italic" />
+            <PropertyColumn Property="x => x.QuotedText" Title="@L["ClippedTextLabel"]" CellStyle="font-style: italic; color:var(--mud-palette-info-rgb)" />
             @* <PropertyColumn Property="x => x.StartLocation" Title="@L["StartLocationLabel"]" Filterable="false" Sortable="false" StickyRight /> *@
-        }
-    </Columns>
+        </Columns>
 
-    <PagerContent>
-        <MudDataGridPager T="Clipping" />
-    </PagerContent>
+        <PagerContent>
+            <MudDataGridPager T="Clipping" />
+        </PagerContent>
 
-</MudDataGrid>
+    </MudDataGrid>
+}
 
 @code {
     private bool _loading = true;
@@ -108,7 +125,12 @@
     private string? _selectedAuthor;
     private string? _selectedTitle;
 
-    private List<string> _selectedAuthorTitles => _clippings is not null && string.IsNullOrWhiteSpace(_selectedAuthor)
+    private int MinSearchStringLength = 3;
+    private string SearchStringInternal => !string.IsNullOrWhiteSpace(_searchString) && _searchString.Length >= MinSearchStringLength ? _searchString : string.Empty;
+
+
+    private List
+    <string> _selectedAuthorTitles => _clippings is not null && string.IsNullOrWhiteSpace(_selectedAuthor)
         ? new()
         : _clippings!
             .Where(c => c.Book.Author == _selectedAuthor)
@@ -155,18 +177,18 @@
         }
 
         // Ricerca libera
-        if (!string.IsNullOrWhiteSpace(_searchString))
+        if (SearchStringInternal != string.Empty)
         {
             if (c.Book.Author is not null &&
-                c.Book.Author.Contains(_searchString, StringComparison.OrdinalIgnoreCase))
+                c.Book.Author.Contains(SearchStringInternal, StringComparison.OrdinalIgnoreCase))
                 return true;
 
             if (c.Book.Title is not null &&
-                c.Book.Title.Contains(_searchString, StringComparison.OrdinalIgnoreCase))
+                c.Book.Title.Contains(SearchStringInternal, StringComparison.OrdinalIgnoreCase))
                 return true;
 
             if (c.QuotedText is not null &&
-                c.QuotedText.Contains(_searchString, StringComparison.OrdinalIgnoreCase))
+                c.QuotedText.Contains(SearchStringInternal, StringComparison.OrdinalIgnoreCase))
                 return true;
 
             return false;

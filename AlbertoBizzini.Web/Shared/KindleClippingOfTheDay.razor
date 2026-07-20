@@ -1,15 +1,16 @@
 ﻿@using KindleClippings
 @inject KindleClippingService KindleService
+@inject IStringLocalizer<SharedResources> SR
 @inject IStringLocalizer<KindleClippingOfTheDay> L
 
 @if (_noClippingIsAvailable)
 {
-	<MudAlert Severity="Severity.Warning">@L["NoClippingIsAvailableWarningMessage"]</MudAlert>
+	<MudAlert Severity="Severity.Warning">@SR["NoKindleClippingIsAvailableWarningMessage"]</MudAlert>
 }
 else
 {
 	<MudStack>
-		<ClippingDisplay Clipping="@_clipping"/>
+		<KindleClippingDisplay Clipping="@_clipping"/>
 
 		@if (ShowPagination && _clipping is not null)
 		{

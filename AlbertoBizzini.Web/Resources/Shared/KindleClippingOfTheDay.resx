@@ -117,15 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddedOnLabel" xml:space="preserve">
-    <value>highlighted on</value>
-  </data>
-  <data name="PositionLabel" xml:space="preserve">
-    <value>position</value>
-  </data>
-  <data name="ExtractedFromLabel" xml:space="preserve">
-    <value>Excerpt from:</value>
-  </data>
   <data name="NavToClippingsPage" xml:space="preserve">
     <value>Browse them all</value>
   </data>
