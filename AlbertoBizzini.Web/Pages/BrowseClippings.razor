@@ -59,6 +59,25 @@
             </MudSelect>
 
         }
+
+        <MudSelect T="SortOption" @bind-Value="_sortBy" Label="@L["SortByLabel"]">
+
+            <MudSelectItem Value="SortOption.AddedOn">
+                @L["AddedOnLabel"]
+            </MudSelectItem>
+
+            <MudSelectItem Value="SortOption.Author">
+                @L["BookAuthorLabel"]
+            </MudSelectItem>
+
+            <MudSelectItem Value="SortOption.Title">
+                @L["BookTitleLabel"]
+            </MudSelectItem>
+
+        </MudSelect>
+
+        <MudSwitch @bind-Value="_descending">@L["DescendingLabel"]</MudSwitch>
+
     </MudStack>
 
 }
@@ -77,26 +96,6 @@
             @L["NoKindleClippingIsAvailableWarningMessage"]
         </NoRecordsContent>
 
-        <ToolBarContent>
-            <MudSelect T="SortOption" @bind-Value="_sortBy" Label="@L["SortByLabel"]">
-
-                <MudSelectItem Value="SortOption.AddedOn">
-                    @L["AddedOnLabel"]
-                </MudSelectItem>
-
-                <MudSelectItem Value="SortOption.Author">
-                    @L["BookAuthorLabel"]
-                </MudSelectItem>
-
-                <MudSelectItem Value="SortOption.Title">
-                    @L["BookTitleLabel"]
-                </MudSelectItem>
-
-            </MudSelect>
-
-            <MudSwitch @bind-Value="_descending">@L["DescendingLabel"]</MudSwitch>
-        </ToolBarContent>
-
         <RowTemplate>
             <MudTd>
                 <KindleClippingDisplay Clipping="@context" HighlighterText="@SearchStringInternal" />
@@ -111,12 +110,13 @@
 }
 else
 {
-    <MudDataGrid Items="@_clippings"
+    <MudDataGrid Items="@FilteredAndSortedClippings"
                  Loading="@_loading"
                  Filterable="true"
                  MultiSelection="false"
                  QuickFilter="@_quickFilter"
-                 Breakpoint="Breakpoint.None">
+                 Breakpoint="Breakpoint.None"
+                 SortMode="SortMode.None">
 
         <NoRecordsContent>
             @L["NoKindleClippingIsAvailableWarningMessage"]
