@@ -1,58 +1,68 @@
 ﻿@using System.Globalization
 @inject IStringLocalizer<AppCard> L
+@inject NavigationManager Nav
 @inject IJSRuntime JS
 
-<MudPaper Elevation="@Elevation" MaxWidth="300px" Class="pa-4" Square="false" @onclick="OpenInNewTab" Style="cursor:pointer">
-	<MudStack Row Wrap="Wrap.Wrap" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Start">
-		<MudText Typo="Typo.h6" Color="Color.Primary" Inline Style="font-weight: bolder">
-			@AppName
-		</MudText>
-		@if (!string.IsNullOrWhiteSpace(Version))
-		{
-			<MudText Typo="Typo.subtitle2" Inline Class="opacity-med" Style="font-weight: 300">@Version</MudText>
-		}
-	</MudStack>
-	<MudPaper Class="mt-2" Elevation="0">
-		@ChildContent
-	</MudPaper>
-	@if (_dividerNeedes)
-	{
-		<MudDivider Class="mt-4" />
-	}
-	<MudStack Row Wrap="Wrap.Wrap" Justify="Justify.SpaceBetween" Class="mt-3" AlignItems="AlignItems.Center">
-		@if (!HideOpenButton)
-		{
-			<MudButton EndIcon="@Icons.Material.TwoTone.OpenInNew" OnClick="OpenInNewTab" Target="_blank" Color="Color.Tertiary" Variant="Variant.Text">
-				@L["FollowApplicationLinkText"]
-			</MudButton>
-		}
-		@if (_showOnlyInItalian)
-		{
-			<MudAlert Severity="Severity.Warning" NoIcon Dense Style="font-size: 0.8rem">@L["OnlyInItalianMessageText"]</MudAlert>
-		}
-		@if (EnrollNeeded)
-		{
-			<MudAlert Severity="Severity.Warning" NoIcon Dense Style="font-size: 0.8rem">@L["EnrollNeededMessageText"]</MudAlert>
-		}
-	</MudStack>
+<MudPaper Elevation="@Elevation" MaxWidth="300px" Class="pa-4" Square="false" Style="cursor:pointer">
+    <div @onclick="OpenInNewTab">
+        <MudStack Row Wrap="Wrap.Wrap" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Start">
+            <MudText Typo="Typo.h6" Color="Color.Primary" Inline Style="font-weight: bolder">
+                @AppName
+            </MudText>
+            @if (!string.IsNullOrWhiteSpace(Version))
+            {
+                <MudText Typo="Typo.subtitle2" Inline Class="opacity-med" Style="font-weight: 300">@Version</MudText>
+            }
+        </MudStack>
+        <MudPaper Class="mt-2" Elevation="0">
+            @ChildContent
+        </MudPaper>
+    </div>
+    <MudLink Href="@AppLink" Target="_blank" Color="Color.Tertiary" class="mt-3 opacity-med" Style="font-size:80%">@AppLink</MudLink>
+    @if (_dividerNeedes)
+    {
+        <MudDivider Class="mt-4" />
+    }
+    <MudStack Row Wrap="Wrap.Wrap" Justify="Justify.SpaceBetween" Class="mt-3" AlignItems="AlignItems.Center">
+        @if (!HideOpenButton)
+        {
+            <MudButton EndIcon="@Icons.Material.TwoTone.OpenInNew" OnClick="OpenInNewTab" Target="_blank" Color="Color.Tertiary" Variant="Variant.Text">
+                @L["FollowApplicationLinkText"]
+            </MudButton>
+        }
+        @if (_showOnlyInItalian)
+        {
+            <MudAlert Severity="Severity.Warning" NoIcon Dense Style="font-size: 0.8rem">@L["OnlyInItalianMessageText"]</MudAlert>
+        }
+        @if (EnrollNeeded)
+        {
+            <MudAlert Severity="Severity.Warning" NoIcon Dense Style="font-size: 0.8rem" OnClick="NavToContactForm">@L["EnrollNeededMessageText"]</MudAlert>
+        }
+    </MudStack>
 </MudPaper>
 
 @code
-	{
-	[Parameter] public string? AppName { get; set; }
-	[Parameter] public RenderFragment? ChildContent { get; set; }
-	[Parameter] public string? AppLink { get; set; }
-	[Parameter] public bool OnlyItalian { get; set; } = true;
-	[Parameter] public bool EnrollNeeded { get; set; } = false;
-	[Parameter] public string? Version { get; set; } = null;
-	[Parameter] public int Elevation { get; set; } = 8;
-	[Parameter] public bool HideOpenButton { get; set; } = true;
+{
+    [Parameter] public string? AppName { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public string? AppLink { get; set; }
+    [Parameter] public bool OnlyItalian { get; set; } = true;
+    [Parameter] public bool EnrollNeeded { get; set; } = false;
+    [Parameter] public string? Version { get; set; } = null;
+    [Parameter] public int Elevation { get; set; } = 8;
+    [Parameter] public bool HideOpenButton { get; set; } = true;
 
-	private bool _showOnlyInItalian => OnlyItalian && (!CultureInfo.DefaultThreadCurrentCulture?.TwoLetterISOLanguageName.Equals("it", StringComparison.OrdinalIgnoreCase) ?? true);
-	private bool _dividerNeedes => !HideOpenButton || _showOnlyInItalian || EnrollNeeded;
+    private bool _showOnlyInItalian => OnlyItalian && (!CultureInfo.DefaultThreadCurrentCulture?.TwoLetterISOLanguageName.Equals("it", StringComparison.OrdinalIgnoreCase) ?? true);
+    private bool _dividerNeedes => !HideOpenButton || _showOnlyInItalian || EnrollNeeded;
 
-	private async Task OpenInNewTab()
-	{
-		await JS.InvokeVoidAsync("open", AppLink, "_blank");
-	}
+    private async Task OpenInNewTab()
+    {
+        await JS.InvokeVoidAsync("open", AppLink, "_blank");
+    }
+
+    private async Task NavToContactForm()
+    {
+        Nav.NavigateTo("contact-me");
+    }
+
 }

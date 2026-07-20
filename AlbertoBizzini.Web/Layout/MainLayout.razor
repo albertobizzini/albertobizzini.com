@@ -26,10 +26,7 @@
         <MudText Typo="Typo.h6">@SR["WebsiteTitle"]</MudText>
         <MudSpacer />
 
-        @if (_isDebug)
-        {
-            <MudIconButton Href="contact-me" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.TwoTone.Mail" />
-        }
+        <MudIconButton Href="contact-me" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.TwoTone.Mail" />
 
         <MudTooltip Text="@L["ToggleDarkMode"]">
             <MudIconButton Icon="@(DarkLightModeButtonIcon)" Color="Color.Inherit" OnClick="@DarkModeToggle" />
