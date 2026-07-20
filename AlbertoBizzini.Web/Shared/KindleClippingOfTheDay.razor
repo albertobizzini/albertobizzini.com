@@ -17,7 +17,7 @@ else
 			}
 			else
 			{
-				<MudText HtmlTag="em" Color="Color.Info">«@_clipping.Text»</MudText>
+				<MudText HtmlTag="em" Color="Color.Info">@_clipping.QuotedText</MudText>
 			}
 		</MudPaper>
 		@if (_clipping is not null)
@@ -76,7 +76,6 @@ else
 		StateHasChanged();
 	}
 
-	// Cambiato il delta a favore del decremento corretto (-1 e +1)
 	protected async Task DecreaseDeltaDays() => await UpdateDeltaDays(-1);
 
 	protected async Task IncreaseDeltaDays() => await UpdateDeltaDays(+1);

@@ -27,10 +27,10 @@
     </NoRecordsContent>
 
     <Columns>
-        <SelectColumn T="Clipping" />
-        <PropertyColumn Property="x => x.Book.Author" Title="@L["BookAuthorLabel"]" />
+        <PropertyColumn Property="x => x.AddedOn" Title="@L["AddedOnLabel"]" Format="d" />
+        <PropertyColumn Property="x => x.Book.Author" Title="@L["BookAuthorLabel"]"/>
         <PropertyColumn Property="x => x.Book.Title" Title="@L["BookTitleLabel"]" />
-        <PropertyColumn Property="x => x.Text" Title="@L["ClippedTextLabel"]" />
+        <PropertyColumn Property="x => x.QuotedText" Title="@L["ClippedTextLabel"]" />
     </Columns>
 
     <PagerContent>

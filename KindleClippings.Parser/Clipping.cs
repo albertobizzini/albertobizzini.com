@@ -1,4 +1,6 @@
-﻿namespace KindleClippings;
+﻿using System.Text.Json.Serialization;
+
+namespace KindleClippings;
 
 public enum ClippingType
 {
@@ -23,4 +25,7 @@ public class Clipping
     public DateTime? AddedOn { get; init; }
 
     public string? Text { get; init; }
+
+    [JsonIgnore]
+    public string? QuotedText => !string.IsNullOrWhiteSpace(Text) ? $"«{Text}»" : string.Empty;
 }

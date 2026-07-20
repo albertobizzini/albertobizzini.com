@@ -115,4 +115,7 @@
   <data name="ClippedTextLabel" xml:space="preserve">
     <value>Highlighted passage</value>
   </data>
+  <data name="AddedOnLabel" xml:space="preserve">
+    <value>Date</value>
+  </data>
 </root>

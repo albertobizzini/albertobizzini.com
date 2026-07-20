@@ -135,4 +135,7 @@
   <data name="ClippedTextLabel" xml:space="preserve">
     <value>Passaggio evidenziato</value>
   </data>
+  <data name="AddedOnLabel" xml:space="preserve">
+    <value>Date</value>
+  </data>
 </root>
