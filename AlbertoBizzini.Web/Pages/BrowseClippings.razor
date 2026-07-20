@@ -68,7 +68,7 @@
 @if (IsMobile)
 {
     <MudTable T="Clipping"
-              Items="_clippings?.Where(_quickFilter)"
+              Items="FilteredAndSortedClippings"
               Breakpoint="Breakpoint.None"
               Hover
               Dense>
@@ -76,6 +76,26 @@
         <NoRecordsContent>
             @L["NoKindleClippingIsAvailableWarningMessage"]
         </NoRecordsContent>
+
+        <ToolBarContent>
+            <MudSelect T="SortOption" @bind-Value="_sortBy" Label="@L["SortByLabel"]">
+
+                <MudSelectItem Value="SortOption.AddedOn">
+                    @L["AddedOnLabel"]
+                </MudSelectItem>
+
+                <MudSelectItem Value="SortOption.Author">
+                    @L["BookAuthorLabel"]
+                </MudSelectItem>
+
+                <MudSelectItem Value="SortOption.Title">
+                    @L["BookTitleLabel"]
+                </MudSelectItem>
+
+            </MudSelect>
+
+            <MudSwitch @bind-Value="_descending">@L["DescendingLabel"]</MudSwitch>
+        </ToolBarContent>
 
         <RowTemplate>
             <MudTd>
@@ -126,17 +146,43 @@ else
 @code {
     private bool _loading = true;
     private List<Clipping>? _clippings;
-    private List<string> _authors = new();
-    private string _searchString = string.Empty;
-    private string? _selectedAuthor;
-    private string? _selectedTitle;
 
+    private string _searchString = string.Empty;
     private int MinSearchStringLength = 3;
     private string SearchStringInternal => !string.IsNullOrWhiteSpace(_searchString) && _searchString.Length >= MinSearchStringLength ? _searchString : string.Empty;
 
+    private enum SortOption
+    {
+        AddedOn,
+        Author,
+        Title
+    }
+    private SortOption _sortBy = SortOption.AddedOn;
+    private bool _descending = true;
+    private IEnumerable<Clipping> FilteredAndSortedClippings
+    {
+        get
+        {
+            var result = (_clippings ?? [])
+                .Where(_quickFilter);
 
-    private List
-    <string> _selectedAuthorTitles => _clippings is not null && string.IsNullOrWhiteSpace(_selectedAuthor)
+            result = _sortBy switch
+            {
+                SortOption.Author => result.OrderBy(c => c.Book.Author),
+                SortOption.Title => result.OrderBy(c => c.Book.Title),
+                _ => result.OrderBy(c => c.AddedOn)
+            };
+
+            return _descending
+                ? result.Reverse()
+                : result;
+        }
+    }
+
+    private List<string> _authors = new();
+    private string? _selectedAuthor;
+    private string? _selectedTitle;
+    private List<string> _selectedAuthorTitles => _clippings is not null && string.IsNullOrWhiteSpace(_selectedAuthor)
         ? new()
         : _clippings!
             .Where(c => c.Book.Author == _selectedAuthor)
@@ -147,10 +193,13 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        Logger.LogInformation("BrowseClippings.OnInitializedAsync loading clippins...");
         var result = await KindleService.LoadAsync();
-        _clippings = result.Clippings;
-        Logger.LogInformation("BrowseClippings.OnInitializedAsync loaded {count} clippins...", _clippings?.Count);
+        _clippings = result.Clippings ?? [];
+        _loading = false;
+        _authors = [];
+
+        if (_clippings.Count == 0)
+            return;
 
         _authors = _clippings
             .Where(c => !string.IsNullOrWhiteSpace(c.Book.Author))
@@ -158,8 +207,6 @@ else
             .Distinct()
             .OrderBy(c => c)
             .ToList();
-
-        _loading = false;
     }
 
     private void OnAuthorChanged(string? author)

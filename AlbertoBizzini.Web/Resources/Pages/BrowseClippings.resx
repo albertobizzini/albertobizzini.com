@@ -121,4 +121,10 @@
   <data name="SearchLabel" xml:space="preserve">
     <value>Search everywhere (min {0} characters)</value>
   </data>
+  <data name="DescendingLabel" xml:space="preserve">
+    <value>Descending?</value>
+  </data>
+  <data name="SortByLabel" xml:space="preserve">
+    <value>Sort by</value>
+  </data>
 </root>
