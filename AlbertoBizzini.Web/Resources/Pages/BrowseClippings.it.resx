@@ -127,7 +127,7 @@
     <value>Nessun elemento presente</value>
   </data>
   <data name="BookAuthorLabel" xml:space="preserve">
-    <value>Autore</value>
+    <value>Scritto da</value>
   </data>
   <data name="BookTitleLabel" xml:space="preserve">
     <value>Titolo</value>

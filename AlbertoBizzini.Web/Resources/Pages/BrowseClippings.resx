@@ -107,7 +107,7 @@
     <value>No items present</value>
   </data>
   <data name="BookAuthorLabel" xml:space="preserve">
-    <value>Author</value>
+    <value>Written by</value>
   </data>
   <data name="BookTitleLabel" xml:space="preserve">
     <value>Title</value>
