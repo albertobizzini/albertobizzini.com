@@ -22,7 +22,9 @@
             <MudTextField @bind-Value="_searchString" ShrinkLabel Label="@L["SearchPlaceholder"]" Adornment="Adornment.Start" Immediate="true"
                           AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
 
-            <MudSelect @bind-Value="@_selectedAuthor"
+            <MudSelect T="string"
+                       Value="@_selectedAuthor"
+                       ValueChanged="OnAuthorChanged"
                        Label="@L["BookAuthorLabel"]"
                        ShrinkLabel
                        Dense
@@ -37,6 +39,22 @@
                     }
                 }
             </MudSelect>
+
+            @if (!string.IsNullOrWhiteSpace(_selectedAuthor) && _selectedAuthorTitles?.Count > 0)
+            {
+                <MudSelect @bind-Value="@_selectedTitle"
+                           Label="@L["BookTitleLabel"]"
+                           ShrinkLabel
+                           Dense
+                           FitContent
+                           Clearable>
+                    @foreach (var title in _selectedAuthorTitles)
+                    {
+                        <MudSelectItem Value="title">@title</MudSelectItem>
+                    }
+                </MudSelect>
+
+            }
         </MudStack>
     </ToolBarContent>
 
@@ -64,22 +82,48 @@
     private List<string> _authors = new();
     private string _searchString = string.Empty;
     private string? _selectedAuthor;
+    private string? _selectedTitle;
+
+    private List<string> _selectedAuthorTitles => _clippings is not null && string.IsNullOrWhiteSpace(_selectedAuthor)
+        ? new()
+        : _clippings!
+            .Where(c => c.Book.Author == _selectedAuthor)
+            .Select(c => c.Book.Title)
+            .Distinct()
+            .OrderBy(b => b)
+            .ToList();
 
     protected override async Task OnInitializedAsync()
     {
         var result = await KindleService.LoadAsync();
         _clippings = result.Clippings;
-        _authors = _clippings.Where(c => !string.IsNullOrWhiteSpace(c.Book.Author)).Select(c => c.Book.Author!).Distinct().OrderBy(c => c).ToList();
+        _authors = _clippings
+            .Where(c => !string.IsNullOrWhiteSpace(c.Book.Author))
+            .Select(c => c.Book.Author!)
+            .Distinct()
+            .OrderBy(c => c)
+            .ToList();
         _loading = false;
+    }
+
+    private void OnAuthorChanged(string? author)
+    {
+        _selectedAuthor = author;
+        _selectedTitle = null;
     }
 
     private Func<Clipping, bool> _quickFilter => c =>
     {
-        // Filtro autore
         if (!string.IsNullOrWhiteSpace(_selectedAuthor))
         {
             if (!string.Equals(c.Book.Author, _selectedAuthor, StringComparison.OrdinalIgnoreCase))
                 return false;
+
+            if (!string.IsNullOrWhiteSpace(_selectedTitle))
+            {
+                if (!string.Equals(c.Book.Title, _selectedTitle, StringComparison.OrdinalIgnoreCase))
+                    return false;
+            }
         }
 
         // Ricerca libera
