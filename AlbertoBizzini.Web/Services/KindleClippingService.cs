@@ -93,10 +93,26 @@ public class KindleClippingService
         if (string.IsNullOrWhiteSpace(clipping?.Text))
             return;
 
-        var value = new StringBuilder();
-        value.Append(clipping.QuotedText!.ToString());
+        var quote = clipping.QuotedText!.ToString();
 
-        await _js.InvokeVoidAsync("copyToClipboard", value.ToString());
+        StringBuilder suffixBuilder = new StringBuilder();
+        string delim = string.Empty;
+        if (!string.IsNullOrWhiteSpace(clipping.Book.Title))
+        {
+            suffixBuilder.Append($"{delim}\"{clipping.Book.Title}\"");
+            delim = " - ";
+        }
+        if (!string.IsNullOrWhiteSpace(clipping.Book.Author))
+        {
+            suffixBuilder.Append($"{delim}{clipping.Book.Author}");
+            delim = " - ";
+        }
+
+        var suffix = suffixBuilder.ToString();
+        if (!string.IsNullOrWhiteSpace(suffix))
+            quote += $" ({suffix})";
+
+        await _js.InvokeVoidAsync("copyToClipboard", quote);
         _snackbar.Add(copiedFeedbackMessage, Severity.Success);
     }
 }
