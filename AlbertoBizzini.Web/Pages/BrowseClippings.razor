@@ -4,6 +4,10 @@
 @inject IStringLocalizer<SharedResources> SR
 @inject IStringLocalizer<BrowseClippings> L
 @inject KindleClippingService KindleService
+@inject ILogger<BrowseClippings> Logger
+
+
+<MudBreakpointProvider OnBreakpointChanged="BreakpointChanged" />
 
 <PageTitle>@L["PageTitle"] - @SR["WebsiteTitle"]</PageTitle>
 
@@ -11,63 +15,83 @@
 
 <MudText Typo="Typo.body2" Class="pl-2 mb-4">@L["IntroductionText"]</MudText>
 
-<MudDataGrid Items="@_clippings"
-             Loading="@_loading"
-             Filterable="true"
-             MultiSelection="false"
-             QuickFilter="@_quickFilter">
+@if (_loading)
+{
+    <LoadingProgress />
+}
 
-    <ToolBarContent>
-        <MudStack Row Wrap="Wrap.NoWrap" AlignItems="AlignItems.Center" Justify="Justify.FlexStart">
-            <MudTextField @bind-Value="_searchString" ShrinkLabel Label="@L["SearchPlaceholder"]" Adornment="Adornment.Start" Immediate="true"
-                          AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+@if (!_loading && _clippings?.Count > 0)
+{
+    <MudStack Row Wrap="Wrap.Wrap" AlignItems="AlignItems.Center" Justify="Justify.FlexStart" Spacing="2" Class="px-2">
+        <MudTextField @bind-Value="_searchString" ShrinkLabel Label="@L["SearchPlaceholder"]" Adornment="Adornment.Start" Immediate="true"
+                      AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
 
-            <MudSelect T="string"
-                       Value="@_selectedAuthor"
-                       ValueChanged="OnAuthorChanged"
-                       Label="@L["BookAuthorLabel"]"
+        <MudSelect T="string"
+                   Value="@_selectedAuthor"
+                   ValueChanged="OnAuthorChanged"
+                   Label="@L["BookAuthorLabel"]"
+                   ShrinkLabel
+                   Dense
+                   FitContent
+                   Clearable>
+
+            @if (_authors?.Count > 0)
+            {
+                @foreach (var author in _authors)
+                {
+                    <MudSelectItem Value="author">@author</MudSelectItem>
+                }
+            }
+        </MudSelect>
+
+        @if (!string.IsNullOrWhiteSpace(_selectedAuthor) && _selectedAuthorTitles?.Count > 0)
+        {
+            <MudSelect @bind-Value="@_selectedTitle"
+                       Label="@L["BookTitleLabel"]"
                        ShrinkLabel
                        Dense
                        FitContent
                        Clearable>
-
-                @if (_authors?.Count > 0)
+                @foreach (var title in _selectedAuthorTitles)
                 {
-                    @foreach (var author in _authors)
-                    {
-                        <MudSelectItem Value="author">@author</MudSelectItem>
-                    }
+                    <MudSelectItem Value="title">@title</MudSelectItem>
                 }
             </MudSelect>
 
-            @if (!string.IsNullOrWhiteSpace(_selectedAuthor) && _selectedAuthorTitles?.Count > 0)
-            {
-                <MudSelect @bind-Value="@_selectedTitle"
-                           Label="@L["BookTitleLabel"]"
-                           ShrinkLabel
-                           Dense
-                           FitContent
-                           Clearable>
-                    @foreach (var title in _selectedAuthorTitles)
-                    {
-                        <MudSelectItem Value="title">@title</MudSelectItem>
-                    }
-                </MudSelect>
+        }
+    </MudStack>
 
-            }
-        </MudStack>
-    </ToolBarContent>
+}
+
+<MudDataGrid Items="@_clippings"
+             Filterable="true"
+             MultiSelection="false"
+             QuickFilter="@_quickFilter"
+             Breakpoint="Breakpoint.None"
+             Class="mt-4">
 
     <NoRecordsContent>
         @L["ThereAreNoItemsMessage"]
     </NoRecordsContent>
 
     <Columns>
-        <PropertyColumn Property="x => x.AddedOn" Title="@L["AddedOnLabel"]" Format="d" />
-        <PropertyColumn Property="x => x.Book.Author" Title="@L["BookAuthorLabel"]" />
-        <PropertyColumn Property="x => x.Book.Title" Title="@L["BookTitleLabel"]" />
-        <PropertyColumn Property="x => x.QuotedText" Title="@L["ClippedTextLabel"]" CellStyle="font-style: italic" />
-        @* <PropertyColumn Property="x => x.StartLocation" Title="@L["StartLocationLabel"]" Filterable="false" Sortable="false" StickyRight /> *@
+        @if (IsMobile)
+        {
+            <TemplateColumn>
+                <CellTemplate>
+                    <ClippingDisplay Clipping="@context.Item" />
+                </CellTemplate>
+            </TemplateColumn>
+
+        }
+        else
+        {
+            <PropertyColumn Property="x => x.AddedOn" Title="@L["AddedOnLabel"]" Format="d" />
+            <PropertyColumn Property="x => x.Book.Author" Title="@L["BookAuthorLabel"]" />
+            <PropertyColumn Property="x => x.Book.Title" Title="@L["BookTitleLabel"]" />
+            <PropertyColumn Property="x => x.QuotedText" Title="@L["ClippedTextLabel"]" CellStyle="font-style: italic" />
+            @* <PropertyColumn Property="x => x.StartLocation" Title="@L["StartLocationLabel"]" Filterable="false" Sortable="false" StickyRight /> *@
+        }
     </Columns>
 
     <PagerContent>
@@ -95,14 +119,18 @@
 
     protected override async Task OnInitializedAsync()
     {
+        Logger.LogInformation("BrowseClippings.OnInitializedAsync loading clippins...");
         var result = await KindleService.LoadAsync();
         _clippings = result.Clippings;
+        Logger.LogInformation("BrowseClippings.OnInitializedAsync loaded {count} clippins...", _clippings?.Count);
+
         _authors = _clippings
             .Where(c => !string.IsNullOrWhiteSpace(c.Book.Author))
             .Select(c => c.Book.Author!)
             .Distinct()
             .OrderBy(c => c)
             .ToList();
+
         _loading = false;
     }
 
@@ -146,4 +174,20 @@
 
         return true;
     };
+
+    #region Breakpoint
+
+    private Breakpoint _breakpoint;
+
+    private Task BreakpointChanged(Breakpoint breakpoint)
+    {
+        _breakpoint = breakpoint;
+        return Task.CompletedTask;
+    }
+
+    private bool IsMobile =>
+        _breakpoint <= Breakpoint.Sm;
+
+    #endregion
+
 }
