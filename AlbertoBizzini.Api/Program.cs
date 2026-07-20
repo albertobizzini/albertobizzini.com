@@ -65,7 +65,7 @@ builder.Services.AddTransient<IEmailSender, Smtp2GoEmailSender>();
 
 #endregion
 
-
+builder.Services.AddHealthChecks();
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
 
@@ -90,7 +90,6 @@ builder.Services.AddCors(options =>
 });
 
 
-
 var app = builder.Build();
 
 app.UseHttpsRedirection();
@@ -106,5 +105,7 @@ app.UseForwardedHeaders();
 app.UseRateLimiter();
 app.UseAuthorization();
 app.MapControllers();
+
+app.MapHealthChecks("/health");
 
 app.Run();
