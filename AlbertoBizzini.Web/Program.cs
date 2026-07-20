@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Options;
 using MudBlazor.Services;
+using MudBlazor.Translations;
 using Soenneker.Blazor.Turnstile.Registrars;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
@@ -15,6 +16,7 @@ builder.Services.Configure<ApiOptions>(
     builder.Configuration.GetSection(ApiOptions.SectionName));
 
 builder.Services.AddMudServices();
+builder.Services.AddMudTranslations();
 
 builder.Services.AddScoped(sp =>
     new HttpClient

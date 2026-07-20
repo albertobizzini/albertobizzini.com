@@ -101,6 +101,18 @@
     <value>My Kindle highlighted passages</value>
   </data>
   <data name="IntroductionText" xml:space="preserve">
-    <value>Below you can browse the passages I've highlighted on my Kindle over time.</value>
+    <value>Below you can browse the passages I've highlighted on my Kindle over time</value>
+  </data>
+  <data name="ThereAreNoItemsMessage" xml:space="preserve">
+    <value>No items present</value>
+  </data>
+  <data name="BookAuthorLabel" xml:space="preserve">
+    <value>Author</value>
+  </data>
+  <data name="BookTitleLabel" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="ClippedTextLabel" xml:space="preserve">
+    <value>Highlighted passage</value>
   </data>
 </root>

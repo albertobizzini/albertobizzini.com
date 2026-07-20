@@ -123,4 +123,16 @@
   <data name="IntroductionText" xml:space="preserve">
     <value>Di seguito puoi sfogliare i passaggi che ho evidenziato sul mio Kindle nel corso del tempo</value>
   </data>
+  <data name="ThereAreNoItemsMessage" xml:space="preserve">
+    <value>Nessun elemento presente</value>
+  </data>
+  <data name="BookAuthorLabel" xml:space="preserve">
+    <value>Autore</value>
+  </data>
+  <data name="BookTitleLabel" xml:space="preserve">
+    <value>Titolo</value>
+  </data>
+  <data name="ClippedTextLabel" xml:space="preserve">
+    <value>Passaggio evidenziato</value>
+  </data>
 </root>

@@ -11,21 +11,60 @@
 
 <MudText Typo="Typo.body2" Class="pl-2 mb-4">@L["IntroductionText"]</MudText>
 
-@if (clippings == null)
-{
-    <p>Caricamento...</p>
-}
-else
-{
-    <p>Totale: @clippings.Count</p>
-}
+<MudDataGrid Items="@_clippings"
+             Loading="@_loading"
+             Filterable="true" 
+             MultiSelection="false"
+             QuickFilter="@_quickFilter">
+
+    <ToolBarContent>
+        <MudTextField @bind-Value="_searchString" Placeholder="Search" Adornment="Adornment.Start" Immediate="true"
+                      AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </ToolBarContent>
+
+    <NoRecordsContent>
+        @L["ThereAreNoItemsMessage"]
+    </NoRecordsContent>
+
+    <Columns>
+        <SelectColumn T="Clipping" />
+        <PropertyColumn Property="x => x.Book.Author" Title="@L["BookAuthorLabel"]" />
+        <PropertyColumn Property="x => x.Book.Title" Title="@L["BookTitleLabel"]" />
+        <PropertyColumn Property="x => x.Text" Title="@L["ClippedTextLabel"]" />
+    </Columns>
+
+    <PagerContent>
+        <MudDataGridPager T="Clipping" />
+    </PagerContent>
+
+</MudDataGrid>
 
 @code {
-    private List<Clipping>? clippings;
+    private bool _loading = true;
+    private List<Clipping>? _clippings;
+    private string _searchString;
 
     protected override async Task OnInitializedAsync()
     {
         var result = await KindleService.LoadAsync();
-        clippings = result.Clippings;
+        _clippings = result.Clippings;
+        _loading = false;
     }
+
+    private Func<Clipping, bool> _quickFilter => c =>
+       {
+           if (string.IsNullOrWhiteSpace(_searchString))
+               return true;
+
+           if (c.Book.Author is not null && c.Book.Author.Contains(_searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+
+           if (c.Book.Title is not null && c.Book.Title.Contains(_searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+
+           if (c.Text is not null && c.Text .Contains(_searchString, StringComparison.OrdinalIgnoreCase))
+               return true;
+
+           return false;
+       };
 }
