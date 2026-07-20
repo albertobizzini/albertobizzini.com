@@ -106,8 +106,14 @@ else
             <PropertyColumn Property="x => x.AddedOn" Title="@L["AddedOnLabel"]" Format="d" />
             <PropertyColumn Property="x => x.Book.Author" Title="@L["BookAuthorLabel"]" />
             <PropertyColumn Property="x => x.Book.Title" Title="@L["BookTitleLabel"]" />
-            <PropertyColumn Property="x => x.QuotedText" Title="@L["ClippedTextLabel"]" CellStyle="font-style: italic; color:var(--mud-palette-info-rgb)" />
-            @* <PropertyColumn Property="x => x.StartLocation" Title="@L["StartLocationLabel"]" Filterable="false" Sortable="false" StickyRight /> *@
+            <TemplateColumn>
+                <HeaderTemplate>
+                    @L["ClippedTextLabel"]
+                </HeaderTemplate>
+                <CellTemplate>
+                    <MudText HtmlTag="em" Color="Color.Info"><MudHighlighter Text="@context.Item.QuotedText" HighlightedText="@SearchStringInternal" /></MudText>
+                </CellTemplate>
+            </TemplateColumn>
         </Columns>
 
         <PagerContent>
