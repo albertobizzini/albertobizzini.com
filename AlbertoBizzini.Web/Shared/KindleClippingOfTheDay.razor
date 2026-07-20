@@ -40,6 +40,8 @@ else
 				<MudIconButton Variant="Variant.Outlined" Color="Color.Primary" Icon="@Icons.Material.TwoTone.KeyboardArrowLeft" OnClick="DecreaseDeltaDays" Size="Size.Small" />
 				<MudIconButton Variant="Variant.Outlined" Color="Color.Primary" Icon="@Icons.Material.TwoTone.KeyboardArrowRight" OnClick="IncreaseDeltaDays" Disabled="@(DeltaDays == 0)" Size="Size.Small" />
 			</MudStack>
+
+			<MudLink Href="clippings" Style="text-align:center" Underline="Underline.None">@L["NavToClippingsPage"]…</MudLink>
 		}
 	</MudStack>
 

@@ -26,7 +26,7 @@
         <MudText Typo="Typo.h6">@SR["WebsiteTitle"]</MudText>
         <MudSpacer />
 
-        <MudIconButton Href="contact-me" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.TwoTone.Mail" />
+        <MudIconButton Href="contact-me" Icon="@Icons.Material.TwoTone.Mail" />
 
         <MudTooltip Text="@L["ToggleDarkMode"]">
             <MudIconButton Icon="@(DarkLightModeButtonIcon)" Color="Color.Inherit" OnClick="@DarkModeToggle" />
@@ -35,10 +35,6 @@
         <MudTooltip Text="@L["ToggleLanguageTooltip" + _otherLanguageFlag.ToUpper()]">
             <MudIconButton Color="Color.Inherit" OnClick="@ToggleLanguage"><span class="@_otherLanguageFlagFlagClass" /></MudIconButton>
         </MudTooltip>
-
-        @* <MudLink Href="https://learn.microsoft.com/aspnet/core/" Target="_blank" Color="Color.Inherit" Underline="Underline.None">
-            About
-        </MudLink> *@
 
     </MudAppBar>
 

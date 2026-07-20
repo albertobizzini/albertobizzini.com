@@ -1,8 +1,15 @@
 ﻿@page "/clippings"
 @using KindleClippings
+@using AlbertoBizzini.Web.Shared
+@inject IStringLocalizer<SharedResources> SR
+@inject IStringLocalizer<BrowseClippings> L
 @inject KindleClippingService KindleService
 
-<h3>Kindle Clippings</h3>
+<PageTitle>@L["PageTitle"] - @SR["WebsiteTitle"]</PageTitle>
+
+<MudText class="page-tile">@L["PageTitle"]</MudText>
+
+<MudText Typo="Typo.body2" Class="pl-2 mb-4">@L["IntroductionText"]</MudText>
 
 @if (clippings == null)
 {

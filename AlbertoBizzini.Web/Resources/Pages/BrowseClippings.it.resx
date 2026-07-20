@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,16 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddedOnLabel" xml:space="preserve">
-    <value>highlighted on</value>
+  <data name="PageTitle" xml:space="preserve">
+    <value>Evidenziazioni sul mio Kindle</value>
   </data>
-  <data name="PositionLabel" xml:space="preserve">
-    <value>position</value>
-  </data>
-  <data name="ExtractedFromLabel" xml:space="preserve">
-    <value>Excerpt from:</value>
-  </data>
-  <data name="NavToClippingsPage" xml:space="preserve">
-    <value>Browse them all</value>
+  <data name="IntroductionText" xml:space="preserve">
+    <value>Di seguito puoi sfogliare i passaggi che ho evidenziato sul mio Kindle nel corso del tempo</value>
   </data>
 </root>
