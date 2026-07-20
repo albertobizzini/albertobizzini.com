@@ -17,7 +17,7 @@ else
 			<MudStack Row Justify="Justify.Center" AlignItems="AlignItems.Center">
 				<MudIconButton Variant="Variant.Outlined" Color="Color.Primary" Icon="@Icons.Material.TwoTone.KeyboardArrowLeft" OnClick="DecreaseDeltaDays" Size="Size.Small" />
 				<MudIconButton Variant="Variant.Outlined" Color="Color.Primary" Icon="@Icons.Material.TwoTone.KeyboardArrowRight" OnClick="IncreaseDeltaDays" Disabled="@(DeltaDays == 0)" Size="Size.Small" />
-				<MudIconButton Icon="@Icons.Material.Outlined.Share" Size="Size.Medium" Color="Color.Primary" OnClick="@(() => KindleClippingService.CopyAsync(_clipping, SR["CopiedToClipbboardFeedbackMessage"]))" />
+				<KindleShareClippingButton Clipping="_clipping"/>
 				<MudLink Href="clippings" Style="text-align:center" Underline="Underline.None">@L["NavToClippingsPage"]…</MudLink>
 			</MudStack>
 

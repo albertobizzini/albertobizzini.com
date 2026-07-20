@@ -1,0 +1,12 @@
+﻿@using KindleClippings
+@inject IStringLocalizer<SharedResources> SR
+@inject KindleClippingService KindleClippingService
+
+@if (!string.IsNullOrWhiteSpace(Clipping?.Text))
+{
+	<MudIconButton Icon="@Icons.Material.Outlined.Share" Size="Size.Medium" Color="Color.Primary" OnClick="@(() => KindleClippingService.CopyAsync(Clipping, SR["CopiedToClipbboardFeedbackMessage"]))" />
+}
+@code {
+	[Parameter] public Clipping? Clipping { get; set; } = null;
+
+}

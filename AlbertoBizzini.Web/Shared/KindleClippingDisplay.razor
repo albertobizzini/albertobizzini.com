@@ -16,7 +16,7 @@
 
             @if (!HideShareButton)
             {
-                <MudIconButton Icon="@Icons.Material.Outlined.Share" Size="Size.Medium" Color="ShareButtonColor" OnClick="@(() => KindleClippingService.CopyAsync(Clipping, SR["CopiedToClipbboardFeedbackMessage"]))" />
+                <KindleShareClippingButton Clipping="Clipping" />
             }
         </MudStack>
     }
@@ -61,7 +61,7 @@ else
 
         @if (!HideShareButton)
         {
-            <MudIconButton Icon="@Icons.Material.Outlined.Share" Size="Size.Medium" Color="ShareButtonColor" OnClick="@(() => KindleClippingService.CopyAsync(Clipping, SR["CopiedToClipbboardFeedbackMessage"]))" />
+            <KindleShareClippingButton Clipping="Clipping" />
         }
 
     </MudStack>
