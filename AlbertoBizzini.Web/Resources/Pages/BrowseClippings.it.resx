@@ -141,4 +141,7 @@
   <data name="StartLocationLabel" xml:space="preserve">
     <value>Posizione</value>
   </data>
+  <data name="SearchPlaceholder" xml:space="preserve">
+    <value>Cerca ovunque</value>
+  </data>
 </root>

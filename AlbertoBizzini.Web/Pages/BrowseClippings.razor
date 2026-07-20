@@ -13,13 +13,31 @@
 
 <MudDataGrid Items="@_clippings"
              Loading="@_loading"
-             Filterable="true" 
+             Filterable="true"
              MultiSelection="false"
              QuickFilter="@_quickFilter">
 
     <ToolBarContent>
-        <MudTextField @bind-Value="_searchString" Placeholder="Search" Adornment="Adornment.Start" Immediate="true"
-                      AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+        <MudStack Row Wrap="Wrap.NoWrap" AlignItems="AlignItems.Center" Justify="Justify.FlexStart">
+            <MudTextField @bind-Value="_searchString" ShrinkLabel Label="@L["SearchPlaceholder"]" Adornment="Adornment.Start" Immediate="true"
+                          AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+
+            <MudSelect @bind-Value="@_selectedAuthor"
+                       Label="@L["BookAuthorLabel"]"
+                       ShrinkLabel
+                       Dense
+                       FitContent
+                       Clearable>
+
+                @if (_authors?.Count > 0)
+                {
+                    @foreach (var author in _authors)
+                    {
+                        <MudSelectItem Value="author">@author</MudSelectItem>
+                    }
+                }
+            </MudSelect>
+        </MudStack>
     </ToolBarContent>
 
     <NoRecordsContent>
@@ -28,7 +46,7 @@
 
     <Columns>
         <PropertyColumn Property="x => x.AddedOn" Title="@L["AddedOnLabel"]" Format="d" />
-        <PropertyColumn Property="x => x.Book.Author" Title="@L["BookAuthorLabel"]"/>
+        <PropertyColumn Property="x => x.Book.Author" Title="@L["BookAuthorLabel"]" />
         <PropertyColumn Property="x => x.Book.Title" Title="@L["BookTitleLabel"]" />
         <PropertyColumn Property="x => x.QuotedText" Title="@L["ClippedTextLabel"]" CellStyle="font-style: italic" />
         @* <PropertyColumn Property="x => x.StartLocation" Title="@L["StartLocationLabel"]" Filterable="false" Sortable="false" StickyRight /> *@
@@ -43,29 +61,45 @@
 @code {
     private bool _loading = true;
     private List<Clipping>? _clippings;
-    private string _searchString;
+    private List<string> _authors = new();
+    private string _searchString = string.Empty;
+    private string? _selectedAuthor;
 
     protected override async Task OnInitializedAsync()
     {
         var result = await KindleService.LoadAsync();
         _clippings = result.Clippings;
+        _authors = _clippings.Where(c => !string.IsNullOrWhiteSpace(c.Book.Author)).Select(c => c.Book.Author!).Distinct().OrderBy(c => c).ToList();
         _loading = false;
     }
 
     private Func<Clipping, bool> _quickFilter => c =>
-       {
-           if (string.IsNullOrWhiteSpace(_searchString))
-               return true;
+    {
+        // Filtro autore
+        if (!string.IsNullOrWhiteSpace(_selectedAuthor))
+        {
+            if (!string.Equals(c.Book.Author, _selectedAuthor, StringComparison.OrdinalIgnoreCase))
+                return false;
+        }
 
-           if (c.Book.Author is not null && c.Book.Author.Contains(_searchString, StringComparison.OrdinalIgnoreCase))
+        // Ricerca libera
+        if (!string.IsNullOrWhiteSpace(_searchString))
+        {
+            if (c.Book.Author is not null &&
+                c.Book.Author.Contains(_searchString, StringComparison.OrdinalIgnoreCase))
                 return true;
 
-           if (c.Book.Title is not null && c.Book.Title.Contains(_searchString, StringComparison.OrdinalIgnoreCase))
+            if (c.Book.Title is not null &&
+                c.Book.Title.Contains(_searchString, StringComparison.OrdinalIgnoreCase))
                 return true;
 
-           if (c.Text is not null && c.Text .Contains(_searchString, StringComparison.OrdinalIgnoreCase))
-               return true;
+            if (c.QuotedText is not null &&
+                c.QuotedText.Contains(_searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
 
-           return false;
-       };
+            return false;
+        }
+
+        return true;
+    };
 }
