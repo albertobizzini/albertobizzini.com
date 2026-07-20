@@ -1,5 +1,7 @@
 @using KindleClippings
+@inject IStringLocalizer<SharedResources> SR
 @inject IStringLocalizer<KindleClippingDisplay> L
+@inject KindleClippingService KindleClippingService
 
 @if (JustTheQuote)
 {
@@ -14,7 +16,7 @@
 
             @if (!HideShareButton)
             {
-                <MudIconButton Icon="@Icons.Material.Outlined.Share" Size="Size.Medium" Color="ShareButtonColor" />
+                <MudIconButton Icon="@Icons.Material.Outlined.Share" Size="Size.Medium" Color="ShareButtonColor" OnClick="@(() => KindleClippingService.CopyAsync(Clipping, SR["CopiedToClipbboardFeedbackMessage"]))" />
             }
         </MudStack>
     }
@@ -59,7 +61,7 @@ else
 
         @if (!HideShareButton)
         {
-            <MudIconButton Icon="@Icons.Material.Outlined.Share" Size="Size.Medium" Color="ShareButtonColor" />
+            <MudIconButton Icon="@Icons.Material.Outlined.Share" Size="Size.Medium" Color="ShareButtonColor" OnClick="@(() => KindleClippingService.CopyAsync(Clipping, SR["CopiedToClipbboardFeedbackMessage"]))" />
         }
 
     </MudStack>

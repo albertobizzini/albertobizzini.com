@@ -1,5 +1,5 @@
 ﻿@using KindleClippings
-@inject KindleClippingService KindleService
+@inject KindleClippingService KindleClippingService
 @inject IStringLocalizer<SharedResources> SR
 @inject IStringLocalizer<KindleClippingOfTheDay> L
 
@@ -10,16 +10,17 @@
 else
 {
 	<MudStack>
-		<KindleClippingDisplay Clipping="@_clipping"/>
+		<KindleClippingDisplay Clipping="@_clipping" HideShareButton/>
 
 		@if (ShowPagination && _clipping is not null)
 		{
-			<MudStack Row Justify="Justify.Center">
+			<MudStack Row Justify="Justify.Center" AlignItems="AlignItems.Center">
 				<MudIconButton Variant="Variant.Outlined" Color="Color.Primary" Icon="@Icons.Material.TwoTone.KeyboardArrowLeft" OnClick="DecreaseDeltaDays" Size="Size.Small" />
 				<MudIconButton Variant="Variant.Outlined" Color="Color.Primary" Icon="@Icons.Material.TwoTone.KeyboardArrowRight" OnClick="IncreaseDeltaDays" Disabled="@(DeltaDays == 0)" Size="Size.Small" />
+				<MudIconButton Icon="@Icons.Material.Outlined.Share" Size="Size.Medium" Color="Color.Primary" OnClick="@(() => KindleClippingService.CopyAsync(_clipping, SR["CopiedToClipbboardFeedbackMessage"]))" />
+				<MudLink Href="clippings" Style="text-align:center" Underline="Underline.None">@L["NavToClippingsPage"]…</MudLink>
 			</MudStack>
 
-			<MudLink Href="clippings" Style="text-align:center" Underline="Underline.None">@L["NavToClippingsPage"]…</MudLink>
 		}
 	</MudStack>
 
@@ -46,7 +47,7 @@ else
 		_noClippingIsAvailable = false;
 		StateHasChanged();
 
-		_clipping = await KindleService.GetClippingOfTheDay(DeltaDays);
+		_clipping = await KindleClippingService.GetClippingOfTheDay(DeltaDays);
 
 		if (_clipping is null)
 			_noClippingIsAvailable = true;

@@ -135,4 +135,7 @@
   <data name="NoKindleClippingIsAvailableWarningMessage" xml:space="preserve">
     <value>Nessuna evidenziazione presente</value>
   </data>
+  <data name="CopiedToClipbboardFeedbackMessage" xml:space="preserve">
+    <value>La citazione è stata copiata negli appunti</value>
+  </data>
 </root>

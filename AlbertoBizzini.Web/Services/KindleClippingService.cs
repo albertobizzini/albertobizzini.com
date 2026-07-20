@@ -1,21 +1,30 @@
-﻿using System.Security.Cryptography;
+﻿using KindleClippings;
+using Microsoft.Extensions.Localization;
+using Microsoft.JSInterop;
+using MudBlazor;
+using System.Security.Cryptography;
 using System.Text;
-using KindleClippings;
 
 namespace AlbertoBizzini.Web.Services;
 
 public class KindleClippingService
 {
     private readonly ILogger<KindleClippingService> _logger;
+    private readonly IJSRuntime _js;
+    private readonly ISnackbar _snackbar;
     private readonly HttpClient _httpClient;
 
     private Task<ParseResult>? _dataTask;
 
     public KindleClippingService(
         ILogger<KindleClippingService> logger,
+        IJSRuntime js,
+        ISnackbar snackbar,
         HttpClient httpClient)
     {
         _logger = logger;
+        _js = js;
+        _snackbar = snackbar;
         _httpClient = httpClient;
     }
 
@@ -77,5 +86,17 @@ public class KindleClippingService
     {
         var bytes = SHA256.HashData(Encoding.UTF8.GetBytes(input));
         return BitConverter.ToInt64(bytes, 0);
+    }
+
+    public async Task CopyAsync(Clipping clipping, string copiedFeedbackMessage)
+    {
+        if (string.IsNullOrWhiteSpace(clipping?.Text))
+            return;
+
+        var value = new StringBuilder();
+        value.Append(clipping.QuotedText!.ToString());
+
+        await _js.InvokeVoidAsync("copyToClipboard", value.ToString());
+        _snackbar.Add(copiedFeedbackMessage, Severity.Success);
     }
 }

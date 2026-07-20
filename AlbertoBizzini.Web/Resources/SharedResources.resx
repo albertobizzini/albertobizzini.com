@@ -119,4 +119,7 @@
   <data name="NoKindleClippingIsAvailableWarningMessage" xml:space="preserve">
     <value>No highlighting present</value>
   </data>
+  <data name="CopiedToClipbboardFeedbackMessage" xml:space="preserve">
+    <value>Citation copied in the clipboard</value>
+  </data>
 </root>

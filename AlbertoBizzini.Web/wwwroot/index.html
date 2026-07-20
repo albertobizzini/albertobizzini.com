@@ -38,6 +38,11 @@
             get: () => localStorage.getItem('BlazorCulture') || navigator.language || 'en-US',
             set: (culture) => localStorage.setItem('BlazorCulture', culture)
         };
+
+
+        window.copyToClipboard = function (text) {
+            navigator.clipboard.writeText(text);
+        }
     </script>
 
     <script src="_content/MudBlazor/MudBlazor.min.js"></script>
