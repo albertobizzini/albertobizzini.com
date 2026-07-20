@@ -5,7 +5,7 @@ on:
     branches:
       - master
     paths:
-      - 'Api/**' 
+      - 'AlbertoBizzini.Api/**' 
   workflow_dispatch:
 
 jobs:
