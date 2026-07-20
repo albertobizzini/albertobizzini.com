@@ -138,4 +138,7 @@
   <data name="AddedOnLabel" xml:space="preserve">
     <value>Date</value>
   </data>
+  <data name="StartLocationLabel" xml:space="preserve">
+    <value>Posizione</value>
+  </data>
 </root>
