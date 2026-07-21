@@ -118,6 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="NavToClippingsPage" xml:space="preserve">
-    <value>Browse them all</value>
+    <value>Show them all</value>
   </data>
 </root>
