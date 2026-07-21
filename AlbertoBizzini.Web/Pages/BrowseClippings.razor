@@ -17,78 +17,86 @@
 
 @if (!_loading && _clippings?.Count > 0)
 {
-    <MudStack Row Wrap="Wrap.Wrap" AlignItems="AlignItems.Stretch" Justify="Justify.FlexStart" Spacing="2" Class="px-2">
-        <MudTextField @bind-Value="_searchString"
-                      ShrinkLabel
-                      Label="@L["SearchLabel", MinSearchStringLength]"
-                      Immediate="true"
-                      Adornment="Adornment.Start"
-                      AdornmentIcon="@Icons.Material.Filled.Search"
-                      IconSize="Size.Medium"></MudTextField>
+    <MudPaper Elevation="6" class="pa-2">
 
-        <MudSelect T="string"
-                   Value="@_selectedAuthor"
-                   ValueChanged="OnAuthorChanged"
-                   Label="@L["BookAuthorLabel"]"
-                   ShrinkLabel
-                   Dense
-                   FitContent
-                   Clearable>
+        <MudStack Row Wrap="Wrap.Wrap" AlignItems="AlignItems.Stretch" Justify="Justify.SpaceEvenly" Spacing="2" Class="px-2">
+            <MudTextField @bind-Value="_searchString"
+                          Label="@L["SearchLabel", MinSearchStringLength]"
+                          Immediate="true"
+                          Adornment="Adornment.Start"
+                          AdornmentIcon="@Icons.Material.Filled.Search"
+                          IconSize="Size.Medium"></MudTextField>
 
-            @if (FilteredAuthors.Count > 1)
-            {
-                @foreach (var author in FilteredAuthors)
-                {
-                    <MudSelectItem Value="author">@author</MudSelectItem>
-                }
-            }
-        </MudSelect>
-
-        @if (!string.IsNullOrWhiteSpace(_selectedAuthor) && FilteredAuthorTitles.Count > 1)
-        {
-            <MudSelect @bind-Value="@_selectedTitle"
-                       Label="@L["BookTitleLabel"]"
-                       ShrinkLabel
+            <MudSelect T="string"
+                       Value="@_selectedAuthor"
+                       ValueChanged="OnAuthorChanged"
+                       Label="@L["BookAuthorLabel"]"
                        Dense
-                       FitContent
                        Clearable>
-                @foreach (var title in FilteredAuthorTitles)
+
+                @if (FilteredAuthors.Count > 1)
                 {
-                    <MudSelectItem Value="title">@title</MudSelectItem>
+                    @foreach (var author in FilteredAuthors)
+                    {
+                        <MudSelectItem Value="author">@author</MudSelectItem>
+                    }
                 }
             </MudSelect>
 
-        }
+            @if (!string.IsNullOrWhiteSpace(_selectedAuthor) && FilteredAuthorTitles.Count > 1)
+            {
+                <MudSelect @bind-Value="@_selectedTitle"
+                           Label="@L["BookTitleLabel"]"
+                           ShrinkLabel
+                           Dense
+                           FitContent
+                           Clearable>
+                    @foreach (var title in FilteredAuthorTitles)
+                    {
+                        <MudSelectItem Value="title">@title</MudSelectItem>
+                    }
+                </MudSelect>
 
-        <MudSelect T="SortOption" @bind-Value="_sortBy" Label="@L["SortByLabel"]">
+            }
 
-            <MudSelectItem Value="SortOption.AddedOn">
-                @L["AddedOnLabel"]
-            </MudSelectItem>
+        </MudStack>
 
-            <MudSelectItem Value="SortOption.Author">
-                @L["BookAuthorLabel"]
-            </MudSelectItem>
+        <MudStack Row Wrap="Wrap.Wrap" AlignItems="AlignItems.Center" Justify="Justify.FlexStart" Spacing="2" Class="mt-6 px-2">
 
-            <MudSelectItem Value="SortOption.Title">
-                @L["BookTitleLabel"]
-            </MudSelectItem>
+            <MudSelect T="SortOption" @bind-Value="_sortBy" Label="@L["SortByLabel"]" FitContent Dense>
 
-        </MudSelect>
+                <MudSelectItem Value="SortOption.AddedOn">
+                    @L["AddedOnLabel"]
+                </MudSelectItem>
 
-        <MudSwitch @bind-Value="_descending">@L["DescendingLabel"]</MudSwitch>
+                <MudSelectItem Value="SortOption.Author">
+                    @L["BookAuthorLabel"]
+                </MudSelectItem>
 
-    </MudStack>
+                <MudSelectItem Value="SortOption.Title">
+                    @L["BookTitleLabel"]
+                </MudSelectItem>
+
+            </MudSelect>
+
+            <MudSwitch @bind-Value="_descending" Size="Size.Small" Color="Color.Primary" UncheckedColor="Color.Inherit">@L["DescendingLabel"]</MudSwitch>
+
+        </MudStack>
+
+    </MudPaper>
 
 }
 
-<MudDivider class="mt-4" />
+<MudDivider class="mt-6" />
 
 @if (IsMobile)
 {
     <MudTable T="Clipping"
               Items="FilteredAndSortedClippings"
               Loading="_loading"
+              Bordered="false"
+              Dense="false"
+              Outlined="false"
               Breakpoint="Breakpoint.None">
 
         <NoRecordsContent>
