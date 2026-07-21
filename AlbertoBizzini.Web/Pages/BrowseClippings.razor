@@ -12,7 +12,8 @@
 
 @if (!_loading && _clippings?.Count > 0)
 {
-    <MudPaper Elevation="6" class="pa-2">
+    <MudPaper Elevation="6" class="pa-2 pb-4">
+        <h3 class="mb-4">@L["FiltersAndSortingHeaderText"]</h3>
 
         <MudStack Row Wrap="Wrap.Wrap" AlignItems="AlignItems.Stretch" Justify="Justify.SpaceEvenly" Spacing="2" Class="px-2">
             <MudTextField @bind-Value="_searchString"

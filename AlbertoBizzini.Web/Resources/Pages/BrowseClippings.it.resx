@@ -124,7 +124,7 @@
     <value>Di seguito puoi sfogliare i passaggi che ho evidenziato sul mio Kindle nel corso del tempo</value>
   </data>
   <data name="BookAuthorLabel" xml:space="preserve">
-    <value>Scritto da</value>
+    <value>Autore/autrice</value>
   </data>
   <data name="BookTitleLabel" xml:space="preserve">
     <value>Titolo</value>
@@ -139,7 +139,7 @@
     <value>Posizione</value>
   </data>
   <data name="SearchLabel" xml:space="preserve">
-    <value>Cerca ovunque (min {0} caratteri)</value>
+    <value>Ricerca libera (digita almeno {0} caratteri)</value>
   </data>
   <data name="DescendingLabel" xml:space="preserve">
     <value>Discendente?</value>
@@ -149,5 +149,8 @@
   </data>
   <data name="ShowClippingsCount" xml:space="preserve">
     <value>Evidenziazioni trovate: &lt;strong&gt;{0}&lt;/strong&gt;</value>
+  </data>
+  <data name="FiltersAndSortingHeaderText" xml:space="preserve">
+    <value>Filtra e ordina</value>
   </data>
 </root>
