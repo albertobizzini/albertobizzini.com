@@ -110,7 +110,7 @@ public class KindleClippingService
 
         var suffix = suffixBuilder.ToString();
         if (!string.IsNullOrWhiteSpace(suffix))
-            quote += $" ({suffix})";
+            quote += $"\n({suffix})";
 
         await _js.InvokeVoidAsync("copyToClipboard", quote);
         _snackbar.Add(copiedFeedbackMessage, Severity.Success);

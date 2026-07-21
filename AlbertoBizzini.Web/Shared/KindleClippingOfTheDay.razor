@@ -14,11 +14,11 @@ else
 
 		@if (ShowPagination && _clipping is not null)
 		{
-			<MudStack Row Justify="Justify.Center" AlignItems="AlignItems.Center">
+			<MudStack Row Justify="Justify.Center" AlignItems="AlignItems.Center" Spacing="1">
 				<MudIconButton Variant="Variant.Outlined" Color="Color.Primary" Icon="@Icons.Material.TwoTone.KeyboardArrowLeft" OnClick="DecreaseDeltaDays" Size="Size.Small" />
 				<MudIconButton Variant="Variant.Outlined" Color="Color.Primary" Icon="@Icons.Material.TwoTone.KeyboardArrowRight" OnClick="IncreaseDeltaDays" Disabled="@(DeltaDays == 0)" Size="Size.Small" />
 				<KindleShareClippingButton Clipping="_clipping"/>
-				<MudLink Href="clippings" Style="text-align:center" Underline="Underline.None">@L["NavToClippingsPage"]…</MudLink>
+				<MudButton Href="clippings" Variant="Variant.Text" Size="Size.Small" Color="Color.Primary">@L["NavToClippingsPage"]…</MudButton>
 			</MudStack>
 
 		}

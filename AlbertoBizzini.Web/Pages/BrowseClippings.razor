@@ -35,16 +35,16 @@
                    FitContent
                    Clearable>
 
-            @if (_authors?.Count > 0)
+            @if (FilteredAuthors.Count > 1)
             {
-                @foreach (var author in _authors)
+                @foreach (var author in FilteredAuthors)
                 {
                     <MudSelectItem Value="author">@author</MudSelectItem>
                 }
             }
         </MudSelect>
 
-        @if (!string.IsNullOrWhiteSpace(_selectedAuthor) && _selectedAuthorTitles?.Count > 0)
+        @if (!string.IsNullOrWhiteSpace(_selectedAuthor) && FilteredAuthorTitles.Count > 1)
         {
             <MudSelect @bind-Value="@_selectedTitle"
                        Label="@L["BookTitleLabel"]"
@@ -52,7 +52,7 @@
                        Dense
                        FitContent
                        Clearable>
-                @foreach (var title in _selectedAuthorTitles)
+                @foreach (var title in FilteredAuthorTitles)
                 {
                     <MudSelectItem Value="title">@title</MudSelectItem>
                 }
@@ -158,6 +158,7 @@ else
     }
     private SortOption _sortBy = SortOption.AddedOn;
     private bool _descending = true;
+
     private IEnumerable<Clipping> FilteredAndSortedClippings
     {
         get
@@ -178,34 +179,32 @@ else
         }
     }
 
-    private List<string> _authors = new();
-    private string? _selectedAuthor;
-    private string? _selectedTitle;
-    private List<string> _selectedAuthorTitles => _clippings is not null && string.IsNullOrWhiteSpace(_selectedAuthor)
-        ? new()
-        : _clippings!
+    private List<string> FilteredAuthors => FilteredAndSortedClippings
+        .Where(c => !string.IsNullOrWhiteSpace(c.Book.Author))
+        .Select(c => c.Book.Author!)
+        .Distinct()
+        .OrderBy(a => a).ToList();
+
+    private List<string> FilteredAuthorTitles =>
+        FilteredAndSortedClippings
             .Where(c => c.Book.Author == _selectedAuthor)
             .Select(c => c.Book.Title)
             .Distinct()
             .OrderBy(b => b)
             .ToList();
 
+    private string? _selectedAuthor;
+    private string? _selectedTitle;
+
+
     protected override async Task OnInitializedAsync()
     {
         var result = await KindleService.LoadAsync();
         _clippings = result.Clippings ?? [];
         _loading = false;
-        _authors = [];
 
         if (_clippings.Count == 0)
             return;
-
-        _authors = _clippings
-            .Where(c => !string.IsNullOrWhiteSpace(c.Book.Author))
-            .Select(c => c.Book.Author!)
-            .Distinct()
-            .OrderBy(c => c)
-            .ToList();
     }
 
     private void OnAuthorChanged(string? author)

@@ -49,11 +49,11 @@ public static class Parser
                     Environment.NewLine,
                     lines.Skip(3)).Trim();
 
-                if (string.IsNullOrWhiteSpace(text))
-                    text = null;
-                else
-                    text = Regex.Replace(text, @"\[▶\d+\]", "").Trim(); // remove metadata
+                text = Regex.Replace(text, @"\[▶\d+\]", "").Trim(); // remove metadata
             }
+
+            if (string.IsNullOrWhiteSpace(text))
+                continue;
 
             var parsedBook = ExtractBook(titleLine);
             var book = parsedBook;
