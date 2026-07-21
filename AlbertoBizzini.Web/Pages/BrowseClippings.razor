@@ -130,9 +130,6 @@ else
         </NoRecordsContent>
 
         <Columns>
-            <PropertyColumn Property="x => x.AddedOn" Title="@L["AddedOnLabel"]" Format="d" />
-            <PropertyColumn Property="x => x.Book.Author" Title="@L["BookAuthorLabel"]" />
-            <PropertyColumn Property="x => x.Book.Title" Title="@L["BookTitleLabel"]" />
             <TemplateColumn>
                 <HeaderTemplate>
                     @L["ClippedTextLabel"]
@@ -141,6 +138,9 @@ else
                     <KindleClippingDisplay Clipping="@context.Item" HighlighterText="@SearchStringInternal" JustTheQuote />
                 </CellTemplate>
             </TemplateColumn>
+            <PropertyColumn Property="x => x.Book.Author" Title="@L["BookAuthorLabel"]" />
+            <PropertyColumn Property="x => x.Book.Title" Title="@L["BookTitleLabel"]" />
+            <PropertyColumn Property="x => x.AddedOn" Title="@L["AddedOnLabel"]" Format="d" />
         </Columns>
 
         <PagerContent>
