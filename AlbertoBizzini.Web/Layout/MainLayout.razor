@@ -42,16 +42,14 @@
         <NavMenu />
     </MudDrawer> *@
 
-    <MudMainContent Class="pt-14 pa-2">
-        <div class="mt-2">
-            @Body
-        </div>
+    <MudMainContent Class="pt-14 ma-2">
+        @Body
     </MudMainContent>
 </MudLayout>
 
 @code {
 
-#if (DEBUG)
+    #if (DEBUG)
     private bool _isDebug = true;
 #else
     private bool _isDebug = false;

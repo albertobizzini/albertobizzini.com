@@ -1,0 +1,12 @@
+﻿@inject IStringLocalizer<SharedResources> SR
+
+<PageTitle>@L["PageTitle"] - @SR["WebsiteTitle"]</PageTitle>
+
+<MudText Class="page-tile">@L["PageTitle"]</MudText>
+
+<MudText Typo="Typo.body2" Class="mb-6">@L["IntroductionText"]</MudText>
+
+@code {
+    [Parameter] public IStringLocalizer L { get; set; }
+
+}

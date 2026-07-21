@@ -127,4 +127,7 @@
   <data name="SortByLabel" xml:space="preserve">
     <value>Sort by</value>
   </data>
+  <data name="ShowClippingsCount" xml:space="preserve">
+    <value>Highlights found: &lt;strong&gt;{0}&lt;/strong&gt;</value>
+  </data>
 </root>

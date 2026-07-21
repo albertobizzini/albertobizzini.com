@@ -1,5 +1,6 @@
 using AlbertoBizzini.Web;
 using AlbertoBizzini.Web.Services;
+using AlbertoBizzini.Web.Extensions;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Options;

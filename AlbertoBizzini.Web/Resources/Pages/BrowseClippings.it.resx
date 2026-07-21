@@ -147,4 +147,7 @@
   <data name="SortByLabel" xml:space="preserve">
     <value>Ordina per</value>
   </data>
+  <data name="ShowClippingsCount" xml:space="preserve">
+    <value>Evidenziazioni trovate: &lt;strong&gt;{0}&lt;/strong&gt;</value>
+  </data>
 </root>

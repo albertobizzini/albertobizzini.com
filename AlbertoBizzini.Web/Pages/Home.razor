@@ -5,10 +5,7 @@
 @inject IStringLocalizer<Home> L
 @inject KindleClippingService KindleClippingService
 
-<PageTitle>@L["PageTitle"] - @SR["WebsiteTitle"]</PageTitle>
-
-@* <MudText Typo="Typo.body2" Class="pl-2">@L["IntroductionText"]</MudText> *@
-<MudText Typo="Typo.caption" Class="pl-2 mb-4">@L["IntroductionInstructionText"]</MudText>
+<PageHeader L="@L" />
 
 <MudExpansionPanels MultiExpansion Outlined Square="false" Gutters>
 

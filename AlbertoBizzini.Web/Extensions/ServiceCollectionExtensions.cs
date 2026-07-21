@@ -5,7 +5,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
 using System.Globalization;
 
-namespace AlbertoBizzini.Web;
+namespace AlbertoBizzini.Web.Extensions;
 
 public static class ServiceCollectionExtensions
 {

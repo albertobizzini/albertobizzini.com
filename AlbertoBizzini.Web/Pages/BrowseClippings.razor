@@ -6,14 +6,9 @@
 @inject KindleClippingService KindleService
 @inject ILogger<BrowseClippings> Logger
 
-
 <MudBreakpointProvider OnBreakpointChanged="BreakpointChanged" />
 
-<PageTitle>@L["PageTitle"] - @SR["WebsiteTitle"]</PageTitle>
-
-<MudText class="page-tile">@L["PageTitle"]</MudText>
-
-<MudText Typo="Typo.body2" Class="pl-2 mb-4">@L["IntroductionText"]</MudText>
+<PageHeader L="@L" />
 
 @if (!_loading && _clippings?.Count > 0)
 {
@@ -99,6 +94,12 @@
               Outlined="false"
               Breakpoint="Breakpoint.None">
 
+        <ToolBarContent>
+            <MudText Typo="Typo.caption" Class="opacity-med">
+                @L.FormatWithMarkup("ShowClippingsCount", @FilteredAndSortedClippings.Count().ToString("n0"))
+            </MudText>
+        </ToolBarContent>
+
         <NoRecordsContent>
             @SR["NoKindleClippingIsAvailableWarningMessage"]
         </NoRecordsContent>
@@ -123,7 +124,14 @@ else
                  MultiSelection="false"
                  QuickFilter="@_quickFilter"
                  Breakpoint="Breakpoint.None"
+                 Outlined
                  SortMode="SortMode.None">
+
+        <ToolBarContent>
+            <MudText Typo="Typo.caption" Class="opacity-med">
+                @L.FormatWithMarkup("ShowClippingsCount", @FilteredAndSortedClippings.Count().ToString("n0"))
+            </MudText>
+        </ToolBarContent>
 
         <NoRecordsContent>
             @SR["NoKindleClippingIsAvailableWarningMessage"]

@@ -115,9 +115,6 @@
   <data name="MyInstagramPageLinkText" xml:space="preserve">
     <value>My Instagram page</value>
   </data>
-  <data name="IntroductionText" xml:space="preserve">
-    <value>Welcome to my portfolio</value>
-  </data>
   <data name="FintrackAppDescriptionFirstLine" xml:space="preserve">
     <value>Track expenses, income and transfers</value>
   </data>
@@ -148,7 +145,7 @@
   <data name="AvailableAppsSectionHeaderCaption" xml:space="preserve">
     <value>Links to online applications I have developed</value>
   </data>
-  <data name="IntroductionInstructionText" xml:space="preserve">
+  <data name="IntroductionText" xml:space="preserve">
     <value>Click on the headers to expand the sections</value>
   </data>
 </root>
