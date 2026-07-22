@@ -153,4 +153,7 @@
   <data name="FiltersAndSortingHeaderText" xml:space="preserve">
     <value>Filtra e ordina</value>
   </data>
+  <data name="HowToSelectedAnotherAuthorHelperText" xml:space="preserve">
+    <value>Per cambiare selezione prima cancella l'attuale</value>
+  </data>
 </root>

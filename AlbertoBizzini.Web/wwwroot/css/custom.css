@@ -25,3 +25,12 @@
 .home-page-panel {
     margin-top: 8px;
 }
+
+.textalign-center {
+    text-align: center
+}
+
+
+.textalign-right {
+    text-align: right
+}

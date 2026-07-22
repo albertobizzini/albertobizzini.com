@@ -15,12 +15,13 @@
     <MudPaper Elevation="6" class="pa-2 pb-4">
         <h3 class="mb-4">@L["FiltersAndSortingHeaderText"]</h3>
 
-        <MudStack Row Wrap="Wrap.Wrap" AlignItems="AlignItems.Stretch" Justify="Justify.SpaceEvenly" Spacing="2" Class="px-2">
+        <MudStack Row Wrap="Wrap.Wrap" AlignItems="AlignItems.Stretch" Justify="Justify.FlexStart" Spacing="3" Class="px-2">
             <MudTextField @bind-Value="_searchString"
                           Label="@L["SearchLabel", MinSearchStringLength]"
                           Immediate="true"
                           Adornment="Adornment.Start"
                           AdornmentIcon="@Icons.Material.Filled.Search"
+                          Variant="Variant.Outlined"
                           IconSize="Size.Medium"></MudTextField>
 
             <MudSelect T="string"
@@ -28,9 +29,10 @@
                        ValueChanged="OnAuthorChanged"
                        Label="@L["BookAuthorLabel"]"
                        Dense
-                       Clearable>
+                       Clearable
+                       HelperText="@HowToSelectedAnotherAuthorHelperText">
 
-                @if (FilteredAuthors.Count > 1)
+                @if (FilteredAuthors.Count > 0)
                 {
                     @foreach (var author in FilteredAuthors)
                     {
@@ -39,13 +41,11 @@
                 }
             </MudSelect>
 
-            @if (!string.IsNullOrWhiteSpace(_selectedAuthor) && FilteredAuthorTitles.Count > 1)
+            @if (!string.IsNullOrWhiteSpace(_selectedAuthor) && FilteredAuthorTitles.Count > 0)
             {
                 <MudSelect @bind-Value="@_selectedTitle"
                            Label="@L["BookTitleLabel"]"
-                           ShrinkLabel
                            Dense
-                           FitContent
                            Clearable>
                     @foreach (var title in FilteredAuthorTitles)
                     {
@@ -57,22 +57,12 @@
 
         </MudStack>
 
-        <MudStack Row Wrap="Wrap.Wrap" AlignItems="AlignItems.End" Justify="Justify.FlexStart" Spacing="2" Class="mt-6 px-2">
+        <MudStack Row Wrap="Wrap.Wrap" AlignItems="AlignItems.Center" Justify="Justify.FlexStart" Spacing="2" Class="mt-6 px-2">
 
-            <MudSelect T="SortOption" @bind-Value="_sortBy" Label="@L["SortByLabel"]" FitContent Dense>
-
-                <MudSelectItem Value="SortOption.AddedOn">
-                    @L["AddedOnLabel"]
-                </MudSelectItem>
-
-                <MudSelectItem Value="SortOption.Author">
-                    @L["BookAuthorLabel"]
-                </MudSelectItem>
-
-                <MudSelectItem Value="SortOption.Title">
-                    @L["BookTitleLabel"]
-                </MudSelectItem>
-
+            <MudSelect T="SortOption" @bind-Value="_sortBy" Label="@L["SortByLabel"]" FitContent Dense Variant="Variant.Filled" >
+                <MudSelectItem Value="SortOption.AddedOn">@L["AddedOnLabel"]</MudSelectItem>
+                <MudSelectItem Value="SortOption.Author">@L["BookAuthorLabel"]</MudSelectItem>
+                <MudSelectItem Value="SortOption.Title">@L["BookTitleLabel"]</MudSelectItem>
             </MudSelect>
 
             <MudSwitch @bind-Value="_descending" Size="Size.Small" Color="Color.Primary" UncheckedColor="Color.Inherit">@L["DescendingLabel"]</MudSwitch>
@@ -83,7 +73,13 @@
 
 }
 
-<MudDivider class="mt-6" />
+@* <MudDivider class="mt-6" /> *@
+
+<div class="mt-4 mb-2 textalign-center">
+    <MudText Typo="Typo.caption" Class="opacity-lo" Align="Align.Center">
+        @L.FormatWithMarkup("ShowClippingsCount", @FilteredAndSortedClippings.Count().ToString("n0"))
+    </MudText>
+</div>
 
 @if (IsMobile)
 {
@@ -95,13 +91,7 @@
               Outlined="false"
               Breakpoint="Breakpoint.None">
 
-        <ToolBarContent>
-            <MudText Typo="Typo.caption" Class="opacity-med">
-                @L.FormatWithMarkup("ShowClippingsCount", @FilteredAndSortedClippings.Count().ToString("n0"))
-            </MudText>
-        </ToolBarContent>
-
-        <NoRecordsContent>
+       <NoRecordsContent>
             @SR["NoKindleClippingIsAvailableWarningMessage"]
         </NoRecordsContent>
 
@@ -129,9 +119,6 @@ else
                  SortMode="SortMode.None">
 
         <ToolBarContent>
-            <MudText Typo="Typo.caption" Class="opacity-med">
-                @L.FormatWithMarkup("ShowClippingsCount", @FilteredAndSortedClippings.Count().ToString("n0"))
-            </MudText>
         </ToolBarContent>
 
         <NoRecordsContent>
@@ -212,6 +199,10 @@ else
 
     private string? _selectedAuthor;
     private string? _selectedTitle;
+    private string? HowToSelectedAnotherAuthorHelperText 
+        => string.IsNullOrWhiteSpace(_selectedAuthor) 
+        ? null 
+        : L["HowToSelectedAnotherAuthorHelperText"];
 
 
     protected override async Task OnInitializedAsync()
