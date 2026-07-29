@@ -1,6 +1,6 @@
 ﻿@page "/clippings"
-@using KindleClippings
 @using AlbertoBizzini.Web.Shared
+@using KindleClippings
 @inject IStringLocalizer<SharedResources> SR
 @inject IStringLocalizer<BrowseClippings> L
 @inject KindleClippingService KindleService
@@ -15,14 +15,22 @@
     <MudPaper Elevation="6" class="pa-2 pb-4">
         <h3 class="mb-4">@L["FiltersAndSortingHeaderText"]</h3>
 
-        <MudStack Row Wrap="Wrap.Wrap" AlignItems="AlignItems.Stretch" Justify="Justify.FlexStart" Spacing="3" Class="px-2">
-            <MudTextField @bind-Value="_searchString"
-                          Label="@L["SearchLabel", MinSearchStringLength]"
+
+        <MudStack Row Wrap="Wrap.Wrap"
+                  AlignItems="AlignItems.Stretch"
+                  Justify="Justify.FlexStart"
+                  Spacing="3"
+                  Class="px-2">
+
+            <MudTextField @bind-Value="_boundSearchString"
+                          Label="@L["SearchLabel", MinSearchKeywordLength]"
                           Immediate="true"
+                          DebounceInterval="400"
                           Adornment="Adornment.Start"
                           AdornmentIcon="@Icons.Material.Filled.Search"
+                          Clearable
                           Variant="Variant.Text"
-                          IconSize="Size.Medium"></MudTextField>
+                          IconSize="Size.Medium" />
 
             <MudSelect T="string"
                        Value="@_selectedAuthor"
@@ -33,56 +41,95 @@
                        Clearable
                        HelperText="@HowToSelectedAnotherAuthorHelperText">
 
-                @if (FilteredAuthors.Count > 0)
+                @if (_filteredAuthors.Count > 0)
                 {
-                    @foreach (var author in FilteredAuthors)
+                    @foreach (var author in _filteredAuthors)
                     {
-                        <MudSelectItem Value="author">@author</MudSelectItem>
+                        <MudSelectItem Value="author">
+                            @author
+                        </MudSelectItem>
                     }
                 }
+
             </MudSelect>
 
-            @if (!string.IsNullOrWhiteSpace(_selectedAuthor) && FilteredAuthorTitles.Count > 0)
+            @if (!string.IsNullOrWhiteSpace(_selectedAuthor) &&
+                 _filteredAuthorTitles.Count > 0)
             {
-                <MudSelect @bind-Value="@_selectedTitle"
+                <MudSelect T="string"
+                           @bind-Value="_selectedTitle"
                            Label="@L["BookTitleLabel"]"
                            ShrinkLabel="false"
                            Dense
                            Clearable>
-                    @foreach (var title in FilteredAuthorTitles)
-                    {
-                        <MudSelectItem Value="title">@title</MudSelectItem>
-                    }
-                </MudSelect>
 
+                    @foreach (var title in _filteredAuthorTitles)
+                    {
+                        <MudSelectItem Value="title">
+                            @title
+                        </MudSelectItem>
+                    }
+
+                </MudSelect>
             }
 
         </MudStack>
 
-        <MudStack Row Wrap="Wrap.Wrap" AlignItems="AlignItems.Center" Justify="Justify.FlexStart" Spacing="2" Class="mt-6 px-2">
+        <MudStack Row
+                  Wrap="Wrap.Wrap"
+                  AlignItems="AlignItems.Center"
+                  Justify="Justify.FlexStart"
+                  Spacing="2"
+                  Class="mt-6 px-2">
 
-            <MudSelect T="SortOption" @bind-Value="_sortBy" Label="@L["SortByLabel"]" Dense Variant="Variant.Filled" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.TwoTone.Sort" FitContent Style="width: 12rem">
+            <MudSelect T="SortOption"
+                       @bind-Value="_sortBy"
+                       Label="@L["SortByLabel"]"
+                       Dense
+                       Variant="Variant.Filled"
+                       Adornment="Adornment.Start"
+                       AdornmentIcon="@Icons.Material.TwoTone.Sort"
+                       FitContent
+                       Style="width: 12rem">
+
                 <MudSelectItem Value="SortOption.AddedOn">
-                    <MudStack Row AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween">
+                    <MudStack Row
+                              AlignItems="AlignItems.Center"
+                              Justify="Justify.SpaceBetween">
                         @L["AddedOnLabel"]
-                        <MudIcon Size="Size.Small" Icon="@GetIcon(SortOption.AddedOn)" />
+                        <MudIcon Size="Size.Small"
+                                 Icon="@GetIcon(SortOption.AddedOn)" />
                     </MudStack>
                 </MudSelectItem>
+
                 <MudSelectItem Value="SortOption.Author">
-                    <MudStack Row AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween">
+                    <MudStack Row
+                              AlignItems="AlignItems.Center"
+                              Justify="Justify.SpaceBetween">
                         @L["BookAuthorLabel"]
-                        <MudIcon Size="Size.Small" Icon="@GetIcon(SortOption.Author)" />
+                        <MudIcon Size="Size.Small"
+                                 Icon="@GetIcon(SortOption.Author)" />
                     </MudStack>
                 </MudSelectItem>
+
                 <MudSelectItem Value="SortOption.Title">
-                    <MudStack Row AlignItems="AlignItems.Center" Justify="Justify.SpaceBetween">
+                    <MudStack Row
+                              AlignItems="AlignItems.Center"
+                              Justify="Justify.SpaceBetween">
                         @L["BookTitleLabel"]
-                        <MudIcon Size="Size.Small" Icon="@GetIcon(SortOption.Title)" />
+                        <MudIcon Size="Size.Small"
+                                 Icon="@GetIcon(SortOption.Title)" />
                     </MudStack>
                 </MudSelectItem>
+
             </MudSelect>
 
-            <MudSwitch @bind-Value="_descending" Size="Size.Small" Color="Color.Primary" UncheckedColor="Color.Inherit">@L["DescendingLabel"]</MudSwitch>
+            <MudSwitch @bind-Value="_descending"
+                       Size="Size.Small"
+                       Color="Color.Primary"
+                       UncheckedColor="Color.Inherit">
+                @L["DescendingLabel"]
+            </MudSwitch>
 
         </MudStack>
 
@@ -90,18 +137,20 @@
 
 }
 
-@* <MudDivider class="mt-6" /> *@
-
 <div class="mt-4 mb-2 textalign-center">
-    <MudText Typo="Typo.caption" Class="opacity-lo" Align="Align.Center">
-        @L.FormatWithMarkup("ShowClippingsCount", @FilteredAndSortedClippings.Count().ToString("n0"))
+    <MudText Typo="Typo.caption"
+             Class="opacity-lo"
+             Align="Align.Center">
+        @L.FormatWithMarkup(
+            "ShowClippingsCount",
+            _filteredAndSortedClippings.Count.ToString("n0"))
     </MudText>
 </div>
 
 @if (IsMobile)
 {
     <MudTable T="Clipping"
-              Items="FilteredAndSortedClippings"
+              Items="_filteredAndSortedClippings"
               Loading="_loading"
               Bordered="false"
               Dense="false"
@@ -114,7 +163,8 @@
 
         <RowTemplate>
             <MudTd>
-                <KindleClippingDisplay Clipping="@context" HighlighterText="@SearchStringInternal" />
+                <KindleClippingDisplay Clipping="@context"
+                                       HighlightedTexts="@_searchkeywords" />
             </MudTd>
         </RowTemplate>
 
@@ -123,14 +173,16 @@
         </PagerContent>
 
     </MudTable>
+
 }
 else
 {
-    <MudDataGrid Items="@FilteredAndSortedClippings"
-                 Loading="@_loading"
+
+    <MudDataGrid T="Clipping"
+                 Items="_filteredAndSortedClippings"
+                 Loading="_loading"
                  Filterable="true"
                  MultiSelection="false"
-                 QuickFilter="@_quickFilter"
                  Breakpoint="Breakpoint.None"
                  Outlined
                  SortMode="SortMode.None">
@@ -143,17 +195,45 @@ else
         </NoRecordsContent>
 
         <Columns>
+
             <TemplateColumn>
                 <HeaderTemplate>
                     @L["ClippedTextLabel"]
                 </HeaderTemplate>
+
                 <CellTemplate>
-                    <KindleClippingDisplay Clipping="@context.Item" HighlighterText="@SearchStringInternal" JustTheQuote />
+                    <KindleClippingDisplay Clipping="@context.Item"
+                                           HighlightedTexts="@_searchkeywords"
+                                           JustTheQuote />
                 </CellTemplate>
             </TemplateColumn>
-            <PropertyColumn Property="x => x.Book.Author" Title="@L["BookAuthorLabel"]" />
-            <PropertyColumn Property="x => x.Book.Title" Title="@L["BookTitleLabel"]" />
-            <PropertyColumn Property="x => x.AddedOn" Title="@L["AddedOnLabel"]" Format="d" />
+
+            <TemplateColumn>
+                <HeaderTemplate>
+                    @L["BookAuthorLabel"]
+                </HeaderTemplate>
+
+                <CellTemplate>
+                    <MudHighlighter Text="@context.Item.Book.Author"
+                                    HighlightedTexts="@_searchkeywords" />
+                </CellTemplate>
+            </TemplateColumn>
+
+            <TemplateColumn>
+                <HeaderTemplate>
+                    @L["BookTitleLabel"]
+                </HeaderTemplate>
+
+                <CellTemplate>
+                    <MudHighlighter Text="@context.Item.Book.Title"
+                                    HighlightedTexts="@_searchkeywords" />
+                </CellTemplate>
+            </TemplateColumn>
+
+            <PropertyColumn Property="x => x.AddedOn"
+                            Title="@L["AddedOnLabel"]"
+                            Format="d" />
+
         </Columns>
 
         <PagerContent>
@@ -161,15 +241,30 @@ else
         </PagerContent>
 
     </MudDataGrid>
+
 }
 
-@code {
+@code
+{
     private bool _loading = true;
-    private List<Clipping>? _clippings;
+
+    private List<Clipping> _clippings = [];
+    private List<SearchableClipping> _searchableClippings = [];
+
+    private List<Clipping> _filteredAndSortedClippings = [];
+    private List<string> _filteredAuthors = [];
+    private List<string> _filteredAuthorTitles = [];
+
+    private const int MinSearchKeywordLength = 3;
 
     private string _searchString = string.Empty;
-    private int MinSearchStringLength = 3;
-    private string SearchStringInternal => !string.IsNullOrWhiteSpace(_searchString) && _searchString.Length >= MinSearchStringLength ? _searchString : string.Empty;
+    private List<string> _searchkeywords = [];
+
+    private string? _selectedAuthor;
+    private string? _selectedTitle;
+
+    private SortOption _sortBy = SortOption.AddedOn;
+    private bool _descending = true;
 
     private enum SortOption
     {
@@ -177,109 +272,232 @@ else
         Author,
         Title
     }
-    private SortOption _sortBy = SortOption.AddedOn;
-    private bool _descending = true;
-    private string? GetIcon(SortOption sortOption) => sortOption switch
-    {
-        SortOption.Author => Icons.Material.TwoTone.PersonSearch,
-        SortOption.Title => Icons.Material.TwoTone.MenuBook,
-        SortOption.AddedOn => Icons.Material.TwoTone.CalendarMonth,
-        _ => null
-    };
+
+    private sealed record SearchableClipping(
+        Clipping Clipping,
+        string SearchText);
 
 
-    private IEnumerable<Clipping> FilteredAndSortedClippings
+    private string _boundSearchString
     {
-        get
+        get => _searchString;
+
+        set
         {
-            var result = (_clippings ?? [])
-                .Where(_quickFilter);
+            if (string.Equals(_searchString, value, StringComparison.Ordinal))
+                return;
 
-            result = _sortBy switch
-            {
-                SortOption.Author => result.OrderBy(c => c.Book.Author),
-                SortOption.Title => result.OrderBy(c => c.Book.Title),
-                _ => result.OrderBy(c => c.AddedOn)
-            };
+            _searchString = value;
 
-            return _descending
-                ? result.Reverse()
-                : result;
+            _searchkeywords = value
+                .Split(
+                    ' ',
+                    StringSplitOptions.RemoveEmptyEntries |
+                    StringSplitOptions.TrimEntries)
+                .Where(x => x.Length >= MinSearchKeywordLength)
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .ToList();
+
+            ApplyFilters();
         }
     }
 
-    private List<string> FilteredAuthors => FilteredAndSortedClippings
-        .Where(c => !string.IsNullOrWhiteSpace(c.Book.Author))
-        .Select(c => c.Book.Author!)
-        .Distinct()
-        .OrderBy(a => a).ToList();
 
-    private List<string> FilteredAuthorTitles =>
-        FilteredAndSortedClippings
-            .Where(c => c.Book.Author == _selectedAuthor)
-            .Select(c => c.Book.Title)
-            .Distinct()
-            .OrderBy(b => b)
-            .ToList();
-
-    private string? _selectedAuthor;
-    private string? _selectedTitle;
-    private string? HowToSelectedAnotherAuthorHelperText
-        => string.IsNullOrWhiteSpace(_selectedAuthor)
-        ? null
-        : L["HowToSelectedAnotherAuthorHelperText"];
+    private string? HowToSelectedAnotherAuthorHelperText =>
+        string.IsNullOrWhiteSpace(_selectedAuthor)
+            ? null
+            : L["HowToSelectedAnotherAuthorHelperText"];
 
 
     protected override async Task OnInitializedAsync()
     {
         var result = await KindleService.LoadAsync();
+
         _clippings = result.Clippings ?? [];
+
+        // Prepara una sola volta il testo utilizzato
+        // per la ricerca full-text.
+        _searchableClippings = _clippings
+            .Select(c => new SearchableClipping(
+                c,
+                BuildSearchText(c)))
+            .ToList();
+
         _loading = false;
 
-        if (_clippings.Count == 0)
-            return;
+        ApplyFilters();
     }
 
-    private void OnAuthorChanged(string? author)
+
+    private static string BuildSearchText(Clipping clipping)
     {
-        _selectedAuthor = author;
-        _selectedTitle = null;
+        return string.Join(
+            ' ',
+            clipping.Book.Author,
+            clipping.Book.Title,
+            clipping.QuotedText);
     }
 
-    private Func<Clipping, bool> _quickFilter => c =>
+
+    private void ApplyFilters()
     {
+        IEnumerable<SearchableClipping> result =
+            _searchableClippings;
+
+        // Filtro autore
         if (!string.IsNullOrWhiteSpace(_selectedAuthor))
         {
-            if (!string.Equals(c.Book.Author, _selectedAuthor, StringComparison.OrdinalIgnoreCase))
-                return false;
+            result = result.Where(x =>
+                string.Equals(
+                    x.Clipping.Book.Author,
+                    _selectedAuthor,
+                    StringComparison.OrdinalIgnoreCase));
+        }
 
-            if (!string.IsNullOrWhiteSpace(_selectedTitle))
+        // Filtro titolo
+        if (!string.IsNullOrWhiteSpace(_selectedTitle))
+        {
+            result = result.Where(x =>
+                string.Equals(
+                    x.Clipping.Book.Title,
+                    _selectedTitle,
+                    StringComparison.OrdinalIgnoreCase));
+        }
+
+        // Ricerca libera.
+        // Tutte le parole chiave devono essere presenti.
+        if (_searchkeywords.Count > 0)
+        {
+            result = result.Where(MatchesSearch);
+        }
+
+        // Materializza i risultati una sola volta.
+        var filtered = result
+            .Select(x => x.Clipping)
+            .ToList();
+
+        // Ordinamento
+        _filteredAndSortedClippings = ApplySorting(filtered);
+
+        // Aggiorna lista autori
+        _filteredAuthors = _filteredAndSortedClippings
+            .Where(c => !string.IsNullOrWhiteSpace(c.Book.Author))
+            .Select(c => c.Book.Author!)
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .OrderBy(a => a)
+            .ToList();
+
+        // Aggiorna lista titoli dell'autore selezionato
+        _filteredAuthorTitles = string.IsNullOrWhiteSpace(_selectedAuthor)
+            ? []
+            : _filteredAndSortedClippings
+                .Where(c =>
+                    string.Equals(
+                        c.Book.Author,
+                        _selectedAuthor,
+                        StringComparison.OrdinalIgnoreCase))
+                .Select(c => c.Book.Title)
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .OrderBy(t => t)
+                .ToList();
+    }
+
+
+    private bool MatchesSearch(SearchableClipping item)
+    {
+        // AND:
+        // tutte le keyword devono essere presenti
+        foreach (var keyword in _searchkeywords)
+        {
+            if (!item.SearchText.Contains(
+                    keyword,
+                    StringComparison.OrdinalIgnoreCase))
             {
-                if (!string.Equals(c.Book.Title, _selectedTitle, StringComparison.OrdinalIgnoreCase))
-                    return false;
+                return false;
             }
         }
 
-        // Ricerca libera
-        if (SearchStringInternal != string.Empty)
+        return true;
+    }
+
+
+    private List<Clipping> ApplySorting(List<Clipping> clippings)
+    {
+        if (_descending)
         {
-            if (c.Book.Author is not null &&
-                c.Book.Author.Contains(SearchStringInternal, StringComparison.OrdinalIgnoreCase))
-                return true;
+            return _sortBy switch
+            {
+                SortOption.Author =>
+                    clippings
+                        .OrderByDescending(c => c.Book.Author)
+                        .ToList(),
 
-            if (c.Book.Title is not null &&
-                c.Book.Title.Contains(SearchStringInternal, StringComparison.OrdinalIgnoreCase))
-                return true;
+                SortOption.Title =>
+                    clippings
+                        .OrderByDescending(c => c.Book.Title)
+                        .ToList(),
 
-            if (c.QuotedText is not null &&
-                c.QuotedText.Contains(SearchStringInternal, StringComparison.OrdinalIgnoreCase))
-                return true;
-
-            return false;
+                _ =>
+                    clippings
+                        .OrderByDescending(c => c.AddedOn)
+                        .ToList()
+            };
         }
 
-        return true;
+        return _sortBy switch
+        {
+            SortOption.Author =>
+                clippings
+                    .OrderBy(c => c.Book.Author)
+                    .ToList(),
+
+            SortOption.Title =>
+                clippings
+                    .OrderBy(c => c.Book.Title)
+                    .ToList(),
+
+            _ =>
+                clippings
+                    .OrderBy(c => c.AddedOn)
+                    .ToList()
+        };
+    }
+
+
+    private void OnAuthorChanged(string? author)
+    {
+        if (string.Equals(
+                _selectedAuthor,
+                author,
+                StringComparison.Ordinal))
+        {
+            return;
+        }
+
+        _selectedAuthor = author;
+
+        // Il titolo precedente non è più necessariamente valido
+        // per il nuovo autore.
+        _selectedTitle = null;
+
+        ApplyFilters();
+    }
+
+
+    private string? GetIcon(SortOption sortOption) => sortOption switch
+    {
+        SortOption.Author =>
+            Icons.Material.TwoTone.PersonSearch,
+
+        SortOption.Title =>
+            Icons.Material.TwoTone.MenuBook,
+
+        SortOption.AddedOn =>
+            Icons.Material.TwoTone.CalendarMonth,
+
+        _ => null
     };
+
 
     #region Breakpoint
 
