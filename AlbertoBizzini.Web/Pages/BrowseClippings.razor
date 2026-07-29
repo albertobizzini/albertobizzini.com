@@ -83,7 +83,8 @@
                   Class="mt-6 px-2">
 
             <MudSelect T="SortOption"
-                       @bind-Value="_sortBy"
+                       Value="@_sortBy"
+                       ValueChanged="SortByChanged"
                        Label="@L["SortByLabel"]"
                        Dense
                        Variant="Variant.Filled"
@@ -124,7 +125,9 @@
 
             </MudSelect>
 
-            <MudSwitch @bind-Value="_descending"
+            <MudSwitch T="bool"
+                       Value="@_descending"
+                       ValueChanged="DescendingChanged"
                        Size="Size.Small"
                        Color="Color.Primary"
                        UncheckedColor="Color.Inherit">
@@ -338,6 +341,22 @@ else
             clipping.QuotedText);
     }
 
+    private void SortByChanged(SortOption newSortBy)
+    {
+        if (_sortBy == newSortBy) return;
+
+        _sortBy = newSortBy;
+        ApplyFilters();
+    }
+
+
+    private void DescendingChanged(bool newDescending)
+    {
+        if (_descending == newDescending) return;
+
+        _descending = newDescending;
+        ApplyFilters();
+    }
 
     private void ApplyFilters()
     {
