@@ -51,13 +51,17 @@ public static class Parser
             {
                 text = string.Join(
                     Environment.NewLine,
-                    lines.Skip(3)).Trim();
+                    lines.Skip(3));
 
                 text = MetadataRegex.Replace(text, "").Trim();
-            }
 
-            if (string.IsNullOrWhiteSpace(text))
+                if (string.IsNullOrWhiteSpace(text))
+                    continue;
+            }
+            else
+            {
                 continue;
+            }
 
             var parsedBook = ExtractBook(titleLine);
             var book = parsedBook;
