@@ -9,7 +9,7 @@
     }
     else
     {
-        <MudStack Row Justify="Justify.FlexStart" AlignItems="AlignItems.Center" StretchItems="StretchItems.Start">
+        <MudStack Row Justify="Justify.FlexStart" AlignItems="AlignItems.Center" StretchItems="StretchItems.Start" Spacing="1">
             <MudText HtmlTag="@HtmlTag" Color="@Color"><MudHighlighter Text="@Clipping.QuotedText" HighlightedTexts="@HighlightedTexts" /></MudText>
 
             @if (!HideShareButton)
@@ -60,12 +60,15 @@ else
             }
         </MudStack>
 
-        @if (!HideShareButton)
-        {
-            <KindleShareClippingButton Clipping="Clipping" />
-        }
-
     </MudStack>
+
+    @if (!HideShareButton)
+    {
+        <MudStack Row Justify="Justify.Center" Class="mt-2">
+            <KindleShareClippingButton Clipping="Clipping" Size="Size.Large" />
+        </MudStack>
+    }
+
 }
 
 @code {
@@ -75,10 +78,5 @@ else
     [Parameter] public IEnumerable<string> HighlightedTexts { get; set; }
     [Parameter] public string HtmlTag { get; set; } = "em";
     [Parameter] public Color Color { get; set; } = Color.Info;
-    [Parameter] public Color ShareButtonColor { get; set; } = Color.Primary;
-
-
-
-
 
 }

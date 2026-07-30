@@ -7,20 +7,20 @@
 
 @if (!string.IsNullOrWhiteSpace(Clipping?.Text))
 {
-    <MudToolBar Dense>
-        <ShareButton Title="@GetTitleAndAuthor()"
-                     Text="@GetFullQuote(shorten: true)"
-                     Url="@ShareUrl"
-                     Color="Color.Primary" />
+    <ShareButton Title="@GetTitleAndAuthor()"
+                 Text="@GetFullQuote(shorten: true)"
+                 Url="@ShareUrl"
+                 Color="Color.Primary"
+                 Size="@Size" />
 
-        <MudIconButton Icon="@Icons.Material.Outlined.CopyAll" Size="Size.Medium" Color="Color.Primary" OnClick="CopyAsync" />
-    </MudToolBar>
+    <MudIconButton Icon="@Icons.Material.Outlined.CopyAll" Size="@Size" Color="Color.Primary" OnClick="CopyAsync" />
 }
 
 
 @code {
     [Parameter] public Clipping? Clipping { get; set; } = null;
     [Parameter] public bool UseWebShareApi { get; set; } = false;
+    [Parameter] public Size Size { get; set; } = Size.Small;
 
     private string? ShareUrl => Clipping is not null
         ? $"{NavigationManager.BaseUri}clipping/{Clipping.Id}"
