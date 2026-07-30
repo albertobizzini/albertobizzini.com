@@ -4,15 +4,18 @@
 @inject IJSRuntime JS
 @inject ISnackbar Snackbar
 
-<MudTooltip Text="@Tooltip">
-    <MudIconButton Icon="@Icon"
-                   Color="@Color"
-                   Size="@Size"
-                   Variant="@Variant"
-                   Disabled="@_isSharing"
-                   OnClick="ShareAsync"
-                   AriaLabel="@Tooltip" />
-</MudTooltip>
+@if (Url is not null)
+{
+    <MudTooltip Text="@Tooltip">
+        <MudIconButton Icon="@Icon"
+                       Color="@Color"
+                       Size="@Size"
+                       Variant="@Variant"
+                       Disabled="@_isSharing"
+                       OnClick="ShareAsync"
+                       AriaLabel="@Tooltip" />
+    </MudTooltip>
+}
 
 @code {
     [Parameter]

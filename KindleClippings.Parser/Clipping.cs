@@ -4,6 +4,7 @@ namespace KindleClippings;
 
 public enum ClippingType
 {
+    // NB  non cambiare! vedi ClippingIdGenerator.CreateId
     Highlight,
     Note,
     Bookmark,
@@ -12,6 +13,7 @@ public enum ClippingType
 
 public class Clipping
 {
+    public string Id { get; set; }
     public Book Book {  get; init; }
 
     public ClippingType Type { get; init; }

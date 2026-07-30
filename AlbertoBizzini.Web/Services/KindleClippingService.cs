@@ -13,7 +13,7 @@ public class KindleClippingService
     private readonly IJSRuntime _js;
     private readonly HttpClient _httpClient;
 
-    private Task<ParseResult>? _dataTask;
+    private ParseResult? _data;
 
     public KindleClippingService(
         ILogger<KindleClippingService> logger,
@@ -25,19 +25,24 @@ public class KindleClippingService
         _httpClient = httpClient;
     }
 
-    public Task<ParseResult> LoadAsync()
+    public async Task<ParseResult> LoadAsync()
     {
-        return _dataTask ??= LoadInternalAsync();
-    }
+        if (_data is not null)
+            return _data;
 
-    private async Task<ParseResult> LoadInternalAsync()
-    {
         var content = await _httpClient.GetStringAsync("data/My Clippings.txt");
-        var data = Parser.Parse(content);
-        return data;
+        _data = Parser.Parse(content);
+
+        return _data;
     }
 
-    public async Task<Clipping?> GetClippingOfTheDay(int delta = 0)
+    public async Task<Clipping?> GetClippingById(string id)
+    {
+        var data = await LoadAsync();
+        return data.Clippings.FirstOrDefault(x => x.Id == id);
+    }
+
+    public async Task<Clipping?> GetClippingOfTheDayAsync(int delta = 0)
     {
         var data = await LoadAsync();
 

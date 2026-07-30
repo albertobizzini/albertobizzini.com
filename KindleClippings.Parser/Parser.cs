@@ -81,6 +81,8 @@ public static class Parser
                 Text = text
             };
 
+            parsedClipping.Id = ClippingIdGenerator.CreateId(parsedClipping);
+
             clippings.Add(parsedClipping);
             book.Clippings.Add(parsedClipping);
         }

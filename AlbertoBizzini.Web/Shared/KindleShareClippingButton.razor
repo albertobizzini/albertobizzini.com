@@ -11,7 +11,7 @@
     {
         <ShareButton Title="@Clipping.Book.Title"
                      Text="@Clipping.Text"
-                     Url="@NavigationManager.Uri"
+                     Url="@ShareUrl"
                      Color="Color.Primary" />
     }
     else
@@ -22,10 +22,13 @@
 
 
 @code {
-	[Parameter] public Clipping? Clipping { get; set; } = null;
-    [Parameter] public bool UseWebShareApi { get; set; } = false;
+    [Parameter] public Clipping? Clipping { get; set; } = null;
+    [Parameter] public bool UseWebShareApi { get; set; } = true;
 
-	
+    private string? ShareUrl => Clipping is not null
+        ? $"{NavigationManager.BaseUri}clipping/{Clipping.Id}"
+        : null;
+
     public async Task CopyAsync(Clipping clipping, string copiedFeedbackMessage)
     {
         if (string.IsNullOrWhiteSpace(clipping?.Text))

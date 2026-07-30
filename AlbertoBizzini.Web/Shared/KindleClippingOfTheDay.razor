@@ -10,7 +10,7 @@
 else
 {
 	<MudStack>
-		<KindleClippingDisplay Clipping="@_clipping" HideShareButton/>
+		<KindleClippingDisplay Clipping="@_clipping" HideShareButton />
 
 		@if (ShowPagination && _clipping is not null)
 		{
@@ -18,7 +18,7 @@ else
 				<MudIconButton Variant="Variant.Outlined" Color="Color.Primary" Icon="@Icons.Material.TwoTone.KeyboardArrowLeft" OnClick="DecreaseDeltaDays" Size="Size.Small" />
 				<MudIconButton Variant="Variant.Outlined" Color="Color.Primary" Icon="@Icons.Material.TwoTone.KeyboardArrowRight" OnClick="IncreaseDeltaDays" Disabled="@(DeltaDays == 0)" Size="Size.Small" />
 				<KindleShareClippingButton Clipping="_clipping"/>
-				<MudButton Href="clippings" Variant="Variant.Text" Size="Size.Small" Color="Color.Primary">@L["NavToClippingsPage"]…</MudButton>
+				<MudButton Href="clippings" Variant="Variant.Text" Size="Size.Small" Color="Color.Primary">@SR["NavToClippingsPage"]…</MudButton>
 			</MudStack>
 
 		}
@@ -47,7 +47,7 @@ else
 		_noClippingIsAvailable = false;
 		StateHasChanged();
 
-		_clipping = await KindleClippingService.GetClippingOfTheDay(DeltaDays);
+		_clipping = await KindleClippingService.GetClippingOfTheDayAsync(DeltaDays);
 
 		if (_clipping is null)
 			_noClippingIsAvailable = true;

@@ -122,4 +122,7 @@
   <data name="CopiedToClipbboardFeedbackMessage" xml:space="preserve">
     <value>Citation copied in the clipboard</value>
   </data>
+  <data name="NavToClippingsPage" xml:space="preserve">
+    <value>Show them all</value>
+  </data>
 </root>

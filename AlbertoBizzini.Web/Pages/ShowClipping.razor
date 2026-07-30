@@ -1,0 +1,37 @@
+﻿@page "/clipping/{Id}"
+@using AlbertoBizzini.Web.Shared
+@using KindleClippings
+@inject KindleClippingService KindleService
+@inject IStringLocalizer<SharedResources> SR
+@inject IStringLocalizer<ShowClipping> L
+@inject ILogger<ShowClipping> Logger
+
+<PageHeader L="@L" />
+
+@if (_loading || _clipping is not null)
+{
+	<KindleClippingDisplay Clipping="_clipping" HideShareButton />
+	<MudStack Row Justify="Justify.Center" AlignItems="AlignItems.Center" Spacing="1">
+		<KindleShareClippingButton Clipping="_clipping" />
+		<MudButton Href="clippings" Variant="Variant.Text" Size="Size.Small" Color="Color.Primary">@SR["NavToClippingsPage"]…</MudButton>
+	</MudStack>
+}
+else
+{
+	<MudAlert Severity="Severity.Error">@L["Notfound", Id]</MudAlert>
+}
+
+@code {
+	[Parameter]
+	public string Id { get; set; }
+
+	private Clipping? _clipping;
+	private bool _loading = true;
+
+	protected override async Task OnParametersSetAsync()
+	{
+		_loading = true;
+		_clipping = await KindleService.GetClippingById(Id);
+		_loading = false;
+	}
+}
