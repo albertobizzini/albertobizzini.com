@@ -1,0 +1,110 @@
+﻿@using Microsoft.JSInterop
+@using MudBlazor
+
+@inject IJSRuntime JS
+@inject ISnackbar Snackbar
+
+<MudTooltip Text="@Tooltip">
+    <MudIconButton Icon="@Icon"
+                   Color="@Color"
+                   Size="@Size"
+                   Variant="@Variant"
+                   Disabled="@_isSharing"
+                   OnClick="ShareAsync"
+                   AriaLabel="@Tooltip" />
+</MudTooltip>
+
+@code {
+    [Parameter]
+    public string Title { get; set; } = string.Empty;
+
+    [Parameter]
+    public string Text { get; set; } = string.Empty;
+
+    [Parameter]
+    public string? Url { get; set; }
+
+    [Parameter]
+    public string Tooltip { get; set; } = "Condividi";
+
+    [Parameter]
+    public string CopiedMessage { get; set; } = "Copiato negli appunti";
+
+    [Parameter]
+    public string ShareErrorMessage { get; set; } = "Impossibile condividere il contenuto";
+
+    [Parameter]
+    public string Icon { get; set; } = Icons.Material.Filled.Share;
+
+    [Parameter]
+    public Color Color { get; set; } = Color.Default;
+
+    [Parameter]
+    public Size Size { get; set; } = Size.Medium;
+
+    [Parameter]
+    public Variant Variant { get; set; } = Variant.Text;
+
+    [Parameter]
+    public EventCallback OnShared { get; set; }
+
+    private bool _isSharing;
+
+    private async Task ShareAsync()
+    {
+        if (_isSharing)
+            return;
+
+        _isSharing = true;
+
+        try
+        {
+            var result = await JS.InvokeAsync<ShareResult>(
+                "shareButton.share",
+                new
+                {
+                    title = Title,
+                    text = Text,
+                    url = Url
+                });
+
+            if (result.Shared)
+            {
+                await OnShared.InvokeAsync();
+            }
+            else if (result.Copied)
+            {
+                Snackbar.Add(
+                    CopiedMessage,
+                    Severity.Success);
+
+                await OnShared.InvokeAsync();
+            }
+            else if (!result.Cancelled)
+            {
+                Snackbar.Add(
+                    ShareErrorMessage,
+                    Severity.Error);
+            }
+        }
+        catch (JSException)
+        {
+            Snackbar.Add(
+                ShareErrorMessage,
+                Severity.Error);
+        }
+        finally
+        {
+            _isSharing = false;
+        }
+    }
+
+    private sealed class ShareResult
+    {
+        public bool Shared { get; set; }
+
+        public bool Copied { get; set; }
+
+        public bool Cancelled { get; set; }
+    }
+}

@@ -1,12 +1,56 @@
-﻿@using KindleClippings
+﻿@using System.Text
+@using KindleClippings
 @inject IStringLocalizer<SharedResources> SR
-@inject KindleClippingService KindleClippingService
+@inject IJSRuntime JS
+@inject ISnackbar Snackbar
+@inject NavigationManager NavigationManager
 
 @if (!string.IsNullOrWhiteSpace(Clipping?.Text))
 {
-	<MudIconButton Icon="@Icons.Material.Outlined.Share" Size="Size.Medium" Color="Color.Primary" OnClick="@(() => KindleClippingService.CopyAsync(Clipping, SR["CopiedToClipbboardFeedbackMessage"]))" />
+    if (UseWebShareApi)
+    {
+        <ShareButton Title="@Clipping.Book.Title"
+                     Text="@Clipping.Text"
+                     Url="@NavigationManager.Uri"
+                     Color="Color.Primary" />
+    }
+    else
+    {
+        <MudIconButton Icon="@Icons.Material.Outlined.Share" Size="Size.Medium" Color="Color.Primary" OnClick="@(() => CopyAsync(Clipping, SR["CopiedToClipbboardFeedbackMessage"]))" />
+    }
 }
+
+
 @code {
 	[Parameter] public Clipping? Clipping { get; set; } = null;
+    [Parameter] public bool UseWebShareApi { get; set; } = false;
 
+	
+    public async Task CopyAsync(Clipping clipping, string copiedFeedbackMessage)
+    {
+        if (string.IsNullOrWhiteSpace(clipping?.Text))
+            return;
+
+        var quote = clipping.QuotedText!.ToString();
+
+        StringBuilder suffixBuilder = new StringBuilder();
+        string delim = string.Empty;
+        if (!string.IsNullOrWhiteSpace(clipping.Book.Title))
+        {
+            suffixBuilder.Append($"{delim}\"{clipping.Book.Title}\"");
+            delim = " - ";
+        }
+        if (!string.IsNullOrWhiteSpace(clipping.Book.Author))
+        {
+            suffixBuilder.Append($"{delim}{clipping.Book.Author}");
+            delim = " - ";
+        }
+
+        var suffix = suffixBuilder.ToString();
+        if (!string.IsNullOrWhiteSpace(suffix))
+            quote += $"\n({suffix})";
+
+        await JS.InvokeVoidAsync("copyToClipboard", quote);
+        Snackbar.Add(copiedFeedbackMessage, Severity.Success);
+    }
 }

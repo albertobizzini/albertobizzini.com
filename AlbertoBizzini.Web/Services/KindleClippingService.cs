@@ -11,7 +11,6 @@ public class KindleClippingService
 {
     private readonly ILogger<KindleClippingService> _logger;
     private readonly IJSRuntime _js;
-    private readonly ISnackbar _snackbar;
     private readonly HttpClient _httpClient;
 
     private Task<ParseResult>? _dataTask;
@@ -19,12 +18,10 @@ public class KindleClippingService
     public KindleClippingService(
         ILogger<KindleClippingService> logger,
         IJSRuntime js,
-        ISnackbar snackbar,
         HttpClient httpClient)
     {
         _logger = logger;
         _js = js;
-        _snackbar = snackbar;
         _httpClient = httpClient;
     }
 
@@ -88,31 +85,4 @@ public class KindleClippingService
         return BitConverter.ToInt64(bytes, 0);
     }
 
-    public async Task CopyAsync(Clipping clipping, string copiedFeedbackMessage)
-    {
-        if (string.IsNullOrWhiteSpace(clipping?.Text))
-            return;
-
-        var quote = clipping.QuotedText!.ToString();
-
-        StringBuilder suffixBuilder = new StringBuilder();
-        string delim = string.Empty;
-        if (!string.IsNullOrWhiteSpace(clipping.Book.Title))
-        {
-            suffixBuilder.Append($"{delim}\"{clipping.Book.Title}\"");
-            delim = " - ";
-        }
-        if (!string.IsNullOrWhiteSpace(clipping.Book.Author))
-        {
-            suffixBuilder.Append($"{delim}{clipping.Book.Author}");
-            delim = " - ";
-        }
-
-        var suffix = suffixBuilder.ToString();
-        if (!string.IsNullOrWhiteSpace(suffix))
-            quote += $"\n({suffix})";
-
-        await _js.InvokeVoidAsync("copyToClipboard", quote);
-        _snackbar.Add(copiedFeedbackMessage, Severity.Success);
-    }
 }
