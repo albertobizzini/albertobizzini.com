@@ -7,53 +7,64 @@
 
 @if (!string.IsNullOrWhiteSpace(Clipping?.Text))
 {
-    if (UseWebShareApi)
-    {
-        <ShareButton Title="@Clipping.Book.Title"
-                     Text="@Clipping.Text"
+    <MudToolBar Dense>
+        <ShareButton Title="@GetTitleAndAuthor()"
+                     Text="@GetFullQuote(shorten: true)"
                      Url="@ShareUrl"
                      Color="Color.Primary" />
-    }
-    else
-    {
-        <MudIconButton Icon="@Icons.Material.Outlined.Share" Size="Size.Medium" Color="Color.Primary" OnClick="@(() => CopyAsync(Clipping, SR["CopiedToClipbboardFeedbackMessage"]))" />
-    }
+
+        <MudIconButton Icon="@Icons.Material.Outlined.CopyAll" Size="Size.Medium" Color="Color.Primary" OnClick="CopyAsync" />
+    </MudToolBar>
 }
 
 
 @code {
     [Parameter] public Clipping? Clipping { get; set; } = null;
-    [Parameter] public bool UseWebShareApi { get; set; } = true;
+    [Parameter] public bool UseWebShareApi { get; set; } = false;
 
     private string? ShareUrl => Clipping is not null
         ? $"{NavigationManager.BaseUri}clipping/{Clipping.Id}"
         : null;
 
-    public async Task CopyAsync(Clipping clipping, string copiedFeedbackMessage)
+    private string? GetTitleAndAuthor()
     {
-        if (string.IsNullOrWhiteSpace(clipping?.Text))
-            return;
-
-        var quote = clipping.QuotedText!.ToString();
-
-        StringBuilder suffixBuilder = new StringBuilder();
+        var sb = new StringBuilder();
         string delim = string.Empty;
-        if (!string.IsNullOrWhiteSpace(clipping.Book.Title))
+        if (!string.IsNullOrWhiteSpace(Clipping?.Book?.Title))
         {
-            suffixBuilder.Append($"{delim}\"{clipping.Book.Title}\"");
+            sb.Append($"{delim}\"{Clipping.Book.Title}\"");
             delim = " - ";
         }
-        if (!string.IsNullOrWhiteSpace(clipping.Book.Author))
+        if (!string.IsNullOrWhiteSpace(Clipping?.Book.Author))
         {
-            suffixBuilder.Append($"{delim}{clipping.Book.Author}");
+            sb.Append($"{delim}{Clipping.Book.Author}");
             delim = " - ";
         }
 
-        var suffix = suffixBuilder.ToString();
+        return sb.ToString();
+    }
+
+    private string GetFullQuote(bool shorten)
+    {
+        if (string.IsNullOrWhiteSpace(Clipping?.Text))
+            return string.Empty;
+
+        var quote = Clipping.QuotedText!.ToString();
+        const int MaxLength = 200;
+        if (shorten && quote.Length > MaxLength)
+            quote = quote.Remove(MaxLength) + "…";
+
+        var suffix = GetTitleAndAuthor();
         if (!string.IsNullOrWhiteSpace(suffix))
             quote += $"\n({suffix})";
 
+        return quote;
+    }
+
+    public async Task CopyAsync()
+    {
+        var quote = GetFullQuote(shorten: false);
         await JS.InvokeVoidAsync("copyToClipboard", quote);
-        Snackbar.Add(copiedFeedbackMessage, Severity.Success);
+        Snackbar.Add(SR["CopiedToClipbboardFeedbackMessage"], Severity.Success);
     }
 }

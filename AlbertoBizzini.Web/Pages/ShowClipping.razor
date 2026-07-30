@@ -6,14 +6,16 @@
 @inject IStringLocalizer<ShowClipping> L
 @inject ILogger<ShowClipping> Logger
 
-<PageHeader L="@L" />
+<PageHeader L="@L">
+	<MudButton Href="clippings" Variant="Variant.Outlined" Size="Size.Small" Color="Color.Primary" class="ml-6">@SR["NavToClippingsPage"]…</MudButton>
+</PageHeader>
+
 
 @if (_loading || _clipping is not null)
 {
 	<KindleClippingDisplay Clipping="_clipping" HideShareButton />
 	<MudStack Row Justify="Justify.Center" AlignItems="AlignItems.Center" Spacing="1">
 		<KindleShareClippingButton Clipping="_clipping" />
-		<MudButton Href="clippings" Variant="Variant.Text" Size="Size.Small" Color="Color.Primary">@SR["NavToClippingsPage"]…</MudButton>
 	</MudStack>
 }
 else

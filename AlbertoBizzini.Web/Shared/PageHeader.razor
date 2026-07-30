@@ -4,9 +4,13 @@
 
 <MudText Class="page-tile">@L["PageTitle"]</MudText>
 
-<MudText Typo="Typo.body2" Class="mb-6">@L["IntroductionText"]</MudText>
+<MudText Typo="Typo.body2" Class="mb-6">
+    @L["IntroductionText"]
+    @ChildContent
+</MudText>
 
 @code {
     [Parameter] public IStringLocalizer L { get; set; }
-
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 }
