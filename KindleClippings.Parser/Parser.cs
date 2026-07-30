@@ -17,6 +17,10 @@ public static class Parser
         new(@"posizione\s+(\d+)(?:-(\d+))?|location\s+(\d+)(?:-(\d+))?",
             RegexOptions.IgnoreCase);
 
+    private static readonly Regex MetadataRegex =
+         new(@"\[▶\d+\]",
+            RegexOptions.IgnoreCase);
+
     public static ParseResult Parse(string fileContent)
     {
         var clippings = new List<Clipping>();
@@ -49,7 +53,7 @@ public static class Parser
                     Environment.NewLine,
                     lines.Skip(3)).Trim();
 
-                text = Regex.Replace(text, @"\[▶\d+\]", "").Trim(); // remove metadata
+                text = MetadataRegex.Replace(text, "").Trim();
             }
 
             if (string.IsNullOrWhiteSpace(text))
