@@ -3,11 +3,9 @@
   <Project Path="AlbertoBizzini.Services/AlbertoBizzini.Services.csproj" Id="7c9ea3ad-1ea4-4b97-ad5f-4fe332445024" />
   <Project Path="AlbertoBizzini.Shared/AlbertoBizzini.Shared.csproj" Id="a389ca9f-74c9-412d-b63c-b8e477d5d0d8" />
   <Project Path="AlbertoBizzini.Web/AlbertoBizzini.Web.csproj" />
-  <Project Path="KindleClippings.ConsoleApp/KindleClippings.ConsoleApp.csproj">
-    <Build Solution="Debug|*" Project="false" />
-  </Project>
+  <Project Path="KindleClippings.ConsoleApp/KindleClippings.ConsoleApp.csproj" />
   <Project Path="KindleClippings.Database/KindleClippings.Database.sqlproj" Id="620f55f8-b012-40a7-b0a2-d87c67fa1520">
-    <Build />
+    <Build Solution="Release|*" />
     <Deploy />
   </Project>
   <Project Path="KindleClippings.Parser/KindleClippings.Parser.csproj">
