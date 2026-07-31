@@ -62,6 +62,15 @@ public static class ClippingSqliteExporter
 
             await transaction.CommitAsync(cancellationToken);
 
+            var versionFile = Path.ChangeExtension(
+                sqliteFile,
+                ".version");
+
+            await File.WriteAllTextAsync(
+                versionFile,
+                DateTime.UtcNow.ToString("yyyyMMddHHmmss"),
+                cancellationToken);
+
             return count;
         }
         catch
