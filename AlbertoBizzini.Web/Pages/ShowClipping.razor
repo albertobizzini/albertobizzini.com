@@ -33,7 +33,7 @@ else
 	protected override async Task OnParametersSetAsync()
 	{
 		_loading = true;
-		_clipping = await KindleService.GetClippingById(Id);
+		_clipping = await KindleService.GetClippingByIdAsync(Id);
 		_loading = false;
 	}
 }

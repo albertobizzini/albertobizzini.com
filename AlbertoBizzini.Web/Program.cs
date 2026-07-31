@@ -7,7 +7,6 @@ using Microsoft.Extensions.Options;
 using MudBlazor.Services;
 using MudBlazor.Translations;
 using Soenneker.Blazor.Turnstile.Registrars;
-using SqliteWasmBlazor;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
@@ -28,18 +27,11 @@ builder.Services.AddScoped(sp =>
 
 builder.Services.AddTurnstileInteropAsScoped();
 
-builder.Services.AddSqliteWasm();
-
 builder.Services.AddAppServices();
+
 
 var host = builder.Build();
 
 await host.ConfigureCultureAsync();
-
-await host.Services.InitializeSqliteWasmAsync();
-
-await host.Services
-    .GetRequiredService<KindleClippingDatabase>()
-    .InitializeAsync();
 
 await host.RunAsync();

@@ -314,7 +314,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        _clippings = await KindleService.GetAllClippings();
+        _clippings = await KindleService.GetAllClippingsAsync();
 
         // Prepara una sola volta il testo utilizzato
         // per la ricerca full-text.

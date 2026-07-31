@@ -1,9 +1,9 @@
 ﻿using KindleClippings;
+using KindleClippings.Console;
 using KindleClippings.ConsoleApp;
 using Microsoft.Data.Sqlite;
 
 var content = File.ReadAllText(@".\My Clippings.txt");
-var outputSqlLiteFile = @"..\AlbertoBizzini.Web\wwwroot\data\clippings.db";
 
 var result = Parser.Parse(content);
 Console.WriteLine($"Parsed {result.Books.Count} books, {result.Clippings.Count} clippings");
@@ -15,10 +15,16 @@ Console.WriteLine(
     $"{importResult.Inserted} inseriti, " +
     $"{importResult.Updated} aggiornati.");
 
-var count = await ClippingSqliteExporter.ExportAsync(outputSqlLiteFile);
-
+var outputJsonFile = @"..\AlbertoBizzini.Web\wwwroot\data\clippings.json";
+var count = await ClippingJsonExporter.ExportAsync(outputJsonFile);
 Console.WriteLine(
-    $"Exported {count:N0} clippings in '{outputSqlLiteFile}'.");
+    $"Exported {count:N0} clippings in '{outputJsonFile}'.");
+
+
+//var outputSqlLiteFile = @"..\AlbertoBizzini.Web\wwwroot\data\clippings.db";
+//var count = await ClippingSqliteExporter.ExportAsync(outputSqlLiteFile);
+//Console.WriteLine(
+//    $"Exported {count:N0} clippings in '{outputSqlLiteFile}'.");
 
 //var list = result.Clippings.Where(c => (c.Text?.Length ?? 0) < 10).ToList();
 //foreach (var clip in list)

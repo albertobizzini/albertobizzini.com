@@ -15,7 +15,6 @@
     <PackageReference Include="MudBlazor" Version="9.*" />
     <PackageReference Include="MudBlazor.Translations" Version="3.4.0" />
     <PackageReference Include="Soenneker.Blazor.Turnstile" Version="4.0.2744" />
-    <PackageReference Include="SqliteWasmBlazor" Version="0.9.1-pre" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,15 +26,13 @@
     <Content Update="wwwroot\css\custom.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\data\My Clippings.txt">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
     <Content Update="wwwroot\_redirects">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\data\" />
     <Folder Include="wwwroot\favicon\" />
   </ItemGroup>
 

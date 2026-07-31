@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace KindleClippings;
 
 public class Book : IEquatable<Book>
 {
-    public string TitleAndAuthor => Author is null
-            ? Title
-            : $"{Title} ({Author})";
 
     public string Title { get; init; } = "";
 
@@ -18,6 +16,10 @@ public class Book : IEquatable<Book>
 
     public override string ToString() => TitleAndAuthor;
 
+    [JsonIgnore]
+    public string TitleAndAuthor => Author is null
+            ? Title
+            : $"{Title} ({Author})";
 
     #region IEquatable<KindleBook>
     public bool Equals(Book? other)

@@ -1,149 +1,103 @@
 ﻿using KindleClippings;
-using SqliteWasmBlazor;
+using Microsoft.Extensions.Localization;
+using Microsoft.JSInterop;
+using MudBlazor;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
 
 namespace AlbertoBizzini.Web.Services;
 
 public class KindleClippingService
 {
-    private SqliteWasmConnection _connection;
+    private static readonly JsonSerializerOptions JsonOptions = new()
+    {
+        PropertyNameCaseInsensitive = true
+    };
+
     private readonly ILogger<KindleClippingService> _logger;
+    private readonly HttpClient _httpClient;
+
+    private List<Clipping>? _data;
+    private Dictionary<string, Clipping>? _dict;
+
 
 
     public KindleClippingService(
-        ILogger<KindleClippingService> logger)
+        ILogger<KindleClippingService> logger,
+        HttpClient httpClient)
     {
         _logger = logger;
-        _connection = new SqliteWasmConnection(
-            "Data Source=clippings.db");
+        _httpClient = httpClient;
     }
 
-    private async Task<SqliteWasmConnection> GetConnectionAsync()
+    public async Task<List<Clipping>> LoadAsync()
     {
-        if (_connection.State != System.Data.ConnectionState.Open)
-            await _connection.OpenAsync();
+        if (_data is not null)
+            return _data;
 
-        return _connection;
+        var json = await _httpClient.GetStringAsync(
+            "data/clippings.json");
+
+        _data = JsonSerializer.Deserialize<List<Clipping>>(
+            json,
+            JsonOptions) ?? [];
+
+        _logger.LogInformation(
+            "KindleClippingService.LoadAsync: loaded {count} clippings",
+            _data.Count);
+
+        _dict = new();
+
+        foreach (var clipping in _data)
+            _dict.Add(clipping.Id, clipping);
+
+        return _data;
     }
 
-    public async Task<List<Clipping>> GetAllClippings()
+    public async Task<List<Clipping>> GetAllClippingsAsync()
     {
-        var connection = await GetConnectionAsync();
-
-        await using var command = connection.CreateCommand();
-
-        command.CommandText = """
-            SELECT
-                Id,
-                Title,
-                Author,
-                Type,
-                Page,
-                StartLocation,
-                EndLocation,
-                AddedOn,
-                Text
-            FROM Clipping;
-            """;
-
-        await using var reader = await command.ExecuteReaderAsync();
-
-        var clippings = new List<Clipping>();
-
-        while (await reader.ReadAsync())
-        {
-            var clipping = ReadClipping(reader);
-            if (clipping != null)
-            {
-                clippings.Add(clipping);
-            }
-        }
-
-        return clippings;
+        var data = await LoadAsync();
+        return data;
     }
 
-
-    public async Task<Clipping?> GetClippingById(string id)
+    public async Task<Clipping?> GetClippingByIdAsync(string id)
     {
-        var connection = await GetConnectionAsync();
+        var data = await LoadAsync();
+        return _dict.TryGetValue(id, out var clipping) ? clipping : null;
+    }
 
-        await using var command = connection.CreateCommand();
+    public async Task<Clipping?> GetClippingOfTheDayAsync(int delta = 0)
+    {
+        var data = await LoadAsync();
 
-        command.CommandText = """
-            SELECT
-                Id,
-                Title,
-                Author,
-                Type,
-                Page,
-                StartLocation,
-                EndLocation,
-                AddedOn,
-                Text
-            FROM Clipping
-            WHERE Id = $id;
-            """;
+        var clippings = data
+            .Where(c => c.Type == ClippingType.Highlight && !string.IsNullOrWhiteSpace(c.Text))
+            .ToList();
 
-        var parameter = command.CreateParameter();
-        parameter.ParameterName = "$id";
-        parameter.Value = id;
-        command.Parameters.Add(parameter);
-
-        await using var reader =
-            await command.ExecuteReaderAsync();
-
-        if (!await reader.ReadAsync())
+        if (clippings.Count == 0)
             return null;
 
-        return ReadClipping(reader);
-    }
-
-    public async Task<Clipping?> GetClippingOfTheDayAsync(
-        int delta = 0)
-    {
-        var connection = await GetConnectionAsync();
-
-        await using var command = connection.CreateCommand();
-
-        command.CommandText = """
-            SELECT
-                Id,
-                Title,
-                Author,
-                Type,
-                Page,
-                StartLocation,
-                EndLocation,
-                AddedOn,
-                Text
-            FROM Clipping
-            WHERE Type = 'Highlight'
-              AND Text IS NOT NULL
-              AND length(trim(Text)) > 0;
-            """;
-
-        await using var reader =
-            await command.ExecuteReaderAsync();
-
+        // 1. Calcola la data di riferimento in base al delta
         var targetDate = DateTime.Today.AddDays(delta);
         var dateString = targetDate.ToString("yyyy-MM-dd");
 
         Clipping? bestClipping = null;
         long highestScore = long.MinValue;
 
-        while (await reader.ReadAsync())
+        // 2. Trova il clipping con il punteggio più alto per la data corrente
+        foreach (var clipping in clippings)
         {
-            var clipping = ReadClipping(reader);
+            // Generiamo un ID univoco e stabile per il clipping
+            var clippingId = $"{clipping.Book.Title}_{clipping.StartLocation}_{clipping.Text}";
 
-            var clippingId =
-                $"{clipping.Book.Title}_{clipping.StartLocation}_{clipping.Text}";
+            // Uniamo la data e il clipping in una chiave unica per quel giorno specifico
+            var dayClippingKey = $"{dateString}_{clippingId}";
 
-            var dayClippingKey =
-                $"{dateString}_{clippingId}";
+            // Calcoliamo un punteggio numerico deterministico per questa combinazione
+            long score = GetStableHash64(dayClippingKey);
 
-            var score = GetStableHash64(dayClippingKey);
-
+            // Il clipping con il punteggio massimo (o minimo) vince
             if (score > highestScore)
             {
                 highestScore = score;
@@ -154,103 +108,11 @@ public class KindleClippingService
         return bestClipping;
     }
 
-    private static Clipping ReadClipping(
-        System.Data.Common.DbDataReader reader)
-    {
-        var title = reader.GetString(
-            reader.GetOrdinal("Title"));
-
-        var authorOrdinal =
-            reader.GetOrdinal("Author");
-
-        var author =
-            reader.IsDBNull(authorOrdinal)
-                ? null
-                : reader.GetString(authorOrdinal);
-
-        var type = Enum.Parse<ClippingType>(
-            reader.GetString(
-                reader.GetOrdinal("Type")));
-
-        var page = GetNullableInt32(
-            reader,
-            "Page");
-
-        var startLocation = GetNullableInt32(
-            reader,
-            "StartLocation");
-
-        var endLocation = GetNullableInt32(
-            reader,
-            "EndLocation");
-
-        var addedOn = GetNullableDateTime(
-            reader,
-            "AddedOn");
-
-        var textOrdinal =
-            reader.GetOrdinal("Text");
-
-        var text =
-            reader.IsDBNull(textOrdinal)
-                ? null
-                : reader.GetString(textOrdinal);
-
-        return new Clipping
-        {
-            Id = reader.GetString(
-                reader.GetOrdinal("Id")),
-
-            Book = new Book
-            {
-                Title = title,
-                Author = author
-            },
-
-            Type = type,
-            Page = page,
-            StartLocation = startLocation,
-            EndLocation = endLocation,
-            AddedOn = addedOn,
-            Text = text
-        };
-    }
-
-    private static int? GetNullableInt32(
-        System.Data.Common.DbDataReader reader,
-        string column)
-    {
-        var ordinal = reader.GetOrdinal(column);
-
-        return reader.IsDBNull(ordinal)
-            ? null
-            : reader.GetInt32(ordinal);
-    }
-
-    private static DateTime? GetNullableDateTime(
-        System.Data.Common.DbDataReader reader,
-        string column)
-    {
-        var ordinal = reader.GetOrdinal(column);
-
-        if (reader.IsDBNull(ordinal))
-            return null;
-
-        var value = reader.GetValue(ordinal);
-
-        return value switch
-        {
-            DateTime dateTime => dateTime,
-            string text => DateTime.Parse(text),
-            _ => Convert.ToDateTime(value)
-        };
-    }
-
+    // Algoritmo di hashing a 64-bit stabile basato su SHA256
     private static long GetStableHash64(string input)
     {
-        var bytes = SHA256.HashData(
-            Encoding.UTF8.GetBytes(input));
-
+        var bytes = SHA256.HashData(Encoding.UTF8.GetBytes(input));
         return BitConverter.ToInt64(bytes, 0);
     }
+
 }

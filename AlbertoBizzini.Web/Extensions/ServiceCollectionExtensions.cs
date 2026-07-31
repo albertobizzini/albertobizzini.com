@@ -12,7 +12,6 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddAppServices(this IServiceCollection services)
     {
         services.AddLocalization(options => options.ResourcesPath = "Resources");
-        services.AddScoped<KindleClippingDatabase>();
         services.AddScoped<KindleClippingService>();
         services.AddScoped<ContactFormModelFluentValidator>();
 
