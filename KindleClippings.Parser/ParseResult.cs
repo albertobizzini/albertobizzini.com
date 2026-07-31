@@ -2,6 +2,6 @@
 
 public class ParseResult
 {
-    public List<Clipping> Clippings { get; set; } = [];
+    public Dictionary<string, Clipping> Clippings { get; set; } = [];
     public List<Book> Books { get; set; } = [];
 }

@@ -39,14 +39,14 @@ public class KindleClippingService
     public async Task<Clipping?> GetClippingById(string id)
     {
         var data = await LoadAsync();
-        return data.Clippings.FirstOrDefault(x => x.Id == id);
+        return data.Clippings.TryGetValue(id, out var clipping) ? clipping : null;
     }
 
     public async Task<Clipping?> GetClippingOfTheDayAsync(int delta = 0)
     {
         var data = await LoadAsync();
 
-        var clippings = data.Clippings
+        var clippings = data.Clippings.Values
             .Where(c => c.Type == ClippingType.Highlight && !string.IsNullOrWhiteSpace(c.Text))
             .ToList();
 

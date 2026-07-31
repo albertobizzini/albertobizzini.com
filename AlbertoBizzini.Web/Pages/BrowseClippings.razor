@@ -316,7 +316,7 @@ else
     {
         var result = await KindleService.LoadAsync();
 
-        _clippings = result.Clippings ?? [];
+        _clippings = result.Clippings.Values.ToList() ?? [];
 
         // Prepara una sola volta il testo utilizzato
         // per la ricerca full-text.

@@ -23,7 +23,7 @@ public static class Parser
 
     public static ParseResult Parse(string fileContent)
     {
-        var clippings = new List<Clipping>();
+        var clippings = new Dictionary<string, Clipping>();
         var books = new HashSet<Book>();
 
         var entries = fileContent
@@ -83,8 +83,8 @@ public static class Parser
 
             parsedClipping.Id = ClippingIdGenerator.CreateId(parsedClipping);
 
-            clippings.Add(parsedClipping);
-            book.Clippings.Add(parsedClipping);
+            if (clippings.TryAdd(parsedClipping.Id, parsedClipping))
+                book.Clippings.Add(parsedClipping);
         }
 
         return new ParseResult { Books = books.ToList(), Clippings = clippings };

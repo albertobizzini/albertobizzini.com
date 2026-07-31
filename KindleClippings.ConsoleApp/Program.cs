@@ -1,9 +1,17 @@
 ﻿using KindleClippings;
+using KindleClippings.ConsoleApp;
 
 var content = File.ReadAllText(@".\My Clippings.txt");
 
 var result = Parser.Parse(content);
 Console.WriteLine($"Parsed {result.Books.Count} books, {result.Clippings.Count} clippings");
+
+var importResult = await ClippingImporter.ImportAsync(result.Clippings.Values);
+
+Console.WriteLine(
+    $"Importazione completata: " +
+    $"{importResult.Inserted} inseriti, " +
+    $"{importResult.Updated} aggiornati.");
 
 //var list = result.Clippings.Where(c => (c.Text?.Length ?? 0) < 10).ToList();
 //foreach (var clip in list)
