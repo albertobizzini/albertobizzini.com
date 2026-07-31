@@ -79,8 +79,8 @@ public static class ClippingImporter
     {
         const string sql = """
             SELECT TOP (0) *
-            INTO #Clippings
-            FROM dbo.Clippings;
+            INTO #Clipping
+            FROM dbo.Clipping;
             """;
 
         await using var command = new SqlCommand(
@@ -102,7 +102,7 @@ public static class ClippingImporter
             SqlBulkCopyOptions.Default,
             transaction);
 
-        bulkCopy.DestinationTableName = "#Clippings";
+        bulkCopy.DestinationTableName = "#Clipping";
         bulkCopy.BatchSize = 1000;
         bulkCopy.BulkCopyTimeout = 0;
 
@@ -124,8 +124,8 @@ public static class ClippingImporter
         CancellationToken cancellationToken)
     {
         const string sql = """
-            MERGE dbo.Clippings AS target
-            USING #Clippings AS source
+            MERGE dbo.Clipping AS target
+            USING #Clipping AS source
                 ON target.Id = source.Id
 
             WHEN MATCHED THEN
