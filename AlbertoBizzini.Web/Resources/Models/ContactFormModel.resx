@@ -148,7 +148,7 @@
     <value>Who are you? (max {0} characters)</value>
   </data>
   <data name="ResponsibilityTakenLabel" xml:space="preserve">
-    <value>I have read the privacy policy and I take full responsibility for the information provided.</value>
+    <value>I have read the privacy policy and I take full responsibility for the information provided</value>
   </data>
   <data name="ResponsibilityTakenRequiredValidationError" xml:space="preserve">
     <value>Taking responsibility is mandatory</value>

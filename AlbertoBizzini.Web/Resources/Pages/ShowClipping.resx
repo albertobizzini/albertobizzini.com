@@ -123,4 +123,7 @@
   <data name="IntroductionText" xml:space="preserve">
     <value>Highlight taken from my Kindle (mostly in Italian, sorry)</value>
   </data>
+  <data name="NotfoundMessage" xml:space="preserve">
+    <value>Id "{0}" not found</value>
+  </data>
 </root>

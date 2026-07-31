@@ -99,6 +99,7 @@
   </resheader>
   <data name="PageTitle" xml:space="preserve">
     <value>Home</value>
+    <comment>@Invariant</comment>
   </data>
   <data name="LinksSectionHeaderText" xml:space="preserve">
     <value>Links</value>
@@ -137,7 +138,7 @@
     <value>Quote from {0}</value>
   </data>
   <data name="KindleClippingHeaderCaption" xml:space="preserve">
-    <value>Random selection from the passages I've highlighted on my Kindle over time (mostly in Italian, sorry)</value>
+    <value>Random selection from the passages I've highlighted on my Kindle over time (mostly in Italian, sorry).</value>
   </data>
   <data name="LinksSectionHeaderCaption" xml:space="preserve">
     <value>Links to my other sites or social accounts</value>

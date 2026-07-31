@@ -103,4 +103,7 @@
   <data name="IntroductionText" xml:space="preserve">
     <value>Evidenziazione tratta dal mio Kindle</value>
   </data>
+  <data name="NotfoundMessage" xml:space="preserve">
+    <value>Id "{0}" non presente</value>
+  </data>
 </root>

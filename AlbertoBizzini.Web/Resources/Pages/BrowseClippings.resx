@@ -115,9 +115,6 @@
   <data name="AddedOnLabel" xml:space="preserve">
     <value>Date</value>
   </data>
-  <data name="StartLocationLabel" xml:space="preserve">
-    <value>Position</value>
-  </data>
   <data name="SearchLabel" xml:space="preserve">
     <value>Free search (type al least {0} characters)</value>
   </data>
