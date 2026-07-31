@@ -68,5 +68,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="SqlSchemaCompare DEV - GIT.scmp" />
+    <None Include="Export IgnorableClipping 2026.07.31.xlsx" />
   </ItemGroup>
 </Project>
