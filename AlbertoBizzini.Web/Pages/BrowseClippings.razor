@@ -57,7 +57,8 @@
                  _filteredAuthorTitles.Count > 0)
             {
                 <MudSelect T="string"
-                           @bind-Value="_selectedTitle"
+                           Value="@_selectedTitle"
+                           ValueChanged="OnTitleChanged"
                            Label="@L["BookTitleLabel"]"
                            ShrinkLabel="false"
                            Dense
@@ -371,7 +372,24 @@ else
                     StringComparison.OrdinalIgnoreCase));
         }
 
-        // Filtro titolo
+        // Ricerca libera
+        if (_searchkeywords.Count > 0)
+        {
+            result = result.Where(MatchesSearch);
+        }
+
+        // Lista dei titoli disponibili:
+        // dipende da autore + ricerca, ma NON dal titolo selezionato.
+        _filteredAuthorTitles = string.IsNullOrWhiteSpace(_selectedAuthor)
+            ? []
+            : result
+                .Select(x => x.Clipping)
+                .Select(c => c.Book.Title)
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .OrderBy(t => t)
+                .ToList();
+
+        // Ora applichiamo anche il filtro titolo
         if (!string.IsNullOrWhiteSpace(_selectedTitle))
         {
             result = result.Where(x =>
@@ -381,42 +399,20 @@ else
                     StringComparison.OrdinalIgnoreCase));
         }
 
-        // Ricerca libera.
-        // Tutte le parole chiave devono essere presenti.
-        if (_searchkeywords.Count > 0)
-        {
-            result = result.Where(MatchesSearch);
-        }
-
-        // Materializza i risultati una sola volta.
         var filtered = result
             .Select(x => x.Clipping)
             .ToList();
 
-        // Ordinamento
         _filteredAndSortedClippings = ApplySorting(filtered);
 
-        // Aggiorna lista autori
+        // Autori disponibili in base agli altri filtri,
+        // compreso eventualmente il titolo.
         _filteredAuthors = _filteredAndSortedClippings
             .Where(c => !string.IsNullOrWhiteSpace(c.Book.Author))
             .Select(c => c.Book.Author!)
             .Distinct(StringComparer.OrdinalIgnoreCase)
             .OrderBy(a => a)
             .ToList();
-
-        // Aggiorna lista titoli dell'autore selezionato
-        _filteredAuthorTitles = string.IsNullOrWhiteSpace(_selectedAuthor)
-            ? []
-            : _filteredAndSortedClippings
-                .Where(c =>
-                    string.Equals(
-                        c.Book.Author,
-                        _selectedAuthor,
-                        StringComparison.OrdinalIgnoreCase))
-                .Select(c => c.Book.Title)
-                .Distinct(StringComparer.OrdinalIgnoreCase)
-                .OrderBy(t => t)
-                .ToList();
     }
 
 
@@ -496,6 +492,21 @@ else
         // Il titolo precedente non è più necessariamente valido
         // per il nuovo autore.
         _selectedTitle = null;
+
+        ApplyFilters();
+    }
+
+    private void OnTitleChanged(string? title)
+    {
+        if (string.Equals(
+                _selectedTitle,
+                title,
+                StringComparison.Ordinal))
+        {
+            return;
+        }
+
+        _selectedTitle = title;
 
         ApplyFilters();
     }
