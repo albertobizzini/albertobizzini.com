@@ -71,11 +71,7 @@ public class KindleClippingService
     {
         var data = await LoadAsync();
 
-        var clippings = data
-            .Where(c => c.Type == ClippingType.Highlight && !string.IsNullOrWhiteSpace(c.Text))
-            .ToList();
-
-        if (clippings.Count == 0)
+        if (data.Count == 0)
             return null;
 
         // 1. Calcola la data di riferimento in base al delta
@@ -86,13 +82,10 @@ public class KindleClippingService
         long highestScore = long.MinValue;
 
         // 2. Trova il clipping con il punteggio più alto per la data corrente
-        foreach (var clipping in clippings)
+        foreach (var clipping in data)
         {
-            // Generiamo un ID univoco e stabile per il clipping
-            var clippingId = $"{clipping.Book.Title}_{clipping.StartLocation}_{clipping.Text}";
-
             // Uniamo la data e il clipping in una chiave unica per quel giorno specifico
-            var dayClippingKey = $"{dateString}_{clippingId}";
+            var dayClippingKey = $"{dateString}_{clipping.Id}";
 
             // Calcoliamo un punteggio numerico deterministico per questa combinazione
             long score = GetStableHash64(dayClippingKey);

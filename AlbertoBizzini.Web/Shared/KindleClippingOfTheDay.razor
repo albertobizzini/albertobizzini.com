@@ -15,12 +15,11 @@ else
 		@if (ShowPagination && _clipping is not null)
 		{
 			<MudStack Row Justify="Justify.Center" AlignItems="AlignItems.Center" Spacing="1">
-				<MudIconButton Variant="Variant.Outlined" Color="Color.Primary" Icon="@Icons.Material.TwoTone.KeyboardArrowLeft" OnClick="DecreaseDeltaDays" Size="Size.Small" />
-				<MudIconButton Variant="Variant.Outlined" Color="Color.Primary" Icon="@Icons.Material.TwoTone.KeyboardArrowRight" OnClick="IncreaseDeltaDays" Disabled="@(DeltaDays == 0)" Size="Size.Small" />
-				<KindleShareClippingButton Clipping="_clipping"/>
-				<MudButton Href="clippings" Variant="Variant.Text" Size="Size.Small" Color="Color.Primary">@SR["NavToClippingsPage"]…</MudButton>
+				<MudIconButton Variant="Variant.Outlined" Color="Color.Primary" Icon="@Icons.Material.TwoTone.KeyboardArrowLeft" OnClick="DecreaseDeltaDays" Size="@ToolbarIconsSize" />
+				<MudIconButton Variant="Variant.Outlined" Color="Color.Primary" Icon="@Icons.Material.TwoTone.KeyboardArrowRight" OnClick="IncreaseDeltaDays" Disabled="@(DeltaDays == 0)" Size="@ToolbarIconsSize" />
+				<KindleShareClippingButton Clipping="_clipping" Size="@ToolbarIconsSize" />
+				<MudButton Href="clippings" Variant="Variant.Text" Size="@ToolbarIconsSize" Color="Color.Primary">@SR["NavToClippingsPage"]…</MudButton>
 			</MudStack>
-
 		}
 	</MudStack>
 
@@ -34,6 +33,7 @@ else
 
 	private Clipping? _clipping;
 	private bool _noClippingIsAvailable = false;
+	private Size ToolbarIconsSize => Size.Medium;
 
 	protected override async Task OnParametersSetAsync()
 	{
