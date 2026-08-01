@@ -5,6 +5,7 @@
 @inject IStringLocalizer<BrowseClippings> L
 @inject KindleClippingService KindleService
 @inject ILogger<BrowseClippings> Logger
+@inject NavigationManager Nav
 
 <MudBreakpointProvider OnBreakpointChanged="BreakpointChanged" />
 
@@ -218,7 +219,7 @@ else
                 </HeaderTemplate>
 
                 <CellTemplate>
-                    <MudLink OnClick="@(() => OnAuthorClicked(context.Item))">
+                    <MudLink Href="@NavToBrowseClippings(context.Item.Id, toTitle: false)">
                         <MudHighlighter Text="@context.Item.Book.Author"
                                         HighlightedTexts="@_searchkeywords" />
 
@@ -232,7 +233,7 @@ else
                 </HeaderTemplate>
 
                 <CellTemplate>
-                    <MudLink OnClick="@(() => OnTitleClicked(context.Item))">
+                    <MudLink Href="@NavToBrowseClippings(context.Item.Id, toTitle: true)">
                         <MudHighlighter Text="@context.Item.Book.Title"
                                         HighlightedTexts="@_searchkeywords" />
                     </MudLink>
@@ -326,6 +327,8 @@ else
 
     protected override async Task OnInitializedAsync()
     {
+        _loading = true;
+
         _clippings = await KindleService.GetAllClippingsAsync();
 
         _searchableClippings = _clippings
@@ -334,33 +337,59 @@ else
                 BuildSearchText(c)))
             .ToList();
 
-        // Risoluzione dei parametri della query string.
-        if (!string.IsNullOrWhiteSpace(_authorClippingId) ||
-            !string.IsNullOrWhiteSpace(_titleClippingId))
-        {
-            var clippingId =
-                _authorClippingId ?? _titleClippingId;
-
-            var clipping = await KindleService.GetClippingByIdAsync(clippingId);
-
-            if (clipping?.Book is not null)
-            {
-                _selectedAuthor = clipping.Book.Author;
-
-                if (!string.IsNullOrWhiteSpace(_titleClippingId))
-                {
-                    _selectedTitle = clipping.Book.Title;
-                }
-
-                _descending = false;
-            }
-        }
-
         _loading = false;
+    }
+
+    private static string GetClippingsUrl(string clippingId, bool toTitle)
+    {
+        var parameter = toTitle ? "Title" : "Author";
+
+        return $"/clippings?{parameter}={Uri.EscapeDataString(clippingId)}";
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await ApplyQueryStringFiltersAsync();
 
         ApplyFilters();
     }
 
+    private async Task ApplyQueryStringFiltersAsync()
+    {
+        if (!string.IsNullOrWhiteSpace(_authorClippingId))
+        {
+            var clipping = await KindleService.GetClippingByIdAsync(
+                _authorClippingId);
+
+            if (clipping?.Book is not null)
+            {
+                _selectedAuthor = clipping.Book.Author;
+                _selectedTitle = null;
+                _descending = false;
+            }
+
+            return;
+        }
+
+        if (!string.IsNullOrWhiteSpace(_titleClippingId))
+        {
+            var clipping = await KindleService.GetClippingByIdAsync(
+                _titleClippingId);
+
+            if (clipping?.Book is not null)
+            {
+                _selectedAuthor = clipping.Book.Author;
+                _selectedTitle = clipping.Book.Title;
+                _descending = false;
+            }
+
+            return;
+        }
+
+        // Nessun filtro proveniente dalla query string.
+        _selectedAuthor = null;
+        _selectedTitle = null;
+    }
 
     private static string BuildSearchText(Clipping clipping)
     {
@@ -540,23 +569,14 @@ else
         ApplyFilters();
     }
 
-    
-    private void OnAuthorClicked(Clipping clipping)
-    {
-        _selectedAuthor = clipping.Book?.Author;
-        _selectedTitle = null;
 
-        ApplyFilters();
+    private string NavToBrowseClippings(string clippingId, bool toTitle)
+    {
+        var parameter = toTitle ? "Title" : "Author";
+
+        return $"/clippings?{parameter}={Uri.EscapeDataString(clippingId)}";
     }
 
-        
-    private void OnTitleClicked(Clipping clipping)
-    {
-        _selectedAuthor = clipping.Book?.Author;
-        _selectedTitle = clipping.Book?.Title;
-
-        ApplyFilters();
-    }
 
     private string? GetIcon(SortOption sortOption) => sortOption switch
     {

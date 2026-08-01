@@ -85,7 +85,7 @@ else
         var parameter = toTitle ? "Title" : "Author";
 
         var query =
-            $"{parameter}={Uri.EscapeDataString(Clipping.Id.ToString())}";
+            $"{parameter}={Uri.EscapeDataString(Clipping.Id)}";
 
         Nav.NavigateTo($"clippings?{query}");
     }
