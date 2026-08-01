@@ -218,8 +218,11 @@ else
                 </HeaderTemplate>
 
                 <CellTemplate>
-                    <MudHighlighter Text="@context.Item.Book.Author"
-                                    HighlightedTexts="@_searchkeywords" />
+                    <MudLink OnClick="@(() => OnAuthorClicked(context.Item))">
+                        <MudHighlighter Text="@context.Item.Book.Author"
+                                        HighlightedTexts="@_searchkeywords" />
+
+                    </MudLink>
                 </CellTemplate>
             </TemplateColumn>
 
@@ -229,8 +232,10 @@ else
                 </HeaderTemplate>
 
                 <CellTemplate>
-                    <MudHighlighter Text="@context.Item.Book.Title"
-                                    HighlightedTexts="@_searchkeywords" />
+                    <MudLink OnClick="@(() => OnTitleClicked(context.Item))">
+                        <MudHighlighter Text="@context.Item.Book.Title"
+                                        HighlightedTexts="@_searchkeywords" />
+                    </MudLink>
                 </CellTemplate>
             </TemplateColumn>
 
@@ -250,6 +255,12 @@ else
 
 @code
 {
+    [SupplyParameterFromQuery(Name = "Author")]
+    private string? _authorClippingId { get; set; }
+
+    [SupplyParameterFromQuery(Name = "Title")]
+    private string? _titleClippingId { get; set; }
+
     private bool _loading = true;
 
     private List<Clipping> _clippings = [];
@@ -317,13 +328,33 @@ else
     {
         _clippings = await KindleService.GetAllClippingsAsync();
 
-        // Prepara una sola volta il testo utilizzato
-        // per la ricerca full-text.
         _searchableClippings = _clippings
             .Select(c => new SearchableClipping(
                 c,
                 BuildSearchText(c)))
             .ToList();
+
+        // Risoluzione dei parametri della query string.
+        if (!string.IsNullOrWhiteSpace(_authorClippingId) ||
+            !string.IsNullOrWhiteSpace(_titleClippingId))
+        {
+            var clippingId =
+                _authorClippingId ?? _titleClippingId;
+
+            var clipping = await KindleService.GetClippingByIdAsync(clippingId);
+
+            if (clipping?.Book is not null)
+            {
+                _selectedAuthor = clipping.Book.Author;
+
+                if (!string.IsNullOrWhiteSpace(_titleClippingId))
+                {
+                    _selectedTitle = clipping.Book.Title;
+                }
+
+                _descending = false;
+            }
+        }
 
         _loading = false;
 
@@ -488,13 +519,11 @@ else
         }
 
         _selectedAuthor = author;
-
-        // Il titolo precedente non è più necessariamente valido
-        // per il nuovo autore.
         _selectedTitle = null;
 
         ApplyFilters();
     }
+
 
     private void OnTitleChanged(string? title)
     {
@@ -511,6 +540,23 @@ else
         ApplyFilters();
     }
 
+    
+    private void OnAuthorClicked(Clipping clipping)
+    {
+        _selectedAuthor = clipping.Book?.Author;
+        _selectedTitle = null;
+
+        ApplyFilters();
+    }
+
+        
+    private void OnTitleClicked(Clipping clipping)
+    {
+        _selectedAuthor = clipping.Book?.Author;
+        _selectedTitle = clipping.Book?.Title;
+
+        ApplyFilters();
+    }
 
     private string? GetIcon(SortOption sortOption) => sortOption switch
     {
