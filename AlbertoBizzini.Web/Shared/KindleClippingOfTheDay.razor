@@ -17,6 +17,7 @@ else
 			<MudStack Row Justify="Justify.Center" AlignItems="AlignItems.Center" Spacing="1">
 				<MudIconButton Variant="Variant.Outlined" Color="Color.Primary" Icon="@Icons.Material.TwoTone.KeyboardArrowLeft" OnClick="DecreaseDeltaDays" Size="@ToolbarIconsSize" />
 				<MudIconButton Variant="Variant.Outlined" Color="Color.Primary" Icon="@Icons.Material.TwoTone.KeyboardArrowRight" OnClick="IncreaseDeltaDays" Disabled="@(DeltaDays == 0)" Size="@ToolbarIconsSize" />
+				<MudIconButton Variant="Variant.Text" Color="Color.Primary" Icon="@Icons.Material.TwoTone.Autorenew" OnClick="ShowRandomClipping" Size="@ToolbarIconsSize" />
 				<KindleShareClippingButton Clipping="_clipping" Size="@ToolbarIconsSize" />
 				<MudButton Href="clippings" Variant="Variant.Text" Size="@ToolbarIconsSize" Color="Color.Primary">@SR["NavToClippingsPage"]…</MudButton>
 			</MudStack>
@@ -29,10 +30,12 @@ else
 @code {
 	[Parameter] public int DeltaDays { get; set; } = 0;
 	[Parameter] public bool ShowPagination { get; set; } = true;
-	[Parameter] public EventCallback<int> DeltaDaysChanged { get; set; } // Rimosso il Nullable?, EventCallback non è mai null in Blazor
+	[Parameter] public EventCallback<int> DeltaDaysChanged { get; set; }
+	[Parameter] public EventCallback<bool> RandomModeChanged { get; set; }
 
 	private Clipping? _clipping;
 	private bool _noClippingIsAvailable = false;
+	private bool _showRandomClipping = false;
 	private Size ToolbarIconsSize => Size.Medium;
 
 	protected override async Task OnParametersSetAsync()
@@ -47,7 +50,14 @@ else
 		_noClippingIsAvailable = false;
 		StateHasChanged();
 
-		_clipping = await KindleClippingService.GetClippingOfTheDayAsync(DeltaDays);
+		if (_showRandomClipping)
+		{
+			_clipping = await KindleClippingService.GetRandomClippingAsync();
+		}
+		else
+		{
+			_clipping = await KindleClippingService.GetClippingOfTheDayAsync(DeltaDays);
+		}
 
 		if (_clipping is null)
 			_noClippingIsAvailable = true;
@@ -63,8 +73,24 @@ else
 	{
 		var newValue = DeltaDays + step;
 
+		if (_showRandomClipping)
+		{
+			// Se siamo in modalità random, disattiviamo la modalità random e impostiamo il nuovo valore di DeltaDays.
+			_showRandomClipping = false;
+			await RandomModeChanged.InvokeAsync(_showRandomClipping);
+		}
+
 		// Notifica il genitore passando il nuovo valore.
 		// Il genitore aggiornerà il parametro, che scatenerà OnParametersSetAsync -> GetClipping() automaticamente.
 		await DeltaDaysChanged.InvokeAsync(newValue);
+	}
+
+	protected async Task ShowRandomClipping()
+	{
+		_showRandomClipping = true;
+
+		await GetClipping();
+
+		await RandomModeChanged.InvokeAsync(_showRandomClipping);
 	}
 }

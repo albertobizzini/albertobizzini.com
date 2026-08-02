@@ -15,17 +15,24 @@
             <MudStack Row Justify="Justify.FlexStart" Spacing="3" AlignItems="AlignItems.Center">
                 <MudIcon Icon="@Icons.Material.TwoTone.MenuBook" Color="@HeaderIconColor" />
                 <h3>
-                    @switch (_kindleClippingOfTheDayDeltaDays)
+                    @if (_kindleClippingOfTheDayRandomMode)
                     {
-                        case 0:
-                            @L["KindleClippingOfTheDayHeaderText"]
-                            break;
-                        case -1:
-                            @L["KindleClippingOfYesterdayHeaderText"]
-                            break;
-                        default:
-                            @L["KindleClippingOfDaysAgoHeaderText", DateTime.Today.AddDays(_kindleClippingOfTheDayDeltaDays).ToLongDateString()]
-                            break;
+                        @L["KindleClippingOfTheDayRandomHeaderText"]
+                    }
+                    else
+                    {
+                        @switch (_kindleClippingOfTheDayDeltaDays)
+                        {
+                            case 0:
+                                @L["KindleClippingOfTheDayHeaderText"]
+                                break;
+                            case -1:
+                                @L["KindleClippingOfYesterdayHeaderText"]
+                                break;
+                            default:
+                                @L["KindleClippingOfDaysAgoHeaderText", DateTime.Today.AddDays(_kindleClippingOfTheDayDeltaDays).ToLongDateString()]
+                                break;
+                        }
                     }
                 </h3>
             </MudStack>
@@ -33,7 +40,9 @@
         </TitleContent>
 
         <ChildContent>
-            <KindleClippingOfTheDay @bind-DeltaDays="@_kindleClippingOfTheDayDeltaDays" />
+            <KindleClippingOfTheDay DeltaDays="@_kindleClippingOfTheDayDeltaDays"
+                                    DeltaDaysChanged="OnKindleClippingOfTheDayDeltaDaysChanged"
+                                    RandomModeChanged="OnKindleClippingOfTheDayRandomModeChanged" />
         </ChildContent>
     </MudExpansionPanel>
 
@@ -111,6 +120,18 @@
 @code
 {
     private static Color HeaderIconColor = Color.Primary;
+
     private int _kindleClippingOfTheDayDeltaDays = 0;
+    private bool _kindleClippingOfTheDayRandomMode = false;
+
+    private async Task OnKindleClippingOfTheDayDeltaDaysChanged(int value)
+    {
+        _kindleClippingOfTheDayDeltaDays = value;
+    }
+
+    private async Task OnKindleClippingOfTheDayRandomModeChanged(bool value)
+    {
+        _kindleClippingOfTheDayRandomMode = value;
+    }
 }
 

@@ -149,4 +149,7 @@
   <data name="IntroductionText" xml:space="preserve">
     <value>Click on the headers to expand the sections</value>
   </data>
+  <data name="KindleClippingOfTheDayRandomHeaderText" xml:space="preserve">
+    <value>Random quote of the day</value>
+  </data>
 </root>

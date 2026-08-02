@@ -67,6 +67,16 @@ public class KindleClippingService
         return _dict.TryGetValue(id, out var clipping) ? clipping : null;
     }
 
+    public async Task<Clipping?> GetRandomClippingAsync()
+    {
+        var data = await LoadAsync();
+
+        if (data.Count == 0)
+            return null;
+
+        return data[Random.Shared.Next(data.Count)];
+    }
+
     public async Task<Clipping?> GetClippingOfTheDayAsync(int delta = 0)
     {
         var data = await LoadAsync();
@@ -74,31 +84,21 @@ public class KindleClippingService
         if (data.Count == 0)
             return null;
 
-        // 1. Calcola la data di riferimento in base al delta
+        // Ordinamento stabile e deterministico dei clipping
+        var ordered = data
+            .OrderBy(c => GetStableHash64(c.Id))
+            .ToList();
+
+        // Numero di giorni trascorsi da una data di riferimento
+        var referenceDate = new DateTime(2026, 1, 1);
         var targetDate = DateTime.Today.AddDays(delta);
-        var dateString = targetDate.ToString("yyyy-MM-dd");
 
-        Clipping? bestClipping = null;
-        long highestScore = long.MinValue;
+        var days = (targetDate - referenceDate).Days;
 
-        // 2. Trova il clipping con il punteggio più alto per la data corrente
-        foreach (var clipping in data)
-        {
-            // Uniamo la data e il clipping in una chiave unica per quel giorno specifico
-            var dayClippingKey = $"{dateString}_{clipping.Id}";
+        // Indice del clipping del giorno
+        var index = ((days % ordered.Count) + ordered.Count) % ordered.Count;
 
-            // Calcoliamo un punteggio numerico deterministico per questa combinazione
-            long score = GetStableHash64(dayClippingKey);
-
-            // Il clipping con il punteggio massimo (o minimo) vince
-            if (score > highestScore)
-            {
-                highestScore = score;
-                bestClipping = clipping;
-            }
-        }
-
-        return bestClipping;
+        return ordered[index];
     }
 
     // Algoritmo di hashing a 64-bit stabile basato su SHA256

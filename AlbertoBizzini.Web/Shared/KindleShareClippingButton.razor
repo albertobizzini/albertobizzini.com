@@ -58,6 +58,8 @@
         if (!string.IsNullOrWhiteSpace(suffix))
             quote += $"\n({suffix})";
 
+        quote += $"\n{ShareUrl}";
+
         return quote;
     }
 

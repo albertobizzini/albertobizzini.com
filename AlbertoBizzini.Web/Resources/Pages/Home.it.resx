@@ -165,4 +165,7 @@
   <data name="IntroductionText" xml:space="preserve">
     <value>Clicca sulle intestazioni per espandere le sezioni</value>
   </data>
+  <data name="KindleClippingOfTheDayRandomHeaderText" xml:space="preserve">
+    <value>Citazione del giorno casuale</value>
+  </data>
 </root>
