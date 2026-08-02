@@ -3,10 +3,11 @@
 
 @inject IJSRuntime JS
 @inject ISnackbar Snackbar
+@inject IStringLocalizer<SharedResources> SR
 
 @if (Url is not null)
 {
-    <MudTooltip Text="@Tooltip">
+    <MudTooltip Text="@_tooltip">
         <MudIconButton Icon="@Icon"
                        Color="@Color"
                        Size="@Size"
@@ -28,13 +29,13 @@
     public string? Url { get; set; }
 
     [Parameter]
-    public string Tooltip { get; set; } = "Condividi";
+    public string Tooltip { get; set; }
 
     [Parameter]
-    public string CopiedMessage { get; set; } = "Copiato negli appunti";
+    public string CopiedMessage { get; set; }
 
     [Parameter]
-    public string ShareErrorMessage { get; set; } = "Impossibile condividere il contenuto";
+    public string ShareErrorMessage { get; set; }
 
     [Parameter]
     public string Icon { get; set; } = Icons.Material.Filled.Share;
@@ -52,6 +53,15 @@
     public EventCallback OnShared { get; set; }
 
     private bool _isSharing;
+
+    private string? _tooltip => $"{Tooltip}…";
+
+    protected override async Task OnInitializedAsync()
+    {
+        Tooltip ??= SR["ShareButtonTooltip"];
+        CopiedMessage ??= SR["ShareButtonCopiedMessage"];
+        ShareErrorMessage ??= SR["ShareButtonShareErrorMessage"];
+    }
 
     private async Task ShareAsync()
     {

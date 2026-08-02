@@ -138,7 +138,22 @@
   <data name="CopiedToClipbboardFeedbackMessage" xml:space="preserve">
     <value>La citazione è stata copiata negli appunti</value>
   </data>
-  <data name="NavToClippingsPage" xml:space="preserve">
+  <data name="NavToClippingsPageLabel" xml:space="preserve">
     <value>Tutte</value>
+  </data>
+  <data name="NavToClippingsPageTooltip" xml:space="preserve">
+    <value>Sfoglia tutte le citazioni</value>
+  </data>
+  <data name="CopyToClipboardTooltip" xml:space="preserve">
+    <value>Copia negli appunti</value>
+  </data>
+  <data name="ShareButtonTooltip" xml:space="preserve">
+    <value>Condividi</value>
+  </data>
+  <data name="ShareButtonCopiedMessage" xml:space="preserve">
+    <value>Testo e URL copiati</value>
+  </data>
+  <data name="ShareButtonShareErrorMessage" xml:space="preserve">
+    <value>Impossibile condividere il contenuto</value>
   </data>
 </root>

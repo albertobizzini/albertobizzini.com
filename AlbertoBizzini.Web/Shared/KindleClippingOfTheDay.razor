@@ -5,92 +5,105 @@
 
 @if (_noClippingIsAvailable)
 {
-	<MudAlert Severity="Severity.Warning">@SR["NoKindleClippingIsAvailableWarningMessage"]</MudAlert>
+    <MudAlert Severity="Severity.Warning">@SR["NoKindleClippingIsAvailableWarningMessage"]</MudAlert>
 }
 else
 {
-	<MudStack>
-		<KindleClippingDisplay Clipping="@_clipping" HideShareButton />
+    <MudStack>
+        <KindleClippingDisplay Clipping="@_clipping" HideShareButton />
 
-		@if (ShowPagination && _clipping is not null)
-		{
-			<MudStack Row Justify="Justify.Center" AlignItems="AlignItems.Center" Spacing="1">
-				<MudIconButton Variant="Variant.Outlined" Color="Color.Primary" Icon="@Icons.Material.TwoTone.KeyboardArrowLeft" OnClick="DecreaseDeltaDays" Size="@ToolbarIconsSize" />
-				<MudIconButton Variant="Variant.Outlined" Color="Color.Primary" Icon="@Icons.Material.TwoTone.KeyboardArrowRight" OnClick="IncreaseDeltaDays" Disabled="@(DeltaDays == 0)" Size="@ToolbarIconsSize" />
-				<MudIconButton Variant="Variant.Text" Color="Color.Primary" Icon="@Icons.Material.TwoTone.Autorenew" OnClick="ShowRandomClipping" Size="@ToolbarIconsSize" />
-				<KindleShareClippingButton Clipping="_clipping" Size="@ToolbarIconsSize" />
-				<MudButton Href="clippings" Variant="Variant.Text" Size="@ToolbarIconsSize" Color="Color.Primary">@SR["NavToClippingsPage"]…</MudButton>
-			</MudStack>
-		}
-	</MudStack>
+        @if (ShowPagination && _clipping is not null)
+        {
+            <MudStack Row Justify="Justify.Center" AlignItems="AlignItems.Center" Spacing="1">
+
+                <MudTooltip Text="@L["ShowPreviousClippingTooltip"]">
+                    <MudIconButton Variant="Variant.Outlined" Color="Color.Primary" Icon="@Icons.Material.TwoTone.KeyboardArrowLeft" OnClick="DecreaseDeltaDays" Size="@ToolbarIconsSize" />
+                </MudTooltip>
+
+                <MudTooltip Text="@L["ShowNextClippingTooltip"]">
+                    <MudIconButton Variant="Variant.Outlined" Color="Color.Primary" Icon="@Icons.Material.TwoTone.KeyboardArrowRight" OnClick="IncreaseDeltaDays" Disabled="@(DeltaDays == 0)" Size="@ToolbarIconsSize" />
+                </MudTooltip>
+
+                <MudTooltip Text="@L["ShowRandomClippingTooltip"]">
+                    <MudIconButton Variant="Variant.Text" Color="Color.Primary" Icon="@Icons.Material.TwoTone.Autorenew" OnClick="ShowRandomClipping" Size="@ToolbarIconsSize" />
+                </MudTooltip>
+
+                <KindleShareClippingButton Clipping="_clipping" Size="@ToolbarIconsSize" />
+
+                <MudTooltip Text="@SR["NavToClippingsPageTooltip"]">
+                    <MudButton Href="clippings" Variant="Variant.Text" Size="@ToolbarIconsSize" Color="Color.Primary">@SR["NavToClippingsPageLabel"]…</MudButton>
+                </MudTooltip>
+            </MudStack>
+        }
+    </MudStack>
 
 }
 
     
 @code {
-	[Parameter] public int DeltaDays { get; set; } = 0;
-	[Parameter] public bool ShowPagination { get; set; } = true;
-	[Parameter] public EventCallback<int> DeltaDaysChanged { get; set; }
-	[Parameter] public EventCallback<bool> RandomModeChanged { get; set; }
+    [Parameter] public int DeltaDays { get; set; } = 0;
+    [Parameter] public bool ShowPagination { get; set; } = true;
+    [Parameter] public EventCallback<int> DeltaDaysChanged { get; set; }
+    [Parameter] public EventCallback<bool> RandomModeChanged { get; set; }
 
-	private Clipping? _clipping;
-	private bool _noClippingIsAvailable = false;
-	private bool _showRandomClipping = false;
-	private Size ToolbarIconsSize => Size.Medium;
+    private Clipping? _clipping;
+    private bool _noClippingIsAvailable = false;
+    private bool _showRandomClipping = false;
+    private Size ToolbarIconsSize => Size.Medium;
 
-	protected override async Task OnParametersSetAsync()
-	{
-		await GetClipping();
-	}
+    protected override async Task OnParametersSetAsync()
+    {
+        await GetClipping();
+    }
 
-	protected async Task GetClipping()
-	{
-		// Evita di resettare a null se il componente sta solo rinfrescando i parametri con lo stesso valore
-		_clipping = null;
-		_noClippingIsAvailable = false;
-		StateHasChanged();
+    protected async Task GetClipping()
+    {
+        // Evita di resettare a null se il componente sta solo rinfrescando i parametri con lo stesso valore
+        _clipping = null;
+        _noClippingIsAvailable = false;
+        StateHasChanged();
 
-		if (_showRandomClipping)
-		{
-			_clipping = await KindleClippingService.GetRandomClippingAsync();
-		}
-		else
-		{
-			_clipping = await KindleClippingService.GetClippingOfTheDayAsync(DeltaDays);
-		}
+        if (_showRandomClipping)
+        {
+            _clipping = await KindleClippingService.GetRandomClippingAsync();
+        }
+        else
+        {
+            _clipping = await KindleClippingService.GetClippingOfTheDayAsync(DeltaDays);
+        }
 
-		if (_clipping is null)
-			_noClippingIsAvailable = true;
+        if (_clipping is null)
+            _noClippingIsAvailable = true;
 
-		StateHasChanged();
-	}
+        StateHasChanged();
+    }
 
-	protected async Task DecreaseDeltaDays() => await UpdateDeltaDays(-1);
+    protected async Task DecreaseDeltaDays() => await UpdateDeltaDays(-1);
 
-	protected async Task IncreaseDeltaDays() => await UpdateDeltaDays(+1);
+    protected async Task IncreaseDeltaDays() => await UpdateDeltaDays(+1);
 
-	protected async Task UpdateDeltaDays(int step)
-	{
-		var newValue = DeltaDays + step;
+    protected async Task UpdateDeltaDays(int step)
+    {
+        var newValue = DeltaDays + step;
 
-		if (_showRandomClipping)
-		{
-			// Se siamo in modalità random, disattiviamo la modalità random e impostiamo il nuovo valore di DeltaDays.
-			_showRandomClipping = false;
-			await RandomModeChanged.InvokeAsync(_showRandomClipping);
-		}
+        if (_showRandomClipping)
+        {
+            // Se siamo in modalità random, disattiviamo la modalità random e impostiamo il nuovo valore di DeltaDays.
+            _showRandomClipping = false;
+            await RandomModeChanged.InvokeAsync(_showRandomClipping);
+        }
 
-		// Notifica il genitore passando il nuovo valore.
-		// Il genitore aggiornerà il parametro, che scatenerà OnParametersSetAsync -> GetClipping() automaticamente.
-		await DeltaDaysChanged.InvokeAsync(newValue);
-	}
+        // Notifica il genitore passando il nuovo valore.
+        // Il genitore aggiornerà il parametro, che scatenerà OnParametersSetAsync -> GetClipping() automaticamente.
+        await DeltaDaysChanged.InvokeAsync(newValue);
+    }
 
-	protected async Task ShowRandomClipping()
-	{
-		_showRandomClipping = true;
+    protected async Task ShowRandomClipping()
+    {
+        _showRandomClipping = true;
 
-		await GetClipping();
+        await GetClipping();
 
-		await RandomModeChanged.InvokeAsync(_showRandomClipping);
-	}
+        await RandomModeChanged.InvokeAsync(_showRandomClipping);
+    }
 }

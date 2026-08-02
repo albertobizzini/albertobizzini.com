@@ -122,7 +122,22 @@
   <data name="CopiedToClipbboardFeedbackMessage" xml:space="preserve">
     <value>Citation copied in the clipboard</value>
   </data>
-  <data name="NavToClippingsPage" xml:space="preserve">
+  <data name="NavToClippingsPageLabel" xml:space="preserve">
     <value>All</value>
+  </data>
+  <data name="NavToClippingsPageTooltip" xml:space="preserve">
+    <value>Show all citations</value>
+  </data>
+  <data name="CopyToClipboardTooltip" xml:space="preserve">
+    <value>Copy to clipboard</value>
+  </data>
+  <data name="ShareButtonTooltip" xml:space="preserve">
+    <value>Share</value>
+  </data>
+  <data name="ShareButtonCopiedMessage" xml:space="preserve">
+    <value>Text and URI copied</value>
+  </data>
+  <data name="ShareButtonShareErrorMessage" xml:space="preserve">
+    <value>Unable to share content</value>
   </data>
 </root>

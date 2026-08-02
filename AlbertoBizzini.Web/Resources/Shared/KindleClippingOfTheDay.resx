@@ -117,4 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ShowPreviousClippingTooltip" xml:space="preserve">
+    <value>Go to previous day</value>
+  </data>
+  <data name="ShowNextClippingTooltip" xml:space="preserve">
+    <value>Go to next day</value>
+  </data>
+  <data name="ShowRandomClippingTooltip" xml:space="preserve">
+    <value>Show a random quote</value>
+  </data>
 </root>

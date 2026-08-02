@@ -13,7 +13,9 @@
                  Color="Color.Primary"
                  Size="@Size" />
 
-    <MudIconButton Icon="@Icons.Material.Outlined.CopyAll" Size="@Size" Color="Color.Primary" OnClick="CopyAsync" />
+	<MudTooltip Text="@SR["CopyToClipboardTooltip"]">
+        <MudIconButton Icon="@Icons.Material.Outlined.CopyAll" Size="@Size" Color="Color.Primary" OnClick="CopyAsync" />
+    </MudTooltip>
 }
 
 

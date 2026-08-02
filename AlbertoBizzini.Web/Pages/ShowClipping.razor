@@ -7,7 +7,9 @@
 @inject ILogger<ShowClipping> Logger
 
 <PageHeader L="@L">
-	<MudButton Href="clippings" Variant="Variant.Text" Size="Size.Small" Color="Color.Primary" class="ml-2">@SR["NavToClippingsPage"]…</MudButton>
+	<MudTooltip Text="@SR["NavToClippingsPageTooltip"]">
+		<MudButton Href="clippings" Variant="Variant.Text" Size="Size.Small" Color="Color.Primary" class="ml-2">@SR["NavToClippingsPageLabel"]…</MudButton>
+	</MudTooltip>
 </PageHeader>
 
 
