@@ -42,12 +42,12 @@ else
 
                     <MudText Typo="Typo.caption" Align="Align.Right" Class="mt-3" Style="display:block">
                         @L["ExtractedFromLabel"]
-                        <MudLink Onclick="@(() => NavToBrowseClippings(toTitle: true))" StartIcon="@Icons.Material.TwoTone.Link">
+                        <MudLink Href="@KindleClippingService.BrowseAuthorClippingsHref(Clipping.Id, toTitle: true)" StartIcon="@Icons.Material.TwoTone.Link">
                             <MudHighlighter Text="@Clipping.Book.Title" HighlightedTexts="@HighlightedTexts" />
                         </MudLink>
-                        @if (Clipping.Book.Author is not null)
+                        @if (Clipping.Book.Author is not null)  
                         {
-                            <span class="ml-2">(<MudLink Onclick="@(() => NavToBrowseClippings(toTitle: false))" StartIcon="@Icons.Material.TwoTone.Link"><MudHighlighter Text="@Clipping.Book.Author" HighlightedTexts="@HighlightedTexts" /></MudLink>)</span>
+                            <span class="ml-2">(<MudLink Href="@KindleClippingService.BrowseAuthorClippingsHref(Clipping.Id, toTitle: false)" StartIcon="@Icons.Material.TwoTone.Link"><MudHighlighter Text="@Clipping.Book.Author" HighlightedTexts="@HighlightedTexts" /></MudLink>)</span>
                         }
                         @if (Clipping.AddedOn is not null)
                         {
@@ -79,14 +79,4 @@ else
     [Parameter] public IEnumerable<string> HighlightedTexts { get; set; }
     [Parameter] public string HtmlTag { get; set; } = "em";
     [Parameter] public Color Color { get; set; } = Color.Info;
-
-    private void NavToBrowseClippings(bool toTitle)
-    {
-        var parameter = toTitle ? "Title" : "Author";
-
-        var query =
-            $"{parameter}={Uri.EscapeDataString(Clipping.Id)}";
-
-        Nav.NavigateTo($"clippings?{query}");
-    }
 }

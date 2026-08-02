@@ -108,4 +108,12 @@ public class KindleClippingService
         return BitConverter.ToInt64(bytes, 0);
     }
 
+
+    public static string BrowseAuthorClippingsHref(string clippingId, bool toTitle)
+    {
+        var parameter = toTitle ? "Title" : "Author";
+
+        return $"/clippings?{parameter}={Uri.EscapeDataString(clippingId)}";
+    }
+
 }

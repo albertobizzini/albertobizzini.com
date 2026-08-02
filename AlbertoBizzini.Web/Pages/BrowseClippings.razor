@@ -219,7 +219,7 @@ else
                 </HeaderTemplate>
 
                 <CellTemplate>
-                    <MudLink Href="@NavToBrowseClippings(context.Item.Id, toTitle: false)">
+                    <MudLink Href="@KindleClippingService.BrowseAuthorClippingsHref(context.Item.Id, toTitle: false)">
                         <MudHighlighter Text="@context.Item.Book.Author"
                                         HighlightedTexts="@_searchkeywords" />
 
@@ -233,7 +233,7 @@ else
                 </HeaderTemplate>
 
                 <CellTemplate>
-                    <MudLink Href="@NavToBrowseClippings(context.Item.Id, toTitle: true)">
+                    <MudLink Href="@KindleClippingService.BrowseAuthorClippingsHref(context.Item.Id, toTitle: true)">
                         <MudHighlighter Text="@context.Item.Book.Title"
                                         HighlightedTexts="@_searchkeywords" />
                     </MudLink>
@@ -567,14 +567,6 @@ else
         _selectedTitle = title;
 
         ApplyFilters();
-    }
-
-
-    private string NavToBrowseClippings(string clippingId, bool toTitle)
-    {
-        var parameter = toTitle ? "Title" : "Author";
-
-        return $"/clippings?{parameter}={Uri.EscapeDataString(clippingId)}";
     }
 
 
