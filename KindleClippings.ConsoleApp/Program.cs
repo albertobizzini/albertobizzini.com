@@ -3,6 +3,12 @@ using KindleClippings.Console;
 using KindleClippings.ConsoleApp;
 using Microsoft.Data.Sqlite;
 
+//var assignedCount = await ClippingImporter.AssignIdsToOldClippingsAsync();
+//Console.WriteLine(
+//     $"Assegnati gli Id a {assignedCount} clipping.");
+
+//return;
+
 var content = File.ReadAllText(@".\My Clippings.txt");
 
 var result = Parser.Parse(content);

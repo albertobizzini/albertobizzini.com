@@ -214,4 +214,118 @@ public static class ClippingImporter
 
         return table;
     }
+
+    public static async Task<int> AssignIdsToOldClippingsAsync()
+    {
+        await using var connection = new SqlConnection(ConnectionString);
+        await connection.OpenAsync();
+
+        await using var transaction = await connection.BeginTransactionAsync();
+
+        try
+        {
+            const string selectSql = """
+            SELECT
+                RowId,
+                Title,
+                Author,
+                Type,
+                Page,
+                StartLocation,
+                EndLocation,
+                AddedOn,
+                Text,
+                ImportedAt
+            FROM dbo.OldClipping
+            WHERE Id IS NULL OR Id = ''
+            ORDER BY RowId
+            """;
+
+            await using var selectCommand = new SqlCommand(
+                selectSql, connection, (SqlTransaction)transaction);
+
+            await using var reader = await selectCommand.ExecuteReaderAsync();
+
+            var clippings = new List<(int RowId, Clipping Clipping)>();
+
+            while (await reader.ReadAsync())
+            {
+                var clipping = new Clipping
+                {
+                    Book = new Book
+                    {
+                        Title = reader.GetString(reader.GetOrdinal("Title")),
+                        Author = reader.IsDBNull(reader.GetOrdinal("Author"))
+                            ? null
+                            : reader.GetString(reader.GetOrdinal("Author"))
+                    },
+
+                    Type = Enum.Parse<ClippingType>(
+                        reader.GetString(reader.GetOrdinal("Type")),
+                        ignoreCase: true),
+
+                    Page = reader.IsDBNull(reader.GetOrdinal("Page"))
+                        ? null
+                        : reader.GetInt32(reader.GetOrdinal("Page")),
+
+                    StartLocation = reader.IsDBNull(reader.GetOrdinal("StartLocation"))
+                        ? null
+                        : reader.GetInt32(reader.GetOrdinal("StartLocation")),
+
+                    EndLocation = reader.IsDBNull(reader.GetOrdinal("EndLocation"))
+                        ? null
+                        : reader.GetInt32(reader.GetOrdinal("EndLocation")),
+
+                    AddedOn = reader.IsDBNull(reader.GetOrdinal("AddedOn"))
+                        ? null
+                        : reader.GetDateTime(reader.GetOrdinal("AddedOn")),
+
+                    Text = reader.IsDBNull(reader.GetOrdinal("Text"))
+                        ? null
+                        : reader.GetString(reader.GetOrdinal("Text")),
+
+                    ImportedAt = reader.IsDBNull(reader.GetOrdinal("ImportedAt"))
+                        ? null
+                        : reader.GetDateTime(reader.GetOrdinal("ImportedAt"))
+                };
+
+                clipping.Id = ClippingIdGenerator.CreateId(clipping);
+
+                var rowId = reader.GetInt32(reader.GetOrdinal("RowId"));
+
+                clippings.Add((rowId, clipping));
+            }
+
+            await reader.CloseAsync();
+
+            const string updateSql = """
+                UPDATE dbo.OldClipping
+                SET Id = @Id
+                WHERE RowId = @RowId
+                """;
+
+            await using var updateCommand = new SqlCommand(
+                updateSql, connection, (SqlTransaction)transaction);
+
+            updateCommand.Parameters.Add("@Id", SqlDbType.NVarChar, 14);
+            updateCommand.Parameters.Add("@RowId", SqlDbType.Int);
+
+            foreach (var (rowId, clipping) in clippings)
+            {
+                updateCommand.Parameters["@Id"].Value = clipping.Id;
+                updateCommand.Parameters["@RowId"].Value = rowId;
+
+                await updateCommand.ExecuteNonQueryAsync();
+            }
+
+            await transaction.CommitAsync();
+
+            return clippings.Count;
+        }
+        catch
+        {
+            await transaction.RollbackAsync();
+            throw;
+        }
+    }
 }

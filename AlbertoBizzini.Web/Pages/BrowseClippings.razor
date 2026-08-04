@@ -522,6 +522,7 @@ else
                 _ =>
                     clippings
                         .OrderByDescending(c => c.AddedOn)
+                        .OrderByDescending(c => c.StartLocation)
                         .ToList()
             };
         }
@@ -541,6 +542,7 @@ else
             _ =>
                 clippings
                     .OrderBy(c => c.AddedOn)
+                    .OrderBy(c => c.StartLocation)
                     .ToList()
         };
     }

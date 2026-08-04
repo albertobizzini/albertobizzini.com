@@ -65,6 +65,7 @@
     <Build Include="dbo\Tables\Clipping.sql" />
     <Build Include="dbo\Views\vw_OverlappingClipping.sql" />
     <Build Include="dbo\Views\vw_ExportableClipping.sql" />
+    <Build Include="dbo\Tables\OldClipping.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SqlSchemaCompare DEV - GIT.scmp" />
