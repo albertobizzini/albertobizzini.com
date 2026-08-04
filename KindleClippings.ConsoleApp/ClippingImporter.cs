@@ -30,6 +30,7 @@ public static class ClippingImporter
             row["EndLocation"] = clipping.EndLocation ?? (object)DBNull.Value;
             row["AddedOn"] = clipping.AddedOn ?? (object)DBNull.Value;
             row["Text"] = clipping.Text ?? (object)DBNull.Value;
+            row["ImportedAt"] = DateTime.Now;
 
             table.Rows.Add(row);
         }
@@ -209,6 +210,7 @@ public static class ClippingImporter
         table.Columns.Add("EndLocation", typeof(int));
         table.Columns.Add("AddedOn", typeof(DateTime));
         table.Columns.Add("Text", typeof(string));
+        table.Columns.Add("ImportedAt", typeof(DateTime));
 
         return table;
     }

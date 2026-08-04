@@ -12,9 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="My Clippings %28OLD%29.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="My Clippings.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

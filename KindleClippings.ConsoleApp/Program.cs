@@ -15,10 +15,14 @@ Console.WriteLine(
     $"{importResult.Inserted} inseriti, " +
     $"{importResult.Updated} aggiornati.");
 
-var outputJsonFile = @"..\AlbertoBizzini.Web\wwwroot\data\clippings.json";
-var count = await ClippingJsonExporter.ExportAsync(outputJsonFile);
-Console.WriteLine(
-    $"Exported {count:N0} clippings in '{outputJsonFile}'.");
+if (importResult.Inserted > 0)
+{
+    Console.WriteLine("Esportazione in formato JSON per applicazoine web...");
+    var outputJsonFile = @"..\AlbertoBizzini.Web\wwwroot\data\clippings.json";
+    var count = await ClippingJsonExporter.ExportAsync(outputJsonFile);
+    Console.WriteLine(
+        $"Exported {count:N0} clippings in '{outputJsonFile}'.");
+}
 
 
 //var outputSqlLiteFile = @"..\AlbertoBizzini.Web\wwwroot\data\clippings.db";
