@@ -8,6 +8,7 @@
     [EndLocation]   INT             NULL,
     [AddedOn]       DATETIME2 (7)   NULL,
     [Text]          NVARCHAR (MAX)  NULL,
+    [ImportedAt]    DATETIME2 (7)   CONSTRAINT [DF_Clipping_ImportedAt] DEFAULT (getdate()) NOT NULL,
     CONSTRAINT [PK_Clippings] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 
