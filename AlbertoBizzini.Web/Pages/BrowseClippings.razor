@@ -9,13 +9,13 @@
 
 <MudBreakpointProvider OnBreakpointChanged="BreakpointChanged" />
 
-<PageHeader L="@L" />
+<PageHeader L="@L"/>
 
 @if (!_loading && _clippings?.Count > 0)
 {
+
     <MudPaper Elevation="6" class="pa-2 pb-4">
         <h3 class="mb-4">@L["FiltersAndSortingHeaderText"]</h3>
-
 
         <MudStack Row Wrap="Wrap.Wrap"
                   AlignItems="AlignItems.Stretch"
@@ -150,6 +150,11 @@
             "ShowClippingsCount",
             _filteredAndSortedClippings.Count.ToString("n0"))
     </MudText>
+    @if (_lastImportedAt is not null)
+    {
+        <MudText Typo="Typo.caption" Class="opacity-hi" Style="display:block">@L["LastImportedAtMessage", @_lastImportedAt!.Value.ToShortDateString()]</MudText>
+    }
+
 </div>
 
 @if (IsMobile)
@@ -264,6 +269,8 @@ else
 
     private bool _loading = true;
 
+    private DateTime? _lastImportedAt = null;
+
     private List<Clipping> _clippings = [];
     private List<SearchableClipping> _searchableClippings = [];
 
@@ -336,6 +343,8 @@ else
                 c,
                 BuildSearchText(c)))
             .ToList();
+
+        _lastImportedAt = await KindleService.GetLastImportedAtAsync();
 
         _loading = false;
     }

@@ -5,10 +5,7 @@
   <Project Path="AlbertoBizzini.Web/AlbertoBizzini.Web.csproj" />
   <Project Path="KindleClippings.ConsoleApp/KindleClippings.ConsoleApp.csproj" />
   <Project Path="KindleClippings.Database/KindleClippings.Database.sqlproj" Id="620f55f8-b012-40a7-b0a2-d87c67fa1520">
-    <Build Solution="Release|*" />
     <Deploy />
   </Project>
-  <Project Path="KindleClippings.Parser/KindleClippings.Parser.csproj">
-    <Build Solution="Debug|*" Project="false" />
-  </Project>
+  <Project Path="KindleClippings.Parser/KindleClippings.Parser.csproj" />
 </Solution>

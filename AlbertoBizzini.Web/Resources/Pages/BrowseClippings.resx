@@ -133,4 +133,7 @@
   <data name="HowToSelectedAnotherAuthorHelperText" xml:space="preserve">
     <value>To change selection first clear the current one</value>
   </data>
+  <data name="LastImportedAtMessage" xml:space="preserve">
+    <value>(data updated at: {0})</value>
+  </data>
 </root>

@@ -20,7 +20,7 @@ public class KindleClippingService
 
     private List<Clipping>? _data;
     private Dictionary<string, Clipping>? _dict;
-
+    private DateTime? _lastImportedAt = null;
 
 
     public KindleClippingService(
@@ -52,8 +52,17 @@ public class KindleClippingService
         foreach (var clipping in _data)
             _dict.Add(clipping.Id, clipping);
 
+        _lastImportedAt = _data.Select(c => c.ImportedAt).Max();
+
         return _data;
     }
+
+    public async Task<DateTime?> GetLastImportedAtAsync()
+    {
+        var data = await LoadAsync();
+        return _lastImportedAt;
+    }
+
 
     public async Task<List<Clipping>> GetAllClippingsAsync()
     {

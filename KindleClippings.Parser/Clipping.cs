@@ -28,6 +28,8 @@ public class Clipping
 
     public string? Text { get; init; }
 
+    public DateTime? ImportedAt { get; init; }
+
     [JsonIgnore]
     public string? QuotedText => !string.IsNullOrWhiteSpace(Text) ? $"«{Text}»" : string.Empty;
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using Microsoft.IdentityModel.Tokens.Experimental;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 
@@ -19,7 +20,7 @@ public static class ClippingJsonExporter
         Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
     };
 
-    public static async Task<int> ExportAsync(
+    public static async Task<(int count, string actualOutputFile)> ExportAsync(
         string jsonFile,
         CancellationToken cancellationToken = default,
         [CallerFilePath] string sourceFilePath = "")
@@ -34,7 +35,8 @@ public static class ClippingJsonExporter
                 StartLocation,
                 EndLocation,
                 AddedOn,
-                Text
+                Text,
+                ImportedAt
             FROM dbo.vw_ExportableClipping;
             """;
 
@@ -70,7 +72,11 @@ public static class ClippingJsonExporter
             Directory.CreateDirectory(directory);
         }
         if (File.Exists(jsonFile))
+        {
+            var backupFileName = Path.GetFullPath(Path.Combine(directory, Path.GetFileNameWithoutExtension(jsonFile) + "Old" + Path.GetExtension(jsonFile)));
+            File.Copy(jsonFile, backupFileName, true);
             File.Delete(jsonFile);
+        }
 
         await using var stream = new FileStream(
             jsonFile,
@@ -84,7 +90,7 @@ public static class ClippingJsonExporter
             JsonOptions,
             cancellationToken);
 
-        return clippings.Count;
+        return (clippings.Count, jsonFile);
     }
 
     private static Clipping ReadClipping(
@@ -136,7 +142,11 @@ public static class ClippingJsonExporter
 
             Text = GetNullableString(
                 reader,
-                "Text")
+                "Text"),
+
+            ImportedAt = GetNullableDateTime(
+                reader,
+                "ImportedAt"),
         };
     }
 
