@@ -139,7 +139,7 @@
     <value>I miei album fotografici</value>
   </data>
   <data name="MyPhotoAlbumsSuffixText" xml:space="preserve">
-    <value>(solo del Giappone, per ora)</value>
+    <value>(per il passato, solo del Giappone, per ora)</value>
   </data>
   <data name="FintrackAppDescriptionOtherLines" xml:space="preserve">
     <value>Categorizza tutto in modo gerarchico, analizza gli andamenti, definisci la quota di proprietà di conti e categorie, ripartisci automaticamente le spese, gestisci le valute estere con conversione automatica e riconcilia conti e carte di credito</value>

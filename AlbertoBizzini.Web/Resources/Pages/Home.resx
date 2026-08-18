@@ -123,7 +123,7 @@
     <value>My photo albums</value>
   </data>
   <data name="MyPhotoAlbumsSuffixText" xml:space="preserve">
-    <value>(Japan only, for now)</value>
+    <value>(for the past, only Japan, for now)</value>
   </data>
   <data name="FintrackAppDescriptionOtherLines" xml:space="preserve">
     <value>Categorize everything hierarchically, analyze trends, define ownership shares of accounts and categories, automatically allocate expenses, manage foreign currencies with automatic conversion and reconcile accounts and credit cards</value>
