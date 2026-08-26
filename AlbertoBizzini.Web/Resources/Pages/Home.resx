@@ -158,4 +158,7 @@
   <data name="PatrimetriaAppDescriptionFirstLine" xml:space="preserve">
     <value>Can I afford to live off my income?</value>
   </data>
+  <data name="PatrimetriaAppName" xml:space="preserve">
+    <value>Patrimetria - Asset trend simulator</value>
+  </data>
 </root>

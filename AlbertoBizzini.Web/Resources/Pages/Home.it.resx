@@ -174,4 +174,7 @@
   <data name="PatrimetriaAppDescriptionFirstLine" xml:space="preserve">
     <value>Posso permettermi di vivere di rendita?</value>
   </data>
+  <data name="PatrimetriaAppName" xml:space="preserve">
+    <value>Patrimetria - Simulatore andamento patrimonio</value>
+  </data>
 </root>
