@@ -152,4 +152,10 @@
   <data name="KindleClippingOfTheDayRandomHeaderText" xml:space="preserve">
     <value>A random quote</value>
   </data>
+  <data name="PatrimetriaAppDescriptionOtherLines" xml:space="preserve">
+    <value>Enter your assets, income, expenses and forecasts, simulate the evolution of your assets and estimate confidence intervals considering inflation and returns.</value>
+  </data>
+  <data name="PatrimetriaAppDescriptionFirstLine" xml:space="preserve">
+    <value>Can I afford to live off my income?</value>
+  </data>
 </root>

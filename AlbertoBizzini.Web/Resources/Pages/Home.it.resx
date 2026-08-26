@@ -168,4 +168,10 @@
   <data name="KindleClippingOfTheDayRandomHeaderText" xml:space="preserve">
     <value>Una citazione a caso</value>
   </data>
+  <data name="PatrimetriaAppDescriptionOtherLines" xml:space="preserve">
+    <value>Inserisci patrimonio, entrate, spese e previsioni, simula l'evoluzione del patrimonio e stima gli intervalli di confidenza considerando inflazione e rendimenti</value>
+  </data>
+  <data name="PatrimetriaAppDescriptionFirstLine" xml:space="preserve">
+    <value>Posso permettermi di vivere di rendita?</value>
+  </data>
 </root>
