@@ -3,7 +3,7 @@ using Microsoft.IdentityModel.Tokens.Experimental;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 
-namespace KindleClippings.Console;
+namespace KindleClippings.ConsoleApp;
 
 public static class ClippingJsonExporter
 {

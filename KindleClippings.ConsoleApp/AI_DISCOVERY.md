@@ -24,7 +24,9 @@ libreria Ollama installata. Non aggiungere al repository password o connection s
 ## Configurazione
 
 `appsettings.json` contiene endpoint Ollama, modelli, dimensioni dei campioni e cartella dei
-report. È possibile usare un file esterno:
+report. Una cartella relativa come `AiReports` viene creata accanto all'eseguibile, per esempio
+`bin\Debug\net10.0\AiReports`; all'avvio il comando ne stampa sempre il percorso assoluto. È
+possibile usare un file esterno:
 
 ```powershell
 dotnet run --project KindleClippings.ConsoleApp -- discover-taxonomy `
@@ -50,6 +52,12 @@ dotnet run --project KindleClippings.ConsoleApp -- discover-taxonomy `
 Il comando genera un file JSON, utilizzabile dal confronto, e un report Markdown leggibile.
 I report possono contenere testo e metadati delle citazioni e non devono essere pubblicati senza
 una verifica editoriale.
+
+Dopo ogni batch viene inoltre aggiornato un file `*-checkpoint.json`. Se la generazione viene
+interrotta o fallisce durante il consolidamento, una nuova esecuzione con la stessa configurazione
+riprende dai batch già completati invece di richiamare nuovamente il modello per tutto il campione.
+Le tre granularità vengono consolidate separatamente, così un modello non deve produrre tre
+strutture complesse in una singola risposta.
 
 ## Confronto
 

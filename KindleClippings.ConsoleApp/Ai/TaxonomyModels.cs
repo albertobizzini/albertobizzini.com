@@ -39,6 +39,15 @@ public sealed class DiscoveryReport
     public TaxonomyVariants Taxonomies { get; init; } = new();
 }
 
+public sealed class DiscoveryCheckpoint
+{
+    public string Model { get; init; } = string.Empty;
+    public int BatchSize { get; init; }
+    public int CompletedBatches { get; init; }
+    public List<string> SampleClippingIds { get; init; } = [];
+    public List<CandidateTopic> CandidateTopics { get; init; } = [];
+}
+
 public sealed class TopicAssignment
 {
     public string Code { get; init; } = string.Empty;

@@ -1,5 +1,5 @@
 using System.Text.Json;
-using KindleClippings.Console;
+using KindleClippings;
 using KindleClippings.ConsoleApp;
 using KindleClippings.ConsoleApp.Ai;
 
@@ -71,13 +71,15 @@ static async Task DiscoverTaxonomyAsync(
     CancellationToken cancellationToken)
 {
     var model = arguments.Get("model") ?? options.Models[0];
-    var output = arguments.Get("output") ?? options.OutputDirectory;
+    var output = ResolveOutputDirectory(arguments.Get("output") ?? options.OutputDirectory);
+    Console.WriteLine($"Cartella report: {output}");
     var service = new TaxonomyDiscoveryService(ollama);
     var report = await service.DiscoverAsync(
         corpus,
         model,
         options.DiscoverySampleSize,
         options.DiscoveryBatchSize,
+        output,
         cancellationToken);
     var paths = await ReportWriter.WriteDiscoveryAsync(report, output, cancellationToken);
 
@@ -94,7 +96,8 @@ static async Task CompareModelsAsync(
 {
     var taxonomyPath = arguments.Require("taxonomy");
     var variantName = arguments.Get("variant") ?? "balanced";
-    var output = arguments.Get("output") ?? options.OutputDirectory;
+    var output = ResolveOutputDirectory(arguments.Get("output") ?? options.OutputDirectory);
+    Console.WriteLine($"Cartella report: {output}");
 
     await using var taxonomyStream = File.OpenRead(taxonomyPath);
     var discovery = await JsonSerializer.DeserializeAsync<DiscoveryReport>(
@@ -137,6 +140,12 @@ static async Task ImportAndExportAsync(CancellationToken cancellationToken)
         cancellationToken);
     Console.WriteLine($"Exported {count:N0} clippings in '{actualOutputFile}'.");
 }
+
+static string ResolveOutputDirectory(string outputDirectory) =>
+    Path.GetFullPath(
+        Path.IsPathRooted(outputDirectory)
+            ? outputDirectory
+            : Path.Combine(AppContext.BaseDirectory, outputDirectory));
 
 static void PrintHelp()
 {
