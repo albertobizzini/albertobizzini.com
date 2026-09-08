@@ -53,6 +53,11 @@ Il comando genera un file JSON, utilizzabile dal confronto, e un report Markdown
 I report possono contenere testo e metadati delle citazioni e non devono essere pubblicati senza
 una verifica editoriale.
 
+Il campione usa per il 75% una selezione proporzionale all'intero corpus e per il 25% una quota
+distribuita fra libri differenti. In questo modo i libri con molte citazioni mantengono il loro
+peso senza escludere la varietà della biblioteca. Il report mostra il testo degli esempi, non solo
+i relativi ID, per rendere possibile la valutazione editoriale della tassonomia.
+
 Dopo ogni batch viene inoltre aggiornato un file `*-checkpoint.json`. Se la generazione viene
 interrotta o fallisce durante il consolidamento, una nuova esecuzione con la stessa configurazione
 riprende dai batch già completati invece di richiamare nuovamente il modello per tutto il campione.
@@ -67,6 +72,10 @@ La risposta grezza usata per ciascun consolidamento viene sempre salvata come
 `taxonomy-discovery-<modello>-<variante>-raw.json`. Il parser accetta sia `topics` sia contenitori
 comuni come `themes`, `categories`, `macroTopics` e wrapper JSON aggiuntivi, così il workflow non
 dipende rigidamente da un'unica forma della risposta del modello.
+
+Le modifiche alla strategia di campionamento o consolidamento incrementano automaticamente la
+versione del checkpoint. Un vecchio checkpoint viene ignorato con un messaggio esplicito: la nuova
+discovery deve ricalcolare i batch perché utilizza un campione di citazioni più rappresentativo.
 
 ## Confronto
 

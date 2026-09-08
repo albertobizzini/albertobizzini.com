@@ -36,16 +36,20 @@ public sealed class DiscoveryReport
     public int BatchSize { get; init; }
     public long DurationMilliseconds { get; init; }
     public List<string> SampleClippingIds { get; init; } = [];
+    public List<AiClipping> SampleClippings { get; init; } = [];
     public TaxonomyVariants Taxonomies { get; init; } = new();
 }
 
 public sealed class DiscoveryCheckpoint
 {
+    public int Version { get; init; }
     public string Model { get; init; } = string.Empty;
     public int BatchSize { get; init; }
     public int CompletedBatches { get; init; }
     public List<string> SampleClippingIds { get; init; } = [];
     public List<CandidateTopic> CandidateTopics { get; init; } = [];
+    public int CompletedReductionBatches { get; init; }
+    public List<CandidateTopic> ReducedCandidateTopics { get; init; } = [];
     public List<TaxonomyVariant> CompletedVariants { get; init; } = [];
 }
 

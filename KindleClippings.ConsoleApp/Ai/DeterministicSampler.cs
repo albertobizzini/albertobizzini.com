@@ -5,6 +5,35 @@ namespace KindleClippings.ConsoleApp.Ai;
 
 public static class DeterministicSampler
 {
+    public static List<AiClipping> SelectRepresentative(
+        IReadOnlyCollection<AiClipping> source,
+        int count,
+        string seed)
+    {
+        if (count <= 0 || source.Count == 0)
+            return [];
+
+        var target = Math.Min(count, source.Count);
+        var breadthCount = Math.Min(target / 4, source
+            .Select(BookKey)
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .Count());
+        var selected = source
+            .GroupBy(BookKey, StringComparer.OrdinalIgnoreCase)
+            .Select(group => group.MinBy(x => Hash(seed + "|breadth", x.Id))!)
+            .OrderBy(x => Hash(seed + "|books", x.Id))
+            .Take(breadthCount)
+            .ToList();
+        var selectedIds = selected.Select(x => x.Id).ToHashSet(StringComparer.Ordinal);
+
+        selected.AddRange(source
+            .Where(x => !selectedIds.Contains(x.Id))
+            .OrderBy(x => Hash(seed + "|proportional", x.Id))
+            .Take(target - selected.Count));
+
+        return selected.OrderBy(x => Hash(seed + "|order", x.Id)).ToList();
+    }
+
     public static List<AiClipping> Select(
         IReadOnlyCollection<AiClipping> source,
         int count,
@@ -43,4 +72,7 @@ public static class DeterministicSampler
         var bytes = SHA256.HashData(Encoding.UTF8.GetBytes($"{seed}|{id}"));
         return Convert.ToHexString(bytes);
     }
+
+    private static string BookKey(AiClipping clipping) =>
+        $"{clipping.Author}\n{clipping.Title}";
 }

@@ -17,7 +17,8 @@ internal static class TaxonomyResponseParser
     public static TaxonomyVariant Parse(string json, string expectedName)
     {
         using var document = JsonDocument.Parse(json);
-        var container = FindTopicContainer(document.RootElement);
+        var container = FindNamedVariant(document.RootElement, expectedName)
+            ?? FindTopicContainer(document.RootElement);
         if (container is null)
         {
             throw new InvalidOperationException(
@@ -35,6 +36,51 @@ internal static class TaxonomyResponseParser
             Description = GetString(container.Parent, "description") ?? string.Empty,
             Topics = topics
         };
+    }
+
+    private static TopicContainer? FindNamedVariant(JsonElement element, string expectedName)
+    {
+        if (element.ValueKind == JsonValueKind.Array)
+        {
+            foreach (var item in element.EnumerateArray())
+            {
+                var found = FindNamedVariant(item, expectedName);
+                if (found is not null)
+                    return found;
+            }
+
+            return null;
+        }
+
+        if (element.ValueKind != JsonValueKind.Object)
+            return null;
+
+        foreach (var property in element.EnumerateObject())
+        {
+            if (property.Name.Equals(expectedName, StringComparison.OrdinalIgnoreCase))
+            {
+                var found = FindTopicContainer(property.Value);
+                if (found is not null)
+                    return found;
+            }
+        }
+
+        var name = GetString(element, "name");
+        if (name?.Equals(expectedName, StringComparison.OrdinalIgnoreCase) == true)
+        {
+            var found = FindTopicContainer(element);
+            if (found is not null)
+                return found;
+        }
+
+        foreach (var property in element.EnumerateObject())
+        {
+            var found = FindNamedVariant(property.Value, expectedName);
+            if (found is not null)
+                return found;
+        }
+
+        return null;
     }
 
     private static TopicContainer? FindTopicContainer(JsonElement element)

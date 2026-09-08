@@ -6,11 +6,25 @@ namespace KindleClippings.ConsoleApp.Ai;
 
 public sealed class TaxonomyDiscoveryService(OllamaClient ollamaClient)
 {
+    private const int CheckpointVersion = 2;
+
     private const string DiscoverySystemPrompt = """
         Sei un tassonomista editoriale. Analizza citazioni italiane e inglesi e proponi macro-temi
         utili alla navigazione di un archivio pubblico. Restituisci esclusivamente JSON valido.
         I codici devono essere snake_case inglesi, stabili e concisi. Evita categorie duplicate,
-        nomi di autori, titoli di libri e temi applicabili a una sola citazione.
+        nomi di autori, titoli di libri e temi applicabili a una sola citazione. I temi devono
+        descrivere il contenuto, non la forma retorica o il genere: non usare categorie come
+        filosofia, metafora, esperienza, citazione o altro. Preferisci concetti navigabili come
+        identità, relazioni, potere, conoscenza, tempo, lavoro, libertà, paura o cambiamento.
+        """;
+
+    private const string ReductionSystemPrompt = """
+        Sei un tassonomista editoriale. Riduci e deduplica un elenco di temi candidati mantenendo
+        la varietà semantica. Restituisci esclusivamente un oggetto JSON con la proprietà topics.
+        Produci da 8 a 12 temi di contenuto. Non usare categorie ombrello come filosofia,
+        psicologia, esperienza o altro; non usare forme retoriche come metafora. Non creare temi
+        legati a un singolo libro o episodio. Ogni tema deve avere code, nameIt, nameEn,
+        descriptionIt, descriptionEn ed exampleClippingIds.
         """;
 
     private const string ConsolidationSystemPrompt = """
@@ -19,7 +33,9 @@ public sealed class TaxonomyDiscoveryService(OllamaClient ollamaClient)
         Ogni tema deve avere code, nameIt, nameEn, descriptionIt, descriptionEn ed
         exampleClippingIds. I codici devono essere snake_case inglesi e univoci. Mantieni solo gli
         ID di esempio ricevuti, massimo cinque per tema. Le descrizioni devono chiarire i confini
-        del tema e ridurre le sovrapposizioni.
+        del tema e ridurre le sovrapposizioni. I temi devono descrivere contenuti e non generi,
+        discipline, forme retoriche o categorie residuali. Non usare filosofia, psicologia,
+        esperienza, metafora, citazione o altro come temi.
         """;
 
     private static readonly (string Name, int Minimum, int Maximum)[] Variants =
@@ -39,7 +55,7 @@ public sealed class TaxonomyDiscoveryService(OllamaClient ollamaClient)
     {
         Directory.CreateDirectory(outputDirectory);
         var stopwatch = Stopwatch.StartNew();
-        var sample = DeterministicSampler.Select(corpus, sampleSize, "taxonomy-discovery-v1");
+        var sample = DeterministicSampler.SelectRepresentative(corpus, sampleSize, "taxonomy-discovery-v2");
         var batches = sample.Chunk(batchSize).ToList();
         var checkpointPath = Path.Combine(
             outputDirectory,
@@ -51,6 +67,8 @@ public sealed class TaxonomyDiscoveryService(OllamaClient ollamaClient)
             sample,
             cancellationToken);
         var candidates = checkpoint?.CandidateTopics ?? [];
+        var reducedCandidates = checkpoint?.ReducedCandidateTopics ?? [];
+        var completedReductionBatches = checkpoint?.CompletedReductionBatches ?? 0;
         var completedVariants = checkpoint?.CompletedVariants ?? [];
         var firstBatch = checkpoint?.CompletedBatches ?? 0;
 
@@ -71,17 +89,54 @@ public sealed class TaxonomyDiscoveryService(OllamaClient ollamaClient)
                 checkpointPath,
                 new DiscoveryCheckpoint
                 {
+                    Version = CheckpointVersion,
                     Model = model,
                     BatchSize = batchSize,
                     CompletedBatches = index + 1,
                     SampleClippingIds = sample.Select(x => x.Id).ToList(),
                     CandidateTopics = candidates,
+                    CompletedReductionBatches = completedReductionBatches,
+                    ReducedCandidateTopics = reducedCandidates,
                     CompletedVariants = completedVariants
                 },
                 cancellationToken);
         }
 
-        Console.WriteLine($"Consolidamento di {candidates.Count} temi candidati...");
+        var reductionBatches = candidates.Chunk(35).ToList();
+        for (var index = completedReductionBatches; index < reductionBatches.Count; index++)
+        {
+            Console.WriteLine($"Riduzione candidati {index + 1}/{reductionBatches.Count}...");
+            var response = await ollamaClient.GenerateRawJsonAsync(
+                model,
+                ReductionSystemPrompt,
+                BuildReductionPrompt(reductionBatches[index]),
+                cancellationToken);
+            var rawReductionPath = Path.Combine(
+                outputDirectory,
+                $"taxonomy-discovery-{SafeName(model)}-reduction-{index + 1}.json");
+            await File.WriteAllTextAsync(rawReductionPath, response.Json, cancellationToken);
+            var reduction = TaxonomyResponseParser.Parse(response.Json, $"reduction-{index + 1}");
+            TaxonomyValidator.ValidateVariant(reduction, $"reduction-{index + 1}");
+
+            reducedCandidates.AddRange(reduction.Topics);
+            completedReductionBatches = index + 1;
+            await SaveCheckpointAsync(
+                checkpointPath,
+                CreateCheckpoint(
+                    model,
+                    batchSize,
+                    batches.Count,
+                    sample,
+                    candidates,
+                    completedReductionBatches,
+                    reducedCandidates,
+                    completedVariants),
+                cancellationToken);
+        }
+
+        Console.WriteLine(
+            $"Consolidamento di {reducedCandidates.Count} temi intermedi " +
+            $"(derivati da {candidates.Count} candidati)...");
         var taxonomies = new TaxonomyVariants();
         taxonomies.Variants.AddRange(completedVariants);
         foreach (var variant in Variants)
@@ -98,7 +153,7 @@ public sealed class TaxonomyDiscoveryService(OllamaClient ollamaClient)
             var response = await ollamaClient.GenerateRawJsonAsync(
                 model,
                 ConsolidationSystemPrompt,
-                BuildConsolidationPrompt(candidates, variant),
+                BuildConsolidationPrompt(reducedCandidates, variant),
                 cancellationToken);
             var rawResponsePath = Path.Combine(
                 outputDirectory,
@@ -118,15 +173,15 @@ public sealed class TaxonomyDiscoveryService(OllamaClient ollamaClient)
             taxonomies.Variants.Add(normalized);
             await SaveCheckpointAsync(
                 checkpointPath,
-                new DiscoveryCheckpoint
-                {
-                    Model = model,
-                    BatchSize = batchSize,
-                    CompletedBatches = batches.Count,
-                    SampleClippingIds = sample.Select(x => x.Id).ToList(),
-                    CandidateTopics = candidates,
-                    CompletedVariants = taxonomies.Variants
-                },
+                CreateCheckpoint(
+                    model,
+                    batchSize,
+                    batches.Count,
+                    sample,
+                    candidates,
+                    completedReductionBatches,
+                    reducedCandidates,
+                    taxonomies.Variants),
                 cancellationToken);
         }
 
@@ -141,6 +196,7 @@ public sealed class TaxonomyDiscoveryService(OllamaClient ollamaClient)
             BatchSize = batchSize,
             DurationMilliseconds = stopwatch.ElapsedMilliseconds,
             SampleClippingIds = sample.Select(x => x.Id).ToList(),
+            SampleClippings = sample,
             Taxonomies = taxonomies
         };
     }
@@ -171,11 +227,44 @@ public sealed class TaxonomyDiscoveryService(OllamaClient ollamaClient)
         builder.AppendLine(
             $"Genera esclusivamente la variante '{variant.Name}' con un numero di temi compreso " +
             $"fra {variant.Minimum} e {variant.Maximum}.");
+        builder.AppendLine(variant.Name switch
+        {
+            "compact" => "Usa pochi concetti ampi ma concreti, senza categorie residuali o formali.",
+            "balanced" => "Usa macro-temi distinti e immediatamente utili come filtri di navigazione.",
+            "detailed" => "Usa temi più specifici e vari, senza limitarti a rinominare quelli più ampi.",
+            _ => string.Empty
+        });
         builder.AppendLine($"La proprietà name deve essere esattamente '{variant.Name}'.");
         builder.AppendLine("Temi candidati da consolidare:");
         builder.Append(JsonSerializer.Serialize(candidates, JsonDefaults.Options));
         return builder.ToString();
     }
+
+    private static string BuildReductionPrompt(IEnumerable<CandidateTopic> candidates) =>
+        "Temi candidati da ridurre e deduplicare:\n" +
+        JsonSerializer.Serialize(candidates, JsonDefaults.Options);
+
+    private static DiscoveryCheckpoint CreateCheckpoint(
+        string model,
+        int batchSize,
+        int completedBatches,
+        IReadOnlyCollection<AiClipping> sample,
+        List<CandidateTopic> candidates,
+        int completedReductionBatches,
+        List<CandidateTopic> reducedCandidates,
+        List<TaxonomyVariant> completedVariants) =>
+        new()
+        {
+            Version = CheckpointVersion,
+            Model = model,
+            BatchSize = batchSize,
+            CompletedBatches = completedBatches,
+            SampleClippingIds = sample.Select(x => x.Id).ToList(),
+            CandidateTopics = candidates,
+            CompletedReductionBatches = completedReductionBatches,
+            ReducedCandidateTopics = reducedCandidates,
+            CompletedVariants = completedVariants
+        };
 
     private static async Task<DiscoveryCheckpoint?> LoadCheckpointAsync(
         string path,
@@ -194,6 +283,7 @@ public sealed class TaxonomyDiscoveryService(OllamaClient ollamaClient)
             cancellationToken);
         var sampleIds = sample.Select(x => x.Id);
         if (checkpoint is null ||
+            checkpoint.Version != CheckpointVersion ||
             !checkpoint.Model.Equals(model, StringComparison.Ordinal) ||
             checkpoint.BatchSize != batchSize ||
             !checkpoint.SampleClippingIds.SequenceEqual(sampleIds))

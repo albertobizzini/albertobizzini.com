@@ -64,6 +64,10 @@ public static class ReportWriter
         builder.AppendLine($"- Modello: `{report.Model}`");
         builder.AppendLine($"- Corpus: {report.CorpusSize:N0} citazioni");
         builder.AppendLine($"- Campione: {report.SampleSize:N0} citazioni");
+        builder.AppendLine(
+            $"- Libri nel campione: {report.SampleClippings.Select(x => $"{x.Author}\n{x.Title}").Distinct().Count():N0}");
+        builder.AppendLine(
+            $"- Lingue stimate: {string.Join(", ", report.SampleClippings.GroupBy(x => x.Language).Select(x => $"{x.Key}: {x.Count():N0}"))}");
         builder.AppendLine($"- Durata: {TimeSpan.FromMilliseconds(report.DurationMilliseconds):g}");
 
         foreach (var variant in report.Taxonomies.Variants)
@@ -79,7 +83,7 @@ public static class ReportWriter
             {
                 builder.AppendLine(
                     $"| `{Escape(topic.Code)}` | {Escape(topic.NameIt)} | {Escape(topic.DescriptionIt)} | " +
-                    $"{Escape(string.Join(", ", topic.ExampleClippingIds))} |");
+                    $"{FormatExamples(topic, report.SampleClippings)} |");
             }
         }
 
@@ -140,6 +144,23 @@ public static class ReportWriter
         assignment is null ? "nessuno" : $"`{assignment.Code}` ({assignment.Score:F2})";
 
     private static string Escape(string value) => value.Replace("|", "\\|").ReplaceLineEndings(" ");
+
+    private static string FormatExamples(
+        CandidateTopic topic,
+        IReadOnlyCollection<AiClipping> sample)
+    {
+        var byId = sample.ToDictionary(x => x.Id, StringComparer.Ordinal);
+        var examples = topic.ExampleClippingIds
+            .Distinct(StringComparer.Ordinal)
+            .Take(3)
+            .Select(id => byId.TryGetValue(id, out var clipping)
+                ? $"«{Truncate(clipping.Text.ReplaceLineEndings(" "), 140)}» (`{id}`)"
+                : $"`{id}`");
+        return Escape(string.Join("<br>", examples));
+    }
+
+    private static string Truncate(string value, int maximumLength) =>
+        value.Length <= maximumLength ? value : value[..(maximumLength - 1)] + "…";
 
     private static string SafeName(string value) =>
         string.Concat(value.Select(character => Path.GetInvalidFileNameChars().Contains(character) ? '-' : character));
