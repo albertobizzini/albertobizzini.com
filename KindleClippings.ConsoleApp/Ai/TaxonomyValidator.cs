@@ -7,35 +7,26 @@ internal static class TaxonomyValidator
         if (taxonomies.Variants.Count != 3)
             throw new InvalidOperationException("Il modello deve restituire esattamente tre tassonomie.");
 
-        var expected = new Dictionary<string, (int Minimum, int Maximum)>(StringComparer.OrdinalIgnoreCase)
-        {
-            ["compact"] = (10, 12),
-            ["balanced"] = (15, 18),
-            ["detailed"] = (20, 25)
-        };
+        var expected = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+            { "compact", "balanced", "detailed" };
 
         foreach (var variant in taxonomies.Variants)
         {
-            if (!expected.TryGetValue(variant.Name, out var range))
+            if (!expected.Contains(variant.Name))
                 throw new InvalidOperationException($"Variante sconosciuta: '{variant.Name}'.");
 
-            if (variant.Topics.Count < range.Minimum || variant.Topics.Count > range.Maximum)
-                throw new InvalidOperationException(
-                    $"La variante '{variant.Name}' deve avere fra {range.Minimum} e {range.Maximum} temi.");
-
-            ValidateTopics(variant.Topics);
+            ValidateVariant(variant, variant.Name);
         }
     }
 
     public static void ValidateVariant(
         TaxonomyVariant variant,
-        string expectedName,
-        int minimum,
-        int maximum)
+        string expectedName)
     {
-        if (variant.Topics.Count < minimum || variant.Topics.Count > maximum)
+        if (variant.Topics.Count == 0)
             throw new InvalidOperationException(
-                $"La variante '{expectedName}' deve avere fra {minimum} e {maximum} temi.");
+                $"La variante '{expectedName}' non contiene temi. " +
+                "Verifica la risposta del modello o prova un modello differente.");
 
         ValidateTopics(variant.Topics);
     }

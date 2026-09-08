@@ -60,6 +60,9 @@ Le tre granularità vengono consolidate separatamente, così un modello non deve
 strutture complesse in una singola risposta. Anche ogni variante completata viene aggiunta al
 checkpoint. Il nome della variante (`compact`, `balanced` o `detailed`) è assegnato
 dall'applicazione e non dipende dalla presenza del campo `name` nella risposta del modello.
+Gli intervalli 10-12, 15-18 e 20-25 sono obiettivi editoriali, non vincoli tecnici: se il modello
+propone un numero diverso ma non nullo di temi, il comando mostra un avviso e conserva comunque
+la proposta nel report e nel checkpoint, invece di perdere un risultato potenzialmente utile.
 
 ## Confronto
 

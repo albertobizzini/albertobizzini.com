@@ -106,11 +106,16 @@ public sealed class TaxonomyDiscoveryService(OllamaClient ollamaClient)
                 Description = response.Value.Description,
                 Topics = response.Value.Topics
             };
-            TaxonomyValidator.ValidateVariant(
-                normalized,
-                variant.Name,
-                variant.Minimum,
-                variant.Maximum);
+            TaxonomyValidator.ValidateVariant(normalized, variant.Name);
+            if (normalized.Topics.Count < variant.Minimum ||
+                normalized.Topics.Count > variant.Maximum)
+            {
+                Console.WriteLine(
+                    $"Avviso: il modello ha proposto {normalized.Topics.Count} temi per '{variant.Name}' " +
+                    $"anziché {variant.Minimum}-{variant.Maximum}. La proposta viene conservata per la " +
+                    "valutazione editoriale.");
+            }
+
             taxonomies.Variants.Add(normalized);
             await SaveCheckpointAsync(
                 checkpointPath,
