@@ -96,6 +96,9 @@ dotnet run --project KindleClippings.ConsoleApp -- compare-models `
 Il Markdown presenta i modelli come risultato A e B; la chiave è riportata alla fine. Per ogni
 citazione annotare `A`, `B`, `equivalenti` oppure `entrambi errati`. Il JSON conserva inoltre
 durata, validità dell'output e risultati completi per elaborazioni successive.
+Anche il confronto usa uno JSON Schema: `primaryTopic` può essere soltanto `null` oppure un oggetto
+`code`/`score`, i temi secondari sono al massimo due e tutti i codici devono appartenere alla
+tassonomia selezionata.
 
 ## Proprietà della fase
 

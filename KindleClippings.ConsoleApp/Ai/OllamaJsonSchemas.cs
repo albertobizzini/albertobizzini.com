@@ -30,6 +30,41 @@ internal static class OllamaJsonSchemas
             ["additionalProperties"] = false
         };
 
+    public static JsonObject Classification(IEnumerable<string> topicCodes)
+    {
+        var codeValues = new JsonArray();
+        foreach (var code in topicCodes.OrderBy(x => x, StringComparer.Ordinal))
+            codeValues.Add(code);
+
+        return new JsonObject
+        {
+            ["type"] = "object",
+            ["properties"] = new JsonObject
+            {
+                ["primaryTopic"] = new JsonObject
+                {
+                    ["anyOf"] = new JsonArray(
+                        TopicAssignment(codeValues.DeepClone().AsArray()),
+                        new JsonObject { ["type"] = "null" })
+                },
+                ["secondaryTopics"] = new JsonObject
+                {
+                    ["type"] = "array",
+                    ["maxItems"] = 2,
+                    ["items"] = TopicAssignment(codeValues.DeepClone().AsArray())
+                },
+                ["aphorismScore"] = Score(),
+                ["contextDependencyScore"] = Score()
+            },
+            ["required"] = new JsonArray(
+                "primaryTopic",
+                "secondaryTopics",
+                "aphorismScore",
+                "contextDependencyScore"),
+            ["additionalProperties"] = false
+        };
+    }
+
     private static JsonObject TopicArray(int minimumTopics, int maximumTopics) =>
         new()
         {
@@ -62,5 +97,30 @@ internal static class OllamaJsonSchemas
                     "exampleClippingIds"),
                 ["additionalProperties"] = false
             }
+        };
+
+    private static JsonObject TopicAssignment(JsonArray topicCodes) =>
+        new()
+        {
+            ["type"] = "object",
+            ["properties"] = new JsonObject
+            {
+                ["code"] = new JsonObject
+                {
+                    ["type"] = "string",
+                    ["enum"] = topicCodes
+                },
+                ["score"] = Score()
+            },
+            ["required"] = new JsonArray("code", "score"),
+            ["additionalProperties"] = false
+        };
+
+    private static JsonObject Score() =>
+        new()
+        {
+            ["type"] = "number",
+            ["minimum"] = 0,
+            ["maximum"] = 1
         };
 }

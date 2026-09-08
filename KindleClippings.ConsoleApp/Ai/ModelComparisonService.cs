@@ -50,7 +50,8 @@ public sealed class ModelComparisonService(OllamaClient ollamaClient)
                         model,
                         SystemPrompt,
                         BuildPrompt(clipping, taxonomy),
-                        cancellationToken);
+                        cancellationToken,
+                        OllamaJsonSchemas.Classification(allowedTopics));
                     TaxonomyValidator.ValidateClassification(response.Value, allowedTopics);
                     item.Results.Add(new ModelClassificationResult
                     {
