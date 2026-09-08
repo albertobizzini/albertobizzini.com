@@ -37,6 +37,9 @@ dotnet run --project KindleClippings.ConsoleApp -- discover-taxonomy `
 
 Il comando seleziona deterministicamente un campione bilanciato fra i libri, genera temi
 candidati in batch e li consolida in tre varianti: `compact`, `balanced` e `detailed`.
+La discovery usa un solo modello: quello passato con `--model`, oppure il primo elemento di
+`AiDiscovery.Models` quando l'opzione è omessa. Per questo i file possono chiamarsi tutti
+`taxonomy-discovery-qwen3-8b-*`.
 
 ```powershell
 dotnet run --project KindleClippings.ConsoleApp -- discover-taxonomy
@@ -47,6 +50,13 @@ dotnet run --project KindleClippings.ConsoleApp -- discover-taxonomy
 ```powershell
 dotnet run --project KindleClippings.ConsoleApp -- discover-taxonomy `
   --model qwen3:8b --output C:\Temp\AiReports
+```
+
+Per confrontare anche la capacità di proporre tassonomie, eseguire separatamente la discovery con
+l'altro modello:
+
+```powershell
+dotnet run --project KindleClippings.ConsoleApp -- discover-taxonomy --model gemma3:4b
 ```
 
 Il comando genera un file JSON, utilizzabile dal confronto, e un report Markdown leggibile.
@@ -86,6 +96,8 @@ riduzioni e le tassonomie generate dal precedente parser ambiguo.
 
 Il confronto usa un campione deterministico che esclude le citazioni impiegate nella discovery.
 Per ogni citazione richiama tutti i modelli configurati e produce risultati affiancati.
+È intenzionale che entrambi classifichino usando la stessa tassonomia: in questo modo il confronto
+misura la qualità dei classificatori e non confonde tale differenza con due tassonomie diverse.
 
 ```powershell
 dotnet run --project KindleClippings.ConsoleApp -- compare-models `

@@ -117,6 +117,7 @@ static async Task CompareModelsAsync(
         options.Models,
         options.ValidationSampleSize,
         Path.GetFullPath(taxonomyPath),
+        discovery.Model,
         cancellationToken);
     var paths = await ReportWriter.WriteComparisonAsync(report, output, cancellationToken);
 

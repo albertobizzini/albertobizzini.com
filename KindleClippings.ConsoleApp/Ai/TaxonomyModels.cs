@@ -86,6 +86,7 @@ public sealed class ComparisonReport
 {
     public DateTimeOffset GeneratedAt { get; init; }
     public string TaxonomySource { get; init; } = string.Empty;
+    public string TaxonomyModel { get; init; } = string.Empty;
     public string TaxonomyVariant { get; init; } = string.Empty;
     public List<string> Models { get; init; } = [];
     public int CorpusSize { get; init; }

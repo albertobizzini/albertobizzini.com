@@ -22,6 +22,7 @@ public sealed class ModelComparisonService(OllamaClient ollamaClient)
         IReadOnlyList<string> models,
         int sampleSize,
         string taxonomySource,
+        string taxonomyModel,
         CancellationToken cancellationToken)
     {
         var excluded = discoverySampleIds.ToHashSet(StringComparer.Ordinal);
@@ -84,6 +85,7 @@ public sealed class ModelComparisonService(OllamaClient ollamaClient)
         {
             GeneratedAt = DateTimeOffset.UtcNow,
             TaxonomySource = taxonomySource,
+            TaxonomyModel = taxonomyModel,
             TaxonomyVariant = taxonomy.Name,
             Models = models.ToList(),
             CorpusSize = corpus.Count,

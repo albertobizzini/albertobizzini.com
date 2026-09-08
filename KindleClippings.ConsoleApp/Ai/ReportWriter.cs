@@ -96,6 +96,8 @@ public static class ReportWriter
         builder.AppendLine("# Confronto anonimo dei modelli");
         builder.AppendLine();
         builder.AppendLine($"- Tassonomia: `{report.TaxonomyVariant}`");
+        builder.AppendLine($"- Modello usato per creare la tassonomia: `{report.TaxonomyModel}`");
+        builder.AppendLine($"- Modelli confrontati: {string.Join(", ", report.Models.Select(x => $"`{x}`"))}");
         builder.AppendLine($"- Campione di validazione: {report.SampleSize:N0}");
         builder.AppendLine();
         builder.AppendLine("Per ogni citazione indica: **A**, **B**, **equivalenti** o **entrambi errati**.");
