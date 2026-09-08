@@ -36,7 +36,9 @@ try
 
     using var ollama = new OllamaClient(
         options.OllamaBaseUrl,
-        TimeSpan.FromMinutes(options.RequestTimeoutMinutes));
+        TimeSpan.FromMinutes(options.RequestTimeoutMinutes),
+        options.ContextWindowTokens,
+        options.MaxOutputTokens);
 
     switch (arguments.Command.ToLowerInvariant())
     {
@@ -79,6 +81,7 @@ static async Task DiscoverTaxonomyAsync(
         model,
         options.DiscoverySampleSize,
         options.DiscoveryBatchSize,
+        options.MaxClippingCharacters,
         output,
         cancellationToken);
     var paths = await ReportWriter.WriteDiscoveryAsync(report, output, cancellationToken);

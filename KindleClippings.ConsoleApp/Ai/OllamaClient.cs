@@ -9,8 +9,17 @@ public sealed class OllamaClient : IDisposable
 {
     private readonly HttpClient _httpClient;
 
-    public OllamaClient(string baseUrl, TimeSpan timeout)
+    private readonly int _contextWindowTokens;
+    private readonly int _maxOutputTokens;
+
+    public OllamaClient(
+        string baseUrl,
+        TimeSpan timeout,
+        int contextWindowTokens,
+        int maxOutputTokens)
     {
+        _contextWindowTokens = contextWindowTokens;
+        _maxOutputTokens = maxOutputTokens;
         _httpClient = new HttpClient
         {
             BaseAddress = new Uri(baseUrl.TrimEnd('/') + "/"),
@@ -31,10 +40,21 @@ public sealed class OllamaClient : IDisposable
             userPrompt,
             cancellationToken,
             formatSchema);
-        var value = JsonSerializer.Deserialize<T>(
-            rawResult.Json,
-            JsonDefaults.Options)
-            ?? throw new InvalidOperationException("Ollama ha restituito JSON vuoto.");
+        T value;
+        try
+        {
+            value = JsonSerializer.Deserialize<T>(
+                rawResult.Json,
+                JsonDefaults.Options)
+                ?? throw new InvalidOperationException("Ollama ha restituito JSON vuoto.");
+        }
+        catch (JsonException exception)
+        {
+            throw new InvalidOperationException(
+                "Ollama ha restituito JSON incompleto o non valido. " +
+                "Verifica ContextWindowTokens e MaxOutputTokens nella configurazione.",
+                exception);
+        }
 
         return new OllamaResult<T>(value, rawResult.DurationMilliseconds);
     }
@@ -56,7 +76,9 @@ public sealed class OllamaClient : IDisposable
             options = new
             {
                 temperature = 0.1,
-                seed = 42
+                seed = 42,
+                num_ctx = _contextWindowTokens,
+                num_predict = _maxOutputTokens
             },
             messages = new[]
             {

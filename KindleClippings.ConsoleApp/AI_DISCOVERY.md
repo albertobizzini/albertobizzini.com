@@ -28,6 +28,11 @@ report. Una cartella relativa come `AiReports` viene creata accanto all'eseguibi
 `bin\Debug\net10.0\AiReports`; all'avvio il comando ne stampa sempre il percorso assoluto. È
 possibile usare un file esterno:
 
+- `ContextWindowTokens` riserva il contesto complessivo della richiesta;
+- `MaxOutputTokens` impedisce che l'output JSON venga troncato troppo presto;
+- `MaxClippingCharacters` limita soltanto il testo inviato durante la discovery, mantenendo il
+  prompt entro il contesto anche con citazioni molto lunghe.
+
 ```powershell
 dotnet run --project KindleClippings.ConsoleApp -- discover-taxonomy `
   --config C:\percorso\ai-settings.json
