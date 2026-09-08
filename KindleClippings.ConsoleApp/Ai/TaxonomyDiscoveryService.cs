@@ -51,6 +51,7 @@ public sealed class TaxonomyDiscoveryService(OllamaClient ollamaClient)
             sample,
             cancellationToken);
         var candidates = checkpoint?.CandidateTopics ?? [];
+        var completedVariants = checkpoint?.CompletedVariants ?? [];
         var firstBatch = checkpoint?.CompletedBatches ?? 0;
 
         if (firstBatch > 0)
@@ -74,15 +75,24 @@ public sealed class TaxonomyDiscoveryService(OllamaClient ollamaClient)
                     BatchSize = batchSize,
                     CompletedBatches = index + 1,
                     SampleClippingIds = sample.Select(x => x.Id).ToList(),
-                    CandidateTopics = candidates
+                    CandidateTopics = candidates,
+                    CompletedVariants = completedVariants
                 },
                 cancellationToken);
         }
 
         Console.WriteLine($"Consolidamento di {candidates.Count} temi candidati...");
         var taxonomies = new TaxonomyVariants();
+        taxonomies.Variants.AddRange(completedVariants);
         foreach (var variant in Variants)
         {
+            if (taxonomies.Variants.Any(x =>
+                    x.Name.Equals(variant.Name, StringComparison.OrdinalIgnoreCase)))
+            {
+                Console.WriteLine($"Tassonomia {variant.Name} caricata dal checkpoint.");
+                continue;
+            }
+
             Console.WriteLine(
                 $"Generazione tassonomia {variant.Name} ({variant.Minimum}-{variant.Maximum} temi)...");
             var response = await ollamaClient.GenerateJsonAsync<TaxonomyVariant>(
@@ -90,12 +100,30 @@ public sealed class TaxonomyDiscoveryService(OllamaClient ollamaClient)
                 ConsolidationSystemPrompt,
                 BuildConsolidationPrompt(candidates, variant),
                 cancellationToken);
+            var normalized = new TaxonomyVariant
+            {
+                Name = variant.Name,
+                Description = response.Value.Description,
+                Topics = response.Value.Topics
+            };
             TaxonomyValidator.ValidateVariant(
-                response.Value,
+                normalized,
                 variant.Name,
                 variant.Minimum,
                 variant.Maximum);
-            taxonomies.Variants.Add(response.Value);
+            taxonomies.Variants.Add(normalized);
+            await SaveCheckpointAsync(
+                checkpointPath,
+                new DiscoveryCheckpoint
+                {
+                    Model = model,
+                    BatchSize = batchSize,
+                    CompletedBatches = batches.Count,
+                    SampleClippingIds = sample.Select(x => x.Id).ToList(),
+                    CandidateTopics = candidates,
+                    CompletedVariants = taxonomies.Variants
+                },
+                cancellationToken);
         }
 
         TaxonomyValidator.Validate(taxonomies);

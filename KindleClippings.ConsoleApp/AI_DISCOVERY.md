@@ -57,7 +57,9 @@ Dopo ogni batch viene inoltre aggiornato un file `*-checkpoint.json`. Se la gene
 interrotta o fallisce durante il consolidamento, una nuova esecuzione con la stessa configurazione
 riprende dai batch già completati invece di richiamare nuovamente il modello per tutto il campione.
 Le tre granularità vengono consolidate separatamente, così un modello non deve produrre tre
-strutture complesse in una singola risposta.
+strutture complesse in una singola risposta. Anche ogni variante completata viene aggiunta al
+checkpoint. Il nome della variante (`compact`, `balanced` o `detailed`) è assegnato
+dall'applicazione e non dipende dalla presenza del campo `name` nella risposta del modello.
 
 ## Confronto
 

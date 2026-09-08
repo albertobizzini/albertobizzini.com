@@ -33,10 +33,6 @@ internal static class TaxonomyValidator
         int minimum,
         int maximum)
     {
-        if (!variant.Name.Equals(expectedName, StringComparison.OrdinalIgnoreCase))
-            throw new InvalidOperationException(
-                $"Il modello ha restituito la variante '{variant.Name}' invece di '{expectedName}'.");
-
         if (variant.Topics.Count < minimum || variant.Topics.Count > maximum)
             throw new InvalidOperationException(
                 $"La variante '{expectedName}' deve avere fra {minimum} e {maximum} temi.");

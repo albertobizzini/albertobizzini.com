@@ -46,6 +46,7 @@ public sealed class DiscoveryCheckpoint
     public int CompletedBatches { get; init; }
     public List<string> SampleClippingIds { get; init; } = [];
     public List<CandidateTopic> CandidateTopics { get; init; } = [];
+    public List<TaxonomyVariant> CompletedVariants { get; init; } = [];
 }
 
 public sealed class TopicAssignment
