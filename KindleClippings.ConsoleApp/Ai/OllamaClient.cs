@@ -23,6 +23,25 @@ public sealed class OllamaClient : IDisposable
         string userPrompt,
         CancellationToken cancellationToken)
     {
+        var rawResult = await GenerateRawJsonAsync(
+            model,
+            systemPrompt,
+            userPrompt,
+            cancellationToken);
+        var value = JsonSerializer.Deserialize<T>(
+            rawResult.Json,
+            JsonDefaults.Options)
+            ?? throw new InvalidOperationException("Ollama ha restituito JSON vuoto.");
+
+        return new OllamaResult<T>(value, rawResult.DurationMilliseconds);
+    }
+
+    public async Task<OllamaRawResult> GenerateRawJsonAsync(
+        string model,
+        string systemPrompt,
+        string userPrompt,
+        CancellationToken cancellationToken)
+    {
         var request = new
         {
             model,
@@ -56,12 +75,10 @@ public sealed class OllamaClient : IDisposable
             JsonDefaults.Options)
             ?? throw new InvalidOperationException("Ollama ha restituito una risposta vuota.");
 
-        var value = JsonSerializer.Deserialize<T>(
-            envelope.Message.Content,
-            JsonDefaults.Options)
-            ?? throw new InvalidOperationException("Ollama ha restituito JSON vuoto.");
+        if (string.IsNullOrWhiteSpace(envelope.Message.Content))
+            throw new InvalidOperationException("Ollama ha restituito JSON vuoto.");
 
-        return new OllamaResult<T>(value, stopwatch.ElapsedMilliseconds);
+        return new OllamaRawResult(envelope.Message.Content, stopwatch.ElapsedMilliseconds);
     }
 
     public void Dispose() => _httpClient.Dispose();
@@ -78,3 +95,5 @@ public sealed class OllamaClient : IDisposable
 }
 
 public sealed record OllamaResult<T>(T Value, long DurationMilliseconds);
+
+public sealed record OllamaRawResult(string Json, long DurationMilliseconds);

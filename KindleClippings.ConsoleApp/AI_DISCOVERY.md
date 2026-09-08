@@ -63,6 +63,10 @@ dall'applicazione e non dipende dalla presenza del campo `name` nella risposta d
 Gli intervalli 10-12, 15-18 e 20-25 sono obiettivi editoriali, non vincoli tecnici: se il modello
 propone un numero diverso ma non nullo di temi, il comando mostra un avviso e conserva comunque
 la proposta nel report e nel checkpoint, invece di perdere un risultato potenzialmente utile.
+La risposta grezza usata per ciascun consolidamento viene sempre salvata come
+`taxonomy-discovery-<modello>-<variante>-raw.json`. Il parser accetta sia `topics` sia contenitori
+comuni come `themes`, `categories`, `macroTopics` e wrapper JSON aggiuntivi, così il workflow non
+dipende rigidamente da un'unica forma della risposta del modello.
 
 ## Confronto
 

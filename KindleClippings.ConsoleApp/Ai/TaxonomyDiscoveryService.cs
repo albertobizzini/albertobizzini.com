@@ -95,17 +95,16 @@ public sealed class TaxonomyDiscoveryService(OllamaClient ollamaClient)
 
             Console.WriteLine(
                 $"Generazione tassonomia {variant.Name} ({variant.Minimum}-{variant.Maximum} temi)...");
-            var response = await ollamaClient.GenerateJsonAsync<TaxonomyVariant>(
+            var response = await ollamaClient.GenerateRawJsonAsync(
                 model,
                 ConsolidationSystemPrompt,
                 BuildConsolidationPrompt(candidates, variant),
                 cancellationToken);
-            var normalized = new TaxonomyVariant
-            {
-                Name = variant.Name,
-                Description = response.Value.Description,
-                Topics = response.Value.Topics
-            };
+            var rawResponsePath = Path.Combine(
+                outputDirectory,
+                $"taxonomy-discovery-{SafeName(model)}-{variant.Name}-raw.json");
+            await File.WriteAllTextAsync(rawResponsePath, response.Json, cancellationToken);
+            var normalized = TaxonomyResponseParser.Parse(response.Json, variant.Name);
             TaxonomyValidator.ValidateVariant(normalized, variant.Name);
             if (normalized.Topics.Count < variant.Minimum ||
                 normalized.Topics.Count > variant.Maximum)
