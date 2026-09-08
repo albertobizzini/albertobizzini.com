@@ -6,7 +6,7 @@ namespace KindleClippings.ConsoleApp.Ai;
 
 public sealed class TaxonomyDiscoveryService(OllamaClient ollamaClient)
 {
-    private const int CheckpointVersion = 2;
+    private const int CheckpointVersion = 3;
 
     private const string DiscoverySystemPrompt = """
         Sei un tassonomista editoriale. Analizza citazioni italiane e inglesi e proponi macro-temi
@@ -83,7 +83,8 @@ public sealed class TaxonomyDiscoveryService(OllamaClient ollamaClient)
                 model,
                 DiscoverySystemPrompt,
                 prompt,
-                cancellationToken);
+                cancellationToken,
+                OllamaJsonSchemas.TopicSet(5, 10));
             candidates.AddRange(response.Value.Topics);
             await SaveCheckpointAsync(
                 checkpointPath,
@@ -110,7 +111,8 @@ public sealed class TaxonomyDiscoveryService(OllamaClient ollamaClient)
                 model,
                 ReductionSystemPrompt,
                 BuildReductionPrompt(reductionBatches[index]),
-                cancellationToken);
+                cancellationToken,
+                OllamaJsonSchemas.TopicSet(8, 12));
             var rawReductionPath = Path.Combine(
                 outputDirectory,
                 $"taxonomy-discovery-{SafeName(model)}-reduction-{index + 1}.json");
@@ -154,7 +156,8 @@ public sealed class TaxonomyDiscoveryService(OllamaClient ollamaClient)
                 model,
                 ConsolidationSystemPrompt,
                 BuildConsolidationPrompt(reducedCandidates, variant),
-                cancellationToken);
+                cancellationToken,
+                OllamaJsonSchemas.TaxonomyVariant(variant.Minimum, variant.Maximum));
             var rawResponsePath = Path.Combine(
                 outputDirectory,
                 $"taxonomy-discovery-{SafeName(model)}-{variant.Name}-raw.json");
@@ -283,12 +286,33 @@ public sealed class TaxonomyDiscoveryService(OllamaClient ollamaClient)
             cancellationToken);
         var sampleIds = sample.Select(x => x.Id);
         if (checkpoint is null ||
-            checkpoint.Version != CheckpointVersion ||
             !checkpoint.Model.Equals(model, StringComparison.Ordinal) ||
             checkpoint.BatchSize != batchSize ||
             !checkpoint.SampleClippingIds.SequenceEqual(sampleIds))
         {
             Console.WriteLine("Checkpoint ignorato perché non è compatibile con la configurazione corrente.");
+            return null;
+        }
+
+        if (checkpoint.Version == 2)
+        {
+            Console.WriteLine(
+                "Checkpoint v2 migrato: i batch di discovery vengono conservati; " +
+                "riduzioni e tassonomie non valide saranno rigenerate.");
+            return new DiscoveryCheckpoint
+            {
+                Version = CheckpointVersion,
+                Model = checkpoint.Model,
+                BatchSize = checkpoint.BatchSize,
+                CompletedBatches = checkpoint.CompletedBatches,
+                SampleClippingIds = checkpoint.SampleClippingIds,
+                CandidateTopics = checkpoint.CandidateTopics
+            };
+        }
+
+        if (checkpoint.Version != CheckpointVersion)
+        {
+            Console.WriteLine("Checkpoint ignorato perché appartiene a una versione non supportata.");
             return null;
         }
 

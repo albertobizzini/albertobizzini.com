@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.Net.Http.Json;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 
 namespace KindleClippings.ConsoleApp.Ai;
 
@@ -21,13 +22,15 @@ public sealed class OllamaClient : IDisposable
         string model,
         string systemPrompt,
         string userPrompt,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken,
+        JsonNode? formatSchema = null)
     {
         var rawResult = await GenerateRawJsonAsync(
             model,
             systemPrompt,
             userPrompt,
-            cancellationToken);
+            cancellationToken,
+            formatSchema);
         var value = JsonSerializer.Deserialize<T>(
             rawResult.Json,
             JsonDefaults.Options)
@@ -40,14 +43,16 @@ public sealed class OllamaClient : IDisposable
         string model,
         string systemPrompt,
         string userPrompt,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken,
+        JsonNode? formatSchema = null)
     {
+        var format = formatSchema ?? JsonValue.Create("json");
         var request = new
         {
             model,
             stream = false,
             think = false,
-            format = "json",
+            format,
             options = new
             {
                 temperature = 0.1,

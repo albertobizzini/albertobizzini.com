@@ -74,10 +74,13 @@ comuni come `themes`, `categories`, `macroTopics` e wrapper JSON aggiuntivi, cos
 dipende rigidamente da un'unica forma della risposta del modello. Nelle riduzioni intermedie sono
 accettati anche array di nomi e proprietà in snake_case (`name_it`, `description_it`): questi output
 vengono normalizzati nel modello dati usato dal report.
+Le richieste a Ollama includono inoltre uno JSON Schema: il modello è vincolato a restituire una
+proprietà `topics` composta da oggetti completi, anziché array ambigui di ID o wrapper arbitrari.
 
-Le modifiche alla strategia di campionamento o consolidamento incrementano automaticamente la
-versione del checkpoint. Un vecchio checkpoint viene ignorato con un messaggio esplicito: la nuova
-discovery deve ricalcolare i batch perché utilizza un campione di citazioni più rappresentativo.
+Le modifiche alla strategia di campionamento o consolidamento incrementano la versione del
+checkpoint. Il checkpoint v1 viene ignorato perché usa il vecchio campione. Il checkpoint v2 viene
+migrato conservando i 20 batch già completati, ma scartando le
+riduzioni e le tassonomie generate dal precedente parser ambiguo.
 
 ## Confronto
 

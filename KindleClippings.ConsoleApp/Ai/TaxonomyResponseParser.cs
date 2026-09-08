@@ -132,9 +132,6 @@ internal static class TaxonomyResponseParser
             return true;
 
         var first = element[0];
-        if (first.ValueKind == JsonValueKind.String)
-            return true;
-
         if (first.ValueKind != JsonValueKind.Object)
             return false;
 
@@ -156,8 +153,8 @@ internal static class TaxonomyResponseParser
         {
             if (item.ValueKind == JsonValueKind.String)
             {
-                var name = item.GetString() ?? string.Empty;
-                topics.Add(CreateTopic(null, name, null, null, null, []));
+                var topicName = item.GetString() ?? string.Empty;
+                topics.Add(CreateTopic(null, topicName, null, null, null, []));
                 continue;
             }
 
