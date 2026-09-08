@@ -71,7 +71,9 @@ la proposta nel report e nel checkpoint, invece di perdere un risultato potenzia
 La risposta grezza usata per ciascun consolidamento viene sempre salvata come
 `taxonomy-discovery-<modello>-<variante>-raw.json`. Il parser accetta sia `topics` sia contenitori
 comuni come `themes`, `categories`, `macroTopics` e wrapper JSON aggiuntivi, così il workflow non
-dipende rigidamente da un'unica forma della risposta del modello.
+dipende rigidamente da un'unica forma della risposta del modello. Nelle riduzioni intermedie sono
+accettati anche array di nomi e proprietà in snake_case (`name_it`, `description_it`): questi output
+vengono normalizzati nel modello dati usato dal report.
 
 Le modifiche alla strategia di campionamento o consolidamento incrementano automaticamente la
 versione del checkpoint. Un vecchio checkpoint viene ignorato con un messaggio esplicito: la nuova
