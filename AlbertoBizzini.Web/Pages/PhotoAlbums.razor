@@ -55,7 +55,7 @@ else if (_error is not null)
 else
 {
     <MudText Typo="Typo.caption" Class="mb-2">@L["VisibleAlbums", _filteredAlbums.Count, _albums.Count]</MudText>
-    <div id="photo-albums-map" aria-label="@L["MapAriaLabel"]"></div>
+    <div id="photo-albums-map" @ref="_mapElement" aria-label="@L["MapAriaLabel"]"></div>
 }
 
 @code {
@@ -65,7 +65,9 @@ else
     private List<GooglePhotoAlbum> _albums = [];
     private List<GooglePhotoAlbum> _filteredAlbums = [];
     private List<string> _continents = [];
+    private ElementReference _mapElement;
     private IJSObjectReference? _module;
+    private bool _mapInitialized;
     private string? _search;
     private string? _error;
     private bool _loading = true;
@@ -93,9 +95,12 @@ else
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (!firstRender || _error is not null) return;
+        if (_loading || _error is not null || _mapInitialized)
+            return;
+
         _module = await JS.InvokeAsync<IJSObjectReference>("import", "./js/photoAlbumsMap.js");
-        await _module.InvokeVoidAsync("initialize", "photo-albums-map", _filteredAlbums);
+        await _module.InvokeVoidAsync("initialize", _mapElement, _filteredAlbums);
+        _mapInitialized = true;
     }
 
     private async Task OnContinentsChanged(IEnumerable<string> values)

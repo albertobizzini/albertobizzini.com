@@ -1,8 +1,8 @@
 let map;
 let clusters;
 
-export function initialize(elementId, albums) {
-    map = L.map(elementId, { worldCopyJump: true }).setView([25, 10], 2);
+export function initialize(element, albums) {
+    map = L.map(element, { worldCopyJump: true }).setView([25, 10], 2);
     L.tileLayer(
         "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}",
         { attribution: "Tiles &copy; Esri", maxZoom: 16 }
