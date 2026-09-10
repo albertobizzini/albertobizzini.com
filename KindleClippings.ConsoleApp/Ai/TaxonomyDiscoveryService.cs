@@ -50,7 +50,6 @@ public sealed class TaxonomyDiscoveryService(OllamaClient ollamaClient)
         string model,
         int sampleSize,
         int batchSize,
-        int maxClippingCharacters,
         string outputDirectory,
         CancellationToken cancellationToken)
     {
@@ -79,7 +78,7 @@ public sealed class TaxonomyDiscoveryService(OllamaClient ollamaClient)
         for (var index = firstBatch; index < batches.Count; index++)
         {
             Console.WriteLine($"Discovery batch {index + 1}/{batches.Count}...");
-            var prompt = BuildDiscoveryPrompt(batches[index], maxClippingCharacters);
+            var prompt = BuildDiscoveryPrompt(batches[index]);
             var response = await ollamaClient.GenerateJsonAsync<CandidateTopicSet>(
                 model,
                 DiscoverySystemPrompt,
@@ -205,15 +204,13 @@ public sealed class TaxonomyDiscoveryService(OllamaClient ollamaClient)
         };
     }
 
-    private static string BuildDiscoveryPrompt(
-        IEnumerable<AiClipping> clippings,
-        int maxClippingCharacters)
+    private static string BuildDiscoveryPrompt(IEnumerable<AiClipping> clippings)
     {
         var input = clippings.Select(x => new
         {
             x.Id,
             x.Language,
-            Text = Truncate(x.Text, maxClippingCharacters)
+            x.Text
         });
 
         return """
@@ -224,9 +221,6 @@ public sealed class TaxonomyDiscoveryService(OllamaClient ollamaClient)
             Citazioni:
             """ + JsonSerializer.Serialize(input, JsonDefaults.Options);
     }
-
-    private static string Truncate(string value, int maximumLength) =>
-        value.Length <= maximumLength ? value : value[..(maximumLength - 1)] + "…";
 
     private static string BuildConsolidationPrompt(
         IEnumerable<CandidateTopic> candidates,

@@ -11,9 +11,6 @@ public sealed class AiDiscoveryOptions
     public int ValidationSampleSize { get; init; } = 150;
     public int DiscoveryBatchSize { get; init; } = 25;
     public int RequestTimeoutMinutes { get; init; } = 10;
-    public int ContextWindowTokens { get; init; } = 16384;
-    public int MaxOutputTokens { get; init; } = 4096;
-    public int MaxClippingCharacters { get; init; } = 800;
     public string OutputDirectory { get; init; } = "AiReports";
 
     public static async Task<AiDiscoveryOptions> LoadAsync(
@@ -65,10 +62,6 @@ public sealed class AiDiscoveryOptions
 
         if (RequestTimeoutMinutes <= 0)
             throw new InvalidOperationException("RequestTimeoutMinutes deve essere positivo.");
-
-        if (ContextWindowTokens <= 0 || MaxOutputTokens <= 0 || MaxClippingCharacters <= 0)
-            throw new InvalidOperationException(
-                "ContextWindowTokens, MaxOutputTokens e MaxClippingCharacters devono essere positivi.");
     }
 
     private sealed class ConfigurationRoot
