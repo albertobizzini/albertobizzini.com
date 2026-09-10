@@ -27,6 +27,17 @@ try
         return;
     }
 
+    if (arguments.Command.Equals("export-photo-albums", StringComparison.OrdinalIgnoreCase))
+    {
+        var input = arguments.Get("input") ?? "GooglePhotoAlbums.xlsx";
+        var output = arguments.Get("output") ?? Path.Combine(
+            "..", "AlbertoBizzini.Web", "wwwroot", "data", "googlePhotoAlbums.json");
+        var (count, actualOutputFile) = await GooglePhotoAlbumJsonExporter.ExportAsync(
+            input, output, cancellationSource.Token);
+        Console.WriteLine($"Esportati {count:N0} album fotografici in '{actualOutputFile}'.");
+        return;
+    }
+
     var options = await AiDiscoveryOptions.LoadAsync(
         arguments.Get("config"),
         cancellationSource.Token);
@@ -156,6 +167,9 @@ static void PrintHelp()
         Comandi:
           import
               Importa My Clippings.txt ed esporta clippings.json.
+
+          export-photo-albums [--input <file.xlsx>] [--output <file.json>]
+              Esporta in JSON solo gli album dotati di URL pubblico.
 
           discover-taxonomy [--model <nome>] [--output <cartella>] [--config <file>]
               Propone tre tassonomie usando il modello configurato o specificato.

@@ -1,0 +1,160 @@
+@page "/photo-albums"
+@implements IAsyncDisposable
+@using System.Globalization
+@inject HttpClient Http
+@inject IJSRuntime JS
+@inject IStringLocalizer<PhotoAlbums> L
+
+<PageHeader L="@L" />
+
+<MudPaper Elevation="3" Class="pa-4 mb-4 photo-album-filters">
+    <MudGrid Spacing="3">
+        <MudItem xs="12" md="3">
+            <MudTextField @bind-Value="_search" @bind-Value:after="ApplyFiltersAsync"
+                          Label="@L["SearchLabel"]" Immediate DebounceInterval="300"
+                          Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" Clearable />
+        </MudItem>
+        <MudItem xs="12" md="3">
+            <MudSelect T="string" Label="@L["ContinentLabel"]" MultiSelection
+                       SelectedValues="@_selectedContinents" SelectedValuesChanged="OnContinentsChanged" Clearable>
+                @foreach (var value in _continents)
+                {
+                    <MudSelectItem T="string" Value="@value">@value</MudSelectItem>
+                }
+            </MudSelect>
+        </MudItem>
+        <MudItem xs="12" md="3">
+            <MudSelect T="string" Label="@L["CountryLabel"]" MultiSelection
+                       SelectedValues="@_selectedCountries" SelectedValuesChanged="OnCountriesChanged" Clearable>
+                @foreach (var value in AvailableCountries)
+                {
+                    <MudSelectItem T="string" Value="@value">@value</MudSelectItem>
+                }
+            </MudSelect>
+        </MudItem>
+        <MudItem xs="12" md="3">
+            <MudSelect T="string" Label="@L["PlaceLabel"]" MultiSelection
+                       SelectedValues="@_selectedPlaces" SelectedValuesChanged="OnPlacesChanged" Clearable>
+                @foreach (var value in AvailablePlaces)
+                {
+                    <MudSelectItem T="string" Value="@value">@value</MudSelectItem>
+                }
+            </MudSelect>
+        </MudItem>
+    </MudGrid>
+</MudPaper>
+
+@if (_loading)
+{
+    <MudProgressLinear Indeterminate Color="Color.Primary" />
+}
+else if (_error is not null)
+{
+    <MudAlert Severity="Severity.Error">@L["LoadError"]</MudAlert>
+}
+else
+{
+    <MudText Typo="Typo.caption" Class="mb-2">@L["VisibleAlbums", _filteredAlbums.Count, _albums.Count]</MudText>
+    <div id="photo-albums-map" aria-label="@L["MapAriaLabel"]"></div>
+}
+
+@code {
+    private readonly HashSet<string> _selectedContinents = [];
+    private readonly HashSet<string> _selectedCountries = [];
+    private readonly HashSet<string> _selectedPlaces = [];
+    private List<GooglePhotoAlbum> _albums = [];
+    private List<GooglePhotoAlbum> _filteredAlbums = [];
+    private List<string> _continents = [];
+    private IJSObjectReference? _module;
+    private string? _search;
+    private string? _error;
+    private bool _loading = true;
+
+    private bool English => CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "en";
+    private IEnumerable<string> AvailableCountries => _albums
+        .Where(MatchesContinent).Select(Country).Where(NotEmpty).Distinct().OrderBy(x => x);
+    private IEnumerable<string> AvailablePlaces => _albums
+        .Where(MatchesContinent).Where(MatchesCountry).Select(Place).Where(NotEmpty).Distinct().OrderBy(x => x);
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            _albums = await Http.GetFromJsonAsync<List<GooglePhotoAlbum>>("data/googlePhotoAlbums.json") ?? [];
+            _continents = _albums.Select(x => x.Continent).Where(NotEmpty).Select(x => x!).Distinct().OrderBy(x => x).ToList();
+            ApplyFilters();
+        }
+        catch (Exception exception)
+        {
+            _error = exception.Message;
+        }
+        finally { _loading = false; }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender || _error is not null) return;
+        _module = await JS.InvokeAsync<IJSObjectReference>("import", "./js/photoAlbumsMap.js");
+        await _module.InvokeVoidAsync("initialize", "photo-albums-map", _filteredAlbums);
+    }
+
+    private async Task OnContinentsChanged(IEnumerable<string> values)
+    {
+        Replace(_selectedContinents, values);
+        _selectedCountries.RemoveWhere(x => !AvailableCountries.Contains(x));
+        _selectedPlaces.RemoveWhere(x => !AvailablePlaces.Contains(x));
+        await ApplyFiltersAsync();
+    }
+
+    private async Task OnCountriesChanged(IEnumerable<string> values)
+    {
+        Replace(_selectedCountries, values);
+        _selectedPlaces.RemoveWhere(x => !AvailablePlaces.Contains(x));
+        await ApplyFiltersAsync();
+    }
+
+    private async Task OnPlacesChanged(IEnumerable<string> values)
+    {
+        Replace(_selectedPlaces, values);
+        await ApplyFiltersAsync();
+    }
+
+    private async Task ApplyFiltersAsync()
+    {
+        ApplyFilters();
+        if (_module is not null)
+            await _module.InvokeVoidAsync("setAlbums", _filteredAlbums);
+    }
+
+    private void ApplyFilters() => _filteredAlbums = _albums.Where(album =>
+        MatchesContinent(album) && MatchesCountry(album) && MatchesPlace(album) &&
+        (string.IsNullOrWhiteSpace(_search) || album.Title.Contains(_search, StringComparison.CurrentCultureIgnoreCase)) &&
+        album.Latitude is not null && album.Longitude is not null).ToList();
+
+    private bool MatchesContinent(GooglePhotoAlbum album) =>
+        _selectedContinents.Count == 0 || _selectedContinents.Contains(album.Continent ?? string.Empty);
+    private bool MatchesCountry(GooglePhotoAlbum album) =>
+        _selectedCountries.Count == 0 || _selectedCountries.Contains(Country(album));
+    private bool MatchesPlace(GooglePhotoAlbum album) =>
+        _selectedPlaces.Count == 0 || _selectedPlaces.Contains(Place(album));
+    private string Country(GooglePhotoAlbum album) =>
+        (English ? album.CountryEnglish : album.Country) ?? album.Country ?? album.CountryEnglish ?? string.Empty;
+    private string Place(GooglePhotoAlbum album) =>
+        (English ? album.PlaceEnglish : album.Place) ?? album.Place ?? album.PlaceEnglish ?? string.Empty;
+    private static bool NotEmpty(string? value) => !string.IsNullOrWhiteSpace(value);
+    private static void Replace(HashSet<string> target, IEnumerable<string> values)
+    {
+        var selected = values.ToArray();
+        target.Clear();
+        target.UnionWith(selected);
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_module is not null)
+        {
+            await _module.InvokeVoidAsync("dispose");
+            await _module.DisposeAsync();
+        }
+    }
+}

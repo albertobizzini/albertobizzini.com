@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="PageTitle" xml:space="preserve"><value>My photo albums</value></data>
+  <data name="IntroductionText" xml:space="preserve"><value>Explore my shared Google Photos albums on the map.</value></data>
+  <data name="SearchLabel" xml:space="preserve"><value>Search album title</value></data>
+  <data name="ContinentLabel" xml:space="preserve"><value>Continents</value></data>
+  <data name="CountryLabel" xml:space="preserve"><value>Countries</value></data>
+  <data name="PlaceLabel" xml:space="preserve"><value>Places</value></data>
+  <data name="VisibleAlbums" xml:space="preserve"><value>{0} of {1} georeferenced albums shown</value></data>
+  <data name="MapAriaLabel" xml:space="preserve"><value>Interactive map of photo albums</value></data>
+  <data name="LoadError" xml:space="preserve"><value>The photo albums could not be loaded.</value></data>
+</root>
