@@ -1,12 +1,47 @@
 let map;
 let clusters;
 
+const esriGray = L.tileLayer(
+    "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}",
+    {
+        attribution: "Tiles &copy; Esri",
+        maxZoom: 16
+    }
+);
+
+const openStreetMap = L.tileLayer(
+    "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+    {
+        attribution: "&copy; OpenStreetMap contributors",
+        maxZoom: 19
+    }
+);
+
+const esriTopo = L.tileLayer(
+    "https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}",
+    {
+        attribution: "Tiles &copy; Esri"
+    }
+);
+
+const esriSatellite = L.tileLayer(
+    "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+    {
+        attribution: "Tiles &copy; Esri"
+    }
+);
+
+const baseMaps = {
+    "Esri Light Gray": esriGray,
+    "OpenStreetMap": openStreetMap,
+    "Esri Topographic": esriTopo,
+    "Esri Satellite": esriSatellite
+};
+
 export function initialize(element, albums) {
     map = L.map(element, { worldCopyJump: true }).setView([25, 10], 2);
-    L.tileLayer(
-        "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}",
-        { attribution: "Tiles &copy; Esri", maxZoom: 16 }
-    ).addTo(map);
+    esriTopo.addTo(map);
+    L.control.layers(baseMaps).addTo(map);
 
     clusters = L.markerClusterGroup({
         showCoverageOnHover: false,

@@ -46,6 +46,18 @@
         </ChildContent>
     </MudExpansionPanel>
 
+
+    <MudExpansionPanel Class="home-page-panel"> 
+
+        <TitleContent>
+            <MudStack Row Justify="Justify.FlexStart" Spacing="3" AlignItems="AlignItems.Center" @onclick='() => Nav.NavigateTo("photo-albums")'>
+                <MudIcon Icon="@Icons.Material.TwoTone.PhotoLibrary" Color="@HeaderIconColor" />
+                <h3>@L["MyPhotoAlbumsLinkText"]</h3>
+            </MudStack>
+        </TitleContent>
+
+    </MudExpansionPanel>
+
     <MudExpansionPanel Class="home-page-panel">
 
         <TitleContent>
@@ -61,7 +73,6 @@
             <MyLink Text="@L["MyEtsyShopLinkText"]" Icon="@Icons.Material.TwoTone.ShoppingCart" Href="https://www.etsy.com/shop/IdeeBizzesche" />
             <MyLink Text="@L["MyYouTubeChannelLinkText"]" Icon="@Icons.Custom.Brands.YouTube" Href="https://www.youtube.com/AlbertoBizzini" />
             <MyLink Text="@L["MyInstagramPageLinkText"]" Icon="@Icons.Custom.Brands.Instagram" Href="https://www.instagram.com/alberto.bizzini" />
-            <MyLink Text="@L["MyPhotoAlbumsLinkText"]" Icon="@Icons.Material.TwoTone.PhotoLibrary" Href="photo-albums" />
         </ChildContent>
     </MudExpansionPanel>
 
