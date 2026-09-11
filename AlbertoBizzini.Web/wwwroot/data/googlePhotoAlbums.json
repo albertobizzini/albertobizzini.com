@@ -6,8 +6,8 @@
     "continent": "Europa",
     "country": "Italia",
     "countryEnglish": "Italy",
-    "place": "Castelnovo ne' Monti",
-    "placeEnglish": "Castelnovo ne' Monti",
+    "place": "Castelnovo ne\u0027 Monti",
+    "placeEnglish": "Castelnovo ne\u0027 Monti",
     "latitude": 44.4335,
     "longitude": 10.4034,
     "publicUrl": "https://photos.app.goo.gl/ogmqtG3ZruC38H7z7"
@@ -76,6 +76,19 @@
     "latitude": 44.8421,
     "longitude": 11.6112,
     "publicUrl": "https://photos.app.goo.gl/fzA3t2jKE3uDKvEYA"
+  },
+  {
+    "dateFrom": "2009-05-24",
+    "dateTo": "2009-05-24",
+    "title": "USA 2009 - 01 (San Francisco)",
+    "continent": "America",
+    "country": "Stati Uniti",
+    "countryEnglish": "United States",
+    "place": "San Francisco",
+    "placeEnglish": "San Francisco",
+    "latitude": 37.7749,
+    "longitude": -122.4194,
+    "publicUrl": "https://photos.app.goo.gl/c5asomb3G3WzoAsz7"
   },
   {
     "dateFrom": "2009-05-25",
@@ -258,19 +271,6 @@
     "latitude": 48.8566,
     "longitude": 2.3522,
     "publicUrl": "https://photos.app.goo.gl/V98JhbZ4csrujBQ36"
-  },
-  {
-    "dateFrom": "2010-01-03",
-    "dateTo": "2016-08-28",
-    "title": "Hawaii '16 - Kailua Beach, Waikiki",
-    "continent": "America",
-    "country": "Stati Uniti",
-    "countryEnglish": "United States",
-    "place": "Kailua",
-    "placeEnglish": "Kailua",
-    "latitude": 21.4022,
-    "longitude": -157.7394,
-    "publicUrl": "https://goo.gl/photos/8xVToCdwsN4DwvVc6"
   },
   {
     "dateFrom": "2010-05-02",
@@ -457,7 +457,7 @@
   {
     "dateFrom": "2010-09-11",
     "dateTo": "2010-09-11",
-    "title": "2010-09-11 (50° anniversario PAN)",
+    "title": "2010-09-11 (50\u00B0 anniversario PAN)",
     "continent": "Europa",
     "country": "Italia",
     "countryEnglish": "Italy",
@@ -741,6 +741,19 @@
     "publicUrl": "https://photos.app.goo.gl/RW7JkqBwVNtJNumC8"
   },
   {
+    "dateFrom": "2012-06-23",
+    "dateTo": "2012-06-23",
+    "title": "Riparazione chitarra Nico",
+    "continent": "Europa",
+    "country": "Italia",
+    "countryEnglish": "Italy",
+    "place": "Bologna",
+    "placeEnglish": "Bologna",
+    "latitude": 44.5093,
+    "longitude": 11.3589,
+    "publicUrl": "https://photos.app.goo.gl/t8aGFFQBePiGKwCG6"
+  },
+  {
     "dateFrom": "2012-09-01",
     "dateTo": "2012-09-02",
     "title": "Cina 2012 - 01 - Beijing",
@@ -782,12 +795,12 @@
   {
     "dateFrom": "2012-09-04",
     "dateTo": "2012-09-04",
-    "title": "Cina 2012 - 04 - Xi'an",
+    "title": "Cina 2012 - 04 - Xi\u0027an",
     "continent": "Asia",
     "country": "Cina",
     "countryEnglish": "China",
-    "place": "Xi'an",
-    "placeEnglish": "Xi'an",
+    "place": "Xi\u0027an",
+    "placeEnglish": "Xi\u0027an",
     "latitude": 34.3416,
     "longitude": 108.9398,
     "publicUrl": "https://photos.app.goo.gl/McFcme9aZ5gDaEDv5"
@@ -795,12 +808,12 @@
   {
     "dateFrom": "2012-09-05",
     "dateTo": "2012-09-05",
-    "title": "Cina 2012 - 05 - Xi'an 2",
+    "title": "Cina 2012 - 05 - Xi\u0027an 2",
     "continent": "Asia",
     "country": "Cina",
     "countryEnglish": "China",
-    "place": "Xi'an",
-    "placeEnglish": "Xi'an",
+    "place": "Xi\u0027an",
+    "placeEnglish": "Xi\u0027an",
     "latitude": 34.3416,
     "longitude": 108.9398,
     "publicUrl": "https://photos.app.goo.gl/MvejMkzRd2cfngt1A"
@@ -990,7 +1003,7 @@
   {
     "dateFrom": "2013-09-28",
     "dateTo": "2013-09-29",
-    "title": "Giappone '13 - Tokyo",
+    "title": "Giappone \u002713 - Tokyo",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -1003,7 +1016,7 @@
   {
     "dateFrom": "2013-09-30",
     "dateTo": "2013-09-30",
-    "title": "Giappone '13 - Kawagoe & Tokyo",
+    "title": "Giappone \u002713 - Kawagoe \u0026 Tokyo",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -1016,7 +1029,7 @@
   {
     "dateFrom": "2013-10-01",
     "dateTo": "2013-10-01",
-    "title": "Giappone '13 - Setagaya & Tokyo",
+    "title": "Giappone \u002713 - Setagaya \u0026 Tokyo",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -1029,7 +1042,7 @@
   {
     "dateFrom": "2013-10-02",
     "dateTo": "2013-10-02",
-    "title": "Giappone '13 - Takamatsu",
+    "title": "Giappone \u002713 - Takamatsu",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -1042,7 +1055,7 @@
   {
     "dateFrom": "2013-10-03",
     "dateTo": "2013-10-03",
-    "title": "Giappone '13 - Iya Valley - Oboke gorge",
+    "title": "Giappone \u002713 - Iya Valley - Oboke gorge",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -1055,7 +1068,7 @@
   {
     "dateFrom": "2013-10-04",
     "dateTo": "2013-10-04",
-    "title": "Giappone '13 - Kotohira & Yashima Peninsula",
+    "title": "Giappone \u002713 - Kotohira \u0026 Yashima Peninsula",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -1068,7 +1081,7 @@
   {
     "dateFrom": "2013-10-05",
     "dateTo": "2013-10-05",
-    "title": "Giappone '13 - Naruto & Tokushima",
+    "title": "Giappone \u002713 - Naruto \u0026 Tokushima",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -1081,7 +1094,7 @@
   {
     "dateFrom": "2013-10-06",
     "dateTo": "2013-10-06",
-    "title": "Giappone '13 - Tairyuji Temple & Tokushima",
+    "title": "Giappone \u002713 - Tairyuji Temple \u0026 Tokushima",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -1094,7 +1107,7 @@
   {
     "dateFrom": "2013-10-07",
     "dateTo": "2013-10-07",
-    "title": "Giappone '13 - Kurashiki",
+    "title": "Giappone \u002713 - Kurashiki",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -1107,7 +1120,7 @@
   {
     "dateFrom": "2013-10-08",
     "dateTo": "2013-10-08",
-    "title": "Giappone '13 - Onomichi & Bitchu-Takahashi",
+    "title": "Giappone \u002713 - Onomichi \u0026 Bitchu-Takahashi",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -1133,7 +1146,7 @@
   {
     "dateFrom": "2015-05-20",
     "dateTo": "2015-05-20",
-    "title": "Giappone '15 - 07 (Kyoto nord)",
+    "title": "Giappone \u002715 - 07 (Kyoto nord)",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -1146,7 +1159,7 @@
   {
     "dateFrom": "2015-05-21",
     "dateTo": "2015-05-21",
-    "title": "Giappone '15 - 08 (Rokkosan, Kobe, Gion)",
+    "title": "Giappone \u002715 - 08 (Rokkosan, Kobe, Gion)",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -1159,7 +1172,7 @@
   {
     "dateFrom": "2015-05-22",
     "dateTo": "2015-05-22",
-    "title": "Giappone '15 - 09 (Kyoto)",
+    "title": "Giappone \u002715 - 09 (Kyoto)",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -1172,7 +1185,7 @@
   {
     "dateFrom": "2015-05-23",
     "dateTo": "2015-05-23",
-    "title": "Giappone '15 - 10 (Magome)",
+    "title": "Giappone \u002715 - 10 (Magome)",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -1185,7 +1198,7 @@
   {
     "dateFrom": "2015-05-24",
     "dateTo": "2015-05-24",
-    "title": "Giappone '15 - 11 (Nakasendo, Tsumago)",
+    "title": "Giappone \u002715 - 11 (Nakasendo, Tsumago)",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -1198,7 +1211,7 @@
   {
     "dateFrom": "2015-05-25",
     "dateTo": "2015-05-25",
-    "title": "Giappone '15 - 12 (Matsumoto)",
+    "title": "Giappone \u002715 - 12 (Matsumoto)",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -1211,7 +1224,7 @@
   {
     "dateFrom": "2015-05-26",
     "dateTo": "2015-05-26",
-    "title": "Giappone '15 - 13 (Nagano, Obuse)",
+    "title": "Giappone \u002715 - 13 (Nagano, Obuse)",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -1224,7 +1237,7 @@
   {
     "dateFrom": "2015-05-27",
     "dateTo": "2015-05-27",
-    "title": "Giappone '15 - 14 (Onioshidashien, Nagano)",
+    "title": "Giappone \u002715 - 14 (Onioshidashien, Nagano)",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -1237,7 +1250,7 @@
   {
     "dateFrom": "2015-05-28",
     "dateTo": "2015-05-28",
-    "title": "Giappone '15 - 15 (Togakushi, Nagano)",
+    "title": "Giappone \u002715 - 15 (Togakushi, Nagano)",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -1250,7 +1263,7 @@
   {
     "dateFrom": "2015-05-29",
     "dateTo": "2015-05-29",
-    "title": "Giappone '15 - 16 (Matsushiro, Nagano)",
+    "title": "Giappone \u002715 - 16 (Matsushiro, Nagano)",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -1263,7 +1276,7 @@
   {
     "dateFrom": "2015-05-30",
     "dateTo": "2015-05-30",
-    "title": "Giappone '15 - 17 (Kawaguchiko, Mount Fuji)",
+    "title": "Giappone \u002715 - 17 (Kawaguchiko, Mount Fuji)",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -1276,7 +1289,7 @@
   {
     "dateFrom": "2015-05-31",
     "dateTo": "2015-05-31",
-    "title": "Giappone '15 - 18 (Kawaguchiko, Mount Fuji)",
+    "title": "Giappone \u002715 - 18 (Kawaguchiko, Mount Fuji)",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -1289,7 +1302,7 @@
   {
     "dateFrom": "2015-06-02",
     "dateTo": "2015-06-02",
-    "title": "Giappone '15 - 19 (Hakone)",
+    "title": "Giappone \u002715 - 19 (Hakone)",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -1302,7 +1315,7 @@
   {
     "dateFrom": "2015-06-03",
     "dateTo": "2015-06-04",
-    "title": "Giappone '15 - 20 (Ueno)",
+    "title": "Giappone \u002715 - 20 (Ueno)",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -1315,7 +1328,7 @@
   {
     "dateFrom": "2015-08-29",
     "dateTo": "2015-09-04",
-    "title": "Olanda '15",
+    "title": "Olanda \u002715",
     "continent": "Europa",
     "country": "Paesi Bassi",
     "countryEnglish": "Netherlands",
@@ -1341,7 +1354,7 @@
   {
     "dateFrom": "2016-03-20",
     "dateTo": "2016-03-20",
-    "title": "2016.03.20 - Gita a Parma (visita mostra \"Giappone segreto\")",
+    "title": "2016.03.20 - Gita a Parma (visita mostra \u0022Giappone segreto\u0022)",
     "continent": "Europa",
     "country": "Italia",
     "countryEnglish": "Italy",
@@ -1354,7 +1367,7 @@
   {
     "dateFrom": "2016-05-13",
     "dateTo": "2016-05-13",
-    "title": "Venerdì a Treviso",
+    "title": "Venerd\u00EC a Treviso",
     "continent": "Europa",
     "country": "Italia",
     "countryEnglish": "Italy",
@@ -1380,7 +1393,7 @@
   {
     "dateFrom": "2016-06-22",
     "dateTo": "2016-06-25",
-    "title": "Innsbruck e Baviera (Romantische Straße)",
+    "title": "Innsbruck e Baviera (Romantische Stra\u00DFe)",
     "continent": "Europa",
     "country": "Austria",
     "countryEnglish": "Austria",
@@ -1393,7 +1406,7 @@
   {
     "dateFrom": "2016-08-25",
     "dateTo": "2016-08-26",
-    "title": "Hawaii '16 - In volo e arrivo",
+    "title": "Hawaii \u002716 - In volo e arrivo",
     "continent": "America",
     "country": "Stati Uniti",
     "countryEnglish": "United States",
@@ -1406,7 +1419,7 @@
   {
     "dateFrom": "2016-08-26",
     "dateTo": "2016-08-27",
-    "title": "Hawaii '16 - Diamond Head, Hanauma Bay, Waikiki",
+    "title": "Hawaii \u002716 - Diamond Head, Hanauma Bay, Waikiki",
     "continent": "America",
     "country": "Stati Uniti",
     "countryEnglish": "United States",
@@ -1417,9 +1430,22 @@
     "publicUrl": "https://goo.gl/photos/C34tjUzazvM1HQja6"
   },
   {
+    "dateFrom": "2016-08-28",
+    "dateTo": "2016-08-28",
+    "title": "Hawaii \u002716 - Kailua Beach, Waikiki",
+    "continent": "America",
+    "country": "Stati Uniti",
+    "countryEnglish": "United States",
+    "place": "Kailua",
+    "placeEnglish": "Kailua",
+    "latitude": 21.4022,
+    "longitude": -157.7394,
+    "publicUrl": "https://goo.gl/photos/8xVToCdwsN4DwvVc6"
+  },
+  {
     "dateFrom": "2016-08-29",
     "dateTo": "2016-08-30",
-    "title": "Hawaii '16 - Kauai North Shore e volo in elicottero",
+    "title": "Hawaii \u002716 - Kauai North Shore e volo in elicottero",
     "continent": "America",
     "country": "Stati Uniti",
     "countryEnglish": "United States",
@@ -1432,7 +1458,7 @@
   {
     "dateFrom": "2016-08-30",
     "dateTo": "2016-08-31",
-    "title": "Hawaii '16 - Waimea Canyon, Salt Pond Beach",
+    "title": "Hawaii \u002716 - Waimea Canyon, Salt Pond Beach",
     "continent": "America",
     "country": "Stati Uniti",
     "countryEnglish": "United States",
@@ -1445,7 +1471,7 @@
   {
     "dateFrom": "2016-08-31",
     "dateTo": "2016-09-01",
-    "title": "Hawaii '16 - Kauai South Shore, Kilauea Lighthouse",
+    "title": "Hawaii \u002716 - Kauai South Shore, Kilauea Lighthouse",
     "continent": "America",
     "country": "Stati Uniti",
     "countryEnglish": "United States",
@@ -1458,7 +1484,7 @@
   {
     "dateFrom": "2016-09-02",
     "dateTo": "2016-09-02",
-    "title": "Hawaii '16 - Arrivo a Maui, Lahaina",
+    "title": "Hawaii \u002716 - Arrivo a Maui, Lahaina",
     "continent": "America",
     "country": "Stati Uniti",
     "countryEnglish": "United States",
@@ -1471,7 +1497,7 @@
   {
     "dateFrom": "2016-09-02",
     "dateTo": "2016-09-03",
-    "title": "Hawaii '16 - The road to Hana",
+    "title": "Hawaii \u002716 - The road to Hana",
     "continent": "America",
     "country": "Stati Uniti",
     "countryEnglish": "United States",
@@ -1484,7 +1510,7 @@
   {
     "dateFrom": "2016-09-03",
     "dateTo": "2016-09-04",
-    "title": "Hawaii '16 - Makena, Kapalua",
+    "title": "Hawaii \u002716 - Makena, Kapalua",
     "continent": "America",
     "country": "Stati Uniti",
     "countryEnglish": "United States",
@@ -1497,7 +1523,7 @@
   {
     "dateFrom": "2016-09-04",
     "dateTo": "2016-09-05",
-    "title": "Hawaii '16 - Haleakala, Iao Valley",
+    "title": "Hawaii \u002716 - Haleakala, Iao Valley",
     "continent": "America",
     "country": "Stati Uniti",
     "countryEnglish": "United States",
@@ -1510,7 +1536,7 @@
   {
     "dateFrom": "2016-09-05",
     "dateTo": "2016-09-06",
-    "title": "Hawaii '16 - Arrivo a Big Island, Kona",
+    "title": "Hawaii \u002716 - Arrivo a Big Island, Kona",
     "continent": "America",
     "country": "Stati Uniti",
     "countryEnglish": "United States",
@@ -1523,7 +1549,7 @@
   {
     "dateFrom": "2016-09-06",
     "dateTo": "2016-09-07",
-    "title": "Hawaii '16 - Volcano National Park",
+    "title": "Hawaii \u002716 - Volcano National Park",
     "continent": "America",
     "country": "Stati Uniti",
     "countryEnglish": "United States",
@@ -1536,7 +1562,7 @@
   {
     "dateFrom": "2016-09-07",
     "dateTo": "2016-09-07",
-    "title": "Hawaii '16 - Big Island in elicottero",
+    "title": "Hawaii \u002716 - Big Island in elicottero",
     "continent": "America",
     "country": "Stati Uniti",
     "countryEnglish": "United States",
@@ -1549,7 +1575,7 @@
   {
     "dateFrom": "2016-09-08",
     "dateTo": "2016-09-08",
-    "title": "Hawaii '16 - North-west Hawaii",
+    "title": "Hawaii \u002716 - North-west Hawaii",
     "continent": "America",
     "country": "Stati Uniti",
     "countryEnglish": "United States",
@@ -1562,7 +1588,7 @@
   {
     "dateFrom": "2016-09-09",
     "dateTo": "2016-09-09",
-    "title": "Hawaii '16 - Pu'uhonua o Honaunau",
+    "title": "Hawaii \u002716 - Pu\u0027uhonua o Honaunau",
     "continent": "America",
     "country": "Stati Uniti",
     "countryEnglish": "United States",
@@ -1575,7 +1601,7 @@
   {
     "dateFrom": "2016-09-10",
     "dateTo": "2016-09-12",
-    "title": "Hawaii '16 - Ultimo giorno (Mauna Kea e ritorno)",
+    "title": "Hawaii \u002716 - Ultimo giorno (Mauna Kea e ritorno)",
     "continent": "America",
     "country": "Stati Uniti",
     "countryEnglish": "United States",
@@ -1588,12 +1614,12 @@
   {
     "dateFrom": "2016-10-29",
     "dateTo": "2016-10-30",
-    "title": "Weekend a San Michele all'Adige",
+    "title": "Weekend a San Michele all\u0027Adige",
     "continent": "Europa",
     "country": "Italia",
     "countryEnglish": "Italy",
-    "place": "San Michele all'Adige",
-    "placeEnglish": "San Michele all'Adige",
+    "place": "San Michele all\u0027Adige",
+    "placeEnglish": "San Michele all\u0027Adige",
     "latitude": 46.1934,
     "longitude": 11.1331,
     "publicUrl": "https://goo.gl/photos/YsXcazbeJzGS53J89"
@@ -1640,7 +1666,7 @@
   {
     "dateFrom": "2017-03-22",
     "dateTo": "2017-03-23",
-    "title": "Giappone '17 - Arrivo a Tokyo",
+    "title": "Giappone \u002717 - Arrivo a Tokyo",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -1653,7 +1679,7 @@
   {
     "dateFrom": "2017-03-23",
     "dateTo": "2017-03-24",
-    "title": "Giappone '17 - Shimokitazawa, Kichijoji, Ghibli museum",
+    "title": "Giappone \u002717 - Shimokitazawa, Kichijoji, Ghibli museum",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -1666,7 +1692,7 @@
   {
     "dateFrom": "2017-03-24",
     "dateTo": "2017-03-25",
-    "title": "Giappone '17 - Miyajima",
+    "title": "Giappone \u002717 - Miyajima",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -1679,7 +1705,7 @@
   {
     "dateFrom": "2017-03-26",
     "dateTo": "2017-03-26",
-    "title": "Giappone '17 - Daizafu Temple e Fukuoka",
+    "title": "Giappone \u002717 - Daizafu Temple e Fukuoka",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -1692,7 +1718,7 @@
   {
     "dateFrom": "2017-03-27",
     "dateTo": "2017-03-27",
-    "title": "Giappone '17 - Gli \"inferni\" di Beppu",
+    "title": "Giappone \u002717 - Gli \u0022inferni\u0022 di Beppu",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -1705,7 +1731,7 @@
   {
     "dateFrom": "2017-03-28",
     "dateTo": "2017-03-28",
-    "title": "Giappone '17 - Sakurajima",
+    "title": "Giappone \u002717 - Sakurajima",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -1718,7 +1744,7 @@
   {
     "dateFrom": "2017-03-29",
     "dateTo": "2017-03-29",
-    "title": "Giappone '17 - Yutoku Inari Shrine, Nagasaki",
+    "title": "Giappone \u002717 - Yutoku Inari Shrine, Nagasaki",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -1731,7 +1757,7 @@
   {
     "dateFrom": "2017-03-30",
     "dateTo": "2017-03-30",
-    "title": "Giappone '17 - Koyasan",
+    "title": "Giappone \u002717 - Koyasan",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -1744,7 +1770,7 @@
   {
     "dateFrom": "2017-03-31",
     "dateTo": "2017-03-31",
-    "title": "Giappone '17 - Arrivo a Kyoto",
+    "title": "Giappone \u002717 - Arrivo a Kyoto",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -1757,7 +1783,7 @@
   {
     "dateFrom": "2017-04-01",
     "dateTo": "2017-04-01",
-    "title": "Giappone '17 - Kyoto",
+    "title": "Giappone \u002717 - Kyoto",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -1770,7 +1796,7 @@
   {
     "dateFrom": "2017-04-02",
     "dateTo": "2017-04-02",
-    "title": "Giappone '17 - Kyoto sud (Imaicho e Hasedera)",
+    "title": "Giappone \u002717 - Kyoto sud (Imaicho e Hasedera)",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -1783,7 +1809,7 @@
   {
     "dateFrom": "2017-04-02",
     "dateTo": "2017-04-04",
-    "title": "Giappone '17 - Tempio Byodoin, Nara, Higashiyama",
+    "title": "Giappone \u002717 - Tempio Byodoin, Nara, Higashiyama",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -1796,7 +1822,7 @@
   {
     "dateFrom": "2017-04-03",
     "dateTo": "2017-04-03",
-    "title": "Giappone '17 - Uji e Kyoto",
+    "title": "Giappone \u002717 - Uji e Kyoto",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -1809,7 +1835,7 @@
   {
     "dateFrom": "2017-04-05",
     "dateTo": "2017-04-05",
-    "title": "Giappone '17 - Higashiyama e Gion Shirakawa",
+    "title": "Giappone \u002717 - Higashiyama e Gion Shirakawa",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -1822,7 +1848,7 @@
   {
     "dateFrom": "2017-04-06",
     "dateTo": "2017-04-06",
-    "title": "Giappone '17 - Kyoto (varie)",
+    "title": "Giappone \u002717 - Kyoto (varie)",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -1835,7 +1861,7 @@
   {
     "dateFrom": "2017-04-07",
     "dateTo": "2017-04-08",
-    "title": "Giappone '17 - Tokyo (Ueno e altro)",
+    "title": "Giappone \u002717 - Tokyo (Ueno e altro)",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -1848,7 +1874,7 @@
   {
     "dateFrom": "2017-04-09",
     "dateTo": "2017-04-10",
-    "title": "Giappone '17 - Monte Takao e altro",
+    "title": "Giappone \u002717 - Monte Takao e altro",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -1861,7 +1887,7 @@
   {
     "dateFrom": "2017-04-11",
     "dateTo": "2017-04-12",
-    "title": "Giappone '17 - Narita",
+    "title": "Giappone \u002717 - Narita",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -1891,8 +1917,8 @@
     "continent": "Europa",
     "country": "Italia",
     "countryEnglish": "Italy",
-    "place": "Palù del Fersina",
-    "placeEnglish": "Palù del Fersina",
+    "place": "Pal\u00F9 del Fersina",
+    "placeEnglish": "Pal\u00F9 del Fersina",
     "latitude": 46.1296,
     "longitude": 11.3514,
     "publicUrl": "https://goo.gl/photos/D7emsxor61BKW5xaA"
@@ -1926,7 +1952,7 @@
   {
     "dateFrom": "2017-12-15",
     "dateTo": "2017-12-17",
-    "title": "Orologio da parete in stile \"yoga\"",
+    "title": "Orologio da parete in stile \u0022yoga\u0022",
     "continent": "Europa",
     "country": "Italia",
     "countryEnglish": "Italy",
@@ -2160,7 +2186,7 @@
   {
     "dateFrom": "2018-09-27",
     "dateTo": "2018-09-30",
-    "title": "Oslo & dintorni 2018",
+    "title": "Oslo \u0026 dintorni 2018",
     "continent": "Europa",
     "country": "Norvegia",
     "countryEnglish": "Norway",
@@ -2199,7 +2225,7 @@
   {
     "dateFrom": "2019-03-14",
     "dateTo": "2019-03-14",
-    "title": "Taiwan 2019 - 03 - Taipei & Beitou",
+    "title": "Taiwan 2019 - 03 - Taipei \u0026 Beitou",
     "continent": "Asia",
     "country": "Taiwan",
     "countryEnglish": "Taiwan",
@@ -2212,7 +2238,7 @@
   {
     "dateFrom": "2019-03-15",
     "dateTo": "2019-03-15",
-    "title": "Taiwan 2019 - 04 - Jiufen & Taipei",
+    "title": "Taiwan 2019 - 04 - Jiufen \u0026 Taipei",
     "continent": "Asia",
     "country": "Taiwan",
     "countryEnglish": "Taiwan",
@@ -2225,7 +2251,7 @@
   {
     "dateFrom": "2019-03-15",
     "dateTo": "2019-03-15",
-    "title": "Taiwan 2019 - 04.1 - Taipei di notte & Raohe night street market",
+    "title": "Taiwan 2019 - 04.1 - Taipei di notte \u0026 Raohe night street market",
     "continent": "Asia",
     "country": "Taiwan",
     "countryEnglish": "Taiwan",
@@ -2238,7 +2264,7 @@
   {
     "dateFrom": "2019-03-16",
     "dateTo": "2019-03-16",
-    "title": "Taiwan 2019 - 05 - Taipei & Tansui",
+    "title": "Taiwan 2019 - 05 - Taipei \u0026 Tansui",
     "continent": "Asia",
     "country": "Taiwan",
     "countryEnglish": "Taiwan",
@@ -2264,7 +2290,7 @@
   {
     "dateFrom": "2019-03-18",
     "dateTo": "2019-03-19",
-    "title": "Taiwan 2019 - 07 - Lukang & Taichung",
+    "title": "Taiwan 2019 - 07 - Lukang \u0026 Taichung",
     "continent": "Asia",
     "country": "Taiwan",
     "countryEnglish": "Taiwan",
@@ -2290,7 +2316,7 @@
   {
     "dateFrom": "2019-03-22",
     "dateTo": "2019-03-22",
-    "title": "Taiwan 2019 - 09 - Anping & Tainan",
+    "title": "Taiwan 2019 - 09 - Anping \u0026 Tainan",
     "continent": "Asia",
     "country": "Taiwan",
     "countryEnglish": "Taiwan",
@@ -2355,7 +2381,7 @@
   {
     "dateFrom": "2019-03-26",
     "dateTo": "2019-03-26",
-    "title": "Hong Kong 2019 - 03 - A spasso & The Peak",
+    "title": "Hong Kong 2019 - 03 - A spasso \u0026 The Peak",
     "continent": "Asia",
     "country": "Cina",
     "countryEnglish": "China",
@@ -2433,7 +2459,7 @@
   {
     "dateFrom": "2019-08-05",
     "dateTo": "2020-02-10",
-    "title": "Riparazione danno da \"kickback\" su orologio yoga",
+    "title": "Riparazione danno da \u0022kickback\u0022 su orologio yoga",
     "continent": "Europa",
     "country": "Italia",
     "countryEnglish": "Italy",
@@ -2498,7 +2524,7 @@
   {
     "dateFrom": "2019-09-17",
     "dateTo": "2019-10-12",
-    "title": "Svizzera e Alsazia 2019 - I villaggi dell'Alsazia",
+    "title": "Svizzera e Alsazia 2019 - I villaggi dell\u0027Alsazia",
     "continent": "Europa",
     "country": "Francia",
     "countryEnglish": "France",
@@ -2550,7 +2576,7 @@
   {
     "dateFrom": "2020-06-06",
     "dateTo": "2020-06-11",
-    "title": "Merano e \"dintorni\"",
+    "title": "Merano e \u0022dintorni\u0022",
     "continent": "Europa",
     "country": "Italia",
     "countryEnglish": "Italy",
@@ -2595,8 +2621,8 @@
     "countryEnglish": "Italy",
     "place": null,
     "placeEnglish": null,
-    "latitude": null,
-    "longitude": null,
+    "latitude": 43.5676,
+    "longitude": 12.583,
     "publicUrl": "https://photos.app.goo.gl/8B7zRZ8K9BVtjTA86"
   },
   {
@@ -2645,8 +2671,8 @@
     "continent": "Europa",
     "country": "Italia",
     "countryEnglish": "Italy",
-    "place": "Arquà Petrarca",
-    "placeEnglish": "Arquà Petrarca",
+    "place": "Arqu\u00E0 Petrarca",
+    "placeEnglish": "Arqu\u00E0 Petrarca",
     "latitude": 45.279,
     "longitude": 11.7296,
     "publicUrl": "https://photos.app.goo.gl/y3TNPgcFfXdAUk8LA"
@@ -2667,20 +2693,20 @@
   {
     "dateFrom": "2021-09-06",
     "dateTo": "2021-09-11",
-    "title": "Lago di Como (+ Salò)",
+    "title": "Lago di Como (\u002B Sal\u00F2)",
     "continent": "Europa",
     "country": "Italia",
     "countryEnglish": "Italy",
     "place": null,
     "placeEnglish": null,
-    "latitude": null,
-    "longitude": null,
+    "latitude": 45.9989,
+    "longitude": 9.2612,
     "publicUrl": "https://photos.app.goo.gl/s883nagyPaRr6K3Q9"
   },
   {
     "dateFrom": "2021-11-27",
     "dateTo": "2021-11-27",
-    "title": "Oasi di Canneviè",
+    "title": "Oasi di Cannevi\u00E8",
     "continent": "Europa",
     "country": "Italia",
     "countryEnglish": "Italy",
@@ -2706,7 +2732,7 @@
   {
     "dateFrom": "2022-06-25",
     "dateTo": "2022-06-27",
-    "title": "Grenoble, Limoges, Île de Ré",
+    "title": "Grenoble, Limoges, \u00CEle de R\u00E9",
     "continent": "Europa",
     "country": "Francia",
     "countryEnglish": "France",
@@ -2771,12 +2797,12 @@
   {
     "dateFrom": "2022-07-03",
     "dateTo": "2022-07-03",
-    "title": "San Sebastian & Bilbao",
+    "title": "San Sebastian \u0026 Bilbao",
     "continent": "Europa",
     "country": "Spagna",
     "countryEnglish": "Spain",
-    "place": "San Sebastián",
-    "placeEnglish": "San Sebastián",
+    "place": "San Sebasti\u00E1n",
+    "placeEnglish": "San Sebasti\u00E1n",
     "latitude": 43.3183,
     "longitude": -1.9812,
     "publicUrl": "https://photos.app.goo.gl/58srAP1eSR7aLxjB8"
@@ -2823,7 +2849,7 @@
   {
     "dateFrom": "2023-04-23",
     "dateTo": "2023-04-23",
-    "title": "43° Artevento Cervia Festival Internazionale dell'Aquilone",
+    "title": "43\u00B0 Artevento Cervia Festival Internazionale dell\u0027Aquilone",
     "continent": "Europa",
     "country": "Italia",
     "countryEnglish": "Italy",
@@ -3018,14 +3044,14 @@
   {
     "dateFrom": "2023-08-14",
     "dateTo": "2023-08-17",
-    "title": "Val di Fassa & Odle",
+    "title": "Val di Fassa \u0026 Odle",
     "continent": "Europa",
     "country": "Italia",
     "countryEnglish": "Italy",
     "place": null,
     "placeEnglish": null,
-    "latitude": null,
-    "longitude": null,
+    "latitude": 46.6088,
+    "longitude": 11.7664,
     "publicUrl": "https://photos.app.goo.gl/nqQc9t1CjFbuuFkH6"
   },
   {
@@ -3096,7 +3122,7 @@
   {
     "dateFrom": "2024-11-09",
     "dateTo": "2024-11-10",
-    "title": "Corea 2024 - 05 (Arrivo a Busan & Gita a Gyeongju)",
+    "title": "Corea 2024 - 05 (Arrivo a Busan \u0026 Gita a Gyeongju)",
     "continent": "Asia",
     "country": "Corea del Sud",
     "countryEnglish": "South Korea",
@@ -3165,8 +3191,8 @@
     "continent": "Europa",
     "country": "Italia",
     "countryEnglish": "Italy",
-    "place": "Castel d'Aiano",
-    "placeEnglish": "Castel d'Aiano",
+    "place": "Castel d\u0027Aiano",
+    "placeEnglish": "Castel d\u0027Aiano",
     "latitude": 44.2778,
     "longitude": 11.0012,
     "publicUrl": "https://photos.app.goo.gl/mPoSNetBTcZnYLqb6"
@@ -3174,7 +3200,7 @@
   {
     "dateFrom": "2025-07-24",
     "dateTo": "2025-08-06",
-    "title": "South England & Cornwall",
+    "title": "South England \u0026 Cornwall",
     "continent": "Europa",
     "country": "Regno Unito",
     "countryEnglish": "United Kingdom",
@@ -3187,7 +3213,7 @@
   {
     "dateFrom": "2026-05-15",
     "dateTo": "2026-05-15",
-    "title": "Giappone '26 - 01 - Arrivo serale ad Osaka",
+    "title": "Giappone \u002726 - 01 - Arrivo serale ad Osaka",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -3200,7 +3226,7 @@
   {
     "dateFrom": "2026-05-16",
     "dateTo": "2026-05-16",
-    "title": "Giappone '26 - 02 - Omihachiman",
+    "title": "Giappone \u002726 - 02 - Omihachiman",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -3213,7 +3239,7 @@
   {
     "dateFrom": "2026-05-17",
     "dateTo": "2026-05-17",
-    "title": "Giappone '26 - 03 - Naoshima",
+    "title": "Giappone \u002726 - 03 - Naoshima",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -3226,7 +3252,7 @@
   {
     "dateFrom": "2026-05-18",
     "dateTo": "2026-05-18",
-    "title": "Giappone '26 - 04 - Kotohira, Zensuji, Marugame",
+    "title": "Giappone \u002726 - 04 - Kotohira, Zensuji, Marugame",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -3239,7 +3265,7 @@
   {
     "dateFrom": "2026-05-19",
     "dateTo": "2026-05-19",
-    "title": "Giappone '26 - 05 - Honjima Island, Marugame (Giardino Nakatsu Banshoen)",
+    "title": "Giappone \u002726 - 05 - Honjima Island, Marugame (Giardino Nakatsu Banshoen)",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -3252,7 +3278,7 @@
   {
     "dateFrom": "2026-05-20",
     "dateTo": "2026-05-20",
-    "title": "Giappone '26 - 06 - Kochi (Katsurahama Beach, Mount Godaisan)",
+    "title": "Giappone \u002726 - 06 - Kochi (Katsurahama Beach, Mount Godaisan)",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -3265,7 +3291,7 @@
   {
     "dateFrom": "2026-05-21",
     "dateTo": "2026-05-21",
-    "title": "Giappone '26 - 07 - Uwajima (Giardino Tenshakōen, Warei Shrine)",
+    "title": "Giappone \u002726 - 07 - Uwajima (Giardino Tenshak\u014Den, Warei Shrine)",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -3278,7 +3304,7 @@
   {
     "dateFrom": "2026-05-22",
     "dateTo": "2026-05-22",
-    "title": "Giappone '26 - 08 - Matsuyama (Castello, Tempio Ishite, Dogo Onsen)",
+    "title": "Giappone \u002726 - 08 - Matsuyama (Castello, Tempio Ishite, Dogo Onsen)",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -3291,7 +3317,7 @@
   {
     "dateFrom": "2026-05-23",
     "dateTo": "2026-05-23",
-    "title": "Giappone '26 - 09 - Ozu, Uckiko, Dogo Onsen notturna",
+    "title": "Giappone \u002726 - 09 - Ozu, Uckiko, Dogo Onsen notturna",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -3304,7 +3330,7 @@
   {
     "dateFrom": "2026-05-24",
     "dateTo": "2026-05-24",
-    "title": "Giappone '26 - 10 - Matsuyama (Dogo onsen, Tempio Isaniwa)",
+    "title": "Giappone \u002726 - 10 - Matsuyama (Dogo onsen, Tempio Isaniwa)",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -3315,22 +3341,9 @@
     "publicUrl": "https://photos.app.goo.gl/mpFAUeT6VCXqZy1D7"
   },
   {
-    "dateFrom": "2026-05-24",
-    "dateTo": "2026-05-24",
-    "title": "USA 2009 - 01 (San Francisco)",
-    "continent": "America",
-    "country": "Stati Uniti",
-    "countryEnglish": "United States",
-    "place": "San Francisco",
-    "placeEnglish": "San Francisco",
-    "latitude": 37.7749,
-    "longitude": -122.4194,
-    "publicUrl": "https://photos.app.goo.gl/c5asomb3G3WzoAsz7"
-  },
-  {
     "dateFrom": "2026-05-25",
     "dateTo": "2026-05-25",
-    "title": "Giappone '26 - 11 - Verso Beppu e Beppu",
+    "title": "Giappone \u002726 - 11 - Verso Beppu e Beppu",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -3343,7 +3356,7 @@
   {
     "dateFrom": "2026-05-26",
     "dateTo": "2026-05-26",
-    "title": "Giappone '26 - 12 - Verso Kumamoto (Monte Aso) e Kumamoto",
+    "title": "Giappone \u002726 - 12 - Verso Kumamoto (Monte Aso) e Kumamoto",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -3356,7 +3369,7 @@
   {
     "dateFrom": "2026-05-27",
     "dateTo": "2026-05-27",
-    "title": "Giappone '26 - 13 - Kumamoto (Traditional Crafts Center, Giardino Suizenji)",
+    "title": "Giappone \u002726 - 13 - Kumamoto (Traditional Crafts Center, Giardino Suizenji)",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -3369,7 +3382,7 @@
   {
     "dateFrom": "2026-05-28",
     "dateTo": "2026-05-28",
-    "title": "Giappone '26 - 14 - Kitakyushu (Castello e giardino)",
+    "title": "Giappone \u002726 - 14 - Kitakyushu (Castello e giardino)",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -3382,7 +3395,7 @@
   {
     "dateFrom": "2026-05-29",
     "dateTo": "2026-05-29",
-    "title": "Giappone '26 - 15 - Iwakuni (Kintaikyo Bridge e Castello), Hiroshima (Giardino Shukkei-en)",
+    "title": "Giappone \u002726 - 15 - Iwakuni (Kintaikyo Bridge e Castello), Hiroshima (Giardino Shukkei-en)",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -3395,7 +3408,7 @@
   {
     "dateFrom": "2026-05-30",
     "dateTo": "2026-05-30",
-    "title": "Giappone '26 - 16 - Osaka (Santuario di Sumiyoshi, e mercati vari)",
+    "title": "Giappone \u002726 - 16 - Osaka (Santuario di Sumiyoshi, e mercati vari)",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -3408,7 +3421,7 @@
   {
     "dateFrom": "2026-05-31",
     "dateTo": "2026-05-31",
-    "title": "Giappone '26 - 17 - Kyoto (Saihōji Kokedera, Kegonji Suzumushidera , Gion, Ninenzaka), Osaka notturna",
+    "title": "Giappone \u002726 - 17 - Kyoto (Saih\u014Dji Kokedera, Kegonji Suzumushidera , Gion, Ninenzaka), Osaka notturna",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
@@ -3421,7 +3434,7 @@
   {
     "dateFrom": "2026-06-01",
     "dateTo": "2026-06-01",
-    "title": "Giappone '26 - 18 - Osaka (Tempozan, Dotonbori)",
+    "title": "Giappone \u002726 - 18 - Osaka (Tempozan, Dotonbori)",
     "continent": "Asia",
     "country": "Giappone",
     "countryEnglish": "Japan",
