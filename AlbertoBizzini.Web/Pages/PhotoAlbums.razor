@@ -74,7 +74,7 @@ else
                          Breakpoint="Breakpoint.None" SortMode="SortMode.Multiple">
                 <NoRecordsContent>@L["NoAlbums"]</NoRecordsContent>
                 <Columns>
-                    <TemplateColumn Title="@L["AlbumLabel"]" SortBy="album => album.Title">
+                    <TemplateColumn Title="@L["AlbumLabel"]" Sortable="true" SortBy="album => album.Title">
                         <CellTemplate>
                             <MudLink Href="@context.Item.PublicUrl" Target="_blank"
                                      EndIcon="@Icons.Material.TwoTone.OpenInNew">
@@ -82,15 +82,15 @@ else
                             </MudLink>
                         </CellTemplate>
                     </TemplateColumn>
-                    <TemplateColumn Title="@L["PeriodLabel"]" SortBy="album => album.DateFrom"
+                    <TemplateColumn Title="@L["PeriodLabel"]" Sortable="true" SortBy="album => album.DateFrom"
                                     InitialDirection="SortDirection.Descending">
                         <CellTemplate>@Period(context.Item)</CellTemplate>
                     </TemplateColumn>
                     <PropertyColumn Property="album => album.Continent" Title="@L["ContinentColumnLabel"]" />
-                    <TemplateColumn Title="@L["CountryColumnLabel"]" SortBy="album => Country(album)">
+                    <TemplateColumn Title="@L["CountryColumnLabel"]" Sortable="true" SortBy="album => Country(album)">
                         <CellTemplate>@Country(context.Item)</CellTemplate>
                     </TemplateColumn>
-                    <TemplateColumn Title="@L["PlaceColumnLabel"]" SortBy="album => Place(album)">
+                    <TemplateColumn Title="@L["PlaceColumnLabel"]" Sortable="true" SortBy="album => Place(album)">
                         <CellTemplate>@Place(context.Item)</CellTemplate>
                     </TemplateColumn>
                 </Columns>
