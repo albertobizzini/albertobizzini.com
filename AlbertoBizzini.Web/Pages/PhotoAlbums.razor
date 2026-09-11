@@ -10,8 +10,8 @@
 <MudPaper Elevation="3" Class="mb-4 photo-album-filters">
     <MudButton FullWidth Variant="Variant.Text" Color="Color.Inherit"
                Class="filter-toggle pa-4" OnClick="ToggleFilters"
-               StartIcon="@Icons.Material.Filled.FilterList"
-               EndIcon="@(_filtersVisible ? Icons.Material.Filled.ExpandLess : Icons.Material.Filled.ExpandMore)"
+               StartIcon="@Icons.Material.TwoTone.FilterList"
+               EndIcon="@(_filtersVisible ? Icons.Material.TwoTone.ExpandLess : Icons.Material.TwoTone.ExpandMore)"
                aria-expanded="@_filtersVisible">
         @L["FiltersLabel"]
     </MudButton>
@@ -20,7 +20,7 @@
         <MudItem xs="12" md="3">
             <MudTextField @bind-Value="_search" @bind-Value:after="ApplyFiltersAsync"
                           Label="@L["SearchLabel"]" Immediate DebounceInterval="300"
-                          Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" Clearable />
+                          Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.TwoTone.Search" Clearable />
         </MudItem>
         <MudItem xs="12" md="3">
             <MudSelect T="string" Label="@L["ContinentLabel"]" MultiSelection
@@ -66,10 +66,10 @@ else
     <MudText Typo="Typo.caption" Class="mb-2">@L["VisibleAlbums", _filteredAlbums.Count, _albums.Count]</MudText>
     <MudTabs ActivePanelIndex="_activeView" ActivePanelIndexChanged="OnViewChanged"
              KeepPanelsAlive Elevation="2" PanelClass="pa-4">
-        <MudTabPanel Text="@L["MapTab"]" Icon="@Icons.Material.Filled.Map">
+        <MudTabPanel Text="@L["MapTab"]" Icon="@Icons.Material.TwoTone.Map">
             <div id="photo-albums-map" @ref="_mapElement" aria-label="@L["MapAriaLabel"]"></div>
         </MudTabPanel>
-        <MudTabPanel Text="@L["TableTab"]" Icon="@Icons.Material.Filled.TableRows">
+        <MudTabPanel Text="@L["TableTab"]" Icon="@Icons.Material.TwoTone.TableRows">
             <MudDataGrid T="GooglePhotoAlbum" Items="_filteredAlbums" Dense Hover
                          Breakpoint="Breakpoint.None" SortMode="SortMode.Multiple">
                 <NoRecordsContent>@L["NoAlbums"]</NoRecordsContent>
