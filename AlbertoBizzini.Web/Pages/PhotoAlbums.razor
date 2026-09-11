@@ -64,24 +64,28 @@ else if (_error is not null)
 else
 {
     <MudText Typo="Typo.caption" Class="mb-2">@L["VisibleAlbums", _filteredAlbums.Count, _albums.Count]</MudText>
-    <MudTabs ActivePanelIndex="_activeView" ActivePanelIndexChanged="OnViewChanged" Elevation="2" PanelClass="pa-4">
+    <MudTabs ActivePanelIndex="_activeView" ActivePanelIndexChanged="OnViewChanged"
+             KeepPanelsAlive Elevation="2" PanelClass="pa-4">
         <MudTabPanel Text="@L["MapTab"]" Icon="@Icons.Material.Filled.Map">
             <div id="photo-albums-map" @ref="_mapElement" aria-label="@L["MapAriaLabel"]"></div>
         </MudTabPanel>
         <MudTabPanel Text="@L["TableTab"]" Icon="@Icons.Material.Filled.TableRows">
-            <MudDataGrid T="GooglePhotoAlbum" Items="_filteredAlbums" Dense Hover Striped
+            <MudDataGrid T="GooglePhotoAlbum" Items="_filteredAlbums" Dense Hover
                          Breakpoint="Breakpoint.None" SortMode="SortMode.Multiple">
                 <NoRecordsContent>@L["NoAlbums"]</NoRecordsContent>
                 <Columns>
                     <TemplateColumn Title="@L["AlbumLabel"]" SortBy="album => album.Title">
                         <CellTemplate>
-                            <MudLink Href="@context.Item.PublicUrl" Target="_blank">
+                            <MudLink Href="@context.Item.PublicUrl" Target="_blank"
+                                     EndIcon="@Icons.Material.TwoTone.OpenInNew">
                                 @context.Item.Title
                             </MudLink>
                         </CellTemplate>
                     </TemplateColumn>
-                    <PropertyColumn Property="album => album.DateFrom" Title="@L["DateFromLabel"]" Format="d" />
-                    <PropertyColumn Property="album => album.DateTo" Title="@L["DateToLabel"]" Format="d" />
+                    <TemplateColumn Title="@L["PeriodLabel"]" SortBy="album => album.DateFrom"
+                                    InitialDirection="SortDirection.Descending">
+                        <CellTemplate>@Period(context.Item)</CellTemplate>
+                    </TemplateColumn>
                     <PropertyColumn Property="album => album.Continent" Title="@L["ContinentColumnLabel"]" />
                     <TemplateColumn Title="@L["CountryColumnLabel"]" SortBy="album => Country(album)">
                         <CellTemplate>@Country(context.Item)</CellTemplate>
@@ -194,6 +198,14 @@ else
         (English ? album.CountryEnglish : album.Country) ?? album.Country ?? album.CountryEnglish ?? string.Empty;
     private string Place(GooglePhotoAlbum album) =>
         (English ? album.PlaceEnglish : album.Place) ?? album.Place ?? album.PlaceEnglish ?? string.Empty;
+    private static string Period(GooglePhotoAlbum album)
+    {
+        if (album.DateFrom is null)
+            return album.DateTo?.ToString("d") ?? string.Empty;
+        if (album.DateTo is null || album.DateTo == album.DateFrom)
+            return album.DateFrom.Value.ToString("d");
+        return $"{album.DateFrom.Value:d} – {album.DateTo.Value:d}";
+    }
     private static bool NotEmpty(string? value) => !string.IsNullOrWhiteSpace(value);
     private static void Replace(HashSet<string> target, IEnumerable<string> values)
     {

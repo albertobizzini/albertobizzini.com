@@ -71,7 +71,11 @@ export function setAlbums(albums) {
 }
 
 export function refresh() {
-    if (map) window.setTimeout(() => map.invalidateSize(), 0);
+    if (!map) return;
+
+    // MudTabs completes its visibility transition after the tab change callback.
+    // Waiting for it prevents Leaflet from measuring a hidden, zero-sized container.
+    window.setTimeout(() => map.invalidateSize(), 150);
 }
 
 export function dispose() {
