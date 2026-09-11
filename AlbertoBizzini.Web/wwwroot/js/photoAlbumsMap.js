@@ -70,6 +70,10 @@ export function setAlbums(albums) {
     }
 }
 
+export function refresh() {
+    if (map) window.setTimeout(() => map.invalidateSize(), 0);
+}
+
 export function dispose() {
     if (map) map.remove();
     map = undefined;

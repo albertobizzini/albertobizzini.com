@@ -11,6 +11,10 @@
     z-index: 2;
 }
 
+.filter-toggle {
+    justify-content: space-between;
+}
+
 @media (max-width: 600px) {
     #photo-albums-map {
         height: 65vh;

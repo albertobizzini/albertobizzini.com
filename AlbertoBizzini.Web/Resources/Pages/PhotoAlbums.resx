@@ -5,12 +5,22 @@
   <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
   <data name="PageTitle" xml:space="preserve"><value>My photo albums</value></data>
-  <data name="IntroductionText" xml:space="preserve"><value>Explore my shared Google Photos albums on the map.</value></data>
+  <data name="IntroductionText" xml:space="preserve"><value>Explore my shared Google Photos albums on the map or in the table.</value></data>
+  <data name="FiltersLabel" xml:space="preserve"><value>Filters</value></data>
+  <data name="MapTab" xml:space="preserve"><value>Map</value></data>
+  <data name="TableTab" xml:space="preserve"><value>Table</value></data>
+  <data name="AlbumLabel" xml:space="preserve"><value>Album</value></data>
+  <data name="DateFromLabel" xml:space="preserve"><value>From</value></data>
+  <data name="DateToLabel" xml:space="preserve"><value>To</value></data>
+  <data name="ContinentColumnLabel" xml:space="preserve"><value>Continent</value></data>
+  <data name="CountryColumnLabel" xml:space="preserve"><value>Country</value></data>
+  <data name="PlaceColumnLabel" xml:space="preserve"><value>Place</value></data>
+  <data name="NoAlbums" xml:space="preserve"><value>No albums match the selected filters.</value></data>
   <data name="SearchLabel" xml:space="preserve"><value>Search album title</value></data>
   <data name="ContinentLabel" xml:space="preserve"><value>Continents</value></data>
   <data name="CountryLabel" xml:space="preserve"><value>Countries</value></data>
   <data name="PlaceLabel" xml:space="preserve"><value>Places</value></data>
-  <data name="VisibleAlbums" xml:space="preserve"><value>{0} of {1} georeferenced albums shown</value></data>
+  <data name="VisibleAlbums" xml:space="preserve"><value>{0} of {1} albums shown</value></data>
   <data name="MapAriaLabel" xml:space="preserve"><value>Interactive map of photo albums</value></data>
   <data name="LoadError" xml:space="preserve"><value>The photo albums could not be loaded.</value></data>
 </root>

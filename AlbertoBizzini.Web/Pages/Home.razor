@@ -47,16 +47,16 @@
     </MudExpansionPanel>
 
 
-    <MudExpansionPanel Class="home-page-panel"> 
-
-        <TitleContent>
-            <MudStack Row Justify="Justify.FlexStart" Spacing="3" AlignItems="AlignItems.Center" @onclick='() => Nav.NavigateTo("photo-albums")'>
+    <MudPaper Outlined Class="home-page-panel home-page-link"
+              role="link" tabindex="0" @onclick="OpenPhotoAlbums" @onkeydown="OpenPhotoAlbumsWithKeyboard">
+        <MudStack Row Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center" Class="pa-4">
+            <MudStack Row Justify="Justify.FlexStart" Spacing="3" AlignItems="AlignItems.Center">
                 <MudIcon Icon="@Icons.Material.TwoTone.PhotoLibrary" Color="@HeaderIconColor" />
                 <h3>@L["MyPhotoAlbumsLinkText"]</h3>
             </MudStack>
-        </TitleContent>
-
-    </MudExpansionPanel>
+            <MudIcon Icon="@Icons.Material.Filled.ArrowForward" Color="Color.Action" />
+        </MudStack>
+    </MudPaper>
 
     <MudExpansionPanel Class="home-page-panel">
 
@@ -134,6 +134,14 @@
 
     private int _kindleClippingOfTheDayDeltaDays = 0;
     private bool _kindleClippingOfTheDayRandomMode = false;
+
+    private void OpenPhotoAlbums() => Nav.NavigateTo("photo-albums");
+
+    private void OpenPhotoAlbumsWithKeyboard(KeyboardEventArgs args)
+    {
+        if (args.Key is "Enter" or " ")
+            OpenPhotoAlbums();
+    }
 
     private async Task OnKindleClippingOfTheDayDeltaDaysChanged(int value)
     {

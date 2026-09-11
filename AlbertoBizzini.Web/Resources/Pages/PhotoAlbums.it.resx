@@ -5,12 +5,22 @@
   <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
   <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
   <data name="PageTitle" xml:space="preserve"><value>I miei album fotografici</value></data>
-  <data name="IntroductionText" xml:space="preserve"><value>Esplora sulla mappa i miei album condivisi su Google Foto.</value></data>
+  <data name="IntroductionText" xml:space="preserve"><value>Esplora sulla mappa o in tabella i miei album condivisi su Google Foto.</value></data>
+  <data name="FiltersLabel" xml:space="preserve"><value>Filtri</value></data>
+  <data name="MapTab" xml:space="preserve"><value>Mappa</value></data>
+  <data name="TableTab" xml:space="preserve"><value>Tabella</value></data>
+  <data name="AlbumLabel" xml:space="preserve"><value>Album</value></data>
+  <data name="DateFromLabel" xml:space="preserve"><value>Dal</value></data>
+  <data name="DateToLabel" xml:space="preserve"><value>Al</value></data>
+  <data name="ContinentColumnLabel" xml:space="preserve"><value>Continente</value></data>
+  <data name="CountryColumnLabel" xml:space="preserve"><value>Nazione</value></data>
+  <data name="PlaceColumnLabel" xml:space="preserve"><value>Luogo</value></data>
+  <data name="NoAlbums" xml:space="preserve"><value>Nessun album corrisponde ai filtri selezionati.</value></data>
   <data name="SearchLabel" xml:space="preserve"><value>Cerca nel titolo dell'album</value></data>
   <data name="ContinentLabel" xml:space="preserve"><value>Continenti</value></data>
   <data name="CountryLabel" xml:space="preserve"><value>Nazioni</value></data>
   <data name="PlaceLabel" xml:space="preserve"><value>Luoghi</value></data>
-  <data name="VisibleAlbums" xml:space="preserve"><value>Visualizzati {0} album georeferenziati su {1}</value></data>
+  <data name="VisibleAlbums" xml:space="preserve"><value>Visualizzati {0} album su {1}</value></data>
   <data name="MapAriaLabel" xml:space="preserve"><value>Mappa interattiva degli album fotografici</value></data>
   <data name="LoadError" xml:space="preserve"><value>Non è stato possibile caricare gli album fotografici.</value></data>
 </root>
