@@ -1,32 +1,41 @@
 .clippings-page {
-    /* The layout reserves 3.5rem for the app bar and adds 0.5rem of margin
-       around the main content. Keep this page within the remaining viewport. */
-    height: calc(100vh - 4.5rem);
-    height: calc(100dvh - 4.5rem);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
+    /* On small screens the document must be free to grow: constraining the
+       table to the viewport leaves too little room after the page controls. */
+    min-height: calc(100vh - 4.5rem);
+    min-height: calc(100dvh - 4.5rem);
 }
 
-.clippings-results {
-    flex: 1 1 0;
-    height: 0;
-    min-height: 0;
-}
+/* Breakpoint.Sm ends at 600px. Internal table scrolling is useful only on
+   larger screens, where filters and columns do not consume most of the view. */
+@media (min-width: 601px) {
+    .clippings-page {
+        height: calc(100vh - 4.5rem);
+        height: calc(100dvh - 4.5rem);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
 
-.clippings-results ::deep .mud-table {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
+    .clippings-results {
+        flex: 1 1 0;
+        height: 0;
+        min-height: 0;
+    }
 
-.clippings-results ::deep .mud-table-container {
-    flex: 1 1 0;
-    height: auto !important;
-    min-height: 0;
-    overflow-y: auto;
-}
+    .clippings-results ::deep .mud-table {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
 
-.clippings-results ::deep .mud-table-pagination {
-    flex: 0 0 auto;
+    .clippings-results ::deep .mud-table-container {
+        flex: 1 1 0;
+        height: auto !important;
+        min-height: 0;
+        overflow-y: auto;
+    }
+
+    .clippings-results ::deep .mud-table-pagination {
+        flex: 0 0 auto;
+    }
 }
