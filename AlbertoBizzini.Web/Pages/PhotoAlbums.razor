@@ -7,51 +7,50 @@
 
 <PageHeader L="@L" />
 
-<MudPaper Elevation="3" Class="mb-4 photo-album-filters">
-    <MudButton FullWidth Variant="Variant.Text" Color="Color.Inherit"
-               Class="filter-toggle pa-4" OnClick="ToggleFilters"
-               StartIcon="@Icons.Material.TwoTone.FilterList"
-               EndIcon="@(_filtersVisible ? Icons.Material.TwoTone.ExpandLess : Icons.Material.TwoTone.ExpandMore)"
-               aria-expanded="@_filtersVisible">
-        @L["FiltersLabel"]
-    </MudButton>
-    <MudCollapse Expanded="_filtersVisible">
-    <MudGrid Spacing="3" Class="px-4 pb-4">
-        <MudItem xs="12" md="3">
-            <MudTextField @bind-Value="_search" @bind-Value:after="ApplyFiltersAsync"
-                          Label="@L["SearchLabel"]" Immediate DebounceInterval="300"
-                          Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.TwoTone.Search" Clearable />
-        </MudItem>
-        <MudItem xs="12" md="3">
-            <MudSelect T="string" Label="@L["ContinentLabel"]" MultiSelection
-                       SelectedValues="@_selectedContinents" SelectedValuesChanged="OnContinentsChanged" Clearable>
-                @foreach (var value in _continents)
-                {
-                    <MudSelectItem T="string" Value="@value">@value</MudSelectItem>
-                }
-            </MudSelect>
-        </MudItem>
-        <MudItem xs="12" md="3">
-            <MudSelect T="string" Label="@L["CountryLabel"]" MultiSelection
-                       SelectedValues="@_selectedCountries" SelectedValuesChanged="OnCountriesChanged" Clearable>
-                @foreach (var value in AvailableCountries)
-                {
-                    <MudSelectItem T="string" Value="@value">@value</MudSelectItem>
-                }
-            </MudSelect>
-        </MudItem>
-        <MudItem xs="12" md="3">
-            <MudSelect T="string" Label="@L["PlaceLabel"]" MultiSelection
-                       SelectedValues="@_selectedPlaces" SelectedValuesChanged="OnPlacesChanged" Clearable>
-                @foreach (var value in AvailablePlaces)
-                {
-                    <MudSelectItem T="string" Value="@value">@value</MudSelectItem>
-                }
-            </MudSelect>
-        </MudItem>
-    </MudGrid>
-    </MudCollapse>
-</MudPaper>
+<MudBreakpointProvider OnBreakpointChanged="BreakpointChanged" />
+
+<MudExpansionPanels Elevation="6" class="pa-2 pb-4">
+    <MudExpansionPanel Text="@L["FiltersLabel"]"
+                       Icon="@Icons.Material.TwoTone.FilterAlt"
+                       Expanded="@(!IsMobile)">
+
+        <MudGrid Spacing="3" Class="px-4 pb-4">
+            <MudItem xs="12" md="3">
+                <MudTextField @bind-Value="_search" @bind-Value:after="ApplyFiltersAsync"
+                              Label="@L["SearchLabel"]" Immediate DebounceInterval="300"
+                              Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.TwoTone.Search" Clearable />
+            </MudItem>
+            <MudItem xs="12" md="3">
+                <MudSelect T="string" Label="@L["ContinentLabel"]" MultiSelection
+                           SelectedValues="@_selectedContinents" SelectedValuesChanged="OnContinentsChanged" Clearable>
+                    @foreach (var value in _continents)
+                    {
+                        <MudSelectItem T="string" Value="@value">@value</MudSelectItem>
+                    }
+                </MudSelect>
+            </MudItem>
+            <MudItem xs="12" md="3">
+                <MudSelect T="string" Label="@L["CountryLabel"]" MultiSelection
+                           SelectedValues="@_selectedCountries" SelectedValuesChanged="OnCountriesChanged" Clearable>
+                    @foreach (var value in AvailableCountries)
+                    {
+                        <MudSelectItem T="string" Value="@value">@value</MudSelectItem>
+                    }
+                </MudSelect>
+            </MudItem>
+            <MudItem xs="12" md="3">
+                <MudSelect T="string" Label="@L["PlaceLabel"]" MultiSelection
+                           SelectedValues="@_selectedPlaces" SelectedValuesChanged="OnPlacesChanged" Clearable>
+                    @foreach (var value in AvailablePlaces)
+                    {
+                        <MudSelectItem T="string" Value="@value">@value</MudSelectItem>
+                    }
+                </MudSelect>
+            </MudItem>
+        </MudGrid>
+
+    </MudExpansionPanel>
+</MudExpansionPanels>
 
 @if (_loading)
 {
@@ -222,4 +221,20 @@ else
             await _module.DisposeAsync();
         }
     }
+
+    #region Breakpoint
+
+    private Breakpoint _breakpoint;
+
+    private Task BreakpointChanged(Breakpoint breakpoint)
+    {
+        _breakpoint = breakpoint;
+        return Task.CompletedTask;
+    }
+
+    private bool IsMobile =>
+        _breakpoint <= Breakpoint.Sm;
+
+    #endregion
+
 }

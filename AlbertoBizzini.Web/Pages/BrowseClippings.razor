@@ -9,255 +9,260 @@
 
 <MudBreakpointProvider OnBreakpointChanged="BreakpointChanged" />
 
-<PageHeader L="@L"/>
+<div class="clippings-page">
 
-@if (!_loading && _clippings?.Count > 0)
-{
+    <PageHeader L="@L" />
 
-    <MudPaper Elevation="6" class="pa-2 pb-4">
-        <h3 class="mb-4">@L["FiltersAndSortingHeaderText"]</h3>
-
-        <MudStack Row Wrap="Wrap.Wrap"
-                  AlignItems="AlignItems.Stretch"
-                  Justify="Justify.FlexStart"
-                  Spacing="3"
-                  Class="px-2">
-
-            <MudTextField @bind-Value="_boundSearchString"
-                          Label="@L["SearchLabel", MinSearchKeywordLength]"
-                          Immediate="true"
-                          DebounceInterval="400"
-                          Adornment="Adornment.Start"
-                          AdornmentIcon="@Icons.Material.TwoTone.Search"
-                          Clearable
-                          Variant="Variant.Text"
-                          IconSize="Size.Medium" />
-
-            <MudSelect T="string"
-                       Value="@_selectedAuthor"
-                       ValueChanged="OnAuthorChanged"
-                       Label="@L["BookAuthorLabel"]"
-                       ShrinkLabel="false"
-                       Dense
-                       Clearable
-                       HelperText="@HowToSelectedAnotherAuthorHelperText">
-
-                @if (_filteredAuthors.Count > 0)
-                {
-                    @foreach (var author in _filteredAuthors)
-                    {
-                        <MudSelectItem Value="author">
-                            @author
-                        </MudSelectItem>
-                    }
-                }
-
-            </MudSelect>
-
-            @if (!string.IsNullOrWhiteSpace(_selectedAuthor) &&
-                 _filteredAuthorTitles.Count > 0)
-            {
-                <MudSelect T="string"
-                           Value="@_selectedTitle"
-                           ValueChanged="OnTitleChanged"
-                           Label="@L["BookTitleLabel"]"
-                           ShrinkLabel="false"
-                           Dense
-                           Clearable>
-
-                    @foreach (var title in _filteredAuthorTitles)
-                    {
-                        <MudSelectItem Value="title">
-                            @title
-                        </MudSelectItem>
-                    }
-
-                </MudSelect>
-            }
-
-        </MudStack>
-
-        <MudStack Row
-                  Wrap="Wrap.Wrap"
-                  AlignItems="AlignItems.Center"
-                  Justify="Justify.FlexStart"
-                  Spacing="2"
-                  Class="mt-6 px-2">
-
-            <MudSelect T="SortOption"
-                       Value="@_sortBy"
-                       ValueChanged="SortByChanged"
-                       Label="@L["SortByLabel"]"
-                       Dense
-                       Variant="Variant.Filled"
-                       Adornment="Adornment.Start"
-                       AdornmentIcon="@Icons.Material.TwoTone.Sort"
-                       FitContent
-                       Style="width: 12rem">
-
-                <MudSelectItem Value="SortOption.AddedOn">
-                    <MudStack Row
-                              AlignItems="AlignItems.Center"
-                              Justify="Justify.SpaceBetween">
-                        @L["AddedOnLabel"]
-                        <MudIcon Size="Size.Small"
-                                 Icon="@GetIcon(SortOption.AddedOn)" />
-                    </MudStack>
-                </MudSelectItem>
-
-                <MudSelectItem Value="SortOption.Author">
-                    <MudStack Row
-                              AlignItems="AlignItems.Center"
-                              Justify="Justify.SpaceBetween">
-                        @L["BookAuthorLabel"]
-                        <MudIcon Size="Size.Small"
-                                 Icon="@GetIcon(SortOption.Author)" />
-                    </MudStack>
-                </MudSelectItem>
-
-                <MudSelectItem Value="SortOption.Title">
-                    <MudStack Row
-                              AlignItems="AlignItems.Center"
-                              Justify="Justify.SpaceBetween">
-                        @L["BookTitleLabel"]
-                        <MudIcon Size="Size.Small"
-                                 Icon="@GetIcon(SortOption.Title)" />
-                    </MudStack>
-                </MudSelectItem>
-
-            </MudSelect>
-
-            <MudSwitch T="bool"
-                       Value="@_descending"
-                       ValueChanged="DescendingChanged"
-                       Size="Size.Small"
-                       Color="Color.Primary"
-                       UncheckedColor="Color.Inherit">
-                @L["DescendingLabel"]
-            </MudSwitch>
-
-        </MudStack>
-
-    </MudPaper>
-
-}
-
-<div class="mt-4 mb-2 textalign-center">
-    <MudText Typo="Typo.caption"
-             Class="opacity-lo"
-             Align="Align.Center">
-        @L.FormatWithMarkup(
-            "ShowClippingsCount",
-            _filteredAndSortedClippings.Count.ToString("n0"))
-    </MudText>
-    @if (_lastImportedAt is not null)
+    @if (!_loading && _clippings?.Count > 0)
     {
-        <MudText Typo="Typo.caption" Class="opacity-hi" Style="display:block">@L["LastImportedAtMessage", @_lastImportedAt!.Value.ToShortDateString()]</MudText>
+
+        <MudExpansionPanels Elevation="6" class="pa-2 pb-4">
+            <MudExpansionPanel Text="@L["FiltersAndSortingHeaderText"]"
+                               Icon="@Icons.Material.TwoTone.FilterAlt"
+                               Expanded="@(!IsMobile)">
+
+                <MudStack Row Wrap="Wrap.Wrap"
+                          AlignItems="AlignItems.Stretch"
+                          Justify="Justify.FlexStart"
+                          Spacing="3"
+                          Class="px-2">
+
+                    <MudTextField @bind-Value="_boundSearchString"
+                                  Label="@L["SearchLabel", MinSearchKeywordLength]"
+                                  Immediate="true"
+                                  DebounceInterval="400"
+                                  Adornment="Adornment.Start"
+                                  AdornmentIcon="@Icons.Material.TwoTone.Search"
+                                  Clearable
+                                  Variant="Variant.Text"
+                                  IconSize="Size.Medium" />
+
+                    <MudSelect T="string"
+                               Value="@_selectedAuthor"
+                               ValueChanged="OnAuthorChanged"
+                               Label="@L["BookAuthorLabel"]"
+                               ShrinkLabel="false"
+                               Dense
+                               Clearable
+                               HelperText="@HowToSelectedAnotherAuthorHelperText">
+
+                        @if (_filteredAuthors.Count > 0)
+                        {
+                            @foreach (var author in _filteredAuthors)
+                            {
+                                <MudSelectItem Value="author">
+                                    @author
+                                </MudSelectItem>
+                            }
+                        }
+
+                    </MudSelect>
+
+                    @if (!string.IsNullOrWhiteSpace(_selectedAuthor) &&
+                         _filteredAuthorTitles.Count > 0)
+                    {
+                        <MudSelect T="string"
+                                   Value="@_selectedTitle"
+                                   ValueChanged="OnTitleChanged"
+                                   Label="@L["BookTitleLabel"]"
+                                   ShrinkLabel="false"
+                                   Dense
+                                   Clearable>
+
+                            @foreach (var title in _filteredAuthorTitles)
+                            {
+                                <MudSelectItem Value="title">
+                                    @title
+                                </MudSelectItem>
+                            }
+
+                        </MudSelect>
+                    }
+
+                </MudStack>
+
+                <MudStack Row
+                          Wrap="Wrap.Wrap"
+                          AlignItems="AlignItems.Center"
+                          Justify="Justify.FlexStart"
+                          Spacing="2"
+                          Class="mt-6 px-2">
+
+                    <MudSelect T="SortOption"
+                               Value="@_sortBy"
+                               ValueChanged="SortByChanged"
+                               Label="@L["SortByLabel"]"
+                               Dense
+                               Variant="Variant.Filled"
+                               Adornment="Adornment.Start"
+                               AdornmentIcon="@Icons.Material.TwoTone.Sort"
+                               FitContent
+                               Style="width: 12rem">
+
+                        <MudSelectItem Value="SortOption.AddedOn">
+                            <MudStack Row
+                                      AlignItems="AlignItems.Center"
+                                      Justify="Justify.SpaceBetween">
+                                @L["AddedOnLabel"]
+                                <MudIcon Size="Size.Small"
+                                         Icon="@GetIcon(SortOption.AddedOn)" />
+                            </MudStack>
+                        </MudSelectItem>
+
+                        <MudSelectItem Value="SortOption.Author">
+                            <MudStack Row
+                                      AlignItems="AlignItems.Center"
+                                      Justify="Justify.SpaceBetween">
+                                @L["BookAuthorLabel"]
+                                <MudIcon Size="Size.Small"
+                                         Icon="@GetIcon(SortOption.Author)" />
+                            </MudStack>
+                        </MudSelectItem>
+
+                        <MudSelectItem Value="SortOption.Title">
+                            <MudStack Row
+                                      AlignItems="AlignItems.Center"
+                                      Justify="Justify.SpaceBetween">
+                                @L["BookTitleLabel"]
+                                <MudIcon Size="Size.Small"
+                                         Icon="@GetIcon(SortOption.Title)" />
+                            </MudStack>
+                        </MudSelectItem>
+
+                    </MudSelect>
+
+                    <MudSwitch T="bool"
+                               Value="@_descending"
+                               ValueChanged="DescendingChanged"
+                               Size="Size.Small"
+                               Color="Color.Primary"
+                               UncheckedColor="Color.Inherit">
+                        @L["DescendingLabel"]
+                    </MudSwitch>
+
+                </MudStack>
+
+            </MudExpansionPanel>
+        </MudExpansionPanels>
     }
 
+    <div class="mt-4 mb-2 textalign-center">
+        <MudText Typo="Typo.caption"
+                 Class="opacity-lo"
+                 Align="Align.Center">
+            @L.FormatWithMarkup(
+                "ShowClippingsCount",
+                _filteredAndSortedClippings.Count.ToString("n0"))
+        </MudText>
+        @if (_lastImportedAt is not null)
+        {
+            <MudText Typo="Typo.caption" Class="opacity-hi" Style="display:block">@L["LastImportedAtMessage", @_lastImportedAt!.Value.ToShortDateString()]</MudText>
+        }
+
+    </div>
+
+    <div class="clippings-results">
+        @if (IsMobile)
+        {
+            <MudTable T="Clipping"
+                      Items="_filteredAndSortedClippings"
+                      Loading="_loading"
+                      Bordered="false"
+                      Dense="false"
+                      Outlined="false"
+                      Breakpoint="Breakpoint.None">
+
+                <NoRecordsContent>
+                    @SR["NoKindleClippingIsAvailableWarningMessage"]
+                </NoRecordsContent>
+
+                <RowTemplate>
+                    <MudTd>
+                        <KindleClippingDisplay Clipping="@context"
+                                               HighlightedTexts="@_searchkeywords" />
+                    </MudTd>
+                </RowTemplate>
+
+                <PagerContent>
+                    <MudTablePager />
+                </PagerContent>
+
+            </MudTable>
+
+        }
+        else
+        {
+
+            <MudDataGrid T="Clipping"
+                         Items="_filteredAndSortedClippings"
+                         Loading="_loading"
+                         Filterable="true"
+                         MultiSelection="false"
+                         Breakpoint="Breakpoint.None"
+                         Outlined
+                         SortMode="SortMode.None">
+
+                <NoRecordsContent>
+                    @SR["NoKindleClippingIsAvailableWarningMessage"]
+                </NoRecordsContent>
+
+                <Columns>
+
+                    <TemplateColumn>
+                        <HeaderTemplate>
+                            @L["ClippedTextLabel"]
+                        </HeaderTemplate>
+
+                        <CellTemplate>
+                            <KindleClippingDisplay Clipping="@context.Item"
+                                                   HighlightedTexts="@_searchkeywords"
+                                                   JustTheQuote />
+                        </CellTemplate>
+                    </TemplateColumn>
+
+                    <TemplateColumn>
+                        <HeaderTemplate>
+                            @L["BookAuthorLabel"]
+                        </HeaderTemplate>
+
+                        <CellTemplate>
+                            <MudLink Href="@KindleClippingService.BrowseAuthorClippingsHref(context.Item.Id, toTitle: false)">
+                                <MudHighlighter Text="@context.Item.Book.Author"
+                                                HighlightedTexts="@_searchkeywords" />
+
+                            </MudLink>
+                        </CellTemplate>
+                    </TemplateColumn>
+
+                    <TemplateColumn>
+                        <HeaderTemplate>
+                            @L["BookTitleLabel"]
+                        </HeaderTemplate>
+
+                        <CellTemplate>
+                            <MudLink Href="@KindleClippingService.BrowseAuthorClippingsHref(context.Item.Id, toTitle: true)">
+                                <MudHighlighter Text="@context.Item.Book.Title"
+                                                HighlightedTexts="@_searchkeywords" />
+                            </MudLink>
+                        </CellTemplate>
+                    </TemplateColumn>
+
+                    <PropertyColumn Property="x => x.AddedOn"
+                                    Title="@L["AddedOnLabel"]"
+                                    Format="d" />
+
+                </Columns>
+
+                <PagerContent>
+                    <MudDataGridPager T="Clipping" />
+                </PagerContent>
+
+            </MudDataGrid>
+
+        }
+    </div>
+
 </div>
-
-@if (IsMobile)
-{
-    <MudTable T="Clipping"
-              Items="_filteredAndSortedClippings"
-              Loading="_loading"
-              Bordered="false"
-              Dense="false"
-              Outlined="false"
-              Breakpoint="Breakpoint.None">
-
-        <NoRecordsContent>
-            @SR["NoKindleClippingIsAvailableWarningMessage"]
-        </NoRecordsContent>
-
-        <RowTemplate>
-            <MudTd>
-                <KindleClippingDisplay Clipping="@context"
-                                       HighlightedTexts="@_searchkeywords" />
-            </MudTd>
-        </RowTemplate>
-
-        <PagerContent>
-            <MudTablePager />
-        </PagerContent>
-
-    </MudTable>
-
-}
-else
-{
-
-    <MudDataGrid T="Clipping"
-                 Items="_filteredAndSortedClippings"
-                 Loading="_loading"
-                 Filterable="true"
-                 MultiSelection="false"
-                 Breakpoint="Breakpoint.None"
-                 Outlined
-                 SortMode="SortMode.None">
-
-        <ToolBarContent>
-        </ToolBarContent>
-
-        <NoRecordsContent>
-            @SR["NoKindleClippingIsAvailableWarningMessage"]
-        </NoRecordsContent>
-
-        <Columns>
-
-            <TemplateColumn>
-                <HeaderTemplate>
-                    @L["ClippedTextLabel"]
-                </HeaderTemplate>
-
-                <CellTemplate>
-                    <KindleClippingDisplay Clipping="@context.Item"
-                                           HighlightedTexts="@_searchkeywords"
-                                           JustTheQuote />
-                </CellTemplate>
-            </TemplateColumn>
-
-            <TemplateColumn>
-                <HeaderTemplate>
-                    @L["BookAuthorLabel"]
-                </HeaderTemplate>
-
-                <CellTemplate>
-                    <MudLink Href="@KindleClippingService.BrowseAuthorClippingsHref(context.Item.Id, toTitle: false)">
-                        <MudHighlighter Text="@context.Item.Book.Author"
-                                        HighlightedTexts="@_searchkeywords" />
-
-                    </MudLink>
-                </CellTemplate>
-            </TemplateColumn>
-
-            <TemplateColumn>
-                <HeaderTemplate>
-                    @L["BookTitleLabel"]
-                </HeaderTemplate>
-
-                <CellTemplate>
-                    <MudLink Href="@KindleClippingService.BrowseAuthorClippingsHref(context.Item.Id, toTitle: true)">
-                        <MudHighlighter Text="@context.Item.Book.Title"
-                                        HighlightedTexts="@_searchkeywords" />
-                    </MudLink>
-                </CellTemplate>
-            </TemplateColumn>
-
-            <PropertyColumn Property="x => x.AddedOn"
-                            Title="@L["AddedOnLabel"]"
-                            Format="d" />
-
-        </Columns>
-
-        <PagerContent>
-            <MudDataGridPager T="Clipping" />
-        </PagerContent>
-
-    </MudDataGrid>
-
-}
 
 @code
 {
