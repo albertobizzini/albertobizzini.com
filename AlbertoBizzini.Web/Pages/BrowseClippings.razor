@@ -9,6 +9,8 @@
 
 <MudBreakpointProvider OnBreakpointChanged="BreakpointChanged" />
 
+<div class="clippings-page">
+
 <PageHeader L="@L"/>
 
 @if (!_loading && _clippings?.Count > 0)
@@ -157,11 +159,13 @@
 
 </div>
 
-@if (IsMobile)
-{
-    <MudTable T="Clipping"
+<div class="clippings-results">
+    @if (IsMobile)
+    {
+        <MudTable T="Clipping"
               Items="_filteredAndSortedClippings"
               Loading="_loading"
+              Height="calc(100% - var(--clippings-table-pager-height))"
               Bordered="false"
               Dense="false"
               Outlined="false"
@@ -182,23 +186,21 @@
             <MudTablePager />
         </PagerContent>
 
-    </MudTable>
+        </MudTable>
 
-}
-else
-{
+    }
+    else
+    {
 
-    <MudDataGrid T="Clipping"
+        <MudDataGrid T="Clipping"
                  Items="_filteredAndSortedClippings"
                  Loading="_loading"
+                 Height="calc(100% - var(--clippings-table-pager-height))"
                  Filterable="true"
                  MultiSelection="false"
                  Breakpoint="Breakpoint.None"
                  Outlined
                  SortMode="SortMode.None">
-
-        <ToolBarContent>
-        </ToolBarContent>
 
         <NoRecordsContent>
             @SR["NoKindleClippingIsAvailableWarningMessage"]
@@ -255,9 +257,12 @@ else
             <MudDataGridPager T="Clipping" />
         </PagerContent>
 
-    </MudDataGrid>
+        </MudDataGrid>
 
-}
+    }
+</div>
+
+</div>
 
 @code
 {

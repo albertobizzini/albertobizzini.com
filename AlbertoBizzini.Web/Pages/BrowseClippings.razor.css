@@ -1,0 +1,20 @@
+.clippings-page {
+    /* The layout reserves 3.5rem for the app bar and adds 0.5rem of margin
+       around the main content. Keep this page within the remaining viewport. */
+    height: calc(100vh - 4.5rem);
+    height: calc(100dvh - 4.5rem);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    --clippings-table-pager-height: 52px;
+}
+
+.clippings-results {
+    flex: 1 1 auto;
+    min-height: 0;
+}
+
+.clippings-results ::deep .mud-table,
+.clippings-results ::deep .mud-data-grid {
+    max-height: 100%;
+}
