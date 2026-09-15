@@ -163,28 +163,27 @@
     @if (IsMobile)
     {
         <MudTable T="Clipping"
-              Items="_filteredAndSortedClippings"
-              Loading="_loading"
-              Height="calc(100% - var(--clippings-table-pager-height))"
-              Bordered="false"
-              Dense="false"
-              Outlined="false"
-              Breakpoint="Breakpoint.None">
+                  Items="_filteredAndSortedClippings"
+                  Loading="_loading"
+                  Bordered="false"
+                  Dense="false"
+                  Outlined="false"
+                  Breakpoint="Breakpoint.None">
 
-        <NoRecordsContent>
-            @SR["NoKindleClippingIsAvailableWarningMessage"]
-        </NoRecordsContent>
+            <NoRecordsContent>
+                @SR["NoKindleClippingIsAvailableWarningMessage"]
+            </NoRecordsContent>
 
-        <RowTemplate>
-            <MudTd>
-                <KindleClippingDisplay Clipping="@context"
-                                       HighlightedTexts="@_searchkeywords" />
-            </MudTd>
-        </RowTemplate>
+            <RowTemplate>
+                <MudTd>
+                    <KindleClippingDisplay Clipping="@context"
+                                           HighlightedTexts="@_searchkeywords" />
+                </MudTd>
+            </RowTemplate>
 
-        <PagerContent>
-            <MudTablePager />
-        </PagerContent>
+            <PagerContent>
+                <MudTablePager />
+            </PagerContent>
 
         </MudTable>
 
@@ -193,20 +192,19 @@
     {
 
         <MudDataGrid T="Clipping"
-                 Items="_filteredAndSortedClippings"
-                 Loading="_loading"
-                 Height="calc(100% - var(--clippings-table-pager-height))"
-                 Filterable="true"
-                 MultiSelection="false"
-                 Breakpoint="Breakpoint.None"
-                 Outlined
-                 SortMode="SortMode.None">
+                     Items="_filteredAndSortedClippings"
+                     Loading="_loading"
+                     Filterable="true"
+                     MultiSelection="false"
+                     Breakpoint="Breakpoint.None"
+                     Outlined
+                     SortMode="SortMode.None">
 
-        <NoRecordsContent>
-            @SR["NoKindleClippingIsAvailableWarningMessage"]
-        </NoRecordsContent>
+            <NoRecordsContent>
+                @SR["NoKindleClippingIsAvailableWarningMessage"]
+            </NoRecordsContent>
 
-        <Columns>
+            <Columns>
 
             <TemplateColumn>
                 <HeaderTemplate>
@@ -251,11 +249,11 @@
                             Title="@L["AddedOnLabel"]"
                             Format="d" />
 
-        </Columns>
+            </Columns>
 
-        <PagerContent>
-            <MudDataGridPager T="Clipping" />
-        </PagerContent>
+            <PagerContent>
+                <MudDataGridPager T="Clipping" />
+            </PagerContent>
 
         </MudDataGrid>
 
