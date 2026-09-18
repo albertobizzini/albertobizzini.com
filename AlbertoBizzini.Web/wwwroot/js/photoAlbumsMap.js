@@ -57,11 +57,14 @@ export function setAlbums(albums) {
     clusters.clearLayers();
 
     for (const album of albums) {
-        if (!Number.isFinite(album.latitude) || !Number.isFinite(album.longitude)) continue;
-        const marker = L.marker([album.latitude, album.longitude], { title: album.title });
-        marker.bindTooltip(album.title);
-        marker.on("click", () => window.open(album.publicUrl, "_blank", "noopener,noreferrer"));
-        clusters.addLayer(marker);
+        for (const location of album.locations) {
+            if (!Number.isFinite(location.latitude) || !Number.isFinite(location.longitude)) continue;
+            const marker = L.marker([location.latitude, location.longitude], { title: album.title });
+            const tooltip = location.place ? `${album.title} · ${location.place}` : album.title;
+            marker.bindTooltip(tooltip);
+            marker.on("click", () => window.open(album.publicUrl, "_blank", "noopener,noreferrer"));
+            clusters.addLayer(marker);
+        }
     }
 
     if (clusters.getLayers().length > 0) {
