@@ -32,10 +32,9 @@ jobs:
             -o release
 
       - name: Deploy to Cloudflare Pages
-        uses: cloudflare/pages-action@v3
+        uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: albertobizzini-com
-          directory: release/wwwroot
-          branch: master
+          command: pages deploy release/wwwroot --project-name=albertobizzini-com --branch=master
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
