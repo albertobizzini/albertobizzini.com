@@ -5,7 +5,9 @@ on:
     branches:
       - master
     paths:
-      - 'AlbertoBizzini.Web/**'       
+      - 'AlbertoBizzini.Web/**'
+      
+  workflow_dispatch:
 
 jobs:
   deploy:
