@@ -98,7 +98,7 @@
         "country": "Spagna",
         "countryEnglish": "Spain",
         "place": "Cordova",
-        "placeEnglish": "C\u00f3rdoba",
+        "placeEnglish": "C\u00F3rdoba",
         "latitude": 37.8882,
         "longitude": -4.7794
       }
@@ -748,7 +748,7 @@
     "id": "album-0039",
     "dateFrom": "2010-09-11",
     "dateTo": "2010-09-11",
-    "title": "2010-09-11 (50\u00b0 anniversario PAN)",
+    "title": "2010-09-11 (50\u00B0 anniversario PAN)",
     "publicUrl": "https://photos.app.goo.gl/ide7mdhPinX8AD5E9",
     "locations": [
       {
@@ -2199,7 +2199,7 @@
     "id": "album-0112",
     "dateFrom": "2016-03-20",
     "dateTo": "2016-03-20",
-    "title": "2016.03.20 - Gita a Parma (visita mostra \"Giappone segreto\")",
+    "title": "2016.03.20 - Gita a Parma (visita mostra \u0022Giappone segreto\u0022)",
     "publicUrl": "https://goo.gl/photos/PPUZdu2vi7U3oSUZ9",
     "locations": [
       {
@@ -2218,7 +2218,7 @@
     "id": "album-0115",
     "dateFrom": "2016-05-13",
     "dateTo": "2016-05-13",
-    "title": "Venerd\u00ec a Treviso",
+    "title": "Venerd\u00EC a Treviso",
     "publicUrl": "https://photos.app.goo.gl/zTG6LmuHCeFu9gHQ6",
     "locations": [
       {
@@ -2256,7 +2256,7 @@
     "id": "album-0118",
     "dateFrom": "2016-06-22",
     "dateTo": "2016-06-25",
-    "title": "Innsbruck e Baviera (Romantische Stra\u00dfe)",
+    "title": "Innsbruck e Baviera (Romantische Stra\u00DFe)",
     "publicUrl": "https://goo.gl/photos/bUVibcmvttqAxubD6",
     "locations": [
       {
@@ -2811,7 +2811,7 @@
     "id": "album-0144",
     "dateFrom": "2017-03-27",
     "dateTo": "2017-03-27",
-    "title": "Giappone \u002717 - Gli \"inferni\" di Beppu",
+    "title": "Giappone \u002717 - Gli \u0022inferni\u0022 di Beppu",
     "publicUrl": "https://goo.gl/photos/2dhyk1hpwTeyd58F7",
     "locations": [
       {
@@ -3164,8 +3164,8 @@
         "continent": "Europa",
         "country": "Italia",
         "countryEnglish": "Italy",
-        "place": "Pal\u00f9 del Fersina",
-        "placeEnglish": "Pal\u00f9 del Fersina",
+        "place": "Pal\u00F9 del Fersina",
+        "placeEnglish": "Pal\u00F9 del Fersina",
         "latitude": 46.1296,
         "longitude": 11.3514
       }
@@ -3213,7 +3213,7 @@
     "id": "album-0165",
     "dateFrom": "2017-12-15",
     "dateTo": "2017-12-17",
-    "title": "Orologio da parete in stile \"yoga\"",
+    "title": "Orologio da parete in stile \u0022yoga\u0022",
     "publicUrl": "https://photos.app.goo.gl/1kiscbnl3SFn8zCJ3",
     "locations": [
       {
@@ -4004,7 +4004,7 @@
     "id": "album-0207",
     "dateFrom": "2019-08-05",
     "dateTo": "2020-02-10",
-    "title": "Riparazione danno da \"kickback\" su orologio yoga",
+    "title": "Riparazione danno da \u0022kickback\u0022 su orologio yoga",
     "publicUrl": "https://photos.app.goo.gl/A5BAnKqH3wfpL9Lv7",
     "locations": [
       {
@@ -4175,7 +4175,7 @@
     "id": "album-0217",
     "dateFrom": "2020-06-06",
     "dateTo": "2020-06-11",
-    "title": "Merano e \"dintorni\"",
+    "title": "Merano e \u0022dintorni\u0022",
     "publicUrl": "https://photos.app.goo.gl/EAtrKHkGdFETycyU8",
     "locations": [
       {
@@ -4308,7 +4308,7 @@
         "continent": "Europa",
         "country": "San Marino",
         "countryEnglish": "San Marino",
-        "place": "Citt\u00e0 di San Marino",
+        "place": "Citt\u00E0 di San Marino",
         "placeEnglish": "City of San Marino",
         "latitude": 43.9356,
         "longitude": 12.4473
@@ -4346,8 +4346,8 @@
         "continent": "Europa",
         "country": "Italia",
         "countryEnglish": "Italy",
-        "place": "Arqu\u00e0 Petrarca",
-        "placeEnglish": "Arqu\u00e0 Petrarca",
+        "place": "Arqu\u00E0 Petrarca",
+        "placeEnglish": "Arqu\u00E0 Petrarca",
         "latitude": 45.279,
         "longitude": 11.7296
       }
@@ -4376,7 +4376,7 @@
     "id": "album-0227",
     "dateFrom": "2021-09-06",
     "dateTo": "2021-09-11",
-    "title": "Lago di Como (+ Sal\u00f2)",
+    "title": "Lago di Como (\u002B Sal\u00F2)",
     "publicUrl": "https://photos.app.goo.gl/s883nagyPaRr6K3Q9",
     "locations": [
       {
@@ -4395,7 +4395,7 @@
     "id": "album-0229",
     "dateFrom": "2021-11-27",
     "dateTo": "2021-11-27",
-    "title": "Oasi di Cannevi\u00e8",
+    "title": "Oasi di Cannevi\u00E8",
     "publicUrl": "https://photos.app.goo.gl/ooct7PqATtDVE28LA",
     "locations": [
       {
@@ -4433,7 +4433,7 @@
     "id": "album-0232",
     "dateFrom": "2022-06-25",
     "dateTo": "2022-06-27",
-    "title": "Grenoble, Limoges, \u00cele de R\u00e9",
+    "title": "Grenoble, Limoges, \u00CEle de R\u00E9",
     "publicUrl": "https://photos.app.goo.gl/7rGtHERy9327W6he6",
     "locations": [
       {
@@ -4461,8 +4461,8 @@
         "continent": "Europa",
         "country": "Francia",
         "countryEnglish": "France",
-        "place": "Saint-Martin-de-R\u00e9",
-        "placeEnglish": "Saint-Martin-de-R\u00e9",
+        "place": "Saint-Martin-de-R\u00E9",
+        "placeEnglish": "Saint-Martin-de-R\u00E9",
         "latitude": 46.2031,
         "longitude": -1.3678
       }
@@ -4586,8 +4586,8 @@
         "continent": "Europa",
         "country": "Spagna",
         "countryEnglish": "Spain",
-        "place": "San Sebasti\u00e1n",
-        "placeEnglish": "San Sebasti\u00e1n",
+        "place": "San Sebasti\u00E1n",
+        "placeEnglish": "San Sebasti\u00E1n",
         "latitude": 43.3183,
         "longitude": -1.9812
       },
@@ -4694,7 +4694,7 @@
     "id": "album-0243",
     "dateFrom": "2023-04-23",
     "dateTo": "2023-04-23",
-    "title": "43\u00b0 Artevento Cervia Festival Internazionale dell\u0027Aquilone",
+    "title": "43\u00B0 Artevento Cervia Festival Internazionale dell\u0027Aquilone",
     "publicUrl": "https://photos.app.goo.gl/zkgQq9miaJWdq4B76",
     "locations": [
       {
@@ -4992,7 +4992,7 @@
         "country": "Spagna",
         "countryEnglish": "Spain",
         "place": "Cadice",
-        "placeEnglish": "C\u00e1diz",
+        "placeEnglish": "C\u00E1diz",
         "latitude": 36.5271,
         "longitude": -6.2886
       }
@@ -5010,8 +5010,8 @@
         "continent": "Europa",
         "country": "Spagna",
         "countryEnglish": "Spain",
-        "place": "Los Ca\u00f1os de Meca",
-        "placeEnglish": "Los Ca\u00f1os de Meca",
+        "place": "Los Ca\u00F1os de Meca",
+        "placeEnglish": "Los Ca\u00F1os de Meca",
         "latitude": 36.1852,
         "longitude": -6.0108
       },
@@ -5377,8 +5377,8 @@
         "countryEnglish": "United Kingdom",
         "place": "Inghilterra meridionale",
         "placeEnglish": "South England",
-        "latitude": 51.0,
-        "longitude": -1.0
+        "latitude": 51,
+        "longitude": -1
       },
       {
         "order": 2,
@@ -5540,7 +5540,7 @@
     "id": "album-0285",
     "dateFrom": "2026-05-21",
     "dateTo": "2026-05-21",
-    "title": "Giappone \u002726 - 07 - Uwajima (Giardino Tenshak\u014den, Warei Shrine)",
+    "title": "Giappone \u002726 - 07 - Uwajima (Giardino Tenshak\u014Den, Warei Shrine)",
     "publicUrl": "https://photos.app.goo.gl/6RxTN4MxRqkugx2W8",
     "locations": [
       {
@@ -5760,7 +5760,7 @@
     "id": "album-0295",
     "dateFrom": "2026-05-31",
     "dateTo": "2026-05-31",
-    "title": "Giappone \u002726 - 17 - Kyoto (Saih\u014dji Kokedera, Kegonji Suzumushidera , Gion, Ninenzaka), Osaka notturna",
+    "title": "Giappone \u002726 - 17 - Kyoto (Saih\u014Dji Kokedera, Kegonji Suzumushidera , Gion, Ninenzaka), Osaka notturna",
     "publicUrl": "https://photos.app.goo.gl/p6GGX8GEgJjstRrd6",
     "locations": [
       {
@@ -5820,6 +5820,25 @@
         "placeEnglish": null,
         "latitude": 42.5693,
         "longitude": -5.5624
+      }
+    ]
+  },
+  {
+    "id": "album-0315",
+    "dateFrom": "2026-06-25",
+    "dateTo": "2026-06-25",
+    "title": "Orologio da parete in stile giapponese",
+    "publicUrl": "https://photos.app.goo.gl/BxUfvcc9BHM3ubBZ8",
+    "locations": [
+      {
+        "order": 1,
+        "continent": "Europa",
+        "country": "Italia",
+        "countryEnglish": "Italy",
+        "place": "Bologna",
+        "placeEnglish": "Bologna",
+        "latitude": 44.5093,
+        "longitude": 11.3589
       }
     ]
   }
