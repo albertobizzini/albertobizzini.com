@@ -18,7 +18,10 @@
             @ChildContent
         </MudPaper>
     </div>
-    <MudLink Href="@AppLink" Target="_blank" Color="Color.Tertiary" class="mt-3 opacity-med" Style="font-size:80%">@AppLink</MudLink>
+    @if (!string.IsNullOrWhiteSpace(AppLinkTextInternal))
+    {
+        <MudLink Href="@AppLink" Target="_blank" Color="Color.Tertiary" class="mt-3 opacity-med" Style="font-size:80%">@AppLinkTextInternal</MudLink>
+    }
     @if (_dividerNeedes)
     {
         <MudDivider Class="mt-4" />
@@ -46,14 +49,16 @@
     [Parameter] public string? AppName { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public string? AppLink { get; set; }
+    [Parameter] public string? AppLinkText { get; set; } = null;
     [Parameter] public bool OnlyItalian { get; set; } = true;
     [Parameter] public bool EnrollNeeded { get; set; } = false;
     [Parameter] public string? Version { get; set; } = null;
-    [Parameter] public int Elevation { get; set; } = 8;
+    [Parameter] public int Elevation { get; set; } = 10;
     [Parameter] public bool HideOpenButton { get; set; } = true;
 
     private bool _showOnlyInItalian => OnlyItalian && (!CultureInfo.DefaultThreadCurrentCulture?.TwoLetterISOLanguageName.Equals("it", StringComparison.OrdinalIgnoreCase) ?? true);
     private bool _dividerNeedes => !HideOpenButton || _showOnlyInItalian || EnrollNeeded;
+    private string? AppLinkTextInternal => AppLinkText ?? AppLink;
 
     private async Task OpenInNewTab()
     {
