@@ -1,0 +1,50 @@
+@using MudBlazor
+
+<MudCarousel TData="string"
+             Class="@_combinedClass"
+             AutoCycle="@AutoCycle"
+             AutoCycleTime="@CycleTime"
+             ShowArrows="true"
+             ShowBullets="true"
+             EnableSwipeGesture="true">
+
+    @foreach (var url in ImageUrls)
+    {
+        <MudCarouselItem>
+            <div class="image-container">
+                <img src="@url"/>
+            </div>
+        </MudCarouselItem>
+    }
+</MudCarousel>
+
+@code {
+    [Parameter] public List<string> ImageUrls { get; set; } = new();
+    [Parameter] public bool AutoCycle { get; set; } = false;
+    [Parameter] public TimeSpan CycleTime { get; set; } = TimeSpan.FromSeconds(4);
+    [Parameter] public string? Class { get; set; } = string.Empty;
+
+    private string _combinedClass => $"image-carousel {Class}".Trim();
+}
+
+<style>
+    .image-carousel {
+        height: 500px;
+    }
+
+    .image-container {
+        width: 100%;
+        padding: 10px;
+        height: 500px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #111;
+    }
+
+        .image-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+</style>

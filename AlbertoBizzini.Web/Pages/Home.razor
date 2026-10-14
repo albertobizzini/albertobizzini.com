@@ -1,6 +1,5 @@
 @page "/"
 @using AlbertoBizzini.Web.Shared
-@inject IDialogService DialogService
 @inject NavigationManager Nav
 @inject IStringLocalizer<SharedResources> SR
 @inject IStringLocalizer<Home> L
@@ -108,20 +107,7 @@
                     </MudText>
                 </AppCard>
 
-                <AppCard AppName="Gestione catalogo treni (fermodellismo)" AppLink="https://download.albertobizzini.com/CatalogoTreniSetup.msi" AppLinkText="Programma di installazione">
-                    <MudText Typo="Typo.body1" GutterBottom>
-                        Sei appassionato di fermodellismo?
-                    </MudText>
-                    <MudText Typo="Typo.body2" GutterBottom>
-                        Prova questa applicazione windows (x64) per la gestione del catalogo dei modelli di treni.
-                    </MudText>
-                    <MudText Typo="Typo.body2">
-                        L'<strong>uso è molto intuitivo</strong>. Si può in autonomia modificare le voci degli elenchi a discesa. Permette l'inserimento di tre foto per ogni elemento. Ha esportazione in Excel, PDF catalogo completo, o solo elenco
-                    </MudText>
-                    <MudButton OnClick="ShowCatalogoTreniSlideshow" Variant="Variant.Text" Class="ma-2" FullWidth Color="Color.Primary">
-                        Galleria immagini
-                    </MudButton>
-                </AppCard>
+                <CatalogoTreniAppCard Type="AppCard.AppCardType.Tile"/>
 
                 <AppCard AppName="Collezione treni Pierluigi Cova" AppLink="https://treni-cova.albertobizzini.com/">
                     <MudText>Sei appassionato di fermodellismo?</MudText>
@@ -151,11 +137,6 @@
     private int _kindleClippingOfTheDayDeltaDays = 0;
     private bool _kindleClippingOfTheDayRandomMode = false;
 
-    private List<string> CatalogoTreniScreenshotUrls =
-        Enumerable.Range(1, 5)
-            .Select(i => $"https://download.albertobizzini.com/CatalogoTreniScreenshot{i:D2}.png")
-            .ToList();
-
     private void OpenPhotoAlbums() => Nav.NavigateTo("photo-albums");
 
     private void OpenPhotoAlbumsWithKeyboard(KeyboardEventArgs args)
@@ -172,33 +153,5 @@
     private async Task OnKindleClippingOfTheDayRandomModeChanged(bool value)
     {
         _kindleClippingOfTheDayRandomMode = value;
-    }
-
-    private async Task ShowCatalogoTreniSlideshow()
-    {
-        await ShowSlideshow(CatalogoTreniScreenshotUrls);
-    }
-
-    private async Task ShowSlideshow(List<string> imagesUrls)
-    {
-        var parameters = new DialogParameters<ImageSlideshowDialog>
-        {
-            { x => x.ImageUrls, imagesUrls },
-            { x => x.AutoCycle, true },
-            { x => x.CycleTime, TimeSpan.FromSeconds(5) }
-        };
-
-        var options = new DialogOptions
-        {
-            MaxWidth = MaxWidth.Large,
-            FullWidth = true,
-            CloseButton = true,
-            BackdropClick = true
-        };
-
-        await DialogService.ShowAsync<ImageSlideshowDialog>(
-            "Galleria immagini",
-            parameters,
-            options);
     }
 }

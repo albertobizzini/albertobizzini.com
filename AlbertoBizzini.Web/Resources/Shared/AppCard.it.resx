@@ -126,4 +126,7 @@
   <data name="OnlyInItalianMessageText" xml:space="preserve">
     <value>Solo in italiano</value>
   </data>
+  <data name="ShowScreenshotsButtonText" xml:space="preserve">
+    <value>Galleria</value>
+  </data>
 </root>

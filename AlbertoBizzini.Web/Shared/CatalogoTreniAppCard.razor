@@ -1,0 +1,23 @@
+﻿<AppCard AppName="Gestione catalogo treni (fermodellismo)" AppLink="https://download.albertobizzini.com/CatalogoTreniSetup.msi" AppLinkText="Programma di installazione" Type="@Type" ScreenshotUrls="@ScreenshotUrls">
+    <MudText Typo="Typo.body1" GutterBottom>
+        Sei appassionato di fermodellismo?
+    </MudText>
+    <MudText Typo="Typo.body2" GutterBottom>
+        Prova questa applicazione windows (x64) per la gestione del catalogo dei modelli di treni.
+    </MudText>
+    <MudText Typo="Typo.body2">
+        L'<strong>uso è molto intuitivo</strong>. Si può in autonomia modificare le voci degli elenchi a discesa. Permette l'inserimento di tre foto per ogni elemento. Ha esportazione in Excel, PDF catalogo completo, o solo elenco
+    </MudText>
+
+    <MudLink Href="https://download.albertobizzini.com/CatalogoTreniSetup.pdf" Target="_blank" Color="Color.Tertiary" class="mt-3 opacity-med" Style="font-size:80%">Instruzioni per l'installazione</MudLink>
+
+</AppCard>
+
+@code {
+    [Parameter] public AppCard.AppCardType Type { get; set; } = AppCard.AppCardType.Tile;
+
+    private List<string> ScreenshotUrls =
+        Enumerable.Range(1, 5)
+            .Select(i => $"https://download.albertobizzini.com/CatalogoTreniScreenshot{i:D2}.png")
+            .ToList();
+}

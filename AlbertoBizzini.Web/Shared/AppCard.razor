@@ -1,9 +1,10 @@
 ﻿@using System.Globalization
+@inject SlideshowService SlideshowService
 @inject IStringLocalizer<AppCard> L
 @inject NavigationManager Nav
 @inject IJSRuntime JS
 
-<MudPaper Elevation="@Elevation" MaxWidth="300px" Class="pa-4" Square="false" Style="cursor:pointer">
+<MudPaper Elevation="@Elevation" MaxWidth="@_maxWidth" Class="pa-4" Square="false" Style="@_style">
     <div @onclick="OpenInNewTab">
         <MudStack Row Wrap="Wrap.Wrap" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Start">
             <MudText Typo="Typo.h6" Color="Color.Primary" Inline Style="font-weight: bolder">
@@ -22,7 +23,7 @@
     {
         <MudLink Href="@AppLink" Target="_blank" Color="Color.Tertiary" class="mt-3 opacity-med" Style="font-size:80%">@AppLinkTextInternal</MudLink>
     }
-    @if (_dividerNeedes)
+    @if (_dividerNeeded)
     {
         <MudDivider Class="mt-4" />
     }
@@ -42,10 +43,37 @@
             <MudAlert Severity="Severity.Warning" NoIcon Dense Style="font-size: 0.8rem" OnClick="NavToContactForm">@L["EnrollNeededMessageText"]</MudAlert>
         }
     </MudStack>
+
+
+    @if (_screenshotsAvailable)
+    {
+        switch (Type)
+        {
+            case AppCardType.Tile:
+                <MudButton OnClick="@(() => SlideshowService.ShowAsync(ScreenshotUrls!, _slideShowTitle))" Variant="Variant.Text" Class="ma-2" FullWidth Color="Color.Primary">
+                    @L["ShowScreenshotsButtonText"]
+                </MudButton>
+                break;
+            case AppCardType.DetailPage:
+                <MudPaper Class="mt-4">
+                    <MudText Typo="Typo.h6" GutterBottom>@L["ShowScreenshotsButtonText"]</MudText>
+                    <ImageSlideShow ImageUrls="@ScreenshotUrls" Class="mt-4" />
+                </MudPaper>
+                break;
+        }
+    }
+
 </MudPaper>
 
 @code
 {
+    public enum AppCardType
+    {
+        Tile,
+        DetailPage
+    }
+
+    [Parameter] public AppCardType Type { get; set; } = AppCardType.Tile;
     [Parameter] public string? AppName { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public string? AppLink { get; set; }
@@ -55,13 +83,20 @@
     [Parameter] public string? Version { get; set; } = null;
     [Parameter] public int Elevation { get; set; } = 10;
     [Parameter] public bool HideOpenButton { get; set; } = true;
+    [Parameter] public List<string>? ScreenshotUrls { get; set; } = null;
 
+    private string _maxWidth => Type == AppCardType.Tile ? "300px" : string.Empty;
+    private string _style => Type == AppCardType.Tile ? "cursor:pointer" : string.Empty;
     private bool _showOnlyInItalian => OnlyItalian && (!CultureInfo.DefaultThreadCurrentCulture?.TwoLetterISOLanguageName.Equals("it", StringComparison.OrdinalIgnoreCase) ?? true);
-    private bool _dividerNeedes => !HideOpenButton || _showOnlyInItalian || EnrollNeeded;
+    private bool _dividerNeeded => !HideOpenButton || _showOnlyInItalian || EnrollNeeded;
     private string? AppLinkTextInternal => AppLinkText ?? AppLink;
+    private bool _screenshotsAvailable => ScreenshotUrls?.Any() ?? false;
+    private string _slideShowTitle => $"{AppName} - {L["ShowScreenshotsButtonText"]}";
 
     private async Task OpenInNewTab()
     {
+        if (Type == AppCardType.DetailPage) return;
+
         await JS.InvokeVoidAsync("open", AppLink, "_blank");
     }
 
