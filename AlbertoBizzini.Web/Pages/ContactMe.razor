@@ -58,9 +58,10 @@
                         @L["PrivacyPolicy"]…
                     </MudLink>
 
-                    <MudCheckBox @bind-Value="Model.ResponsibilityTaken"
+                    <MudCheckBox T="bool"
+                                 Value="Model.ResponsibilityTaken"
+                                 ValueChanged="OnResponsibilityChangedAsync"
                                  For="@(() => Model.ResponsibilityTaken)"
-                                 Disabled="@(!Model.PrivacyPolicyViewed)"
                                  Label="@LM["ResponsibilityTakenLabel"]" />
 
                     <MudDivider />
@@ -165,6 +166,19 @@
             return;
 
         Model.PrivacyPolicyViewed = !(result?.Canceled ?? false);
+    }
+
+    private async Task OnResponsibilityChangedAsync(bool value)
+    {
+        if (value && !Model.PrivacyPolicyViewed)
+        {
+            await OpenPrivacyDialogAsync();
+
+            if (!Model.PrivacyPolicyViewed)
+                return;
+        }
+
+        Model.ResponsibilityTaken = value;
     }
 
     #region Cloudflare Turnstile
