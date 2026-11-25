@@ -80,7 +80,7 @@ Ricevuto:
             cancellationToken);
 
         await smtp.SendAsync(
-            message,
+            new SmtpSendRequest(message),
             cancellationToken);
 
         await smtp.DisconnectAsync(
