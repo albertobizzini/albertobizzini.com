@@ -5,7 +5,10 @@ on:
     branches:
       - master
     paths:
-      - 'AlbertoBizzini.Api/**' 
+      - 'AlbertoBizzini.Api/**'
+      - 'AlbertoBizzini.Services/**'
+      - 'AlbertoBizzini.Shared/**'
+      - '.github/workflows/master_albertobizzini-api.yml'
   workflow_dispatch:
 
 jobs:
