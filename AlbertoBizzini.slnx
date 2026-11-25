@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="OPERAZIONI_DATI_E_ARCHITETTURA.md" />
+  </Folder>
   <Project Path="AlbertoBizzini.Api/AlbertoBizzini.Api.csproj" />
   <Project Path="AlbertoBizzini.Services/AlbertoBizzini.Services.csproj" Id="7c9ea3ad-1ea4-4b97-ad5f-4fe332445024" />
   <Project Path="AlbertoBizzini.Shared/AlbertoBizzini.Shared.csproj" Id="a389ca9f-74c9-412d-b63c-b8e477d5d0d8" />
