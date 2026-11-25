@@ -4,8 +4,12 @@ on:
   push:
     branches:
       - master
+      - staging
     paths:
       - 'AlbertoBizzini.Web/**'
+      - 'AlbertoBizzini.Shared/**'
+      - 'KindleClippings.Parser/**'
+      - '.github/workflows/deploy.yml'
       
   workflow_dispatch:
 
@@ -36,5 +40,5 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy release/wwwroot --project-name=albertobizzini-com --branch=master
+          command: pages deploy release/wwwroot --project-name=albertobizzini-com --branch=${{ github.ref_name }}
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
